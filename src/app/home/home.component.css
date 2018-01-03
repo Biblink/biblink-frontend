@@ -1,4 +1,30 @@
+
+
 #testing{
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    height: 1080px;
+    text-decoration-color: rgba(15, 15, 15, 0.555);
+    font-family: 'Muli';
+    font-size: 4.0em; 
     text-align: center;
+    background-attachment: fixed;
+    background-image:  
+    url(https://images.duckduckgo.com/iu/?u=http%3A%2F%2F0c27d848a8e38cd7431e-9022dd8e0be2d885290040dc412b102c.r0.cf1.rackcdn.com%2F2016%2F09%2FiStock_45271310_MED.jpg&f=1);
+    background-size: 1920px 1080px
+
+}
+#header-text{
+    position: relative;
+    top: 250px;
+    right: 400px;
+}
+#subtitle{
+    font-size: .60em;
+    position: relative;
+    top: 270px;
+    right: 400px;
+}
+ 
+#seperate{
+    font-size: .35em;
+    text-align: left;
 }
