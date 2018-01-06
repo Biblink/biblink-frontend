@@ -1,30 +1,65 @@
-
-
-#testing{
+.banner-bg {
     height: 1080px;
-    text-decoration-color: rgba(15, 15, 15, 0.555);
-    font-family: 'Muli';
-    font-size: 4.0em; 
-    text-align: center;
-    background-attachment: fixed;
-    background-image:  
-    url(https://images.duckduckgo.com/iu/?u=http%3A%2F%2F0c27d848a8e38cd7431e-9022dd8e0be2d885290040dc412b102c.r0.cf1.rackcdn.com%2F2016%2F09%2FiStock_45271310_MED.jpg&f=1);
-    background-size: 1920px 1080px
+	width: 100%;
+    border: 1px solid #979797;
+    background: rgb(124, 124, 124);
+    /*background: url(https://cdn.discordapp.com/attachments/364209439319916544/399025977990316053/bible_study_bg.jpg) no-repeat center center fixed;*/
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover; 
+}
 
+.navbar {
+    height: 62px;
+    width: 100%;
+    background: rgba(13, 19, 97, 0.767);
 }
-#header-text{
-    position: relative;
-    top: 250px;
-    right: 400px;
+
+.navvy {
+    margin-top: 24px;
+    margin-left: 44px;
+    height: 30px;
+    width: 1850px;
+    background: rgb(100, 21, 21);
 }
-#subtitle{
-    font-size: .60em;
-    position: relative;
-    top: 270px;
-    right: 400px;
+
+#Logo {
+    background: yellow;
+    margin-left: 88px;
+    float: left;
 }
- 
-#seperate{
-    font-size: .35em;
-    text-align: left;
+
+#Home {
+    background: yellow;
+    margin-left: 645px;
+    float: left;
+    
 }
+
+#About {
+    background: yellow;
+    margin-left: 56px;
+    float: left;
+}
+
+#Search {
+    background: yellow;  
+    margin-left: 56px;
+    float: left;
+}
+
+#Sign-in {
+    background: yellow;  
+    margin-left: 645px;
+    float: left;
+}   
+
+.biblya {
+    width: 380px;
+    height: 110px;
+    margin-top: 400px;
+    margin-left: 250px;
+    background: green
+}
+
