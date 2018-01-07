@@ -197,3 +197,52 @@
     text-align: center;
     animation: fadeInUp 5s, bounce 3s infinite;
 }
+
+
+/* Bible Verse CSS */
+
+.bible-verse {
+    position: relative;
+    top: 75px;
+    color: #000000;
+    font-family: 'Avenir Next';
+    font-size: 1.5rem;
+    letter-spacing: 1px;
+    line-height: 40px;
+    width: 1025px;
+    text-align: center;
+}
+
+.bible-verse .verse {
+    margin-bottom: 25px;
+}
+
+
+/* Feature CSS */
+
+.feature-heading {
+    color: #343232;
+    font-family: 'Avenir Next';
+    font-size: 24px;
+    font-weight: bold;
+    letter-spacing: 3px;
+    line-height: 33px;
+}
+
+.feature-description {
+    color: #000000;
+    font-family: 'Avenir Next';
+    font-size: 1rem;
+    letter-spacing: 1px;
+    line-height: 19px;
+}
+
+.divider {
+    box-sizing: border-box;
+    height: 1px;
+    width: 100%;
+    margin: 0 auto;
+    position: relative;
+    top: 100px;
+    border: 0.5px solid #bcb8b8;
+}
