@@ -3,6 +3,7 @@
 .navbar {
     width: 100%;
     background: transparent;
+    animation: fadeInDown 2s;
 }
 
 .navvy {
@@ -34,6 +35,12 @@
     margin-top: 3px;
     text-indent: 100%;
     white-space: nowrap;
+    transition: all 1s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+#logo-link:hover {
+    filter: brightness(0.8);
+    transition: all 1s cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 
 #sign-in {
@@ -51,11 +58,19 @@
 /* top/banner css */
 
 .top {
-    background: url('/assets/images/background-images/home_bg.jpg') no-repeat center center fixed;
+    background-color: #567da7;
+    background: url(data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%0A%20%20%20%20%20xmlns%3Axlink%3D%22http%3A//www.w3.org/1999/xlink%22%0A%20%20%20%20%20width%3D%221500%22%20height%3D%22823%22%0A%20%20%20%20%20viewBox%3D%220%200%201500%20823%22%3E%0A%20%20%3Cfilter%20id%3D%22blur%22%20filterUnits%3D%22userSpaceOnUse%22%20color-interpolation-filters%3D%22sRGB%22%3E%0A%20%20%20%20%3CfeGaussianBlur%20stdDeviation%3D%2220%2020%22%20edgeMode%3D%22duplicate%22%20/%3E%0A%20%20%20%20%3CfeComponentTransfer%3E%0A%20%20%20%20%20%20%3CfeFuncA%20type%3D%22discrete%22%20tableValues%3D%221%201%22%20/%3E%0A%20%20%20%20%3C/feComponentTransfer%3E%0A%20%20%3C/filter%3E%0A%20%20%3Cimage%20filter%3D%22url%28%23blur%29%22%0A%20%20%20%20%20%20%20%20%20xlink%3Ahref%3D%22data%3Aimage/jpeg%3Bbase64%2C/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAMDAwMDAwQEBAQFBQUFBQcHBgYHBwsICQgJCAsRCwwLCwwLEQ8SDw4PEg8bFRMTFRsfGhkaHyYiIiYwLTA+PlQBAwMDAwMDBAQEBAUFBQUFBwcGBgcHCwgJCAkICxELDAsLDAsRDxIPDg8SDxsVExMVGx8aGRofJiIiJjAtMD4+VP/CABEIABgAKgMBIgACEQEDEQH/xAAbAAACAgMBAAAAAAAAAAAAAAAFBwYJAAEECP/aAAgBAQAAAABCHjvSsrP61MGnd2EeDpKn52grdP/EABgBAAIDAAAAAAAAAAAAAAAAAAABAgME/9oACAECEAAAAM5alL//xAAXAQADAQAAAAAAAAAAAAAAAAABAgQD/9oACAEDEAAAALXlLZ//xAAnEAABBAICAgIBBQEAAAAAAAABAgMEBQYRAAcSMRMhQRQiJDJRkf/aAAgBAQABPwDsXPu553cmWVldmFrCgx7Z0DxePi03vQ0ONdn9h0tjFr3r+ylx2mPkedkPqSpR96K065b9l5rOpTLr72fG8Hh8xMon40+yN8rewu1GbUSHZz9nTzNKQIkkuPxUa+lkDXkFfkc7G7H7kTdoRSXN/ChFAUsla9g+WjzEshvZGK0TzlnLUtysiLUfmUNlTQJOgeZZYv1ncOULhtrfdN5JceZbR5rU0k6V/wAH2OZDkFbdtOrTFebWy0PmQ42lTrrYO9BsHYIPKZ+ZDmNs28RNU082o+bzYBfQNBLYRvQUB73zru3gQry7K5jTcZxX8YOKSgLJcUCUev2/XO5crk09bWv19gmO6VuqDg0rySPEa/IO98w15UjEMfdWdqcqYaif9KmknmRU1zH7by+WmlsQH7ZaEvJiueBSF7KgrXJtILeakTKh5wNAeDxYWlaSPZSsAEHkfDspyq6DsyHYRK+NMW8w3Ihr81ISdAHzSAVH3s8kV1lHU7WLopkiG4CQv9M44FFX2Ss6/tv73zLOv8kkynIsOit3WEbW1uve8ErPsFSQPLmEQJzeF44hcV5Kk08IKBQRohlPP//EABkRAAMBAQEAAAAAAAAAAAAAAAABAhEhEv/aAAgBAgEBPwCrfeku96iNEjzpCxH/xAAcEQABBQEBAQAAAAAAAAAAAAABAAIDERIxQnH/2gAIAQMBAT8AjY0eQbHU5kefnKClDRVdWijI5SHVFf/Z%22%0A%20%20%20%20%20%20%20%20%20x%3D%220%22%20y%3D%220%22%0A%20%20%20%20%20%20%20%20%20height%3D%22100%25%22%20width%3D%22100%25%22/%3E%0A%3C/svg%3E);
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
+}
+
+.top-enhanced {
+    background: url('/assets/images/background-images/home_bg-min.jpg') no-repeat center center fixed;
+    background-size: cover;
+    transition: background 0.5s;
+    transition-timing-function: ease-in-out, linear, step-start, cubic-bezier(0.215, 0.61, 0.355, 1);
 }
 
 .biblya>h1 {
@@ -80,10 +95,6 @@
     text-align: center;
 }
 
-.mid-nav>.nav-link:not(:first-child) {
-    margin-left: 28px;
-}
-
 .hero-body {
     padding-top: 0;
     padding-bottom: 10%;
@@ -98,6 +109,8 @@
     letter-spacing: 8px;
     line-height: 131px;
     text-transform: uppercase;
+    animation: fadeInLeft 1.5s;
+    /* animation-delay: 2s; */
 }
 
 .hero-body .subtitle {
@@ -112,6 +125,7 @@
     letter-spacing: 4px;
     line-height: 45px;
     text-transform: lowercase;
+    animation: slideInUp 2.5s;
 }
 
 .get-started-btn {
@@ -129,6 +143,7 @@
     background: transparent;
     font-family: 'Avenir Next';
     transition: all 1s cubic-bezier(0.075, 0.82, 0.165, 1);
+    animation: fadeInDown 3.5s;
 }
 
 .get-started-btn:hover {
@@ -147,6 +162,7 @@
     transition: all 1s cubic-bezier(0.075, 0.82, 0.165, 1);
     position: relative;
     top: 29px;
+    animation: fadeInUp 3.5s;
 }
 
 .learn-more-btn:hover {
@@ -180,4 +196,5 @@
     letter-spacing: 3px;
     line-height: 14px;
     text-align: center;
+    animation: fadeInUp 5s, bounce 3s infinite;
 }
