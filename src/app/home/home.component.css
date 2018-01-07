@@ -1,13 +1,4 @@
-.banner-bg {
-    height: 100%;
-    width: 100%;
-    border: 1px solid #979797;
-    background: url('/assets/images/background-images/home_bg.jpg') no-repeat center center fixed;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;
-}
+/* navbar css */
 
 .navbar {
     width: 100%;
@@ -15,19 +6,72 @@
 }
 
 .navvy {
-    margin: 24px auto 14px auto;
-    height: 30px;
-    width: 1850px;
+    margin: 24px auto 0 auto;
+    width: 100%;
 }
 
 .nav-link {
     width: 73px;
-    height: 19px;
     line-height: 19px;
     letter-spacing: 1px;
+    font-size: 1.2rem;
     font-weight: bold;
     color: #ffffff;
     text-align: center;
+}
+
+#logo {
+    position: relative;
+    left: 88px;
+    float: left;
+}
+
+#logo-link {
+    background: url('/assets/icons/white-logo.svg') no-repeat center;
+    font-size: 2rem;
+    color: transparent;
+    overflow: hidden;
+    margin-top: 3px;
+    text-indent: 100%;
+    white-space: nowrap;
+}
+
+#sign-in {
+    position: relative;
+    right: 88px;
+    float: right;
+}
+
+.nav-link:hover {
+    color: #afacac;
+    transition: all 1s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+
+/* top/banner css */
+
+.top {
+    background: url('/assets/images/background-images/home_bg.jpg') no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+.biblya>h1 {
+    height: 107px;
+    width: 379px;
+    color: #ffffff;
+    font-size: 96px;
+    font-weight: bold;
+    letter-spacing: 8px;
+    line-height: 131px;
+    text-transform: uppercase;
+}
+
+.biblya {
+    position: relative;
+    top: 50%;
 }
 
 .mid-nav {
@@ -40,37 +84,100 @@
     margin-left: 28px;
 }
 
-#logo {
+.hero-body {
+    padding-top: 0;
+    padding-bottom: 10%;
+}
+
+.hero-body .title {
+    height: 107px;
+    color: #ffffff;
+    font-family: 'Avenir Next';
+    font-size: 10rem;
+    font-weight: bold;
+    letter-spacing: 8px;
+    line-height: 131px;
+    text-transform: uppercase;
+}
+
+.hero-body .subtitle {
+    height: 66px;
+    width: 400px;
     position: relative;
-    left: 88px;
-    float: left;
+    left: 1.5%;
+    top: 25%;
+    color: #ffffff;
+    font-size: 2rem;
+    font-weight: bold;
+    letter-spacing: 4px;
+    line-height: 45px;
+    text-transform: lowercase;
 }
 
-#home {
-    margin-left: 645px;
-    float: left;
+.get-started-btn {
+    margin-top: 40px;
+    color: #ffffff;
+    font-size: 18px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    line-height: 25px;
+    text-align: center;
+    height: 56px;
+    width: 194px;
+    border: 2px solid #ffffff;
+    border-radius: 3px;
+    background: transparent;
+    font-family: 'Avenir Next';
+    transition: all 1s cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 
-#about {
-    margin-left: 56px;
-    float: left;
+.get-started-btn:hover {
+    color: #343232;
+    background-color: #f1f1f1;
+    border: 3px solid #f1f1f1;
+    transition: all 1s cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 
-#search {
-    margin-left: 56px;
-    float: left;
-}
-
-#sign-in {
+.learn-more-btn {
+    color: #343232;
+    border: 3px solid #ffffff;
+    border-radius: 3px;
+    background-color: #ffffff;
+    box-shadow: 0 5px 15px 2px rgba(64, 62, 62, 0.8);
+    transition: all 1s cubic-bezier(0.075, 0.82, 0.165, 1);
     position: relative;
-    right: 88px;
-    float: right;
+    top: 29px;
 }
 
-.biblya {
-    width: 380px;
-    height: 110px;
-    margin-top: 400px;
-    margin-left: 250px;
-    background: green;
+.learn-more-btn:hover {
+    background-color: #f1f1f1;
+    border: 3px solid #f1f1f1;
+    box-shadow: none;
+    transition: all 1s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+.btn {
+    font-family: 'Avenir Next';
+    font-weight: bold;
+    letter-spacing: 2px;
+    line-height: 25px;
+    text-align: center;
+    font-size: 21px;
+    height: 68px;
+    width: 225px;
+}
+
+.btn:hover {
+    cursor: pointer;
+}
+
+.scroll {
+    margin-bottom: 10px;
+    color: #ffffff;
+    font-family: 'Avenir Next';
+    font-size: 0.8rem;
+    font-weight: bold;
+    letter-spacing: 3px;
+    line-height: 14px;
+    text-align: center;
 }
