@@ -67,7 +67,7 @@
 }
 
 .top-enhanced {
-    background: url('/assets/images/background-images/home_bg-min.jpg') no-repeat center center fixed;
+    background: url('/assets/images/background-images/home_bg_webp.webp') no-repeat center center fixed, url('/assets/images/background-images/home_bg-min.jpg') no-repeat center center fixed;
     background-size: cover;
     transition: background 0.5s;
     transition-timing-function: ease-in-out, linear, step-start, cubic-bezier(0.215, 0.61, 0.355, 1);
@@ -110,7 +110,6 @@
     line-height: 131px;
     text-transform: uppercase;
     animation: fadeInLeft 1.5s;
-    /* animation-delay: 2s; */
 }
 
 .hero-body .subtitle {
