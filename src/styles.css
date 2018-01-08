@@ -7,7 +7,7 @@ body {
     font-family: 'Avenir Next', 'Muli', serif !important;
 }
 
-@-moz-keyframes bounce {
+@-moz-keyframes bounceTop {
     0%,
     20%,
     50%,
@@ -26,7 +26,7 @@ body {
     }
 }
 
-@-webkit-keyframes bounce {
+@-webkit-keyframes bounceTop {
     0%,
     20%,
     50%,
@@ -45,7 +45,7 @@ body {
     }
 }
 
-@keyframes bounce {
+@keyframes bounceTop {
     0%,
     20%,
     50%,
@@ -70,7 +70,7 @@ body {
     }
 }
 
-@keyframes fadeInLeft {
+@keyframes fadeInLeftTop {
     0%,
     30%,
     60% {
@@ -86,7 +86,7 @@ body {
     }
 }
 
-@keyframes slideInUp {
+@keyframes slideInUpTop {
     0%,
     30%,
     60% {
@@ -103,7 +103,7 @@ body {
     }
 }
 
-@keyframes fadeInDown {
+@keyframes fadeInDownTop {
     0%,
     30%,
     60% {
@@ -119,7 +119,7 @@ body {
     }
 }
 
-@keyframes fadeInUp {
+@keyframes fadeInUpTop {
     0%,
     30%,
     60% {
