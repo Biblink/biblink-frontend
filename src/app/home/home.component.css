@@ -16,7 +16,7 @@
     line-height: 19px;
     letter-spacing: 1px;
     font-size: 1.2rem;
-    font-weight: bold;
+    font-weight: 900;
     color: #ffffff;
     text-align: center;
 }
@@ -78,7 +78,7 @@
     width: 379px;
     color: #ffffff;
     font-size: 96px;
-    font-weight: bold;
+    font-weight: 900;
     letter-spacing: 8px;
     line-height: 131px;
     text-transform: uppercase;
@@ -104,10 +104,10 @@
     margin-bottom: 20px;
     height: 107px;
     color: #ffffff;
-    font-family: 'Avenir Next';
+    font-family: 'museo-sans';
     font-size: 10rem;
-    font-weight: bold;
-    letter-spacing: 8px;
+    font-weight: 900;
+    letter-spacing: 10px;
     line-height: 131px;
     text-transform: uppercase;
     animation: fadeInLeftTop 1.5s;
@@ -121,7 +121,7 @@
     top: 40px;
     color: #ffffff;
     font-size: 2rem;
-    font-weight: bold;
+    font-weight: 700;
     letter-spacing: 4px;
     line-height: 45px;
     animation: slideInUpTop 2.5s;
@@ -131,7 +131,7 @@
     margin-top: 40px;
     color: #ffffff;
     font-size: 18px;
-    font-weight: bold;
+    font-weight: 900;
     letter-spacing: 2px;
     line-height: 25px;
     text-align: center;
@@ -140,7 +140,7 @@
     border: 2px solid #ffffff;
     border-radius: 3px;
     background: transparent;
-    font-family: 'Avenir Next';
+    font-family: 'museo-sans';
     transition: all 1s cubic-bezier(0.075, 0.82, 0.165, 1);
     animation: fadeInDownTop 3.5s;
 }
@@ -172,8 +172,8 @@
 }
 
 .btn {
-    font-family: 'Avenir Next';
-    font-weight: bold;
+    font-family: 'museo-sans';
+    font-weight: 900;
     letter-spacing: 2px;
     line-height: 25px;
     text-align: center;
@@ -189,9 +189,9 @@
 .scroll {
     margin-bottom: 10px;
     color: #ffffff;
-    font-family: 'Avenir Next';
+    font-family: 'museo-sans';
     font-size: 0.8rem;
-    font-weight: bold;
+    font-weight: 900;
     letter-spacing: 3px;
     line-height: 14px;
     text-align: center;
@@ -205,7 +205,7 @@
     position: relative;
     top: 75px;
     color: #000000;
-    font-family: 'Avenir Next';
+    font-family: 'museo-sans';
     font-size: 1.3rem;
     letter-spacing: 1px;
     line-height: 40px;
@@ -223,16 +223,16 @@
 
 .feature-heading {
     color: #343232;
-    font-family: 'Avenir Next';
+    font-family: 'museo-sans';
     font-size: 2rem;
-    font-weight: bold;
+    font-weight: 900;
     letter-spacing: 3px;
     line-height: 33px;
 }
 
 .feature-description {
     color: #000000;
-    font-family: 'Avenir Next';
+    font-family: 'museo-sans';
     font-size: 1.2rem;
     letter-spacing: 1px;
     line-height: 30px;
@@ -301,8 +301,8 @@
     background-color: #f23b2c;
     box-shadow: 0 8px 18px 0 rgba(90, 89, 89, 0.5);
     color: #ffffff;
-    font-family: 'Avenir Next';
-    font-weight: bold;
+    font-family: 'museo-sans';
+    font-weight: 900;
     letter-spacing: 1px;
     line-height: 19px;
     text-align: center;
@@ -317,9 +317,9 @@
 
 .cta-header {
     color: #343232;
-    font-family: 'Avenir Next';
+    font-family: 'museo-sans';
     font-size: 1.7rem;
-    font-weight: bold;
+    font-weight: 900;
     letter-spacing: 3px;
     line-height: 33px;
     text-align: center;
@@ -332,9 +332,9 @@
 .cta-text {
     margin-top: 40px;
     color: #000000;
-    font-family: 'Avenir Next';
+    font-family: 'museo-sans';
     font-size: 1.3rem;
-    font-weight: bold;
+    font-weight: 900;
     letter-spacing: 2px;
     line-height: 27px;
     text-align: center;

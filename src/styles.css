@@ -1,44 +1,10 @@
 /* You can add global styles to this file, and also import other style files */
 
-
-/* Fonts */
-
-@font-face {
-    font-family: 'Avenir Next';
-    src: url('/assets/fonts/Avenir-Next/AvenirNext-Regular.eot');
-    src: url('/assets/fonts/Avenir-Next/AvenirNext-Regular.eot?#iefix') format('embedded-opentype'), url('/assets/fonts/Avenir-Next/AvenirNext-Regular.woff2') format('woff2'), url('/assets/fonts/Avenir-Next/AvenirNext-Regular.woff') format('woff'), url('/assets/fonts/Avenir-Next/AvenirNext-Regular.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
-}
-
-@font-face {
-    font-family: 'Avenir Next';
-    src: url('/assets/fonts/Avenir-Next/AvenirNext-Bold.eot');
-    src: url('/assets/fonts/Avenir-Next/AvenirNext-Bold.eot?#iefix') format('embedded-opentype'), url('/assets/fonts/Avenir-Next/AvenirNext-Bold.woff2') format('woff2'), url('/assets/fonts/Avenir-Next/AvenirNext-Bold.woff') format('woff'), url('/assets/fonts/Avenir-Next/AvenirNext-Bold.ttf') format('truetype');
-    font-weight: bold;
-    font-style: normal;
-}
-
-@font-face {
-    font-family: 'Avenir Next';
-    src: url('/assets/fonts/Avenir-Next/AvenirNext-Italic.eot');
-    src: url('/assets/fonts/Avenir-Next/AvenirNext-Italic.eot?#iefix') format('embedded-opentype'), url('/assets/fonts/Avenir-Next/AvenirNext-Italic.woff2') format('woff2'), url('/assets/fonts/Avenir-Next/AvenirNext-Italic.woff') format('woff'), url('/assets/fonts/Avenir-Next/AvenirNext-Italic.ttf') format('truetype');
-    font-weight: normal;
-    font-style: italic;
-}
-
-@font-face {
-    font-family: 'Avenir Next';
-    src: url('/assets/fonts/Avenir-Next/AvenirNext-BoldItalic.eot');
-    src: url('/assets/fonts/Avenir-Next/AvenirNext-BoldItalic.eot?#iefix') format('embedded-opentype'), url('/assets/fonts/Avenir-Next/AvenirNext-BoldItalic.woff2') format('woff2'), url('/assets/fonts/Avenir-Next/AvenirNext-BoldItalic.woff') format('woff'), url('/assets/fonts/Avenir-Next/AvenirNext-BoldItalic.ttf') format('truetype');
-    font-weight: bold;
-    font-style: italic;
-}
-
+@import url('https://use.typekit.net/uet5lfg.css');
 html,
 body {
     height: 100%;
-    font-family: 'Avenir Next', serif !important;
+    font-family: 'museo-sans', serif !important;
 }
 
 @-moz-keyframes bounceTop {
