@@ -1,3 +1,11 @@
+<div class="is-hidden-tablet" id="menu-overlay" [ngStyle]="{'opacity': menuOpacity, 'height': menuHeight}">
+    <div class="container has-text-centered menu-links">
+        <div><a class="nav-link">Home</a></div>
+        <div><a class="nav-link">About</a></div>
+        <div><a class="nav-link">Search</a></div>
+        <div><a class="nav-link">Sign In</a></div>
+    </div>
+</div>
 <section class="hero is-fullheight" [ngClass]="{'top': !enhanced, 'top-enhanced': enhanced}" id="top-of-page">
     <div class="hero-head">
         <nav class="navbar desktop is-hidden-mobile">
@@ -26,7 +34,9 @@
         <nav class="navbar mobile is-hidden-tablet">
             <ul class="navvy">
                 <li id="menu">
-                    <a class="nav-link" id="menu-link">Menu</a>
+                    <div class="navTrigger" [class.active]="activated" (click)="toggleMobileMenu()">
+                        <i></i><i></i><i></i>
+                    </div>
                 </li>
                 <li id="sign-in">
                     <a class="nav-link">Sign In</a>
