@@ -1,21 +1,43 @@
-.footer-container {
-    height: 600px;
-    width: 100%;
-    background: transparent;
-    overflow: hidden;
-    position: relative;
+@media screen and (max-width: 768px) {
+    .footer-container {
+        height: 781px;
+        width: 100%;
+        background: transparent;
+        overflow: hidden;
+        position: relative;
+    }
+    .footer-container::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 100px;
+        height: 800px;
+        width: 100%;
+        background: #06292a;
+        transform: skew(0, -6deg);
+    }
 }
 
-.footer-container::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 100px;
-    height: 650px;
-    width: 100%;
-    background: #06292a;
-    transform: skew(0, -6deg);
+@media screen and (min-width: 769px) {
+    .footer-container {
+        height: 600px;
+        width: 100%;
+        background: transparent;
+        overflow: hidden;
+        position: relative;
+    }
+    .footer-container::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 100px;
+        height: 650px;
+        width: 100%;
+        background: #06292a;
+        transform: skew(0, -6deg);
+    }
 }
 
 .headings h3 {
@@ -25,6 +47,19 @@
     font-weight: 900;
     letter-spacing: 3px;
     line-height: 33px;
+}
+
+.mobile .headings h3 {
+    font-size: 1.3rem;
+}
+
+.mobile .content {
+    margin-top: 32px;
+    margin-bottom: 42px;
+}
+
+.mobile .content div {
+    margin-top: 11px;
 }
 
 .content a {
@@ -37,6 +72,10 @@
     text-align: center;
 }
 
+.mobile .content a {
+    font-size: 0.8rem;
+}
+
 .content a:hover {
     color: #afacac;
     transition: all 1s cubic-bezier(0.075, 0.82, 0.165, 1);
@@ -44,6 +83,10 @@
 
 .footer-info {
     margin-top: 12%;
+}
+
+.mobile.footer-info {
+    margin-top: 35%;
 }
 
 .copyright {
@@ -56,4 +99,10 @@
     letter-spacing: 2px;
     line-height: 14px;
     text-align: center;
+}
+
+.mobile.copyright {
+    position: relative;
+    width: 257px;
+    margin: 0 auto;
 }

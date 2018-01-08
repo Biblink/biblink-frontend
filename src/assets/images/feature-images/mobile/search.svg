@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="226px" height="226px" viewBox="0 0 226 226" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 48.2 (47327) - http://www.bohemiancoding.com/sketch -->
+    <title>Powerful Search Mockups/SVG</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <rect id="path-1" x="0" y="0" width="154" height="107"></rect>
+        <filter x="-20.1%" y="-21.5%" width="140.3%" height="157.9%" filterUnits="objectBoundingBox" id="filter-2">
+            <feOffset dx="0" dy="8" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="9" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feComposite in="shadowBlurOuter1" in2="SourceAlpha" operator="out" result="shadowBlurOuter1"></feComposite>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.5 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+        <path d="M183,76 L183,183 L20,183 L20,76 L183,76 Z" id="path-3"></path>
+        <filter x="-25.5%" y="-31.3%" width="150.9%" height="177.6%" filterUnits="objectBoundingBox" id="filter-4">
+            <feOffset dx="0" dy="8" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="12.5" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feComposite in="shadowBlurOuter1" in2="SourceAlpha" operator="out" result="shadowBlurOuter1"></feComposite>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.5 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="Mobile-Home-Page" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(-51.000000, -1099.000000)">
+        <g id="Powerful-Search" transform="translate(29.000000, 766.000000)">
+            <g id="Powerful-Search-Mockups/SVG" transform="translate(40.000000, 343.000000)">
+                <g id="Rectangle-4">
+                    <use fill="black" fill-opacity="1" filter="url(#filter-2)" xlink:href="#path-1"></use>
+                    <use fill="#D8D8D8" fill-rule="evenodd" xlink:href="#path-1"></use>
+                    <rect stroke="#979797" stroke-width="1" x="0.5" y="0.5" width="153" height="106"></rect>
+                </g>
+                <g id="Combined-Shape">
+                    <use fill="black" fill-opacity="1" filter="url(#filter-4)" xlink:href="#path-3"></use>
+                    <use fill="#D8D8D8" fill-rule="evenodd" xlink:href="#path-3"></use>
+                    <path stroke="#979797" stroke-width="1" d="M182.5,76.5 L20.5,76.5 L20.5,182.5 L182.5,182.5 L182.5,76.5 Z"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
