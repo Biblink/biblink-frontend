@@ -21,7 +21,7 @@
 .headings h3 {
     color: #fcfcfc;
     font-family: 'Avenir Next';
-    font-size: 1.7rem;
+    font-size: 1.5rem;
     font-weight: bold;
     letter-spacing: 3px;
     line-height: 33px;
@@ -30,7 +30,7 @@
 .content a {
     color: #fcfcfc;
     font-family: 'Avenir Next';
-    font-size: 1rem;
+    font-size: 0.8rem;
     font-weight: bold;
     letter-spacing: 3px;
     line-height: 16px;
@@ -48,7 +48,7 @@
 
 .copyright {
     position: relative;
-    top: 60px;
+    top: 35px;
     color: #fcfcfc;
     font-family: 'Avenir Next';
     font-size: 10px;

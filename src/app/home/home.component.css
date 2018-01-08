@@ -211,6 +211,7 @@
     line-height: 40px;
     width: 1025px;
     text-align: center;
+    margin-bottom: 70px;
 }
 
 .bible-verse .verse {
@@ -218,12 +219,12 @@
 }
 
 
-/* Feature CSS */
+/* Feature/Main CSS */
 
 .feature-heading {
     color: #343232;
     font-family: 'Avenir Next';
-    font-size: 24px;
+    font-size: 2rem;
     font-weight: bold;
     letter-spacing: 3px;
     line-height: 33px;
@@ -232,9 +233,19 @@
 .feature-description {
     color: #000000;
     font-family: 'Avenir Next';
-    font-size: 1rem;
+    font-size: 1.2rem;
     letter-spacing: 1px;
-    line-height: 19px;
+    line-height: 30px;
+    margin-top: 26px;
+    width: 700px;
+}
+
+.feature-left {
+    margin-left: 92px;
+}
+
+.feature-right {
+    margin-right: 63.93px;
 }
 
 .divider {
@@ -242,7 +253,99 @@
     height: 1px;
     width: 100%;
     margin: 0 auto;
-    position: relative;
-    top: 100px;
+    margin-top: 100px;
     border: 0.5px solid #bcb8b8;
+}
+
+#main {
+    position: relative;
+    top: 70px;
+    margin-bottom: 90px;
+}
+
+.img-align-left {
+    text-align: left;
+}
+
+.img-align-right {
+    text-align: right;
+}
+
+.feature {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+/* Call to action CSS */
+
+#cta {
+    position: relative;
+    top: 90px;
+    margin-bottom: 100px;
+}
+
+.cta-divider {
+    box-sizing: border-box;
+    height: 1px;
+    width: 75%;
+    margin: 0 auto 87px auto;
+    border: 0.5px solid #bcb8b8;
+}
+
+.get-started-cta {
+    margin-top: 60px;
+    margin-bottom: 120px;
+    border-radius: 5px;
+    background-color: #f23b2c;
+    box-shadow: 0 8px 18px 0 rgba(90, 89, 89, 0.5);
+    color: #ffffff;
+    font-family: 'Avenir Next';
+    font-weight: bold;
+    letter-spacing: 1px;
+    line-height: 19px;
+    text-align: center;
+    transition: all 1s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+.get-started-cta:hover {
+    background-color: #d13527;
+    box-shadow: none;
+    transition: all 1s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+.cta-header {
+    color: #343232;
+    font-family: 'Avenir Next';
+    font-size: 1.7rem;
+    font-weight: bold;
+    letter-spacing: 3px;
+    line-height: 33px;
+    text-align: center;
+}
+
+.subheader {
+    margin-top: 50px;
+}
+
+.cta-text {
+    margin-top: 40px;
+    color: #000000;
+    font-family: 'Avenir Next';
+    font-size: 1.3rem;
+    font-weight: bold;
+    letter-spacing: 2px;
+    line-height: 27px;
+    text-align: center;
+}
+
+.to-top {
+    color: #f23b2c;
+    transition: all 0.2s ease-in-out;
+}
+
+.to-top:hover {
+    color: #343232;
+    transition: all 0.2s ease-in-out;
 }

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="508px" height="484px" viewBox="0 0 508 484" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 48.2 (47327) - http://www.bohemiancoding.com/sketch -->
+    <title>Shared Bible Mockups/SVG</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <path d="M0,193 L385,193 L385,441 L0,441 L0,193 Z" id="path-1"></path>
+        <filter x="-8.1%" y="-9.3%" width="116.1%" height="125.0%" filterUnits="objectBoundingBox" id="filter-2">
+            <feOffset dx="0" dy="8" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="9" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feComposite in="shadowBlurOuter1" in2="SourceAlpha" operator="out" result="shadowBlurOuter1"></feComposite>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.5 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+        <rect id="path-3" x="175" y="0" width="308" height="248"></rect>
+        <filter x="-13.5%" y="-13.5%" width="126.9%" height="133.5%" filterUnits="objectBoundingBox" id="filter-4">
+            <feOffset dx="0" dy="8" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="12.5" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feComposite in="shadowBlurOuter1" in2="SourceAlpha" operator="out" result="shadowBlurOuter1"></feComposite>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.5 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="Home-Page-" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(0.000000, -1362.000000)">
+        <g id="Shared-Bible-Feature" transform="translate(0.000000, 1379.000000)">
+            <g id="Shared-Bible-Mockups/SVG">
+                <g id="Combined-Shape">
+                    <use fill="black" fill-opacity="1" filter="url(#filter-2)" xlink:href="#path-1"></use>
+                    <use fill="#D8D8D8" fill-rule="evenodd" xlink:href="#path-1"></use>
+                    <path stroke="#979797" stroke-width="1" d="M0.5,193.5 L0.5,440.5 L384.5,440.5 L384.5,193.5 L0.5,193.5 Z"></path>
+                </g>
+                <g id="Rectangle-5">
+                    <use fill="black" fill-opacity="1" filter="url(#filter-4)" xlink:href="#path-3"></use>
+                    <use fill="#D8D8D8" fill-rule="evenodd" xlink:href="#path-3"></use>
+                    <rect stroke="#979797" stroke-width="1" x="175.5" y="0.5" width="307" height="247"></rect>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
