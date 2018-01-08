@@ -3,6 +3,8 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
+import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
+
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
@@ -15,9 +17,10 @@ const appRoutes: Routes = [{ path: '', component: HomeComponent }];
   imports: [
     BrowserModule,
     environment.production
-      ? ServiceWorkerModule.register('/ngsw-worker.js')
-      : [],
-    RouterModule.forRoot(appRoutes)
+    ? ServiceWorkerModule.register('/ngsw-worker.js')
+    : [],
+    RouterModule.forRoot(appRoutes),
+    ScrollToModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -39,7 +39,7 @@
                     <button class="get-started-btn btn">
                         Get Started
                     </button>
-                    <button class="learn-more-btn btn">
+                    <button class="learn-more-btn btn" [ngx-scroll-to]="'#verse'" [ngx-scroll-to-duration]="1500" [ngx-scroll-to-easing]="'easeInOutQuart'">
                         Learn More
                     </button>
                 </div>
@@ -48,7 +48,7 @@
     </div>
     <div class="hero-foot">
         <div class="container has-text-centered">
-            <p class="scroll">scroll to learn more</p>
+            <p class="scroll" [ngx-scroll-to]="'#verse'" [ngx-scroll-to-duration]="1500" [ngx-scroll-to-easing]="'easeInOutQuart'">scroll to learn more</p>
         </div>
     </div>
 </section>
@@ -113,7 +113,7 @@
         <button class="get-started-cta btn">
                         Get Started
         </button>
-        <p><a class="to-top">Back to top</a></p>
+        <p><a class="to-top" [ngx-scroll-to]="'#top-of-page'" [ngx-scroll-to-duration]="1500" [ngx-scroll-to-easing]="'easeInOutQuart'">Back to top</a></p>
     </div>
 </section>
 <app-footer></app-footer>
