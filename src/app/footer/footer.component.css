@@ -20,18 +20,18 @@
 
 .headings h3 {
     color: #fcfcfc;
-    font-family: 'Avenir Next';
+    font-family: 'museo-sans';
     font-size: 1.5rem;
-    font-weight: bold;
+    font-weight: 900;
     letter-spacing: 3px;
     line-height: 33px;
 }
 
 .content a {
     color: #fcfcfc;
-    font-family: 'Avenir Next';
+    font-family: 'museo-sans';
     font-size: 1rem;
-    font-weight: bold;
+    font-weight: 900;
     letter-spacing: 3px;
     line-height: 20px;
     text-align: center;
@@ -50,9 +50,9 @@
     position: relative;
     top: 35px;
     color: #fcfcfc;
-    font-family: 'Avenir Next';
+    font-family: 'museo-sans';
     font-size: 10px;
-    font-weight: bold;
+    font-weight: 900;
     letter-spacing: 2px;
     line-height: 14px;
     text-align: center;
