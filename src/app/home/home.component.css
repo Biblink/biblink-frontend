@@ -101,6 +101,7 @@
 }
 
 .hero-body .title {
+    margin-bottom: 20px;
     height: 107px;
     color: #ffffff;
     font-family: 'Avenir Next';
@@ -117,7 +118,7 @@
     width: 400px;
     position: relative;
     left: 1.5%;
-    top: 25%;
+    top: 40px;
     color: #ffffff;
     font-size: 2rem;
     font-weight: bold;
