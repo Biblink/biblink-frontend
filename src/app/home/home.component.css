@@ -43,10 +43,31 @@
     transition: all 1s cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 
-#sign-in {
+.desktop #sign-in {
     position: relative;
     right: 88px;
     float: right;
+}
+
+.mobile #sign-in {
+    position: relative;
+    right: 17px;
+    float: right;
+}
+
+.mobile #menu #menu-link {
+    width: 22px;
+    background: url('/assets/icons/menu.svg') no-repeat center;
+    background-size: cover;
+    font-size: 2rem;
+    text-indent: 100%;
+    white-space: nowrap;
+    color: transparent;
+    overflow: hidden;
+    float: left;
+    position: relative;
+    left: 18px;
+    transition: all 1s cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 
 .nav-link:hover {
@@ -57,20 +78,38 @@
 
 /* top/banner css */
 
-.top {
-    background-color: #567da7;
-    background: url(data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%0A%20%20%20%20%20xmlns%3Axlink%3D%22http%3A//www.w3.org/1999/xlink%22%0A%20%20%20%20%20width%3D%221500%22%20height%3D%22823%22%0A%20%20%20%20%20viewBox%3D%220%200%201500%20823%22%3E%0A%20%20%3Cfilter%20id%3D%22blur%22%20filterUnits%3D%22userSpaceOnUse%22%20color-interpolation-filters%3D%22sRGB%22%3E%0A%20%20%20%20%3CfeGaussianBlur%20stdDeviation%3D%2220%2020%22%20edgeMode%3D%22duplicate%22%20/%3E%0A%20%20%20%20%3CfeComponentTransfer%3E%0A%20%20%20%20%20%20%3CfeFuncA%20type%3D%22discrete%22%20tableValues%3D%221%201%22%20/%3E%0A%20%20%20%20%3C/feComponentTransfer%3E%0A%20%20%3C/filter%3E%0A%20%20%3Cimage%20filter%3D%22url%28%23blur%29%22%0A%20%20%20%20%20%20%20%20%20xlink%3Ahref%3D%22data%3Aimage/jpeg%3Bbase64%2C/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAMDAwMDAwQEBAQFBQUFBQcHBgYHBwsICQgJCAsRCwwLCwwLEQ8SDw4PEg8bFRMTFRsfGhkaHyYiIiYwLTA+PlQBAwMDAwMDBAQEBAUFBQUFBwcGBgcHCwgJCAkICxELDAsLDAsRDxIPDg8SDxsVExMVGx8aGRofJiIiJjAtMD4+VP/CABEIABgAKgMBIgACEQEDEQH/xAAbAAACAgMBAAAAAAAAAAAAAAAFBwYJAAEECP/aAAgBAQAAAABCHjvSsrP61MGnd2EeDpKn52grdP/EABgBAAIDAAAAAAAAAAAAAAAAAAABAgME/9oACAECEAAAAM5alL//xAAXAQADAQAAAAAAAAAAAAAAAAABAgQD/9oACAEDEAAAALXlLZ//xAAnEAABBAICAgIBBQEAAAAAAAABAgMEBQYRAAcSMRMhQRQiJDJRkf/aAAgBAQABPwDsXPu553cmWVldmFrCgx7Z0DxePi03vQ0ONdn9h0tjFr3r+ylx2mPkedkPqSpR96K065b9l5rOpTLr72fG8Hh8xMon40+yN8rewu1GbUSHZz9nTzNKQIkkuPxUa+lkDXkFfkc7G7H7kTdoRSXN/ChFAUsla9g+WjzEshvZGK0TzlnLUtysiLUfmUNlTQJOgeZZYv1ncOULhtrfdN5JceZbR5rU0k6V/wAH2OZDkFbdtOrTFebWy0PmQ42lTrrYO9BsHYIPKZ+ZDmNs28RNU082o+bzYBfQNBLYRvQUB73zru3gQry7K5jTcZxX8YOKSgLJcUCUev2/XO5crk09bWv19gmO6VuqDg0rySPEa/IO98w15UjEMfdWdqcqYaif9KmknmRU1zH7by+WmlsQH7ZaEvJiueBSF7KgrXJtILeakTKh5wNAeDxYWlaSPZSsAEHkfDspyq6DsyHYRK+NMW8w3Ihr81ISdAHzSAVH3s8kV1lHU7WLopkiG4CQv9M44FFX2Ss6/tv73zLOv8kkynIsOit3WEbW1uve8ErPsFSQPLmEQJzeF44hcV5Kk08IKBQRohlPP//EABkRAAMBAQEAAAAAAAAAAAAAAAABAhEhEv/aAAgBAgEBPwCrfeku96iNEjzpCxH/xAAcEQABBQEBAQAAAAAAAAAAAAABAAIDERIxQnH/2gAIAQMBAT8AjY0eQbHU5kefnKClDRVdWijI5SHVFf/Z%22%0A%20%20%20%20%20%20%20%20%20x%3D%220%22%20y%3D%220%22%0A%20%20%20%20%20%20%20%20%20height%3D%22100%25%22%20width%3D%22100%25%22/%3E%0A%3C/svg%3E);
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;
+@media screen and (max-width: 768px) {
+    .top {
+        background-color: #567da7;
+        background: url(data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%0A%20%20%20%20%20xmlns%3Axlink%3D%22http%3A//www.w3.org/1999/xlink%22%0A%20%20%20%20%20width%3D%221500%22%20height%3D%22823%22%0A%20%20%20%20%20viewBox%3D%220%200%201500%20823%22%3E%0A%20%20%3Cfilter%20id%3D%22blur%22%20filterUnits%3D%22userSpaceOnUse%22%20color-interpolation-filters%3D%22sRGB%22%3E%0A%20%20%20%20%3CfeGaussianBlur%20stdDeviation%3D%2220%2020%22%20edgeMode%3D%22duplicate%22%20/%3E%0A%20%20%20%20%3CfeComponentTransfer%3E%0A%20%20%20%20%20%20%3CfeFuncA%20type%3D%22discrete%22%20tableValues%3D%221%201%22%20/%3E%0A%20%20%20%20%3C/feComponentTransfer%3E%0A%20%20%3C/filter%3E%0A%20%20%3Cimage%20filter%3D%22url%28%23blur%29%22%0A%20%20%20%20%20%20%20%20%20xlink%3Ahref%3D%22data%3Aimage/jpeg%3Bbase64%2C/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAMDAwMDAwQEBAQFBQUFBQcHBgYHBwsICQgJCAsRCwwLCwwLEQ8SDw4PEg8bFRMTFRsfGhkaHyYiIiYwLTA+PlQBAwMDAwMDBAQEBAUFBQUFBwcGBgcHCwgJCAkICxELDAsLDAsRDxIPDg8SDxsVExMVGx8aGRofJiIiJjAtMD4+VP/CABEIABgAKgMBIgACEQEDEQH/xAAbAAACAgMBAAAAAAAAAAAAAAAFBwYJAAEECP/aAAgBAQAAAABCHjvSsrP61MGnd2EeDpKn52grdP/EABgBAAIDAAAAAAAAAAAAAAAAAAABAgME/9oACAECEAAAAM5alL//xAAXAQADAQAAAAAAAAAAAAAAAAABAgQD/9oACAEDEAAAALXlLZ//xAAnEAABBAICAgIBBQEAAAAAAAABAgMEBQYRAAcSMRMhQRQiJDJRkf/aAAgBAQABPwDsXPu553cmWVldmFrCgx7Z0DxePi03vQ0ONdn9h0tjFr3r+ylx2mPkedkPqSpR96K065b9l5rOpTLr72fG8Hh8xMon40+yN8rewu1GbUSHZz9nTzNKQIkkuPxUa+lkDXkFfkc7G7H7kTdoRSXN/ChFAUsla9g+WjzEshvZGK0TzlnLUtysiLUfmUNlTQJOgeZZYv1ncOULhtrfdN5JceZbR5rU0k6V/wAH2OZDkFbdtOrTFebWy0PmQ42lTrrYO9BsHYIPKZ+ZDmNs28RNU082o+bzYBfQNBLYRvQUB73zru3gQry7K5jTcZxX8YOKSgLJcUCUev2/XO5crk09bWv19gmO6VuqDg0rySPEa/IO98w15UjEMfdWdqcqYaif9KmknmRU1zH7by+WmlsQH7ZaEvJiueBSF7KgrXJtILeakTKh5wNAeDxYWlaSPZSsAEHkfDspyq6DsyHYRK+NMW8w3Ihr81ISdAHzSAVH3s8kV1lHU7WLopkiG4CQv9M44FFX2Ss6/tv73zLOv8kkynIsOit3WEbW1uve8ErPsFSQPLmEQJzeF44hcV5Kk08IKBQRohlPP//EABkRAAMBAQEAAAAAAAAAAAAAAAABAhEhEv/aAAgBAgEBPwCrfeku96iNEjzpCxH/xAAcEQABBQEBAQAAAAAAAAAAAAABAAIDERIxQnH/2gAIAQMBAT8AjY0eQbHU5kefnKClDRVdWijI5SHVFf/Z%22%0A%20%20%20%20%20%20%20%20%20x%3D%220%22%20y%3D%220%22%0A%20%20%20%20%20%20%20%20%20height%3D%22100%25%22%20width%3D%22100%25%22/%3E%0A%3C/svg%3E);
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+    }
+    .top-enhanced {
+        background: url('/assets/images/background-images/home_bg_mobile_webp.webp') no-repeat, url('/assets/images/background-images/home_bg_mobile.jpg') no-repeat;
+        background-size: cover;
+        transition: background 0.5s;
+        transition-timing-function: ease-in-out, linear, step-start, cubic-bezier(0.215, 0.61, 0.355, 1);
+    }
 }
 
-.top-enhanced {
-    background: url('/assets/images/background-images/home_bg_webp.webp') no-repeat center center fixed, url('/assets/images/background-images/home_bg-min.jpg') no-repeat center center fixed;
-    background-size: cover;
-    transition: background 0.5s;
-    transition-timing-function: ease-in-out, linear, step-start, cubic-bezier(0.215, 0.61, 0.355, 1);
+@media screen and (min-width: 769px) {
+    .top {
+        background-color: #567da7;
+        background: url(data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%0A%20%20%20%20%20xmlns%3Axlink%3D%22http%3A//www.w3.org/1999/xlink%22%0A%20%20%20%20%20width%3D%221500%22%20height%3D%22823%22%0A%20%20%20%20%20viewBox%3D%220%200%201500%20823%22%3E%0A%20%20%3Cfilter%20id%3D%22blur%22%20filterUnits%3D%22userSpaceOnUse%22%20color-interpolation-filters%3D%22sRGB%22%3E%0A%20%20%20%20%3CfeGaussianBlur%20stdDeviation%3D%2220%2020%22%20edgeMode%3D%22duplicate%22%20/%3E%0A%20%20%20%20%3CfeComponentTransfer%3E%0A%20%20%20%20%20%20%3CfeFuncA%20type%3D%22discrete%22%20tableValues%3D%221%201%22%20/%3E%0A%20%20%20%20%3C/feComponentTransfer%3E%0A%20%20%3C/filter%3E%0A%20%20%3Cimage%20filter%3D%22url%28%23blur%29%22%0A%20%20%20%20%20%20%20%20%20xlink%3Ahref%3D%22data%3Aimage/jpeg%3Bbase64%2C/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAMDAwMDAwQEBAQFBQUFBQcHBgYHBwsICQgJCAsRCwwLCwwLEQ8SDw4PEg8bFRMTFRsfGhkaHyYiIiYwLTA+PlQBAwMDAwMDBAQEBAUFBQUFBwcGBgcHCwgJCAkICxELDAsLDAsRDxIPDg8SDxsVExMVGx8aGRofJiIiJjAtMD4+VP/CABEIABgAKgMBIgACEQEDEQH/xAAbAAACAgMBAAAAAAAAAAAAAAAFBwYJAAEECP/aAAgBAQAAAABCHjvSsrP61MGnd2EeDpKn52grdP/EABgBAAIDAAAAAAAAAAAAAAAAAAABAgME/9oACAECEAAAAM5alL//xAAXAQADAQAAAAAAAAAAAAAAAAABAgQD/9oACAEDEAAAALXlLZ//xAAnEAABBAICAgIBBQEAAAAAAAABAgMEBQYRAAcSMRMhQRQiJDJRkf/aAAgBAQABPwDsXPu553cmWVldmFrCgx7Z0DxePi03vQ0ONdn9h0tjFr3r+ylx2mPkedkPqSpR96K065b9l5rOpTLr72fG8Hh8xMon40+yN8rewu1GbUSHZz9nTzNKQIkkuPxUa+lkDXkFfkc7G7H7kTdoRSXN/ChFAUsla9g+WjzEshvZGK0TzlnLUtysiLUfmUNlTQJOgeZZYv1ncOULhtrfdN5JceZbR5rU0k6V/wAH2OZDkFbdtOrTFebWy0PmQ42lTrrYO9BsHYIPKZ+ZDmNs28RNU082o+bzYBfQNBLYRvQUB73zru3gQry7K5jTcZxX8YOKSgLJcUCUev2/XO5crk09bWv19gmO6VuqDg0rySPEa/IO98w15UjEMfdWdqcqYaif9KmknmRU1zH7by+WmlsQH7ZaEvJiueBSF7KgrXJtILeakTKh5wNAeDxYWlaSPZSsAEHkfDspyq6DsyHYRK+NMW8w3Ihr81ISdAHzSAVH3s8kV1lHU7WLopkiG4CQv9M44FFX2Ss6/tv73zLOv8kkynIsOit3WEbW1uve8ErPsFSQPLmEQJzeF44hcV5Kk08IKBQRohlPP//EABkRAAMBAQEAAAAAAAAAAAAAAAABAhEhEv/aAAgBAgEBPwCrfeku96iNEjzpCxH/xAAcEQABBQEBAQAAAAAAAAAAAAABAAIDERIxQnH/2gAIAQMBAT8AjY0eQbHU5kefnKClDRVdWijI5SHVFf/Z%22%0A%20%20%20%20%20%20%20%20%20x%3D%220%22%20y%3D%220%22%0A%20%20%20%20%20%20%20%20%20height%3D%22100%25%22%20width%3D%22100%25%22/%3E%0A%3C/svg%3E);
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+    }
+    .top-enhanced {
+        background: url('/assets/images/background-images/home_bg_webp.webp') no-repeat center center fixed, url('/assets/images/background-images/home_bg-min.jpg') no-repeat center center fixed;
+        background-size: cover;
+        transition: background 0.5s;
+        transition-timing-function: ease-in-out, linear, step-start, cubic-bezier(0.215, 0.61, 0.355, 1);
+    }
 }
 
 .biblya>h1 {
@@ -100,7 +139,7 @@
     padding-bottom: 10%;
 }
 
-.hero-body .title {
+.hero-body .desktop .title {
     margin-bottom: 20px;
     height: 107px;
     color: #ffffff;
@@ -113,7 +152,7 @@
     animation: fadeInLeftTop 1.5s;
 }
 
-.hero-body .subtitle {
+.hero-body .desktop .subtitle {
     height: 66px;
     width: 400px;
     position: relative;
@@ -127,7 +166,54 @@
     animation: slideInUpTop 2.5s;
 }
 
-.get-started-btn {
+.hero-body .mobile .title {
+    color: #ffffff;
+    font-family: 'museo-sans';
+    font-size: 64px;
+    font-weight: 900;
+    letter-spacing: 5px;
+    line-height: 87px;
+    text-transform: uppercase;
+    text-align: center;
+    animation: fadeInLeftTop 1.5s;
+}
+
+.hero-body .mobile .subtitle {
+    width: 262px;
+    margin: 0 auto;
+    color: #ffffff;
+    font-family: 'museo-sans';
+    font-size: 16px;
+    font-weight: bold;
+    letter-spacing: 3px;
+    line-height: 22px;
+    text-align: center;
+    animation: fadeInLeftTop 1.5s;
+}
+
+.mobile .btn {
+    font-family: 'museo-sans';
+    font-weight: 900;
+    letter-spacing: 2px;
+    line-height: 25px;
+    text-align: center;
+    font-size: 14px;
+    height: 45px;
+    width: 156px;
+}
+
+.mobile .get-started-btn {
+    margin-top: 40px;
+    color: #ffffff;
+    border: 2px solid #ffffff;
+    border-radius: 3px;
+    background: transparent;
+    font-family: 'museo-sans';
+    transition: all 1s cubic-bezier(0.075, 0.82, 0.165, 1);
+    animation: fadeInDownTop 3.5s;
+}
+
+.desktop .get-started-btn {
     margin-top: 40px;
     color: #ffffff;
     font-size: 18px;
@@ -152,7 +238,7 @@
     transition: all 1s cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 
-.learn-more-btn {
+.mobile .learn-more-btn {
     color: #343232;
     border: 3px solid #ffffff;
     border-radius: 3px;
@@ -164,14 +250,26 @@
     animation: fadeInUpTop 3.5s;
 }
 
-.learn-more-btn:hover {
+.desktop .learn-more-btn {
+    color: #343232;
+    border: 3px solid #ffffff;
+    border-radius: 3px;
+    background-color: #ffffff;
+    box-shadow: 0 5px 15px 2px rgba(64, 62, 62, 0.8);
+    transition: all 1s cubic-bezier(0.075, 0.82, 0.165, 1);
+    position: relative;
+    top: 29px;
+    animation: fadeInUpTop 3.5s;
+}
+
+.desktop .learn-more-btn:hover {
     background-color: #f1f1f1;
     border: 3px solid #f1f1f1;
     box-shadow: none;
     transition: all 1s cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 
-.btn {
+.desktop .btn {
     font-family: 'museo-sans';
     font-weight: 900;
     letter-spacing: 2px;
@@ -201,17 +299,34 @@
 
 /* Bible Verse CSS */
 
-.bible-verse {
-    position: relative;
-    top: 75px;
-    color: #000000;
-    font-family: 'museo-sans';
-    font-size: 1.3rem;
-    letter-spacing: 1px;
-    line-height: 40px;
-    width: 1025px;
-    text-align: center;
-    margin-bottom: 70px;
+@media screen and (min-width: 769px) {
+    .bible-verse {
+        position: relative;
+        top: 75px;
+        color: #000000;
+        font-family: 'museo-sans';
+        font-size: 1.3rem;
+        letter-spacing: 1px;
+        line-height: 40px;
+        width: 1025px;
+        text-align: center;
+        margin-bottom: 70px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .bible-verse {
+        position: relative;
+        top: 75px;
+        color: #000000;
+        font-family: 'museo-sans';
+        font-size: 1.2rem;
+        letter-spacing: 2px;
+        line-height: 25px;
+        width: 233px;
+        text-align: center;
+        margin-bottom: 50px;
+    }
 }
 
 .bible-verse .verse {
@@ -221,7 +336,7 @@
 
 /* Feature/Main CSS */
 
-.feature-heading {
+.desktop .feature-heading {
     color: #343232;
     font-family: 'museo-sans';
     font-size: 2rem;
@@ -230,14 +345,40 @@
     line-height: 33px;
 }
 
-.feature-description {
-    color: #000000;
+.mobile .feature-heading {
+    color: #343232;
     font-family: 'museo-sans';
-    font-size: 1.2rem;
-    letter-spacing: 1px;
-    line-height: 30px;
-    margin-top: 26px;
-    width: 700px;
+    font-size: 2rem;
+    font-weight: 900;
+    letter-spacing: 3px;
+    line-height: 33px;
+    width: 244px;
+    margin: 0 auto;
+}
+
+@media screen and (min-width: 769px) {
+    .feature-description {
+        color: #000000;
+        font-family: 'museo-sans';
+        font-size: 1.2rem;
+        letter-spacing: 1px;
+        line-height: 30px;
+        margin-top: 26px;
+        width: 700px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .feature-description {
+        color: #000000;
+        font-family: 'museo-sans';
+        font-size: 1rem;
+        letter-spacing: 1px;
+        line-height: 20px;
+        margin-top: 26px;
+        width: 262px;
+        margin: 26px auto 0 auto;
+    }
 }
 
 .feature-left {
@@ -277,6 +418,15 @@
     justify-content: center;
 }
 
+.mobile .feature-image {
+    margin-top: 31px;
+    margin-bottom: 107px;
+}
+
+.mobile .feature-icon {
+    margin-bottom: 25px;
+}
+
 
 /* Call to action CSS */
 
@@ -286,18 +436,31 @@
     margin-bottom: 100px;
 }
 
-.cta-divider {
-    box-sizing: border-box;
-    height: 1px;
-    width: 75%;
-    margin: 0 auto 87px auto;
-    border: 0.5px solid #bcb8b8;
+@media screen and (min-width: 769px) {
+    .cta-divider {
+        box-sizing: border-box;
+        height: 1px;
+        width: 75%;
+        margin: 0 auto 87px auto;
+        border: 0.5px solid #bcb8b8;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .cta-divider {
+        box-sizing: border-box;
+        height: 1px;
+        width: 62%;
+        margin: 0 auto 87px auto;
+        border: 0.5px solid #bcb8b8;
+    }
 }
 
 .get-started-cta {
     margin-top: 60px;
     margin-bottom: 120px;
     border-radius: 5px;
+    border: #f23b2c;
     background-color: #f23b2c;
     box-shadow: 0 8px 18px 0 rgba(90, 89, 89, 0.5);
     color: #ffffff;
@@ -315,7 +478,7 @@
     transition: all 1s cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 
-.cta-header {
+.desktop .cta-header {
     color: #343232;
     font-family: 'museo-sans';
     font-size: 1.7rem;
@@ -325,12 +488,36 @@
     text-align: center;
 }
 
-.subheader {
+.mobile .cta-header {
+    margin: 0 auto;
+    width: 266px;
+    color: #343232;
+    font-family: 'museo-sans';
+    font-size: 1.7rem;
+    font-weight: 900;
+    letter-spacing: 3px;
+    line-height: 33px;
+    text-align: center;
+}
+
+.desktop .subheader {
     margin-top: 50px;
 }
 
-.cta-text {
+.desktop .cta-text {
     margin-top: 40px;
+    color: #000000;
+    font-family: 'museo-sans';
+    font-size: 1.3rem;
+    font-weight: 900;
+    letter-spacing: 2px;
+    line-height: 27px;
+    text-align: center;
+}
+
+.mobile .cta-text {
+    margin: 30px auto 0 auto;
+    width: 250px;
     color: #000000;
     font-family: 'museo-sans';
     font-size: 1.3rem;
