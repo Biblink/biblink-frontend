@@ -6,6 +6,20 @@
         <div><a class="nav-link">Sign In</a></div>
     </div>
 </div>
+<div class="dotstyle dotstyle-fillup">
+    <ul class="dots">
+        <li [class.current]="isCurrent"><a [ngx-scroll-to]="'#top-of-page'" [ngx-scroll-to-duration]="1200" [ngx-scroll-to-easing]="'easeInOutQuart'" id="1">Top of Page</a></li>
+        <li><a (click)="isCurrent = false" [ngx-scroll-to]="'#verse'" [ngx-scroll-to-duration]="1200" [ngx-scroll-to-easing]="'easeInOutQuart'" id="2">Bible Verse</a></li>
+        <li><a (click)="isCurrent = false" [ngx-scroll-to]="'#main'" [ngx-scroll-to-duration]="1200" [ngx-scroll-to-easing]="'easeInOutQuart'" id="3">Features</a></li>
+        <li><a (click)="isCurrent = false" [ngx-scroll-to]="'#cta'" [ngx-scroll-to-duration]="1200" [ngx-scroll-to-easing]="'easeInOutQuart'" id="4">Get Started</a></li>
+    </ul>
+    <ul class="descriptions">
+        <li id="1-desc">Top of Page</li>
+        <li id="2-desc">Bible Verse</li>
+        <li id="3-desc">Features</li>
+        <li id="4-desc">Get Started</li>
+    </ul>
+</div>
 <section class="hero is-fullheight" [ngClass]="{'top': !enhanced, 'top-enhanced': enhanced}" id="top-of-page">
     <div class="hero-head">
         <nav class="navbar desktop is-hidden-mobile">

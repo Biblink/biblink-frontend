@@ -9,6 +9,7 @@ declare const $: any;
 })
 export class HomeComponent implements OnInit {
   enhanced = false;
+  isCurrent = true;
   activated = false;
   menuOpacity = 0;
   menuHeight = '0';
@@ -19,6 +20,28 @@ export class HomeComponent implements OnInit {
     setTimeout(() => {
       this.enhanced = true;
     }, 1000);
+    $(window).scroll(function() {
+      const scroll = $(window).scrollTop();
+      if (scroll >= 300 && scroll <= 4300) {
+        $('.dotstyle').addClass('darkDot');
+      } else {
+        $('.dotstyle').removeClass('darkDot');
+      }
+    });
+    $('.dotstyle .dots li a').hover(
+      function() {
+        $('.dotstyle ul.descriptions li#' + $(this).attr('id') + '-desc').css(
+          'opacity',
+          1
+        );
+      },
+      function() {
+        $('.dotstyle ul.descriptions li#' + $(this).attr('id') + '-desc').css(
+          'opacity',
+          0
+        );
+      }
+    );
   }
 
   toggleMobileMenu() {
