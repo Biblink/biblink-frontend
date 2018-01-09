@@ -15,10 +15,7 @@
         "testTsconfig": "tsconfig.spec.json",
         "prefix": "app",
         "styles": ["styles.css", "assets/external-code/css/aos.css"],
-        "scripts": [
-            "assets/external-code/js/aos.js",
-            "assets/external-code/js/app.js"
-        ],
+        "scripts": ["assets/external-code/js/aos.js"],
         "environmentSource": "environments/environment.ts",
         "environments": {
             "dev": "environments/environment.ts",
