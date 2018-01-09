@@ -1,7 +1,7 @@
-
 <div style="display: block; text-align:center" align="center"><img alt="BCF Logo" src="http://blacksburgchristianfellowship.org/wp-content/uploads/2017/01/yellow-mobile-logo.png" /></div>
 
 # Bible Study Frontend
+
 [![Build Status](https://travis-ci.org/bfan1256/bible-study-application-frontend.svg?branch=master)](https://travis-ci.org/bfan1256/bible-study-application-frontend)
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.5.0.
@@ -17,6 +17,36 @@ Author: Brandon Fan
 ## Resources
 
 Frontend Required Pages: [Link to Doc](https://docs.google.com/document/d/1a2zS7lndvH5peYs3xkRrfCH8tZHCuALKemt4sho5DVA/edit?usp=sharing)
+
+### Using External JavaScript Code
+
+1. Add script to `./src/assets/external-code/js/`
+2. Add `/assets/external-code/js/<name-of-file>.js` to .angular-cli.json in the `scripts` array:
+
+```json
+{
+    ...
+    "app": [{
+        ...
+        "scripts": [
+            ...
+            "/assets/external-code/js/<name-of-file>.js"
+        ]
+        ...
+    }]
+    ...
+}
+```
+
+3. Rerun `ng serve`
+
+#### Use in Typescript
+
+1. Go into associated `.ts` file and add after imports:
+
+```typescript
+declare const <corresponding-symbol-to-js-file>: any;
+```
 
 ## Development server
 
@@ -41,3 +71,7 @@ Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protrac
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+
+```
+
+```
