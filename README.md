@@ -27,16 +27,11 @@ Run `npm install` to install all third-party dependencies.
 
 ```json
 {
-    ...
-    "app": [{
-        ...
-        "scripts": [
-            ...
-            "/assets/external-code/js/<name-of-file>.js"
-        ]
-        ...
-    }]
-    ...
+  "app": [
+    {
+      "scripts": ["/assets/external-code/js/<name-of-file>.js"]
+    }
+  ]
 }
 ```
 
