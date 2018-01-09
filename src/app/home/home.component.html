@@ -1,3 +1,225 @@
-<p>
-  home works!
-</p>
+<div class="is-hidden-tablet" id="menu-overlay" [ngStyle]="{'opacity': menuOpacity, 'height': menuHeight}">
+    <div class="container has-text-centered menu-links">
+        <div><a class="nav-link">Home</a></div>
+        <div><a class="nav-link">About</a></div>
+        <div><a class="nav-link">Search</a></div>
+        <div><a class="nav-link">Sign In</a></div>
+    </div>
+</div>
+<div class="dotstyle dotstyle-fillup">
+    <ul class="dots">
+        <li [class.current]="isCurrent"><a [ngx-scroll-to]="'#top-of-page'" [ngx-scroll-to-duration]="1200" [ngx-scroll-to-easing]="'easeInOutQuart'" id="1">Top of Page</a></li>
+        <li><a (click)="isCurrent = false" [ngx-scroll-to]="'#verse'" [ngx-scroll-to-duration]="1200" [ngx-scroll-to-easing]="'easeInOutQuart'" id="2">Bible Verse</a></li>
+        <li><a (click)="isCurrent = false" [ngx-scroll-to]="'#main'" [ngx-scroll-to-duration]="1200" [ngx-scroll-to-easing]="'easeInOutQuart'" id="3">Features</a></li>
+        <li><a (click)="isCurrent = false" [ngx-scroll-to]="'#cta'" [ngx-scroll-to-duration]="1200" [ngx-scroll-to-easing]="'easeInOutQuart'" id="4">Get Started</a></li>
+    </ul>
+    <ul class="descriptions">
+        <li id="1-desc">Top of Page</li>
+        <li id="2-desc">Bible Verse</li>
+        <li id="3-desc">Features</li>
+        <li id="4-desc">Get Started</li>
+    </ul>
+</div>
+<section class="hero is-fullheight" [ngClass]="{'top': !enhanced, 'top-enhanced': enhanced}" id="top-of-page">
+    <div class="hero-head">
+        <nav class="navbar desktop is-hidden-mobile">
+            <ul class="navvy">
+                <li id="logo">
+                    <a class="nav-link" id="logo-link">Logo</a>
+                </li>
+                <li id="sign-in">
+                    <a class="nav-link">Sign In</a>
+                </li>
+                <div class="mid-nav">
+                    <div class="columns">
+                        <div class="column">
+                            <a class="nav-link">Home</a>
+                        </div>
+                        <div class="column">
+                            <a class="nav-link">About</a>
+                        </div>
+                        <div class="column">
+                            <a class="nav-link">Search</a>
+                        </div>
+                    </div>
+                </div>
+            </ul>
+        </nav>
+        <nav class="navbar mobile is-hidden-tablet">
+            <ul class="navvy">
+                <li id="menu">
+                    <div class="navTrigger" [class.active]="activated" (click)="toggleMobileMenu()">
+                        <i></i><i></i><i></i>
+                    </div>
+                </li>
+                <li id="sign-in">
+                    <a class="nav-link">Sign In</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+    <div class="hero-body">
+        <div class="container desktop is-hidden-mobile">
+            <div class="columns">
+                <div class="column is-7 is-offset-1">
+                    <h1 class="title">
+                        Biblya
+                    </h1>
+                    <h2 class="subtitle">
+                        Bible study for the digital age
+                    </h2>
+                </div>
+                <div class="column is-1">
+                    <button class="get-started-btn btn">
+                        Get Started
+                    </button>
+                    <button class="learn-more-btn btn" [ngx-scroll-to]="'#verse'" [ngx-scroll-to-duration]="1500" [ngx-scroll-to-easing]="'easeInOutQuart'">
+                        Learn More
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="container mobile is-hidden-tablet has-text-centered">
+            <h1 class="title">
+                Biblya
+            </h1>
+            <h2 class="subtitle">
+                Bible study for the digital age
+            </h2>
+            <div class="column is-1">
+                <button class="get-started-btn btn">
+                    Get Started
+                </button>
+                <button class="learn-more-btn btn" [ngx-scroll-to]="'#verse'" [ngx-scroll-to-duration]="1500" [ngx-scroll-to-easing]="'easeInOutQuart'">
+                    Learn More
+                </button>
+            </div>
+
+        </div>
+    </div>
+    <div class="hero-foot is-hidden-mobile">
+        <div class="container has-text-centered">
+            <p class="scroll" [ngx-scroll-to]="'#verse'" [ngx-scroll-to-duration]="1500" [ngx-scroll-to-easing]="'easeInOutQuart'">scroll to learn more</p>
+        </div>
+    </div>
+</section>
+<section id="verse">
+    <div class="container has-text-centered bible-verse">
+        <p class="verse" data-aos="fade-down" data-aos-duration="1200" data-aos-anchor=".verse-ref">
+            “And let us consider how to stir up one another to love and good works, not neglecting to meet together, as is the habit of some, but encouraging one another, and all the more as you see the Day drawing near.”
+        </p>
+        <p class="verse-ref" data-aos="fade-up" data-aos-duration="1000">~Hebrews 10:24-25~</p>
+        <hr data-aos="zoom-in-up" data-aos-duration="800" class="divider has-text-centered">
+    </div>
+</section>
+<section id="main">
+    <div class="desktop is-hidden-mobile">
+        <div class="columns">
+            <div class="column feature">
+                <div class="feature-left">
+                    <h3 class="feature-heading" data-aos="fade-right" data-aos-duration="800">Powerful Search</h3>
+                    <p class="feature-description search-description" data-aos="fade-up-right" data-aos-duration="1000">Our application includes a powerful search function that not only lets users find Bible verses quickly but can also find related verses thanks to machine learning. A search function is a powerful tool for user’s private and group studies.
+                        Users can see commentaries posted by other users of the application to further their understanding of a verse or passage.
+                    </p>
+                </div>
+            </div>
+            <div class="column img-align-right" data-aos="fade-down-left" data-aos-duration="1000">
+                <img width="100%" height="100%" src="/assets/images/feature-images/search.svg">
+            </div>
+        </div>
+        <div class="columns">
+            <div class="column img-align-left" data-aos="fade-up-right" data-aos-duration="1000">
+                <img width="100%" height="100%" src="/assets/images/feature-images/shared-bible.svg">
+            </div>
+            <div class="column feature">
+                <div class="feature-right">
+                    <h3 class="feature-heading" data-aos="fade-left" data-aos-duration="800">Shared Bible</h3>
+                    <p class="feature-description shared-bible-description" data-aos="fade-up-left" data-aos-duration="1000">The Shared Bible helps keep Bible study members connected even when they aren't together. Users will be able to share their notes on any passage with their group allowing them to continue discussions from their study going throughout
+                        the week. Have a question for your group? With the Shared Bible’s question proposal system you won't have to wait until the next time your study group meets to ask it.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="columns">
+            <div class="column feature">
+                <div class="feature-left">
+                    <h3 class="feature-heading" data-aos="fade-right" data-aos-duration="800">Elegant Dashboard</h3>
+                    <p class="feature-description dashboard-description" data-aos="fade-up-right" data-aos-duration="1000">Each user will have their own personal, customizable dashboard that will allow them to stay up to date on announcements, messages, questions, and notes made by their fellow members. The dashboard is a custom tailored experience, honed
+                        to make everything as elegant and straightforward to comprehend and to get information quickly and efficiently.
+                    </p>
+                </div>
+            </div>
+            <div class="column img-align-right" data-aos="fade-down-left" data-aos-duration="1000">
+                <img width="100%" height="100%" src="/assets/images/feature-images/dashboard.svg">
+            </div>
+        </div>
+    </div>
+    <div class="mobile is-hidden-tablet">
+        <div class="container has-text-centered">
+            <div class="feature-icon" data-aos="zoom-in" data-aos-duration="1000">
+                <img src="/assets/images/feature-images/mobile/icons/search-icon.svg">
+            </div>
+            <div class="feature has-text-centered">
+                <div>
+                    <h3 class="feature-heading" data-aos="fade-right" data-aos-duration="800">Powerful Search</h3>
+                    <p class="feature-description search-description" data-aos="fade-up-right" data-aos-duration="1000">Our application includes a powerful search function that not only lets users find Bible verses quickly but can also find related verses thanks to machine learning. A search function is a powerful tool for user’s private and group studies.
+                        Users can see commentaries posted by other users of the application to further their understanding of a verse or passage.
+                    </p>
+                </div>
+            </div>
+            <div class="feature-image" data-aos="fade-down-right" data-aos-duration="1000">
+                <img src="/assets/images/feature-images/mobile/search.svg">
+            </div>
+            <div class="feature-icon" data-aos="zoom-in" data-aos-duration="1000">
+                <img src="/assets/images/feature-images/mobile/icons/shared-bible-icon.svg">
+            </div>
+            <div class="feature has-text-centered">
+                <div>
+                    <h3 class="feature-heading" data-aos="fade-left" data-aos-duration="800">Shared Bible</h3>
+                    <p class="feature-description shared-bible-description" data-aos="fade-up-left" data-aos-duration="1000">The Shared Bible helps keep Bible study members connected even when they aren't together. Users will be able to share their notes on any passage with their group allowing them to continue discussions from their study going throughout
+                        the week. Have a question for your group? With the Shared Bible’s question proposal system you won't have to wait until the next time your study group meets to ask it.
+                    </p>
+                </div>
+            </div>
+            <div class="feature-image" data-aos="fade-up-right" data-aos-duration="1000">
+                <img src="/assets/images/feature-images/mobile/shared-bible.svg">
+            </div>
+            <div class="feature-icon" data-aos="zoom-in" data-aos-duration="1000">
+                <img src="/assets/images/feature-images/mobile/icons/dashboard-icon.svg">
+            </div>
+            <div class="feature has-text-centered">
+                <div>
+                    <h3 class="feature-heading" data-aos="fade-right" data-aos-duration="800">Elegant Dashboard</h3>
+                    <p class="feature-description dashboard-description" data-aos="fade-up-right" data-aos-duration="1000">Each user will have their own personal, customizable dashboard that will allow them to stay up to date on announcements, messages, questions, and notes made by their fellow members. The dashboard is a custom tailored experience, honed
+                        to make everything as elegant and straightforward to comprehend and to get information quickly and efficiently.
+                    </p>
+                </div>
+            </div>
+            <div class="feature-image" data-aos="fade-down-left" data-aos-duration="1000">
+                <img src="/assets/images/feature-images/mobile/dashboard.svg">
+            </div>
+        </div>
+    </div>
+</section>
+<section id="cta">
+    <div class="container cta-container has-text-centered desktop is-hidden-mobile">
+        <hr class="has-text-centered cta-divider" data-aos="zoom-in-up" data-aos-duration="800">
+        <h4 class="cta-header" data-aos="zoom-in-down" data-aos-duration="1000">Persistent, Connected, Community</h4>
+        <h4 class="cta-header subheader" data-aos="zoom-out-down" data-aos-duration="1200">So what are you waiting for?</h4>
+        <p class="cta-text" data-aos="zoom-out-up" data-aos-duration="1500">Get your church started now!</p>
+        <button class="get-started-cta btn" data-aos="fade-up" data-aos-duration="1000">
+                        Get Started
+        </button>
+        <p><a class="to-top" [ngx-scroll-to]="'#top-of-page'" data-aos="fade-down" data-aos-duration="2500" [ngx-scroll-to-duration]="1500" [ngx-scroll-to-easing]="'easeInOutQuart'">Back to top</a></p>
+    </div>
+    <div class="container cta-container has-text-centered mobile is-hidden-tablet">
+        <hr class="has-text-centered cta-divider" data-aos="zoom-in-up" data-aos-duration="800">
+        <h4 class="cta-header" data-aos="zoom-out-down" data-aos-duration="1200">So what are you waiting for?</h4>
+        <p class="cta-text" data-aos="zoom-out-up" data-aos-duration="1500">Get your church started now!</p>
+        <button class="get-started-cta btn" data-aos="fade-up" data-aos-duration="1000">
+                        Get Started
+        </button>
+        <p><a class="to-top" [ngx-scroll-to]="'#top-of-page'" data-aos="fade-down" data-aos-duration="2500" [ngx-scroll-to-duration]="1500" [ngx-scroll-to-easing]="'easeInOutQuart'">Back to top</a></p>
+    </div>
+</section>
+<app-footer></app-footer>

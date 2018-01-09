@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="506px" height="551px" viewBox="0 0 506 551" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 48.2 (47327) - http://www.bohemiancoding.com/sketch -->
+    <title>Dashboard Mockups/SVG</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <path d="M487.067555,224.392638 L487.067555,508 L130.561164,508 L130.561164,224.392638 L487.067555,224.392638 Z" id="path-1"></path>
+        <filter x="-11.6%" y="-11.8%" width="123.3%" height="129.3%" filterUnits="objectBoundingBox" id="filter-2">
+            <feOffset dx="0" dy="8" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="12.5" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feComposite in="shadowBlurOuter1" in2="SourceAlpha" operator="out" result="shadowBlurOuter1"></feComposite>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.5 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+        <rect id="path-3" x="0" y="0" width="313.211497" height="283.607362"></rect>
+        <filter x="-9.9%" y="-8.1%" width="119.8%" height="121.9%" filterUnits="objectBoundingBox" id="filter-4">
+            <feOffset dx="0" dy="8" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="9" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feComposite in="shadowBlurOuter1" in2="SourceAlpha" operator="out" result="shadowBlurOuter1"></feComposite>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.5 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="Home-Page-" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(-518.000000, -1848.000000)">
+        <g id="Dashboard-Feature" transform="translate(92.000000, 1848.000000)">
+            <g id="Dashboard-Mockups/SVG" transform="translate(443.906433, 10.000000)">
+                <g id="Combined-Shape">
+                    <use fill="black" fill-opacity="1" filter="url(#filter-2)" xlink:href="#path-1"></use>
+                    <use fill="#D8D8D8" fill-rule="evenodd" xlink:href="#path-1"></use>
+                    <path stroke="#979797" stroke-width="1" d="M486.567555,224.892638 L131.061164,224.892638 L131.061164,507.5 L486.567555,507.5 L486.567555,224.892638 Z"></path>
+                </g>
+                <g id="Rectangle-4">
+                    <use fill="black" fill-opacity="1" filter="url(#filter-4)" xlink:href="#path-3"></use>
+                    <use fill="#D8D8D8" fill-rule="evenodd" xlink:href="#path-3"></use>
+                    <rect stroke="#979797" stroke-width="1" x="0.5" y="0.5" width="312.211497" height="282.607362"></rect>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
