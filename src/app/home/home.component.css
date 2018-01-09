@@ -3,7 +3,7 @@
 .navbar {
     width: 100%;
     background: transparent;
-    animation: fadeInDown 2s;
+    animation: fadeInDownTop 2s;
 }
 
 .navvy {
@@ -109,7 +109,7 @@
     letter-spacing: 8px;
     line-height: 131px;
     text-transform: uppercase;
-    animation: fadeInLeft 1.5s;
+    animation: fadeInLeftTop 1.5s;
 }
 
 .hero-body .subtitle {
@@ -124,7 +124,7 @@
     letter-spacing: 4px;
     line-height: 45px;
     text-transform: lowercase;
-    animation: slideInUp 2.5s;
+    animation: slideInUpTop 2.5s;
 }
 
 .get-started-btn {
@@ -142,7 +142,7 @@
     background: transparent;
     font-family: 'Avenir Next';
     transition: all 1s cubic-bezier(0.075, 0.82, 0.165, 1);
-    animation: fadeInDown 3.5s;
+    animation: fadeInDownTop 3.5s;
 }
 
 .get-started-btn:hover {
@@ -161,7 +161,7 @@
     transition: all 1s cubic-bezier(0.075, 0.82, 0.165, 1);
     position: relative;
     top: 29px;
-    animation: fadeInUp 3.5s;
+    animation: fadeInUpTop 3.5s;
 }
 
 .learn-more-btn:hover {
@@ -195,7 +195,7 @@
     letter-spacing: 3px;
     line-height: 14px;
     text-align: center;
-    animation: fadeInUp 5s, bounce 3s infinite;
+    animation: fadeInUpTop 5s, bounceTop 3s infinite;
 }
 
 
@@ -206,7 +206,7 @@
     top: 75px;
     color: #000000;
     font-family: 'Avenir Next';
-    font-size: 1.5rem;
+    font-size: 1.3rem;
     letter-spacing: 1px;
     line-height: 40px;
     width: 1025px;
