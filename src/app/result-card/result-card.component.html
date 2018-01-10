@@ -1,3 +1,11 @@
-<p>
-  result-card works!
-</p>
+<div class="result card">
+    <!-- just change these classes -->
+    <ng-content select=".card-header"></ng-content>
+    <ng-content select=".card-content"></ng-content>
+    <div class="card-footer">
+        <!-- change this, this is just an example -->
+        <a href="#" class="card-footer-item">Save</a>
+        <a href="#" class="card-footer-item">Learn More</a>
+        <a href="#" class="card-footer-item">Share</a>
+    </div>
+</div>
