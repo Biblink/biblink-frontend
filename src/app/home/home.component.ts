@@ -16,9 +16,13 @@ export class HomeComponent implements OnInit {
   constructor() {}
 
   ngOnInit() {
-    setInterval(() => {
-      AOS.init();
-    }, 500);
+    const init = [];
+    const x = setInterval(() => {
+      init.push(AOS.init());
+      if (init.length >= 2) {
+        clearInterval(x);
+      }
+    }, 1500);
     setTimeout(() => {
       this.enhanced = true;
     }, 1000);
