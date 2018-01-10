@@ -19,7 +19,7 @@ import { ResultCardComponent } from './result-card/result-card.component';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
-  { path: '/search', component: SearchComponent }
+  { path: 'search', component: SearchComponent }
 ];
 
 @NgModule({
