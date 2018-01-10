@@ -58,10 +58,8 @@ export class HomeComponent implements OnInit {
       $('body').css('overflow', 'hidden');
       $('html').css('overflow', 'hidden');
     } else {
-      $('body').css('overflow-y', 'visible');
-      $('html').css('overflow-y', 'visible');
-      $('body').css('overflow-x', 'hidden');
-      $('html').css('overflow-x', 'hidden');
+      $('body').css('overflow', 'visible');
+      $('html').css('overflow', 'visible');
     }
   }
 }
