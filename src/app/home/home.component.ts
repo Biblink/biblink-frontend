@@ -19,7 +19,7 @@ export class HomeComponent implements OnInit {
     const init = [];
     const x = setInterval(() => {
       init.push(AOS.init({
-        disable: 'mobile'
+        disable: true
       }));
       if (init.length >= 2) {
         clearInterval(x);
@@ -30,7 +30,7 @@ export class HomeComponent implements OnInit {
     }, 1000);
     $(window).scroll(function() {
       const scroll = $(window).scrollTop();
-      if (scroll >= 300 && scroll <= 4300) {
+      if (scroll >= 300 && scroll <= 3900) {
         $('.dotstyle').addClass('darkDot');
       } else {
         $('.dotstyle').removeClass('darkDot');
