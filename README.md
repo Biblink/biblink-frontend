@@ -8,13 +8,13 @@ Author: Brandon Fan
 
 ## TODO List
 
-* Diagram Frontend
-* ~~Create Initial Scripts~~
-* Design Layout
+* Finish Server Backend for Search Page
+* Design and Implement Dashboard Workflow and Pages
 
 ## Resources
 
 Frontend Required Pages: [Link to Doc](https://docs.google.com/document/d/1a2zS7lndvH5peYs3xkRrfCH8tZHCuALKemt4sho5DVA/edit?usp=sharing)
+Frontend Invision Designs: [Link to Invision](https://invis.io/EMF7SUFZ8)
 
 ## Installing Dependencies
 
