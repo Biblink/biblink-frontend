@@ -1,3 +1,17 @@
-<p>
-  results works!
-</p>
+<div class="container has-text-centered">
+    <h1 style="font-size: 3.5rem">Results Code</h1>
+</div>
+<div class="container has-text-centered">
+    <h1 style="font-size: 2rem">Result Cards</h1>
+    <ng-container *ngFor="let verse of verse_data_observable | async">
+        <app-result-card>
+            <div class="card-header">
+                {{verse.reference}}
+            </div>
+            <div class="card-content">
+                {{verse.text}}
+            </div>
+        </app-result-card>
+        <br><br>
+    </ng-container>
+</div>
