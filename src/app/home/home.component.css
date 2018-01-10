@@ -529,7 +529,6 @@
 }
 
 .mobile .get-started-btn {
-    margin-top: 40px;
     color: #ffffff;
     border: 2px solid #ffffff;
     border-radius: 3px;
@@ -537,6 +536,8 @@
     font-family: 'museo-sans';
     transition: all 1s cubic-bezier(0.075, 0.82, 0.165, 1);
     animation: fadeInDownTop 3.5s;
+    display: block;
+    margin: 40px auto 0 auto;
 }
 
 .desktop .get-started-btn {
