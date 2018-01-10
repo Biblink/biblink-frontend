@@ -16,7 +16,9 @@ export class HomeComponent implements OnInit {
   constructor() {}
 
   ngOnInit() {
-    AOS.init();
+    setInterval(() => {
+      AOS.init();
+    }, 500);
     setTimeout(() => {
       this.enhanced = true;
     }, 1000);
