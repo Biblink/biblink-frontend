@@ -13,6 +13,7 @@ export class HomeComponent implements OnInit {
   activated = false;
   menuOpacity = 0;
   menuHeight = '0';
+  menuZ = 0;
   constructor() {}
 
   ngOnInit() {
@@ -55,6 +56,7 @@ export class HomeComponent implements OnInit {
   toggleMobileMenu() {
     this.activated = !this.activated;
     this.menuOpacity = this.activated ? 1 : 0;
+    this.menuZ = this.activated ? 800 : 0;
     this.menuHeight = this.activated ? '100%' : '0';
     if (this.activated) {
       $('body').css('overflow', 'hidden');
