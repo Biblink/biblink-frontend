@@ -416,7 +416,7 @@
     .top-enhanced {
         background: url('/assets/images/background-images/home_bg_mobile_webp.webp') no-repeat, url('/assets/images/background-images/home_bg_mobile.jpg') no-repeat;
         background-size: cover;
-        transition: background 0.5s;
+        transition: background 0.2s;
         transition-timing-function: ease-in-out, linear, step-start, cubic-bezier(0.215, 0.61, 0.355, 1);
     }
 }
@@ -437,8 +437,6 @@
         transition-timing-function: ease-in-out, linear, step-start, cubic-bezier(0.215, 0.61, 0.355, 1);
     }
 }
-
-
 
 .biblya>h1 {
     height: 107px;
