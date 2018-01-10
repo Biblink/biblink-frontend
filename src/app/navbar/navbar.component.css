@@ -46,11 +46,17 @@
     transition: all 1s cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 
+.nav-link:hover {
+    color: #afacac;
+    transition: all 1s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
 #sign-in {
     float: top left;
     position: relative;
     margin-left: 1750px;
     margin-top: 30px;
+    
 }
 
 .nav-link {
@@ -67,4 +73,5 @@
     width: 295px;
     margin: 0 auto;
     text-align: center;
+    
 }
