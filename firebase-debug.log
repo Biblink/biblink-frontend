@@ -1,0 +1,116 @@
+[debug] [2018-01-10T17:02:45.317Z] ----------------------------------------------------------------------
+[debug] [2018-01-10T17:02:45.319Z] Command:       /usr/local/bin/node /usr/local/bin/firebase deploy
+[debug] [2018-01-10T17:02:45.319Z] CLI Version:   3.16.0
+[debug] [2018-01-10T17:02:45.319Z] Platform:      darwin
+[debug] [2018-01-10T17:02:45.319Z] Node Version:  v8.9.0
+[debug] [2018-01-10T17:02:45.320Z] Time:          Wed Jan 10 2018 12:02:45 GMT-0500 (EST)
+[debug] [2018-01-10T17:02:45.320Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2018-01-10T17:02:45.335Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2018-01-10T17:02:45.335Z] > authorizing via signed-in user
+[debug] [2018-01-10T17:02:45.337Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
+[debug] [2018-01-10T17:02:45.338Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+ { refresh_token: '1/hWMMgiw_bj9woMWGOZS6ja11RhrplPCesWjgYWoBsPc',
+  client_id: '563584335869-fgrhgmd47bqnekij5i8b5pr03ho849e6.apps.googleusercontent.com',
+  client_secret: 'j9iVZfS8kkCEFUPaAeJV0sAi',
+  grant_type: 'refresh_token',
+  scope: 'email https://www.googleapis.com/auth/cloud-platform https://www.googleapis.com/auth/cloudplatformprojects.readonly https://www.googleapis.com/auth/firebase openid' } 
+ Wed Jan 10 2018 12:02:45 GMT-0500 (EST)
+[debug] [2018-01-10T17:02:45.495Z] <<< HTTP RESPONSE 200
+[debug] [2018-01-10T17:02:45.546Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/projects/biblya-ed2ec  
+  
+ Wed Jan 10 2018 12:02:45 GMT-0500 (EST)
+[debug] [2018-01-10T17:02:46.250Z] <<< HTTP RESPONSE 200
+[debug] [2018-01-10T17:02:46.250Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/database/biblya-ed2ec/tokens  
+  
+ Wed Jan 10 2018 12:02:46 GMT-0500 (EST)
+[debug] [2018-01-10T17:02:47.267Z] <<< HTTP RESPONSE 200
+[info] 
+[info] === Deploying to 'biblya-ed2ec'...
+[info] 
+[info] i  deploying database, storage, firestore, functions, hosting
+[info] i  functions: running predeploy script.
+[info] ✔  functions: Finished running predeploy script.
+[info] i  database: checking rules syntax...
+[debug] [2018-01-10T17:02:52.642Z] >>> HTTP REQUEST PUT https://biblya-ed2ec.firebaseio.com/.settings/rules.json?dryRun=true  
+ {
+  "rules": {
+    ".read": "auth != null",
+    ".write": "auth != null"
+  }
+}
+ 
+ Wed Jan 10 2018 12:02:52 GMT-0500 (EST)
+[debug] [2018-01-10T17:02:52.981Z] <<< HTTP RESPONSE 200
+[info] ✔  database: rules syntax for database biblya-ed2ec is valid
+[debug] [2018-01-10T17:02:52.985Z] >>> HTTP REQUEST GET https://appengine.googleapis.com/v1/apps/biblya-ed2ec  
+  
+ Wed Jan 10 2018 12:02:52 GMT-0500 (EST)
+[debug] [2018-01-10T17:02:53.457Z] <<< HTTP RESPONSE 200
+[info] i  storage: checking storage.rules for compilation errors...
+[debug] [2018-01-10T17:02:53.465Z] >>> HTTP REQUEST POST https://firebaserules.googleapis.com/v1/projects/biblya-ed2ec:test  
+ { source: { files: [ [Object] ] } } 
+ Wed Jan 10 2018 12:02:53 GMT-0500 (EST)
+[debug] [2018-01-10T17:02:53.693Z] <<< HTTP RESPONSE 200
+[info] ✔  storage: rules file storage.rules compiled successfully
+[info] i  firestore: checking firestore.rules for compilation errors...
+[debug] [2018-01-10T17:02:53.697Z] >>> HTTP REQUEST POST https://firebaserules.googleapis.com/v1/projects/biblya-ed2ec:test  
+ { source: { files: [ [Object] ] } } 
+ Wed Jan 10 2018 12:02:53 GMT-0500 (EST)
+[debug] [2018-01-10T17:02:53.862Z] <<< HTTP RESPONSE 200
+[info] ✔  firestore: rules file firestore.rules compiled successfully
+[debug] [2018-01-10T17:02:53.864Z] > [functions] package.json contents: {
+  "name": "functions",
+  "scripts": {
+    "build": "./node_modules/.bin/tslint -p tslint.json && ./node_modules/.bin/tsc",
+    "serve": "npm run build && firebase serve --only functions",
+    "shell": "npm run build && firebase experimental:functions:shell",
+    "start": "npm run shell",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "main": "lib/index.js",
+  "dependencies": {
+    "firebase-admin": "~5.4.2",
+    "firebase-functions": "^0.7.1"
+  },
+  "devDependencies": {
+    "tslint": "^5.8.0",
+    "typescript": "^2.5.3"
+  },
+  "private": true
+}
+[info] i  functions: ensuring necessary APIs are enabled...
+[debug] [2018-01-10T17:02:53.864Z] >>> HTTP REQUEST GET https://servicemanagement.googleapis.com/v1/services/cloudfunctions.googleapis.com/projectSettings/biblya-ed2ec?view=CONSUMER_VIEW  
+  
+ Wed Jan 10 2018 12:02:53 GMT-0500 (EST)
+[debug] [2018-01-10T17:02:53.865Z] >>> HTTP REQUEST GET https://servicemanagement.googleapis.com/v1/services/runtimeconfig.googleapis.com/projectSettings/biblya-ed2ec?view=CONSUMER_VIEW  
+  
+ Wed Jan 10 2018 12:02:53 GMT-0500 (EST)
+[debug] [2018-01-10T17:02:54.450Z] <<< HTTP RESPONSE 200
+[debug] [2018-01-10T17:02:55.275Z] <<< HTTP RESPONSE 200
+[info] ✔  functions: all necessary APIs are enabled
+[debug] [2018-01-10T17:02:55.276Z] >>> HTTP REQUEST GET https://appengine.googleapis.com/v1/apps/biblya-ed2ec  
+  
+ Wed Jan 10 2018 12:02:55 GMT-0500 (EST)
+[debug] [2018-01-10T17:02:55.277Z] >>> HTTP REQUEST GET https://apikeys.googleapis.com/v1/projects/biblya-ed2ec/apiKeys  
+  
+ Wed Jan 10 2018 12:02:55 GMT-0500 (EST)
+[debug] [2018-01-10T17:02:55.869Z] <<< HTTP RESPONSE 200
+[debug] [2018-01-10T17:02:55.871Z] <<< HTTP RESPONSE 200
+[info] i  storage: uploading rules storage.rules...
+[debug] [2018-01-10T17:02:55.874Z] >>> HTTP REQUEST POST https://firebaserules.googleapis.com/v1/projects/biblya-ed2ec/rulesets  
+ { source: { files: [ [Object] ] } } 
+ Wed Jan 10 2018 12:02:55 GMT-0500 (EST)
+[debug] [2018-01-10T17:02:56.270Z] <<< HTTP RESPONSE 200
+[debug] [2018-01-10T17:02:56.270Z] [rules] created ruleset projects/biblya-ed2ec/rulesets/aaf97b4d-0006-4ebe-8385-7b9d295b974a
+[info] i  firestore: uploading rules firestore.rules...
+[debug] [2018-01-10T17:02:56.271Z] >>> HTTP REQUEST POST https://firebaserules.googleapis.com/v1/projects/biblya-ed2ec/rulesets  
+ { source: { files: [ [Object] ] } } 
+ Wed Jan 10 2018 12:02:56 GMT-0500 (EST)
+[debug] [2018-01-10T17:02:56.271Z] >>> HTTP REQUEST GET https://firestore.googleapis.com/v1beta1/projects/biblya-ed2ec/databases/(default)/indexes  
+  
+ Wed Jan 10 2018 12:02:56 GMT-0500 (EST)
+[debug] [2018-01-10T17:02:56.575Z] <<< HTTP RESPONSE 200
+[debug] [2018-01-10T17:02:56.575Z] [rules] created ruleset projects/biblya-ed2ec/rulesets/3ea3a88a-9021-41a4-b045-3c18db391bd1
+[debug] [2018-01-10T17:02:56.749Z] <<< HTTP RESPONSE 200
