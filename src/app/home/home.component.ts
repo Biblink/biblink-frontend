@@ -18,7 +18,9 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     const init = [];
     const x = setInterval(() => {
-      init.push(AOS.init());
+      init.push(AOS.init({
+        disable: 'mobile'
+      }));
       if (init.length >= 2) {
         clearInterval(x);
       }

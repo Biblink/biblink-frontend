@@ -1,17 +1,33 @@
 <div class="is-hidden-tablet" id="menu-overlay" [ngStyle]="{'opacity': menuOpacity, 'height': menuHeight}">
     <div class="container has-text-centered menu-links">
-        <div><a class="nav-link">Home</a></div>
-        <div><a class="nav-link">About</a></div>
-        <div><a class="nav-link">Search</a></div>
-        <div><a class="nav-link">Sign In</a></div>
+        <div>
+            <a class="nav-link">Home</a>
+        </div>
+        <div>
+            <a class="nav-link">About</a>
+        </div>
+        <div>
+            <a class="nav-link">Search</a>
+        </div>
+        <div>
+            <a class="nav-link">Sign In</a>
+        </div>
     </div>
 </div>
 <div class="dotstyle dotstyle-fillup is-hidden-mobile">
     <ul class="dots">
-        <li [class.current]="isCurrent"><a [ngx-scroll-to]="'#top-of-page'" [ngx-scroll-to-duration]="1200" [ngx-scroll-to-easing]="'easeInOutQuart'" id="1">Top of Page</a></li>
-        <li><a (click)="isCurrent = false" [ngx-scroll-to]="'#verse'" [ngx-scroll-to-duration]="1200" [ngx-scroll-to-easing]="'easeInOutQuart'" id="2">Bible Verse</a></li>
-        <li><a (click)="isCurrent = false" [ngx-scroll-to]="'#main'" [ngx-scroll-to-duration]="1200" [ngx-scroll-to-easing]="'easeInOutQuart'" id="3">Features</a></li>
-        <li><a (click)="isCurrent = false" [ngx-scroll-to]="'#cta'" [ngx-scroll-to-duration]="1200" [ngx-scroll-to-easing]="'easeInOutQuart'" id="4">Get Started</a></li>
+        <li [class.current]="isCurrent">
+            <a [ngx-scroll-to]="'#top-of-page'" [ngx-scroll-to-duration]="1200" [ngx-scroll-to-easing]="'easeInOutQuart'" id="1">Top of Page</a>
+        </li>
+        <li>
+            <a (click)="isCurrent = false" [ngx-scroll-to]="'#verse'" [ngx-scroll-to-duration]="1200" [ngx-scroll-to-easing]="'easeInOutQuart'" id="2">Bible Verse</a>
+        </li>
+        <li>
+            <a (click)="isCurrent = false" [ngx-scroll-to]="'#main'" [ngx-scroll-to-duration]="1200" [ngx-scroll-to-easing]="'easeInOutQuart'" id="3">Features</a>
+        </li>
+        <li>
+            <a (click)="isCurrent = false" [ngx-scroll-to]="'#cta'" [ngx-scroll-to-duration]="1200" [ngx-scroll-to-easing]="'easeInOutQuart'" id="4">Get Started</a>
+        </li>
     </ul>
     <ul class="descriptions">
         <li id="1-desc">Top of Page</li>
@@ -49,7 +65,9 @@
             <ul class="navvy">
                 <li id="menu">
                     <div class="navTrigger" [class.active]="activated" (click)="toggleMobileMenu()">
-                        <i></i><i></i><i></i>
+                        <i></i>
+                        <i></i>
+                        <i></i>
                     </div>
                 </li>
                 <li id="sign-in">
@@ -196,7 +214,7 @@
                 </div>
             </div>
             <div class="feature-image" data-aos="fade-down-left" data-aos-duration="1000">
-                <img src="/assets/images/feature-images/mobile/dashboard.svg">
+                <img with="50%" height="50%" src="/assets/images/feature-images/mobile/dashboard.svg">
             </div>
         </div>
     </div>
@@ -208,18 +226,22 @@
         <h4 class="cta-header subheader" data-aos="zoom-out-down" data-aos-duration="1200">So what are you waiting for?</h4>
         <p class="cta-text" data-aos="zoom-out-up" data-aos-duration="1500">Get your church started now!</p>
         <button class="get-started-cta btn" data-aos="fade-up" data-aos-duration="1000">
-                        Get Started
+            Get Started
         </button>
-        <p><a class="to-top" [ngx-scroll-to]="'#top-of-page'" data-aos="fade-down" data-aos-duration="2500" [ngx-scroll-to-duration]="1500" [ngx-scroll-to-easing]="'easeInOutQuart'">Back to top</a></p>
+        <p>
+            <a class="to-top" [ngx-scroll-to]="'#top-of-page'" data-aos="fade-down" data-aos-duration="2500" [ngx-scroll-to-duration]="1500" [ngx-scroll-to-easing]="'easeInOutQuart'">Back to top</a>
+        </p>
     </div>
     <div class="container cta-container has-text-centered mobile is-hidden-tablet">
         <hr class="has-text-centered cta-divider" data-aos="zoom-in-up" data-aos-duration="800">
         <h4 class="cta-header" data-aos="zoom-out-down" data-aos-duration="1200">So what are you waiting for?</h4>
         <p class="cta-text" data-aos="zoom-out-up" data-aos-duration="1500">Get your church started now!</p>
         <button class="get-started-cta btn" data-aos="fade-up" data-aos-duration="1000">
-                        Get Started
+            Get Started
         </button>
-        <p><a class="to-top" [ngx-scroll-to]="'#top-of-page'" data-aos="fade-down" data-aos-duration="2500" [ngx-scroll-to-duration]="1500" [ngx-scroll-to-easing]="'easeInOutQuart'">Back to top</a></p>
+        <p>
+            <a class="to-top" [ngx-scroll-to]="'#top-of-page'" data-aos="fade-down" data-aos-duration="2500" [ngx-scroll-to-duration]="1500" [ngx-scroll-to-easing]="'easeInOutQuart'">Back to top</a>
+        </p>
     </div>
 </section>
 <app-footer></app-footer>
