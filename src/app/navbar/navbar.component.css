@@ -4,8 +4,7 @@
     background: #06292A;
 }
 
-
-#logo /*LI*/ {
+#logo {
     float: left;
     position: relative;
     margin-top: 5px;
@@ -52,24 +51,26 @@
 }
 
 #sign-in {
-    float: top left;
+    display: block;
+    float: right;
     position: relative;
-    margin-left: 1750px;
+    margin-right: 200px;
     margin-top: 30px;
-    
 }
 
 .nav-link {
     font-family: 'museo-sans';
-    font-weight: bold;
-    font-size: 1.5em;
+    font-weight: 900;
+    font-size: 1.2rem;
+    line-height: 19px;
     letter-spacing: 2px;
     color: white;
     text-align: center;
 }
 
 .mid-nav {
-    margin-top: 30px;
+    top: 30px;
+    position: relative;
     width: 295px;
     margin: 0 auto;
     text-align: center;
