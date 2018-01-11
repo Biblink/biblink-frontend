@@ -256,13 +256,13 @@
     transition: all 1s cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 
-.desktop #sign-in {
+.desktop #sign-in, .desktop #sign-in-mobile {
     position: relative;
     right: 88px;
     float: right;
 }
 
-.mobile #sign-in {
+.mobile #sign-in, .desktop #sign-in-mobile {
     position: relative;
     right: 17px;
     float: right;

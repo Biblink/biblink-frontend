@@ -1,43 +1,21 @@
 #navbar-banner {
-    width: 100%;
-    height: 100px;
     background: #06292A;
 }
 
 #logo {
-    float: left;
     position: relative;
-    margin-top: 5px;
-    margin-left: 20px;
-    width: 100px;
-    height: 80px;
-    background: url('/assets/icons/white-logo.svg') no-repeat center;
-    transition: all 1s cubic-bezier(0.075, 0.82, 0.165, 1);
+    left: 88px;
+    float: left;
 }
 
 #logo-link {
-    position: relative;
-    float: left;
-    display: inline-block;
+    background: url('/assets/icons/logo-with-name.svg') no-repeat center;
+    font-size: 4rem;
     color: transparent;
-    font-size: 3rem;
-    width: 100px;
-    height: 80px; 
-}
-
-#logo-text {
-    float: left;
-    position: relative;
-    height: 60px;
-    width: 150px;
-    margin-top: 15px;
-    margin-left: 20px;
-    color: white;
-    text-align: center;
-    font-family: 'museo-sans';
-    font-weight: bold;
-    font-size: 3em;
-    letter-spacing: 2px;    
+    overflow: hidden;
+    text-indent: 100%;
+    white-space: nowrap;
+    transition: all 1s cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 
 #logo:hover {
@@ -51,28 +29,36 @@
 }
 
 #sign-in {
-    display: block;
-    float: right;
     position: relative;
-    margin-right: 200px;
-    margin-top: 30px;
+    right: 88px;
+    float: right;
 }
 
 .nav-link {
-    font-family: 'museo-sans';
-    font-weight: 900;
-    font-size: 1.2rem;
+    width: 73px;
     line-height: 19px;
-    letter-spacing: 2px;
-    color: white;
+    letter-spacing: 1px;
+    font-size: 1.2rem;
+    font-weight: 900;
+    color: #ffffff;
     text-align: center;
 }
 
+.navvy li {
+    height: 19px;
+}
+
 .mid-nav {
-    top: 30px;
     position: relative;
     width: 295px;
     margin: 0 auto;
     text-align: center;
-    
+}
+
+.navvy {
+    width: 100%;
+}
+
+#navbar-banner {
+    padding: 35px;
 }

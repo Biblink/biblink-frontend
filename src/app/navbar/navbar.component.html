@@ -1,26 +1,23 @@
 <nav class="navbar" id="navbar-banner">
-    <ul>
-        <li id="logo">  
-            <a id="logo-link" href="">Logo</a>   
+    <ul class="navvy">
+        <li id="logo">
+            <a id="logo-link" class="nav-link" [routerLink]="'/'">The Logo</a>
         </li>
-        <li id="logo-text">
-            <p>Biblya</p>
-        </li> 
-    </ul>   
-<div class="mid-nav">
-    <div class="columns is-centered">                    
-        <div class="column">   
-            <a class="nav-link">Home</a>
+        <li id="sign-in">
+            <a class="nav-link">Sign In</a>
+        </li>
+        <div class="mid-nav">
+            <div class="columns">
+                <div class="column">
+                    <a [routerLink]="'/'" class="nav-link">Home</a>
+                </div>
+                <div class="column">
+                    <a class="nav-link">About</a>
+                </div>
+                <div class="column">
+                    <a [routerLink]="'/search'" class="nav-link">Search</a>
+                </div>
+            </div>
         </div>
-        <div class="column">
-            <a class="nav-link">About</a>
-        </div>
-        <div class="column">
-            <a [routerLink]="'/search'" class="nav-link">Search</a>
-        </div>
-    </div>
-</div>
-    <div id="sign-in">
-        <a class="nav-link">Sign In</a>
-    </div>
+    </ul>
 </nav>
