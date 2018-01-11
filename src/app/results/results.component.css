@@ -1,0 +1,37 @@
+#temp2 {
+    margin-top: 100px;
+}
+
+
+
+
+#result-header>h1 {
+    margin-top: 100px;
+    font-family: "museo-sans", sans-serif;
+    font-weight: 900;
+    font-size: 5em;
+    letter-spacing: 8px;
+    color: black;
+}
+
+#sort-text {
+    width: 70px;
+    font-family: "museo-sans", sans-serif;
+    font-weight: 700;
+    font-size: 1em;
+    color: black;
+}
+
+#select {
+    width: 100px;
+    margin-left: 70px;
+    margin-top: -24px;
+    
+}
+
+#controls {
+    float: left;
+    padding: 5px;
+    height: 24px;
+}
+

@@ -1,8 +1,24 @@
-<div class="container has-text-centered">
-    <h1 style="font-size: 3.5rem">Results Code</h1>
+<div class="container has-text-centered" id="result-header">
+    <h1>Results</h1>
+</div>
+<div class="container" id="preferences">
+    <ul id="controls">
+        <li id="sort-text">
+            <p>Sort by:</p>
+        </li>
+        <li id="select">
+            <select>
+                <option>Relevance</option>
+                <option>A-Z</option>
+                <option>Z-A</option>
+                <option>By book</option>
+            </select>
+        </li>
+    </ul>
+
 </div>
 <div class="container has-text-centered">
-    <h1 style="font-size: 2rem">Result Cards</h1>
+    <h1 style="font-size: 2rem" id=temp2>Result Cards</h1>
     <ng-container *ngFor="let verse of verse_data_observable | async">
         <app-result-card>
             <div class="card-header">
