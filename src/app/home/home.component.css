@@ -288,6 +288,9 @@
     transition: all 1s cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 
+.navvy li {
+    height: 19px;
+}
 
 /* top/banner css */
 
@@ -303,7 +306,7 @@
     .top-enhanced {
         background: url('/assets/images/background-images/home_bg_mobile_webp.webp') no-repeat, url('/assets/images/background-images/home_bg_mobile.jpg') no-repeat;
         background-size: cover;
-        transition: background 0.2s;
+        transition: background 0.5s;
         transition-timing-function: ease-in-out, linear, step-start, cubic-bezier(0.215, 0.61, 0.355, 1);
     }
 }
@@ -356,19 +359,13 @@
     margin-bottom: 20px;
     height: 107px;
     color: #ffffff;
-    font-family: 'museo-sans';
+    font-family: 'museo-sans', sans-serif;
     font-size: 10rem;
     font-weight: 900;
     letter-spacing: 10px;
     line-height: 131px;
     text-transform: uppercase;
     animation: fadeInLeftTop 1.5s;
-}
-
-@media screen and (max-width: 1200px) {
-    .hero-body .desktop .title {
-        font-size: 6rem;
-    }
 }
 
 .hero-body .desktop .subtitle {
@@ -387,7 +384,7 @@
 
 .hero-body .mobile .title {
     color: #ffffff;
-    font-family: 'museo-sans';
+    font-family: 'museo-sans', sans-serif;
     font-size: 64px;
     font-weight: 900;
     letter-spacing: 5px;
@@ -401,7 +398,7 @@
     width: 262px;
     margin: 0 auto;
     color: #ffffff;
-    font-family: 'museo-sans';
+    font-family: 'museo-sans', sans-serif;
     font-size: 16px;
     font-weight: bold;
     letter-spacing: 3px;
@@ -411,26 +408,25 @@
 }
 
 .mobile .btn {
-    font-family: 'museo-sans';
+    font-family: 'museo-sans', sans-serif;
     font-weight: 900;
     letter-spacing: 2px;
     line-height: 25px;
     text-align: center;
     font-size: 14px;
     height: 45px;
-    width: 180px;
+    width: 156px;
 }
 
 .mobile .get-started-btn {
+    margin-top: 40px;
     color: #ffffff;
     border: 2px solid #ffffff;
     border-radius: 3px;
     background: transparent;
-    font-family: 'museo-sans';
+    font-family: 'museo-sans', sans-serif;
     transition: all 1s cubic-bezier(0.075, 0.82, 0.165, 1);
     animation: fadeInDownTop 3.5s;
-    display: block;
-    margin: 40px auto 0 auto;
 }
 
 .desktop .get-started-btn {
@@ -446,7 +442,7 @@
     border: 2px solid #ffffff;
     border-radius: 3px;
     background: transparent;
-    font-family: 'museo-sans';
+    font-family: 'museo-sans', serif;
     transition: all 1s cubic-bezier(0.075, 0.82, 0.165, 1);
     animation: fadeInDownTop 3.5s;
 }
@@ -490,7 +486,7 @@
 }
 
 .desktop .btn {
-    font-family: 'museo-sans';
+    font-family: 'museo-sans', sans-serif;
     font-weight: 900;
     letter-spacing: 2px;
     line-height: 25px;
@@ -507,7 +503,7 @@
 .scroll {
     margin-bottom: 10px;
     color: #ffffff;
-    font-family: 'museo-sans';
+    font-family: 'museo-sans', sans-serif;
     font-size: 0.8rem;
     font-weight: 900;
     letter-spacing: 3px;
@@ -524,11 +520,11 @@
         position: relative;
         top: 75px;
         color: #000000;
-        font-family: 'museo-sans';
+        font-family: 'museo-sans', sans-serif;
         font-size: 1.3rem;
         letter-spacing: 1px;
         line-height: 40px;
-        width: 75%;
+        width: 1025px;
         text-align: center;
         margin-bottom: 70px;
     }
@@ -539,7 +535,7 @@
         position: relative;
         top: 75px;
         color: #000000;
-        font-family: 'museo-sans';
+        font-family: 'museo-sans', sans-serif;
         font-size: 1.2rem;
         letter-spacing: 2px;
         line-height: 25px;
@@ -558,7 +554,7 @@
 
 .desktop .feature-heading {
     color: #343232;
-    font-family: 'museo-sans';
+    font-family: 'museo-sans', sans-serif;
     font-size: 2rem;
     font-weight: 900;
     letter-spacing: 3px;
@@ -567,7 +563,7 @@
 
 .mobile .feature-heading {
     color: #343232;
-    font-family: 'museo-sans';
+    font-family: 'museo-sans', sans-serif;
     font-size: 2rem;
     font-weight: 900;
     letter-spacing: 3px;
@@ -579,7 +575,7 @@
 @media screen and (min-width: 769px) {
     .feature-description {
         color: #000000;
-        font-family: 'museo-sans';
+        font-family: 'museo-sans', sans-serif;
         font-size: 1.2rem;
         letter-spacing: 1px;
         line-height: 30px;
@@ -591,7 +587,7 @@
 @media screen and (max-width: 768px) {
     .feature-description {
         color: #000000;
-        font-family: 'museo-sans';
+        font-family: 'museo-sans', sans-serif;
         font-size: 1rem;
         letter-spacing: 1px;
         line-height: 20px;
@@ -622,12 +618,6 @@
     position: relative;
     top: 70px;
     margin-bottom: 90px;
-}
-
-@media screen and (max-width: 1200px) {
-    #main .desktop .columns {
-        margin-bottom: 50px;
-    }
 }
 
 .img-align-left {
@@ -690,7 +680,7 @@
     background-color: #f23b2c;
     box-shadow: 0 8px 18px 0 rgba(90, 89, 89, 0.5);
     color: #ffffff;
-    font-family: 'museo-sans';
+    font-family: 'museo-sans', sans-serif;
     font-weight: 900;
     letter-spacing: 1px;
     line-height: 19px;
@@ -706,7 +696,7 @@
 
 .desktop .cta-header {
     color: #343232;
-    font-family: 'museo-sans';
+    font-family: 'museo-sans', sans-serif;
     font-size: 1.7rem;
     font-weight: 900;
     letter-spacing: 3px;
@@ -718,7 +708,7 @@
     margin: 0 auto;
     width: 266px;
     color: #343232;
-    font-family: 'museo-sans';
+    font-family: 'museo-sans', sans-serif;
     font-size: 1.7rem;
     font-weight: 900;
     letter-spacing: 3px;
@@ -733,7 +723,7 @@
 .desktop .cta-text {
     margin-top: 40px;
     color: #000000;
-    font-family: 'museo-sans';
+    font-family: 'museo-sans', sans-serif;
     font-size: 1.3rem;
     font-weight: 900;
     letter-spacing: 2px;
@@ -745,7 +735,7 @@
     margin: 30px auto 0 auto;
     width: 250px;
     color: #000000;
-    font-family: 'museo-sans';
+    font-family: 'museo-sans', sans-serif;
     font-size: 1.3rem;
     font-weight: 900;
     letter-spacing: 2px;
@@ -759,7 +749,6 @@
 }
 
 .to-top:hover {
-    cursor: pointer;
     color: #343232;
     transition: all 0.2s ease-in-out;
 }
