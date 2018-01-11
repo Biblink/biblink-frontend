@@ -5,12 +5,14 @@
 #logo {
     position: relative;
     left: 88px;
-    float: left;
+    float: left; 
+   
+    
 }
 
 #logo-link {
-    background: url('/assets/icons/logo-with-name.svg') no-repeat center;
-    font-size: 4rem;
+    font-size: 4rem; 
+    background: url('/assets/icons/white-logo.svg') no-repeat center;
     color: transparent;
     overflow: hidden;
     text-indent: 100%;
