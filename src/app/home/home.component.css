@@ -288,6 +288,10 @@
     transition: all 1s cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 
+.navvy li {
+    height: 19px;
+}
+
 .dotstyle {
     position: fixed;
     width: 100%;
