@@ -11,12 +11,7 @@
 }
 
 #logo-link {
-    font-size: 4rem; 
-    background: url('/assets/icons/logo-with-name.svg') no-repeat center;
-    color: transparent;
-    overflow: hidden;
-    text-indent: 100%;
-    white-space: nowrap;
+    font-size: 4rem;
     transition: all 1s cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 
@@ -44,6 +39,11 @@
     font-weight: 900;
     color: #ffffff;
     text-align: center;
+}
+
+.nav-icon {
+    position: relative;
+    bottom: 100%;
 }
 
 .navvy li {

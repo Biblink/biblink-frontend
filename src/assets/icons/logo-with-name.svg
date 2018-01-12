@@ -3,7 +3,11 @@
     <!-- Generator: Sketch 48.2 (47327) - http://www.bohemiancoding.com/sketch -->
     <title>Logo</title>
     <desc>Created with Sketch.</desc>
-    <defs></defs>
+    <defs>
+        <style type="text/css">
+            @import url('https://use.typekit.net/uet5lfg.css');
+        </style>
+    </defs>
     <g id="Desktop-Search-Page" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(-62.000000, -30.000000)">
         <g id="Navbar">
             <g id="Logo" transform="translate(62.000000, 32.000000)">
@@ -25,7 +29,7 @@
                     <path d="M39,23 C41.7487297,23.0062942 44.3405973,21.5252344 46,19" id="Shape" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
                     <path d="M48,17 C48.5117437,16.0213133 48.7705952,15.0128012 48.77,14" id="Shape" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
                 </g>
-                <text id="Biblya" font-family="AvenirNext-Bold, Avenir Next" font-size="36" font-weight="bold" letter-spacing="4.5" fill="#FFFFFF">
+                <text id="Biblya" font-family="museo-sans" font-size="36" font-weight="900" letter-spacing="4.5" fill="#FFFFFF">
                     <tspan x="105.082" y="39">Biblya</tspan>
                 </text>
             </g>
