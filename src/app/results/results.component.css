@@ -14,7 +14,7 @@
     color: black;
 }
 
-#sort-text {
+.sort-text {
     width: 70px;
     font-family: "museo-sans", sans-serif;
     font-weight: 700;
@@ -35,3 +35,37 @@
     height: 24px;
 }
 
+
+#wrapper {
+    margin-top: 40px;
+    padding: 5px;
+}
+
+#extra-length {
+    width: 130px;
+}
+
+.option {
+    height: 24px;
+    width: 140px;
+    background: #06292A;
+    font-family: "museo-sans", sans-serif;
+    color: white;
+    text-align: center;
+
+
+}
+
+#verse {
+    width: 60px;
+    margin-left: 130px;
+    margin-top: -24px;
+
+}
+
+#comm {
+
+    width: 130px;
+    margin-left: 200px;
+    margin-top: -24px;
+}

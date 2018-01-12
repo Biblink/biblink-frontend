@@ -3,7 +3,7 @@
 </div>
 <div class="container" id="preferences">
     <ul id="controls">
-        <li id="sort-text">
+        <li class="sort-text">
             <p>Sort by:</p>
         </li>
         <li id="select">
@@ -15,8 +15,23 @@
             </select>
         </li>
     </ul>
+</div>
+<div class="container" id="results-include">
+    <ul id="wrapper">
+        <li class="sort-text" id="extra-length">
+            <p>Results Include:</p>
+        </li>
+        <li class="option" id="verse">
+            <p>Verses</p>
+        </li>
+        <li class="option" id="comm">
+            <p>Commentaries</p>
+        </li>
+    </ul>
 
 </div>
+
+
 <div class="container has-text-centered">
     <h1 style="font-size: 2rem" id=temp2>Result Cards</h1>
     <ng-container *ngFor="let verse of verse_data_observable | async">
