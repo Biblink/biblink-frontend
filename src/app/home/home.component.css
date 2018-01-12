@@ -451,7 +451,7 @@
     animation: fadeInDownTop 3.5s;
 }
 
-.get-started-btn:hover {
+.desktop .get-started-btn:hover, .mobile .get-started-btn:hover {
     color: #343232;
     background-color: #f1f1f1;
     border: 3px solid #f1f1f1;
