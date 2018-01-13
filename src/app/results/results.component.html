@@ -32,17 +32,7 @@
 </div>
 
 
-<div class="container has-text-centered">
-    <h1 style="font-size: 2rem" id=temp2>Result Cards</h1>
-    <ng-container *ngFor="let verse of verse_data_observable | async">
-        <app-result-card>
-            <div class="card-header">
-                {{verse.reference}}
-            </div>
-            <div class="card-content">
-                {{verse.text}}
-            </div>
-        </app-result-card>
-        <br><br>
-    </ng-container>
+<div class="container has-text-centered" id="result-container">
+    <app-result-card>    
+    </app-result-card>
 </div>
