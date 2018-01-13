@@ -34,7 +34,7 @@
     width: 100%;
     padding: 15px;
     outline: none;
-    height: 100%;
+    height: 86px;
     float: right;
     font-size: 1.6rem;
     letter-spacing: 2px;
@@ -50,6 +50,7 @@
     box-shadow: -2px 4px 8px 2px rgba(175,167,167,0.5);
     font-family: "museo-sans", sans-serif;
     letter-spacing: 3px;
+    height: 86px;
 }
 
 #search-button /*LI*/ {
