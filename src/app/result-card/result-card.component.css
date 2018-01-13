@@ -1,0 +1,92 @@
+.result-card {
+    overflow: auto;
+    margin-top: 50px;
+    width: 84rem;
+    height: 200px;
+    box-shadow: -2px 4px 8px 2px rgba(175,167,167,0.5);
+}
+
+.card-header {
+    padding-top: 5px;
+    text-align: center;
+    font-family: "museo-sans", sans-serif;
+    font-weight: 900;
+    font-size: 1.5em;
+    letter-spacing: 3px;
+    color: black;
+    height: 50px;
+    width: 20rem;
+    margin-left: 10px;
+}
+
+.card-content {
+    text-align: left;
+    font-family: "museo-sans", sans-serif;
+    font-size: 1.2em;
+    letter-spacing: 2px;
+    color: black;
+    height: 100px;
+}
+
+.card-footer {
+    height: 50px;
+}
+
+.book {
+    text-align: center;
+    padding-left: 10px;
+    
+}
+
+.reference {
+    text-align: center;
+    padding-left: 5px;
+}
+
+.verse-tag {
+    font-family: "museo-sans", sans-serif;
+    font-weight: bold;
+    text-align: center;
+    color: #767272;
+    float: right;
+    width: 80px;
+    padding-top: 10px;
+    padding-right: 20px;
+}
+
+.links /*UL*/ {
+    float: left;
+    padding: 5px;
+    width: 250px;
+}
+
+.item /*LI class*/ {
+    padding: 5px;
+    width: 100px;
+    height: 40px;
+    font-family: "museo-sans", sans-serif;
+    font-size: 1.2em;
+    font-weight: 600;
+    letter-spacing: 2px;
+    color: black
+}
+
+#see-more {
+    color: black;
+    margin-left: 20px;
+    width: 120px;
+}
+
+#share {
+    color: black;
+    margin-left: 180px;
+    margin-top: -40px;
+}
+
+#href-more {
+    color: black;
+}
+
+#href-share {
+    color: black;
+}
