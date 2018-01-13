@@ -25,7 +25,8 @@
     margin-top: 30px;
     margin-right: auto;
     margin-left: auto;
-    width: 704px;
+    width: 50%;
+    transition: all 1s cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 
 #search  {
@@ -35,27 +36,24 @@
     outline: none;
     height: 100%;
     float: right;
-    font-size: 1.4rem;
-    letter-spacing: 3px;
+    font-size: 1.6rem;
+    letter-spacing: 2px;
     line-height: 38px;
 }
 
 #search-input /*LI*/ {
-    height: 86px;
     border: none;
     margin-right: auto;
     margin-left: auto;
     float: left;
-    width: 704px;
+    width: 100%;
     box-shadow: -2px 4px 8px 2px rgba(175,167,167,0.5);
     font-family: "museo-sans", sans-serif;
     letter-spacing: 3px;
-    font-size: 1.3em;
 }
 
 #search-button /*LI*/ {
     background: #F23B2C url('/assets/icons/search-button-icon.svg') center no-repeat;
-    height: 86px;
     transition: all 1s cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 
