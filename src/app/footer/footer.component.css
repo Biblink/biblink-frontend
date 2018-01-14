@@ -42,7 +42,7 @@
 
 .headings h3 {
     color: #fcfcfc;
-    font-family: 'museo-sans';
+    font-family: 'museo-sans', sans-serif;
     font-size: 1.5rem;
     font-weight: 900;
     letter-spacing: 3px;
@@ -64,7 +64,7 @@
 
 .content a {
     color: #fcfcfc;
-    font-family: 'museo-sans';
+    font-family: 'museo-sans', sans-serif;
     font-size: 1rem;
     font-weight: 900;
     letter-spacing: 3px;
@@ -93,7 +93,7 @@
     position: relative;
     top: 35px;
     color: #fcfcfc;
-    font-family: 'museo-sans';
+    font-family: 'museo-sans', sans-serif;
     font-size: 10px;
     font-weight: 900;
     letter-spacing: 2px;
