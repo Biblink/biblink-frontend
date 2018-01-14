@@ -126,11 +126,13 @@
 .divider {
     box-sizing: border-box;
     height: 1px;
-    width: 800px;
+    width: 75%;
     border: 1px solid #BCB8B8;
     margin-right: auto;
     margin-left: auto;
-    margin-top: 300px;
+    margin-top: 15%;
+    /* This will be dynamically set */
+    opacity: 0;
 }
 
 #search-icon {
