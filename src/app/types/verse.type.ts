@@ -1,8 +1,8 @@
 export interface Verse {
-  reference: string;
-  number: number;
-  chapter: number;
+  verse: string;
+  verse_number: number;
   book: string;
   text: string;
-  id: string;
+  book_id: string;
+  score: number;
 }
