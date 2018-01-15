@@ -8,7 +8,6 @@ import {Title} from '@angular/platform-browser';
 })
 export class SearchComponent implements OnInit {
     searchQuery = '';
-    suggestions: String[] = ['Leviticus', 'Love', 'Life'];
 
     constructor(private title: Title) {
     }
