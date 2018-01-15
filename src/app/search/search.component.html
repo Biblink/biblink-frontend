@@ -7,17 +7,17 @@
     <p>A smart and simple search engine</p>
 </div>
 <div class="control has-text-centered" id="search-bar">
-    <form>
+    <form #search="ngForm" (ngSubmit)="searchService.searchES(searchQuery)">
         <ul id="wrapper">
             <li id="search-input">
                 <input name="search" [(ngModel)]="searchQuery" class="is-large" id="search" type="text"
                        placeholder="Search">
             </li>
             <li id="search-button">
-                <button class="button is-large" id="button"><img src="/assets/icons/search-button-icon.svg"></button>
+                <button type="submit" class="button is-large" id="button"><img src="/assets/icons/search-button-icon.svg"></button>
             </li>
         </ul>
     </form>
 </div>
 <div class="divider"></div>
-<app-results></app-results>
+<app-results *ngIf="searchService.results.length > 0"></app-results>

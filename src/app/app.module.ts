@@ -2,6 +2,7 @@ import {BrowserModule} from '@angular/platform-browser';
 import {ServiceWorkerModule} from '@angular/service-worker';
 import {environment} from '../environments/environment';
 import {RouterModule, Routes} from '@angular/router';
+import {HttpClientModule} from '@angular/common/http';
 import {NgModule} from '@angular/core';
 import {ScrollToModule} from '@nicky-lenaers/ngx-scroll-to';
 import {FormsModule} from '@angular/forms';
@@ -39,7 +40,8 @@ const appRoutes: Routes = [
             ? ServiceWorkerModule.register('/ngsw-worker.js')
             : [],
         RouterModule.forRoot(appRoutes),
-        ScrollToModule.forRoot()
+        ScrollToModule.forRoot(),
+        HttpClientModule
     ],
     providers: [SearchService],
     bootstrap: [AppComponent]
