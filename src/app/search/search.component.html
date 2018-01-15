@@ -12,11 +12,6 @@
             <li id="search-input">
                 <input name="search" [(ngModel)]="searchQuery" class="is-large" id="search" type="text"
                        placeholder="Search">
-                <ul id="autocomplete" *ngIf="searchQuery?.length > 0">
-                    <li *ngFor="let term of suggestions" class="suggestion" (click)="searchQuery = term">
-                        {{term}}
-                    </li>
-                </ul>
             </li>
             <li id="search-button">
                 <button class="button is-large" id="button"><img src="/assets/icons/search-button-icon.svg"></button>
