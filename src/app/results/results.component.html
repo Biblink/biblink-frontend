@@ -3,19 +3,23 @@
 </div>
 <div class="container" id="preferences">
     <ul id="controls">
-        <li class="sort-text">
-            <p>Sort by:</p>
+        <li id="sort-label">
+            <label for="sort">Sort By:</label>
         </li>
         <li id="select">
-            <select>
-                <option>Relevance</option>
-                <option>A-Z</option>
-                <option>Z-A</option>
-                <option>By book</option>
-            </select>
+            <span class="custom-dropdown">
+                <select class="sort-select" id="sort">
+                    <option>Most Relevant</option>
+                    <option>A-Z</option>
+                    <option>Z-A</option>
+                    <option>By Book</option>
+                </select>
+            </span>
+
         </li>
     </ul>
 </div>
+<br><br><br>
 <div class="container" id="results-include">
     <ul id="wrapper">
         <li class="sort-text" id="extra-length">
