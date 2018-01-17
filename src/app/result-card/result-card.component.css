@@ -26,6 +26,7 @@
     letter-spacing: 2px;
     color: black;
     height: 100px;
+    overflow: auto;
 }
 
 .card-footer {
@@ -57,7 +58,7 @@
 .links /*UL*/ {
     float: left;
     padding: 5px;
-    width: 250px;
+    width: /*250px;*/ 84rem;
 }
 
 .item /*LI class*/ {
@@ -72,13 +73,12 @@
 }
 
 #see-more {
-    color: black;
+
     margin-left: 20px;
     width: 120px;
 }
 
 #share {
-    color: black;
     margin-left: 180px;
     margin-top: -40px;
 }
@@ -89,4 +89,11 @@
 
 #href-share {
     color: black;
+}
+
+.like-button {
+    padding: 5px;
+    margin-top: -40px;
+    float: right;
+    margin-right: 50px;
 }
