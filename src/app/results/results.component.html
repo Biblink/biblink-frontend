@@ -19,7 +19,6 @@
         </li>
     </ul>
 </div>
-<br><br><br>
 <div class="container" id="results-include">
     <ul id="wrapper">
         <li class="sort-text" id="extra-length">
@@ -37,6 +36,8 @@
 
 
 <div class="container has-text-centered" id="result-container">
-    <app-result-card>    
+    <app-result-card *ngFor="let result of _search.results">
+        <div class="card-header-text" [innerHtml]="result.verse"></div>
+        <div class="card-body" [innerHtml]="result.text"></div>
     </app-result-card>
 </div>
