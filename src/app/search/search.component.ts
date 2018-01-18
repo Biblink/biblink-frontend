@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Title} from '@angular/platform-browser';
 import {SearchService} from '../search.service';
 
@@ -7,7 +7,7 @@ import {SearchService} from '../search.service';
     templateUrl: './search.component.html',
     styleUrls: ['./search.component.css']
 })
-export class SearchComponent implements OnInit {
+export class SearchComponent implements OnInit, OnDestroy {
     searchQuery = '';
 
     constructor(private title: Title, public searchService: SearchService) {
@@ -15,6 +15,10 @@ export class SearchComponent implements OnInit {
 
     ngOnInit() {
         this.title.setTitle('Biblya | Search');
+    }
+
+    ngOnDestroy() {
+        this.searchService.results = [];
     }
 
 }
