@@ -1,70 +1,46 @@
-<div class="container" class="result-card">
-    <p class="verse-tag">Verse</p>
-    <div class="card-header">
-        <p class="book">Title One</p><p class="reference">05:30</p>
-    </div>
-    <div class="card-content">
-        <p>Bacon ipsum dolor amet filet mignon turkey salami kielbasa. Buffalo venison kevin, rump turducken sirloin tri-tip ribeye short loin porchetta.</p>
-    </div>
-    <div class="card-footer">
-        <ul class="links">
-            <li class="item" id="see-more">
-                <a href="" id="href-more">See More</a>
-            </li>
-            <li class="item" id="share">
-                <a href="" id="href-share">Share</a>
-            </li>
-            <li class="like-button" id="like">
-                <p>placeholder</p>
-            </li>
-        </ul>
-    </div>
-</div>
-<div class="container" class="result-card">
-    <p class="verse-tag">Verse</p>
-    <div class="card-header">
-        <p class="book">Title Two</p><p class="reference">114:15</p>
-    </div>
-    <div class="card-content">
-        <p>
-            Bacon ipsum dolor amet filet mignon turkey salami kielbasa. Buffalo venison kevin, rump turducken sirloin tri-tip ribeye short loin porchetta.
-            Bacon ipsum dolor amet filet mignon turkey salami kielbasa. Buffalo venison kevin, rump turducken sirloin tri-tip ribeye short loin porchetta.
-            Bacon ipsum dolor amet filet mignon turkey salami kielbasa. Buffalo venison kevin, rump turducken sirloin tri-tip ribeye short loin porchetta.
-        </p>      
-    </div>
-    <div class="card-footer">
-        <ul class="links">
-            <li class="item" id="see-more">
-                <a href="" id="href-more">See More</a>
-            </li>
-            <li class="item" id="share">
-                <a href="" id="href-share">Share</a>
-            </li>
-            <li class="like-button" id="like">
-                <p>placeholder</p>
-            </li>
-        </ul> 
-    </div>
-</div>
-<div class="container" class="result-card">
-    <p class="verse-tag">Verse</p>
-    <div class="card-header">
-        <p class="book">Title Three</p><p class="reference">200:200</p>
-    </div>
-    <div class="card-content">
-        <p>Bacon ipsum dolor amet filet mignon turkey salami kielbasa. Buffalo venison kevin, rump turducken sirloin tri-tip ribeye short loin porchetta.</p>    
-    </div>   
-    <div class="card-footer">
-        <ul class="links">
-            <li class="item" id="see-more">
-                <a href="" id="href-more">See More</a>
-            </li>
-            <li class="item" id="share">
-                <a href="" id="href-share">Share</a>
-            </li>
-            <li class="like-button" id="like">
-                <p>placeholder</p>
-            </li>
-        </ul>  
+<div class="container card-container" >
+    <div class="card">
+        <header class="card-header">
+            <p class="card-header-title">
+                <ng-content select=".card-header-text"></ng-content>
+            </p>
+            <p class="type">Verse</p>
+        </header>
+        <div class="card-content">
+            <div class="content has-text-left">
+                <ng-content select=".card-body"></ng-content>
+            </div>
+        </div>
+        <footer class="card-footer">
+            <div class="container columns">
+                <div class="column has-text-left verse-actions">
+                    <a class="verse-action">See More</a>
+                    <a class="verse-action" href="">Share</a>
+                    <div class="dropdown is-left is-hoverable verse-dropdown">
+                        <div class="dropdown-trigger">
+                            <a aria-haspopup="true" aria-controls="more-actions" class="verse-action"
+                               id="more-action"><img
+                                    src="/assets/icons/more-icon.svg" alt="more options"></a>
+                        </div>
+                        <div class="dropdown-menu" id="more-actions" role="menu">
+                            <div class="dropdown-content">
+                                <div class="dropdown-item">
+                                    <a class="verse-action" href="">Add Note</a>
+                                </div>
+                                <hr class="dropdown-divider">
+                                <div class="dropdown-item">
+                                    <a class="verse-action" href="">Bookmark</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="column is-three-fifths has-text-right verse-likes">
+                    <p class="like-data">
+                        <span class="likes">6</span><span><i class="fa fa-heart-o fa-2x" aria-hidden="true"></i></span>
+                    </p>
+                </div>
+            </div>
+        </footer>
     </div>
 </div>
