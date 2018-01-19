@@ -1,31 +1,27 @@
-import {Component, OnInit} from '@angular/core';
-import {Title} from '@angular/platform-browser';
-
+import { Component, OnInit } from '@angular/core';
 
 declare const AOS: any;
 declare const $: any;
-
 @Component({
     selector: 'app-home',
     templateUrl: './home.component.html',
     styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-
     enhanced = false;
     isCurrent = true;
     activated = false;
     menuOpacity = 0;
     menuHeight = '0';
-
-    constructor(private title: Title) {
-    }
+    menuZ = 0;
+    constructor() {}
 
     ngOnInit() {
-        this.title.setTitle('Biblya | Home');
         const init = [];
         const x = setInterval(() => {
-            init.push(AOS.init());
+            init.push(AOS.init({
+                disable: 'mobile'
+            }));
             if (init.length >= 2) {
                 clearInterval(x);
             }
@@ -33,22 +29,22 @@ export class HomeComponent implements OnInit {
         setTimeout(() => {
             this.enhanced = true;
         }, 1000);
-        $(window).scroll(function () {
+        $(window).scroll(function() {
             const scroll = $(window).scrollTop();
-            if (scroll >= 300 && scroll <= 4300) {
+            if (scroll >= 300 && scroll <= 3900) {
                 $('.dotstyle').addClass('darkDot');
             } else {
                 $('.dotstyle').removeClass('darkDot');
             }
         });
         $('.dotstyle .dots li a').hover(
-            function () {
+            function() {
                 $('.dotstyle ul.descriptions li#' + $(this).attr('id') + '-desc').css(
                     'opacity',
                     1
                 );
             },
-            function () {
+            function() {
                 $('.dotstyle ul.descriptions li#' + $(this).attr('id') + '-desc').css(
                     'opacity',
                     0
@@ -60,6 +56,7 @@ export class HomeComponent implements OnInit {
     toggleMobileMenu() {
         this.activated = !this.activated;
         this.menuOpacity = this.activated ? 1 : 0;
+        this.menuZ = this.activated ? 800 : 0;
         this.menuHeight = this.activated ? '100%' : '0';
         if (this.activated) {
             $('body').css('overflow', 'hidden');
