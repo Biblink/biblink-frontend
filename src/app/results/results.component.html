@@ -17,21 +17,6 @@
         </li>
     </ul>
 </div>
-<div class="container" id="results-include">
-    <ul id="wrapper">
-        <li class="sort-text" id="extra-length">
-            <p>Results Include:</p>
-        </li>
-        <li class="option" id="verse">
-            <p>Verses</p>
-        </li>
-        <li class="option" id="comm">
-            <p>Commentaries</p>
-        </li>
-    </ul>
-
-</div>
-
 
 <div class="container has-text-centered" id="result-container">
     <app-result-card *ngFor="let result of _search.results" [reference]="result.verse" [text]="result.text">

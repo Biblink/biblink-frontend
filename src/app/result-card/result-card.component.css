@@ -174,3 +174,8 @@ em {
     line-height: 22px;
     font-weight: 900;
 }
+
+#sort-label {
+    font-weight: 900;
+    letter-spacing: 2px;
+}
