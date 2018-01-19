@@ -9,7 +9,7 @@ import {SearchService} from '../search.service';
 })
 export class SearchComponent implements OnInit, OnDestroy {
     searchQuery = '';
-
+    searchType = 'relevant';
     constructor(private title: Title, public searchService: SearchService) {
     }
 
@@ -19,6 +19,11 @@ export class SearchComponent implements OnInit, OnDestroy {
 
     ngOnDestroy() {
         this.searchService.results = [];
+    }
+
+    reSearch(sort_type: string) {
+        this.searchType = sort_type;
+        this.searchService.searchES(this.searchQuery, sort_type);
     }
 
 }

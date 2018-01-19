@@ -12,8 +12,8 @@ export class SearchService {
         this.searchUrl = environment.es_url;
     }
 
-    searchES(query) {
-        this.http.get(`${this.searchUrl}/search?term=${query}`).subscribe(res => {
+    searchES(query, sort_type = 'relevant') {
+        this.http.get(`${this.searchUrl}/search?term=${query}&sort_type=${sort_type}`).subscribe(res => {
             this.results = res['results'] as Verse[];
         });
     }

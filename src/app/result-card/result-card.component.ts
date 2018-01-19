@@ -34,7 +34,6 @@ export class ResultCardComponent implements OnInit {
     shareTitle = '';
     twitterText = '';
     similarVerses = [];
-
     constructor(private _search: SearchService) {
     }
 

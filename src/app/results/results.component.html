@@ -8,11 +8,9 @@
         </li>
         <li id="select">
             <span class="custom-dropdown">
-                <select class="sort-select" id="sort">
-                    <option>Most Relevant</option>
-                    <option>A-Z</option>
-                    <option>Z-A</option>
-                    <option>By Book</option>
+                <select class="sort-select" id="sort" [(ngModel)]="sortType" (ngModelChange)="sortSearch()">
+                    <option [ngValue]="'relevant'">Most Relevant</option>
+                    <option [ngValue]="'book'">By Book</option>
                 </select>
             </span>
 

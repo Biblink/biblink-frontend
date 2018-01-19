@@ -7,7 +7,7 @@
     <p>A smart and simple search engine</p>
 </div>
 <div class="control has-text-centered" id="search-bar">
-    <form #search="ngForm" (ngSubmit)="searchService.searchES(searchQuery)">
+    <form #search="ngForm" (ngSubmit)="searchService.searchES(searchQuery, searchType)">
         <ul id="wrapper">
             <li id="search-input" data-aos="fade-up-right" data-aos-duration="1200" >
                 <input name="search" [(ngModel)]="searchQuery" class="is-large" id="search" type="text"
@@ -20,4 +20,4 @@
     </form>
 </div>
 <div class="divider"></div>
-<app-results *ngIf="searchService.results.length > 0"></app-results>
+<app-results (type)="reSearch($event)" *ngIf="searchService.results.length > 0"></app-results>

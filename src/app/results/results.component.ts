@@ -1,14 +1,24 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {SearchService} from '../search.service';
 
 declare const AOS: any;
+
 @Component({
-  selector: 'app-results',
-  templateUrl: './results.component.html',
-  styleUrls: ['./results.component.css']
+    selector: 'app-results',
+    templateUrl: './results.component.html',
+    styleUrls: ['./results.component.css']
 })
 export class ResultsComponent implements OnInit {
-  constructor(public _search: SearchService) {}
+    @Output() type: EventEmitter<string> = new EventEmitter();
+    sortType = 'relevant';
+    constructor(public _search: SearchService) {
+    }
 
-  ngOnInit() {}
+    ngOnInit() {
+        this.type.emit(this.sortType);
+    }
+
+    sortSearch() {
+        this.type.emit(this.sortType);
+    }
 }
