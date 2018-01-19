@@ -1,4 +1,4 @@
-<div class="container card-container" >
+<div class="container card-container" data-aos="fade-up" data-aos-duration="1200">
     <div class="card">
         <header class="card-header">
             <p class="card-header-title">
@@ -10,12 +10,19 @@
             <div class="content has-text-left">
                 <ng-content select=".card-body"></ng-content>
             </div>
+            <div class="similar-verses has-text-left" *ngIf="isSimilar" [@similarState]>
+                <h1 class="similar-verse-heading">Similar Verses</h1>
+                <div class="verse" *ngFor="let verse of similarVerses">
+                    <p><span class="reference">{{verse.verse}}</span><span class="text">{{verse.text}}</span></p>
+                </div>
+            </div>
         </div>
         <footer class="card-footer">
             <div class="container columns">
                 <div class="column has-text-left verse-actions">
-                    <a class="verse-action">See More</a>
-                    <a class="verse-action" href="">Share</a>
+                    <a class="verse-action" *ngIf="!isSimilar" (click)="showSimilar()">See More</a>
+                    <a class="verse-action" *ngIf="isSimilar" (click)="isSimilar = false">Show Less</a>
+                    <a class="verse-action">Share</a>
                     <div class="dropdown is-left is-hoverable verse-dropdown">
                         <div class="dropdown-trigger">
                             <a aria-haspopup="true" aria-controls="more-actions" class="verse-action"

@@ -24,7 +24,7 @@ em {
     color: white;
     font-style: normal;
     padding: 5px 15.5px;
-    margin: auto 15px;
+    margin: auto 5px;
 }
 
 .type {
@@ -123,4 +123,37 @@ em {
 
 .card-container {
     margin-top: 92px;
+}
+.similar-verses {
+    padding: 61px;
+}
+.verse {
+    padding: 32px 61px;
+    margin-bottom: 28px;
+    box-shadow: 0 4px 8px 2px rgba(202,187,187,0.5);
+}
+
+.reference {
+    color: #000000;
+    font-size: 1.3rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    line-height: 25px;
+    margin-right: 25px;
+}
+
+.text {
+    font-size: 1.1rem;
+    letter-spacing: 1px;
+    line-height: 22px;
+}
+
+.similar-verse-heading {
+
+    font-size: 1.4rem;
+    font-weight: 900;
+    color: #000000;
+    margin-bottom: 28px;
+    letter-spacing: 4px;
+    line-height: 27px;
 }
