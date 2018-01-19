@@ -151,11 +151,26 @@ em {
 }
 
 .similar-verse-heading {
-
     font-size: 1.4rem;
     font-weight: 900;
     color: #000000;
     margin-bottom: 28px;
     letter-spacing: 4px;
     line-height: 27px;
+}
+
+.metadata-info {
+    font-size: 1.1rem;
+    color: #000000;
+    margin-bottom: 11px;
+}
+
+.metadata-info:last-child {
+    margin-bottom: 50px;
+}
+
+.info-header {
+    letter-spacing: 4px;
+    line-height: 22px;
+    font-weight: 900;
 }

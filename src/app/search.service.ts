@@ -21,4 +21,8 @@ export class SearchService {
     getSimilarVerses(reference: string): Observable<any> {
         return this.http.get(`${this.searchUrl}/similarity?reference=${reference}`);
     }
+
+    getMetadata(book: string): Observable<any> {
+        return this.http.get(`${this.searchUrl}/metadata?book=${book}`);
+    }
 }

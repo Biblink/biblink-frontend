@@ -11,6 +11,11 @@
                 <ng-content select=".card-body"></ng-content>
             </div>
             <div class="similar-verses has-text-left" *ngIf="isSimilar" [@similarState]>
+                <h1 class="similar-verse-heading">Book Information</h1>
+                <div>
+                    <p class="metadata-info"><span class="info-header">Author:</span> {{metadata['author']}}</p>
+                    <p class="metadata-info"><span class="info-header">Date Written:</span> {{metadata['date']}}</p>
+                </div>
                 <h1 class="similar-verse-heading">Similar Verses</h1>
                 <div class="verse" *ngFor="let verse of similarVerses">
                     <p><span class="reference">{{verse.verse}}</span><span class="text">{{verse.text}}</span></p>
@@ -20,7 +25,7 @@
         <footer class="card-footer">
             <div class="container columns">
                 <div class="column has-text-left verse-actions">
-                    <a class="verse-action" *ngIf="!isSimilar" (click)="showSimilar()">See More</a>
+                    <a class="verse-action" *ngIf="!isSimilar" (click)="showMoreData()">See More</a>
                     <a class="verse-action" *ngIf="isSimilar" (click)="isSimilar = false">Show Less</a>
                     <div class="dropdown is-left is-hoverable verse-dropdown" (mouseenter)="activateZ = 700" (mouseleave)="activateZ = 10" >
                         <div class="dropdown-trigger">

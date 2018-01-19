@@ -34,6 +34,7 @@ export class ResultCardComponent implements OnInit {
     shareTitle = '';
     twitterText = '';
     similarVerses = [];
+    metadata = null;
     constructor(private _search: SearchService) {
     }
 
@@ -45,10 +46,13 @@ export class ResultCardComponent implements OnInit {
         this.shareText = this.twitterText + ': https://biblya.co/search';
     }
 
-    showSimilar() {
+    showMoreData() {
         const updatedReference = this.reference.replace(/<\/?em>/g, '');
         this._search.getSimilarVerses(updatedReference).subscribe(res => {
             this.similarVerses = res['similar_verses'];
+        });
+        this._search.getMetadata(updatedReference.split(' ')[0]).subscribe(res => {
+            this.metadata = res['metadata'];
         });
         this.isSimilar = true;
     }
