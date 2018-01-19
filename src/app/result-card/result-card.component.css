@@ -111,14 +111,16 @@ em {
     padding-left: 36.5px;
 }
 
-#more-actions {
+#more-actions, #share-buttons {
     box-shadow: 0 4px 8px 2px rgba(202,187,187,0.5);
     border: none;
+    z-index: 700;
 }
 
-#more-actions .dropdown-content {
+#more-actions .dropdown-content, #share-buttons .dropdown-content {
     border-radius: 0;
     box-shadow: none;
+    z-index: 800;
 }
 
 .card-container {

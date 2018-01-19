@@ -1,4 +1,4 @@
-<div class="container card-container" data-aos="fade-up" data-aos-duration="1200">
+<div class="container card-container" data-aos="fade-up" data-aos-duration="1200" [ngStyle]="{'z-index': activateZ}">
     <div class="card">
         <header class="card-header">
             <p class="card-header-title">
@@ -22,8 +22,52 @@
                 <div class="column has-text-left verse-actions">
                     <a class="verse-action" *ngIf="!isSimilar" (click)="showSimilar()">See More</a>
                     <a class="verse-action" *ngIf="isSimilar" (click)="isSimilar = false">Show Less</a>
-                    <a class="verse-action">Share</a>
-                    <div class="dropdown is-left is-hoverable verse-dropdown">
+                    <div class="dropdown is-left is-hoverable verse-dropdown" (mouseenter)="activateZ = 700" (mouseleave)="activateZ = 10" >
+                        <div class="dropdown-trigger">
+                            <a aria-haspopup="true" aria-controls="share-buttons" class="verse-action">Share</a>
+                        </div>
+                        <div class="dropdown-menu" id="share-buttons" role="menu">
+                            <div class="dropdown-content">
+                                <div class="dropdown-item">
+                                    <a class="verse-action"
+                                       shareButton="facebook"
+                                       sbTitle="{{shareTitle}}"
+                                       sbTags="verse, bible"
+                                       sbDescription="{{shareText}}">To Facebook <i class="fa fa-facebook"></i></a>
+                                </div>
+                                <hr class="dropdown-divider">
+                                <div class="dropdown-item">
+                                    <a class="verse-action"
+                                       shareButton="twitter"
+                                       sbTitle="{{shareTitle}}"
+                                       sbTags="verse, bible"
+                                       sbDescription="{{twitterText}}">To Twitter <i class="fa fa-twitter"></i></a>
+                                </div>
+                                <hr class="dropdown-divider">
+                                <div class="dropdown-item">
+                                    <a class="verse-action" shareButton="pinterest"
+                                       shareButton="pinterest"
+                                       sbTitle="{{shareTitle}}"
+                                       sbTags="verse, bible"
+                                       sbDescription="{{shareText}}">To Pinterest <i class="fa fa-pinterest-p"></i></a>
+                                </div>
+                                <hr class="dropdown-divider">
+                                <div class="dropdown-item">
+                                    <a class="verse-action" shareButton="email"
+                                       shareButton="email"
+                                       sbTitle="{{shareTitle}}"
+                                       sbTags="'verse, bible'"
+                                       sbDescription="{{shareText}}">To Email <i class="fa fa-envelope"></i></a>
+                                </div>
+                                <hr class="dropdown-divider">
+                                <div class="dropdown-item">
+                                    <a class="verse-action" ngxClipboard
+                                       [cbContent]="shareText">To Clipboard <i class="fa fa-copy"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="dropdown is-left is-hoverable verse-dropdown" (mouseenter)="activateZ = 700" (mouseleave)="activateZ = 10" >
                         <div class="dropdown-trigger">
                             <a aria-haspopup="true" aria-controls="more-actions" class="verse-action"
                                id="more-action"><img
