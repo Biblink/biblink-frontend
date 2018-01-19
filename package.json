@@ -25,9 +25,12 @@
         "@angular/platform-browser-dynamic": "^5.0.0",
         "@angular/router": "^5.0.0",
         "@angular/service-worker": "^5.0.0",
+        "@ngx-share/core": "^5.0.0",
         "@nicky-lenaers/ngx-scroll-to": "^0.5.0",
         "core-js": "^2.4.1",
+        "ngx-clipboard": "^9.1.2",
         "rxjs": "^5.5.2",
+        "web-animations-js": "^2.3.1",
         "zone.js": "^0.8.14"
     },
     "devDependencies": {

@@ -2,7 +2,6 @@ import {Component, Input, OnInit, ViewEncapsulation} from '@angular/core';
 import {SearchService} from '../search.service';
 import {
     trigger,
-    state,
     style,
     animate,
     transition
@@ -28,13 +27,23 @@ import {
 })
 export class ResultCardComponent implements OnInit {
     @Input() reference: string;
+    @Input() text: string;
     isSimilar = false;
+    activateZ = 10;
+    shareText = '';
+    shareTitle = '';
+    twitterText = '';
     similarVerses = [];
 
     constructor(private _search: SearchService) {
     }
 
     ngOnInit() {
+        this.reference = this.reference.replace(/<\/?em>/g, '');
+        this.text = this.text.replace(/<\/?em>/g, '');
+        this.shareTitle = this.reference + ' from Biblya Search';
+        this.twitterText = this.reference + ': ' + this.text.trim() + ' from Biblya Search';
+        this.shareText = this.twitterText + ': https://biblya.co/search';
     }
 
     showSimilar() {
