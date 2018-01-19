@@ -1,4 +1,5 @@
 import {BrowserModule} from '@angular/platform-browser';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ServiceWorkerModule} from '@angular/service-worker';
 import {environment} from '../environments/environment';
 import {RouterModule, Routes} from '@angular/router';
@@ -35,6 +36,7 @@ const appRoutes: Routes = [
     ],
     imports: [
         BrowserModule,
+        BrowserAnimationsModule,
         FormsModule,
         environment.production
             ? ServiceWorkerModule.register('/ngsw-worker.js')

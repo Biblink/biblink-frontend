@@ -1,19 +1,19 @@
 <app-navbar></app-navbar>
 
-<div class="container has-text-centered" id="main-text">
+<div class="container has-text-centered" id="main-text" data-aos="fade-down" data-aos-duration="1200" >
     <h1>Search</h1>
 </div>
-<div class="container has-text-centered" id="sub-text">
+<div class="container has-text-centered" id="sub-text" data-aos="fade-up" data-aos-duration="1200" >
     <p>A smart and simple search engine</p>
 </div>
 <div class="control has-text-centered" id="search-bar">
     <form #search="ngForm" (ngSubmit)="searchService.searchES(searchQuery)">
         <ul id="wrapper">
-            <li id="search-input">
+            <li id="search-input" data-aos="fade-up-right" data-aos-duration="1200" >
                 <input name="search" [(ngModel)]="searchQuery" class="is-large" id="search" type="text"
                        placeholder="Search">
             </li>
-            <li id="search-button">
+            <li id="search-button" data-aos="fade-up" data-aos-duration="1200" >
                 <button type="submit" class="button is-large" id="button"><img src="/assets/icons/search-button-icon.svg"></button>
             </li>
         </ul>

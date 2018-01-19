@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {SearchService} from '../search.service';
 
+declare const AOS: any;
 @Component({
   selector: 'app-results',
   templateUrl: './results.component.html',

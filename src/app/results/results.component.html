@@ -36,7 +36,7 @@
 
 
 <div class="container has-text-centered" id="result-container">
-    <app-result-card *ngFor="let result of _search.results">
+    <app-result-card *ngFor="let result of _search.results" [reference]="result.verse">
         <div class="card-header-text" [innerHtml]="result.verse"></div>
         <div class="card-body" [innerHtml]="result.text"></div>
     </app-result-card>
