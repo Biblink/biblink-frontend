@@ -134,3 +134,13 @@ body {
         transform: none;
     }
 }
+
+.toast-title, .toast-message {
+    font-family: 'museo-sans', sans-serif;
+    letter-spacing: 1px;
+}
+
+.toast {
+    background-color: #06292a !important;
+    box-shadow: 0 4px 8px 2px rgba(105,100,100,0.5) !important;
+}

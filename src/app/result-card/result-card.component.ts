@@ -6,6 +6,7 @@ import {
     animate,
     transition
 } from '@angular/animations';
+import {ToastrService} from 'ngx-toastr';
 
 @Component({
     selector: 'app-result-card',
@@ -35,7 +36,7 @@ export class ResultCardComponent implements OnInit {
     twitterText = '';
     similarVerses = [];
     metadata = null;
-    constructor(private _search: SearchService) {
+    constructor(private _search: SearchService, private toastr: ToastrService) {
     }
 
     ngOnInit() {
@@ -55,6 +56,13 @@ export class ResultCardComponent implements OnInit {
             this.metadata = res['metadata'];
         });
         this.isSimilar = true;
+    }
+
+    showCopyToClipboard() {
+        this.toastr.show('Successfully copied ' + this.reference + ' to clipboard', 'Successful Copy', {
+            closeButton: true,
+            positionClass: 'toast-bottom-right'
+        });
     }
 
 }

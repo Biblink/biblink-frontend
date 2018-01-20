@@ -9,7 +9,7 @@ import {ScrollToModule} from '@nicky-lenaers/ngx-scroll-to';
 import {FormsModule} from '@angular/forms';
 import {ShareModule} from '@ngx-share/core';
 import {ClipboardModule} from 'ngx-clipboard';
-
+import {ToastrModule} from 'ngx-toastr';
 // components
 import {AppComponent} from './app.component';
 import {HomeComponent} from './home/home.component';
@@ -49,7 +49,8 @@ const appRoutes: Routes = [
         HttpClientModule,
         HttpClientJsonpModule,
         ClipboardModule,
-        ShareModule.forRoot()
+        ShareModule.forRoot(),
+        ToastrModule.forRoot()
     ],
     providers: [SearchService],
     bootstrap: [AppComponent]
