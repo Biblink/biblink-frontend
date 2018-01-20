@@ -35,7 +35,7 @@ export class ResultCardComponent implements OnInit {
     shareTitle = '';
     twitterText = '';
     similarVerses = [];
-    metadata = null;
+    metadata = {'author': '', 'date': ''};
     constructor(private _search: SearchService, private toastr: ToastrService) {
     }
 
@@ -49,17 +49,19 @@ export class ResultCardComponent implements OnInit {
 
     showMoreData() {
         const updatedReference = this.reference.replace(/<\/?em>/g, '');
+        const ref_parts = updatedReference.split(' ');
+        ref_parts.pop();
         this._search.getSimilarVerses(updatedReference).subscribe(res => {
             this.similarVerses = res['similar_verses'];
         });
-        this._search.getMetadata(updatedReference.split(' ')[0]).subscribe(res => {
+        this._search.getMetadata(ref_parts.join(' ')).subscribe(res => {
             this.metadata = res['metadata'];
         });
         this.isSimilar = true;
     }
 
     showCopyToClipboard() {
-        this.toastr.show('Successfully copied ' + this.reference + ' to clipboard', 'Successful Copy', {
+        this.toastr.show('Successfully copied ' + this.reference + ' to your clipboard', 'Successful Copy', {
             closeButton: true,
             positionClass: 'toast-bottom-right'
         });
