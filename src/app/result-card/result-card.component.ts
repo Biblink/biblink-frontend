@@ -36,6 +36,7 @@ export class ResultCardComponent implements OnInit {
     twitterText = '';
     similarVerses = [];
     metadata = {'author': '', 'date': ''};
+
     constructor(private _search: SearchService, private toastr: ToastrService) {
     }
 
@@ -61,10 +62,6 @@ export class ResultCardComponent implements OnInit {
     }
 
     showCopyToClipboard() {
-        this.toastr.show('Successfully copied ' + this.reference + ' to your clipboard', 'Successful Copy', {
-            closeButton: true,
-            positionClass: 'toast-bottom-right'
-        });
+        this.toastr.show('Successfully copied ' + this.reference + ' to your clipboard', 'Successful Copy');
     }
-
 }
