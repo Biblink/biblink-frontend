@@ -37,20 +37,6 @@ export class HomeComponent implements OnInit {
                 $('.dotstyle').removeClass('darkDot');
             }
         });
-        $('.dotstyle .dots li a').hover(
-            function() {
-                $('.dotstyle ul.descriptions li#' + $(this).attr('id') + '-desc').css(
-                    'opacity',
-                    1
-                );
-            },
-            function() {
-                $('.dotstyle ul.descriptions li#' + $(this).attr('id') + '-desc').css(
-                    'opacity',
-                    0
-                );
-            }
-        );
     }
 
     toggleMobileMenu() {

@@ -179,3 +179,32 @@ em {
     font-weight: 900;
     letter-spacing: 2px;
 }
+
+@media screen and (max-width: 1024px) {
+    .type {
+        padding-top: 28px;
+        text-align: right;
+    }
+    .card-header-text {
+        margin: 0 auto;
+    }
+    .card-header-title {
+        margin: auto;
+    }
+    .card-body {
+        text-align: center !important;
+        line-height: 40px;
+    }
+
+    .card-content .content {
+        padding: 0 0 0 0;
+    }
+
+    .similar-verse {
+        text-align: center;
+    }
+
+    .reference {
+        margin-right: auto;
+    }
+}

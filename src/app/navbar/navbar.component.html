@@ -1,4 +1,4 @@
-<nav class="navbar" id="navbar-banner" data-aos="fade-down" data-aos-duration="500" data-aos-once="true">
+<nav class="navbar is-hidden-mobile navbar-banner" data-aos="fade-down" data-aos-duration="500" data-aos-once="true">
     <ul class="navvy">
         <li id="logo" data-aos="fade-down-right" data-aos-duration="1200" data-aos-once="true">
             <a id="logo-link" class="nav-link" [routerLink]="'/'" (click)="toHome()">
@@ -56,3 +56,35 @@
         </div>
     </ul>
 </nav>
+
+<nav class="navbar mobile is-hidden-tablet mobile-navbar-banner">
+    <ul class="navvy">
+        <li id="menu">
+            <div class="navTrigger" [class.active]="activated" (click)="toggleMobileMenu()">
+                <i></i>
+                <i></i>
+                <i></i>
+            </div>
+        </li>
+        <li>
+            <a class="nav-link" id="sign-in">Sign In</a>
+        </li>
+    </ul>
+</nav>
+
+<div class="is-hidden-tablet" id="menu-overlay" [ngStyle]="{'opacity': menuOpacity, 'height': menuHeight, 'z-index': menuZ}">
+    <div class="container has-text-centered menu-links">
+        <div>
+            <a class="nav-link">Home</a>
+        </div>
+        <div>
+            <a class="nav-link">About</a>
+        </div>
+        <div>
+            <a class="nav-link" [routerLink]="'/search'">Search</a>
+        </div>
+        <div>
+            <a class="nav-link">Sign In</a>
+        </div>
+    </div>
+</div>

@@ -70,12 +70,12 @@
 
 #search-button /*LI*/
 {
-    background: #F23B2C url('/assets/icons/search-button-icon.svg') center no-repeat;
+    background: #F23B2C  center no-repeat;
     transition: all 1s cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 
 #search-button:hover {
-    background: #ca3f4a url('/assets/icons/search-button-icon.svg') center no-repeat;
+    background: #ca3f4a  center no-repeat;
     transition: all 1s cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 
@@ -114,4 +114,58 @@
 
 #search-icon {
     background: url('/assets/icons/search-button-icon.svg');
+}
+
+
+@media screen and (max-width: 1024px) {
+    #main-text h1 {
+        font-size: 2.5rem;
+        margin-bottom: 12px;
+    }
+
+    #sub-text {
+        height: 16px;
+        width: 244px;
+        font-size: 1.2rem;
+        font-weight: bold;
+        letter-spacing: 3px;
+        line-height: 20px;
+    }
+
+    #wrapper {
+        height: 60px;
+        width: 90%;
+        margin: 0 auto;
+        background-color: #FFFFFF;
+        box-shadow: -2px 4px 8px 2px rgba(175,167,167,0.5);
+    }
+
+    #wrapper li {
+        height: 60px;
+    }
+
+    #wrapper li * {
+        height: 60px !important;
+    }
+
+    #search-bar {
+        width: auto;
+    }
+
+    #search-form {
+        width: 100%;
+    }
+
+    #search-button, #button {
+        width: 60px;
+    }
+
+
+    #search-icon-image {
+        width: 30%;
+    }
+
+    #search {
+        font-size: 1.2rem;
+    }
 }

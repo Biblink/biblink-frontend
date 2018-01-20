@@ -1,24 +1,26 @@
 <div class="container card-container" data-aos="fade-up" data-aos-duration="1200" [ngStyle]="{'z-index': activateZ}">
     <div class="card">
+        <p class="type is-hidden-desktop">Verse</p>
         <header class="card-header">
             <p class="card-header-title">
                 <ng-content select=".card-header-text"></ng-content>
             </p>
-            <p class="type">Verse</p>
+            <p class="type is-hidden-touch">Verse</p>
         </header>
         <div class="card-content">
             <div class="content has-text-left">
                 <ng-content select=".card-body"></ng-content>
             </div>
             <div class="similar-verses has-text-left" *ngIf="isSimilar" [@similarState]>
-                <h1 class="similar-verse-heading">Book Information</h1>
+                <h1 class="similar-verse-heading is-hidden-touch">Book Information</h1>
+                <h1 class="similar-verse-heading is-hidden-desktop">Book Info</h1>
                 <div>
                     <p class="metadata-info"><span class="info-header">Author:</span> {{metadata['author']}}</p>
                     <p class="metadata-info"><span class="info-header">Date Written:</span> {{metadata['date']}}</p>
                 </div>
                 <h1 class="similar-verse-heading">Similar Verses</h1>
                 <div class="verse" *ngFor="let verse of similarVerses">
-                    <p><span class="reference">{{verse.verse}}</span><span class="text">{{verse.text}}</span></p>
+                    <p class="similar-verse"><span class="reference">{{verse.verse}}</span><br class="is-hidden-desktop"><br class="is-hidden-desktop"><span class="text">{{verse.text}}</span></p>
                 </div>
             </div>
         </div>
@@ -91,7 +93,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="column is-three-fifths has-text-right verse-likes">
+                <div class="column is-three-fifths has-text-right verse-likes is-hidden-touch">
                     <p class="like-data">
                         <span class="likes">6</span><span><i class="fa fa-heart-o fa-2x" aria-hidden="true"></i></span>
                     </p>
