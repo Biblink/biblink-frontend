@@ -539,6 +539,10 @@
     margin-bottom: 25px;
 }
 
+.bible-verse-content {
+    box-shadow: none;
+}
+
 
 /* Feature/Main CSS */
 
