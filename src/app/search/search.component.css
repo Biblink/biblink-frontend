@@ -107,7 +107,7 @@
     border: 1px solid #BCB8B8;
     margin-right: auto;
     margin-left: auto;
-    margin-top: 15%;
+    margin-top: 10%;
     /* This will be dynamically set */
     opacity: 0;
 }
@@ -116,7 +116,9 @@
     background: url('/assets/icons/search-button-icon.svg');
 }
 
-
+.see-more {
+    margin-top: 100px;
+}
 @media screen and (max-width: 1024px) {
     #main-text h1 {
         font-size: 2.5rem;
