@@ -1,0 +1,26 @@
+<div class="container has-text-centered" id="result-header" data-aos="fade-down" data-aos-duration="1200" data-aos-anchor="#search-bar">
+    <h1>Results</h1>
+</div>
+<div class="container" id="preferences">
+    <ul id="controls">
+        <li id="sort-label" data-aos="fade-right" data-aos-duration="1200">
+            <label for="sort">Sort By:</label>
+        </li>
+        <li id="select" data-aos="fade-left" data-aos-duration="1200">
+            <span class="custom-dropdown">
+                <select class="sort-select" id="sort" [(ngModel)]="sortType" (ngModelChange)="sortSearch()">
+                    <option [ngValue]="'relevant'">Most Relevant</option>
+                    <option [ngValue]="'book'">By Book</option>
+                </select>
+            </span>
+
+        </li>
+    </ul>
+</div>
+
+<div class="container has-text-centered" id="result-container">
+    <app-result-card *ngFor="let result of _search.results" [reference]="result.verse" [text]="result.text">
+        <div class="card-header-text" [innerHtml]="result.verse"></div>
+        <div class="card-body" [innerHtml]="result.text"></div>
+    </app-result-card>
+</div>

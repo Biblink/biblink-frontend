@@ -268,20 +268,6 @@
     float: right;
 }
 
-.mobile #menu #menu-link {
-    width: 22px;
-    background: url('/assets/icons/menu.svg') no-repeat center;
-    background-size: cover;
-    font-size: 2rem;
-    text-indent: 100%;
-    white-space: nowrap;
-    color: transparent;
-    overflow: hidden;
-    float: left;
-    position: relative;
-    left: 18px;
-    transition: all 1s cubic-bezier(0.075, 0.82, 0.165, 1);
-}
 
 .nav-link:hover {
     color: #afacac;
@@ -551,6 +537,10 @@
 
 .bible-verse .verse {
     margin-bottom: 25px;
+}
+
+.bible-verse-content {
+    box-shadow: none;
 }
 
 
