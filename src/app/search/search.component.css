@@ -25,7 +25,9 @@
     margin: 91px auto 0 auto;
     transition: all 1s cubic-bezier(0.075, 0.82, 0.165, 1);
 }
-
+#main-text {
+    margin-top: 200px;
+}
 #search {
     border: none;
     width: 100%;
