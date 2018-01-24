@@ -262,7 +262,7 @@
     float: right;
 }
 
-.mobile #sign-in {
+.mobile #sign-in-mobile {
     position: relative;
     right: 17px;
     float: right;
@@ -342,7 +342,7 @@
     margin-bottom: 20px;
     height: 107px;
     color: #ffffff;
-    font-family: 'museo-sans';
+    font-family: 'museo-sans', sans-serif;
     font-size: 10rem;
     font-weight: 900;
     letter-spacing: 10px;
@@ -373,7 +373,7 @@
 
 .hero-body .mobile .title {
     color: #ffffff;
-    font-family: 'museo-sans';
+    font-family: 'museo-sans', sans-serif;
     font-size: 64px;
     font-weight: 900;
     letter-spacing: 5px;
@@ -387,7 +387,7 @@
     width: 262px;
     margin: 0 auto;
     color: #ffffff;
-    font-family: 'museo-sans';
+    font-family: 'museo-sans', sans-serif;
     font-size: 16px;
     font-weight: bold;
     letter-spacing: 3px;
@@ -397,7 +397,7 @@
 }
 
 .mobile .btn {
-    font-family: 'museo-sans';
+    font-family: 'museo-sans', sans-serif;
     font-weight: 900;
     letter-spacing: 2px;
     line-height: 25px;
@@ -412,7 +412,7 @@
     border: 2px solid #ffffff;
     border-radius: 3px;
     background: transparent;
-    font-family: 'museo-sans';
+    font-family: 'museo-sans', sans-serif;
     transition: all 1s cubic-bezier(0.075, 0.82, 0.165, 1);
     animation: fadeInDownTop 3.5s;
     display: block;
@@ -432,7 +432,7 @@
     border: 2px solid #ffffff;
     border-radius: 3px;
     background: transparent;
-    font-family: 'museo-sans';
+    font-family: 'museo-sans', sans-serif, sans-serif;
     transition: all 1s cubic-bezier(0.075, 0.82, 0.165, 1);
     animation: fadeInDownTop 3.5s;
 }
@@ -476,7 +476,7 @@
 }
 
 .desktop .btn {
-    font-family: 'museo-sans';
+    font-family: 'museo-sans', sans-serif;
     font-weight: 900;
     letter-spacing: 2px;
     line-height: 25px;
@@ -493,7 +493,7 @@
 .scroll {
     margin-bottom: 10px;
     color: #ffffff;
-    font-family: 'museo-sans';
+    font-family: 'museo-sans', sans-serif;
     font-size: 0.8rem;
     font-weight: 900;
     letter-spacing: 3px;
@@ -510,7 +510,7 @@
         position: relative;
         top: 75px;
         color: #000000;
-        font-family: 'museo-sans';
+        font-family: 'museo-sans', sans-serif;
         font-size: 1.3rem;
         letter-spacing: 1px;
         line-height: 40px;
@@ -525,7 +525,7 @@
         position: relative;
         top: 75px;
         color: #000000;
-        font-family: 'museo-sans';
+        font-family: 'museo-sans', sans-serif;
         font-size: 1.2rem;
         letter-spacing: 2px;
         line-height: 25px;
@@ -548,7 +548,7 @@
 
 .desktop .feature-heading {
     color: #343232;
-    font-family: 'museo-sans';
+    font-family: 'museo-sans', sans-serif;
     font-size: 2rem;
     font-weight: 900;
     letter-spacing: 3px;
@@ -557,7 +557,7 @@
 
 .mobile .feature-heading {
     color: #343232;
-    font-family: 'museo-sans';
+    font-family: 'museo-sans', sans-serif;
     font-size: 2rem;
     font-weight: 900;
     letter-spacing: 3px;
@@ -569,7 +569,7 @@
 @media screen and (min-width: 769px) {
     .feature-description {
         color: #000000;
-        font-family: 'museo-sans';
+        font-family: 'museo-sans', sans-serif;
         font-size: 1.2rem;
         letter-spacing: 1px;
         line-height: 30px;
@@ -581,7 +581,7 @@
 @media screen and (max-width: 768px) {
     .feature-description {
         color: #000000;
-        font-family: 'museo-sans';
+        font-family: 'museo-sans', sans-serif;
         font-size: 1rem;
         letter-spacing: 1px;
         line-height: 20px;
@@ -680,7 +680,7 @@
     background-color: #f23b2c;
     box-shadow: 0 8px 18px 0 rgba(90, 89, 89, 0.5);
     color: #ffffff;
-    font-family: 'museo-sans';
+    font-family: 'museo-sans', sans-serif;
     font-weight: 900;
     letter-spacing: 1px;
     line-height: 19px;
@@ -696,7 +696,7 @@
 
 .desktop .cta-header {
     color: #343232;
-    font-family: 'museo-sans';
+    font-family: 'museo-sans', sans-serif;
     font-size: 1.7rem;
     font-weight: 900;
     letter-spacing: 3px;
@@ -708,7 +708,7 @@
     margin: 0 auto;
     width: 266px;
     color: #343232;
-    font-family: 'museo-sans';
+    font-family: 'museo-sans', sans-serif;
     font-size: 1.7rem;
     font-weight: 900;
     letter-spacing: 3px;
@@ -723,7 +723,7 @@
 .desktop .cta-text {
     margin-top: 40px;
     color: #000000;
-    font-family: 'museo-sans';
+    font-family: 'museo-sans', sans-serif;
     font-size: 1.3rem;
     font-weight: 900;
     letter-spacing: 2px;
@@ -735,7 +735,7 @@
     margin: 30px auto 0 auto;
     width: 250px;
     color: #000000;
-    font-family: 'museo-sans';
+    font-family: 'museo-sans', sans-serif;
     font-size: 1.3rem;
     font-weight: 900;
     letter-spacing: 2px;
