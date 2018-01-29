@@ -1,4 +1,4 @@
-<div style="display: block; text-align:center" align="center"><img alt="BCF Logo" src="./src/assets/icons/color-logo.svg" /></div>
+<div style="display: block; text-align:center" align="center"><img width="175px" alt="BCF Logo" src="./src/assets/icons/color-logo.svg" /></div>
 
 # Bible Study Frontend
 
