@@ -1,4 +1,4 @@
-<div style="display: block; text-align:center" align="center"><img alt="BCF Logo" src="http://blacksburgchristianfellowship.org/wp-content/uploads/2017/01/yellow-mobile-logo.png" /></div>
+<div style="display: block; text-align:center" align="center"><img alt="BCF Logo" src="./src/assets/icons/color-logo.svg" /></div>
 
 # Bible Study Frontend
 
