@@ -4,7 +4,7 @@
 
 [![Build Status](https://travis-ci.org/bfan1256/bible-study-application-frontend.svg?branch=master)](https://travis-ci.org/bfan1256/bible-study-application-frontend)
 
-Author: Brandon Fan
+Authors: Brandon Fan, Jordan Seiler
 
 ## TODO List
 
@@ -14,6 +14,7 @@ Author: Brandon Fan
 ## Resources
 
 Frontend Required Pages: [Link to Doc](https://docs.google.com/document/d/1a2zS7lndvH5peYs3xkRrfCH8tZHCuALKemt4sho5DVA/edit?usp=sharing)
+
 Frontend Invision Designs: [Link to Invision](https://invis.io/EMF7SUFZ8)
 
 ## Installing Dependencies
