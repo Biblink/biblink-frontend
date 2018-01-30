@@ -8,8 +8,8 @@ Authors: Brandon Fan, Jordan Seiler
 
 ## TODO List
 
-* Finish Server Backend for Search Page
-* Design and Implement Dashboard Workflow and Pages
+* Design and Implement Authentication & Get Started
+* Design and Implement Dashboard Feed and Features
 
 ## Resources
 
