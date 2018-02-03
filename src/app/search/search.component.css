@@ -173,3 +173,27 @@
         font-size: 1.2rem;
     }
 }
+
+#loading-icon {
+    margin-top: 100px;
+    border: none;
+    padding: 0;
+    background:transparent;
+}
+
+#loading-icon::after {
+    height: 4rem;
+    width: 4rem;
+    border: 4px solid #a4afaf;
+    border-right-color: transparent;
+    border-left-color: transparent;
+    position: absolute;
+    left: auto;
+    top: auto;
+
+}
+
+#not-found {
+    font-weight: 700;
+    font-size: 1.2rem;
+}

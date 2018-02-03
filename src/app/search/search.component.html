@@ -7,20 +7,25 @@
     <p>A smart and simple search engine</p>
 </div>
 <div class="control has-text-centered" id="search-bar">
-    <form #search="ngForm" (ngSubmit)="searchService.searchES(searchQuery, searchType)" id="search-form">
+    <form #search="ngForm" (ngSubmit)="searchService.searchES(searchQuery, searchType); isSearching = true; seeResults()" id="search-form">
         <ul id="wrapper">
             <li id="search-input" data-aos="fade-up-right" data-aos-duration="1200" >
                 <input name="search" [(ngModel)]="searchQuery" class="is-large" id="search" type="text"
                        placeholder="Search">
             </li>
             <li id="search-button" data-aos="fade-up" data-aos-duration="1200" >
-                <button type="submit" class="button is-large" id="button">
+                <button type="submit" class="button is-large" id="button" [ngx-scroll-to]="'#results'">
                     <img id="search-icon-image" src="/assets/icons/search-button-icon.svg" alt="">
                 </button>
             </li>
         </ul>
     </form>
+    <span data-aos="fade-up" *ngIf="isSearching === true && searchService.found === 'pending'" class="button is-loading" id="loading-icon">Loading</span>
 </div>
-<div class="divider"></div>
+
+<div class="divider" id="results"></div>
+<div class="container has-text-centered" id="not-found" *ngIf="isSearching === true && searchService.found === 'not_found'" data-aos="fade-up" data-aos-duration="1200" >
+    <p>Couldn't find any results this time...try another search term!</p>
+</div>
 <app-results (type)="reSearch($event)" *ngIf="searchService.results.length > 0"></app-results>
 <app-footer></app-footer>

@@ -7,14 +7,22 @@ import {Observable} from 'rxjs/Observable';
 @Injectable()
 export class SearchService {
     results: Verse[] = [];
+    found = 'not_found';
     searchUrl: string;
     constructor(private http: HttpClient) {
         this.searchUrl = environment.es_url;
     }
 
     searchES(query, sort_type = 'relevant') {
+        this.found = 'pending';
         this.http.get(`${this.searchUrl}/search?term=${query}&sort_type=${sort_type}`).subscribe(res => {
-            this.results = res['results'] as Verse[];
+            if (res['results'].length === 0) {
+                this.found = 'not_found';
+                this.results = [];
+            } else {
+                this.found = 'found';
+                this.results = res['results'] as Verse[];
+            }
         });
     }
 
