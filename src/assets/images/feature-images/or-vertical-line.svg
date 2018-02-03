@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="378px" viewBox="0 0 24 378" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 48.2 (47327) - http://www.bohemiancoding.com/sketch -->
+    <title>Group 9</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Sign-In-Desktop" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(-709.000000, -375.000000)">
+        <g id="Group-5" transform="translate(231.000000, 256.000000)">
+            <g id="Group" transform="translate(103.000000, 119.000000)">
+                <g id="Group-9" transform="translate(371.000000, 0.000000)">
+                    <text id="or" font-family="AvenirNext-Bold, Avenir Next" font-size="20" font-weight="bold" letter-spacing="3.341666" fill="#BFBFBF">
+                        <tspan x="3.59631601" y="195">or</tspan>
+                    </text>
+                    <path d="M16.6799201,0.5 L16.6799201,171.573084" id="Line-2" stroke="#979797" stroke-linecap="square"></path>
+                    <path d="M16.6799201,205.5 L16.6799201,376.573084" id="Line-2-Copy" stroke="#979797" stroke-linecap="square"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
