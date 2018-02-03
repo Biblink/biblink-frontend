@@ -21,10 +21,14 @@ import {ResultCardComponent} from './result-card/result-card.component';
 
 // providers
 import {SearchService} from './search.service';
+import { SignInComponent } from './sign-in/sign-in.component';
+import { GetStartedComponent } from './get-started/get-started.component';
 
 const appRoutes: Routes = [
     {path: '', component: HomeComponent},
-    {path: 'search', component: SearchComponent}
+    {path: 'search', component: SearchComponent},
+    {path: 'sign-in', component: SignInComponent},
+    {path: 'get-started', component: GetStartedComponent}
 ];
 
 @NgModule({
@@ -35,7 +39,9 @@ const appRoutes: Routes = [
         NavbarComponent,
         SearchComponent,
         ResultsComponent,
-        ResultCardComponent
+        ResultCardComponent,
+        SignInComponent,
+        GetStartedComponent
     ],
     imports: [
         BrowserModule,
