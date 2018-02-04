@@ -1,7 +1,7 @@
 @import url('../sign-in/sign-in.component.css');
 
 #sign-in-main {
-    background: url('/assets/images/background-images/sign-up-bg-webp.webp') no-repeat center center fixed,
+    background: url('/assets/images/background-images/sign-up-webp.webp') no-repeat center center fixed,
     url('/assets/images/background-images/sign-up-bg.jpg') no-repeat center center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
@@ -10,5 +10,25 @@
 }
 
 #confirm-password-field {
-    margin-top: 30px;
+    margin-top: 50px;
+}
+
+.input.ng-invalid.ng-touched {
+    border-bottom: 1px solid red !important;
+}
+
+.help.invalid {
+    color: red;
+}
+
+.input.ng-touched.ng-valid {
+    border-bottom: 1px solid lightgreen !important;
+}
+
+.help.valid {
+    color: green;
+}
+
+.help {
+    margin-bottom: -30px;
 }

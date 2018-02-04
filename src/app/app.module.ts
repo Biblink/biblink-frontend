@@ -6,7 +6,7 @@ import {RouterModule, Routes} from '@angular/router';
 import {HttpClientJsonpModule, HttpClientModule} from '@angular/common/http';
 import {NgModule} from '@angular/core';
 import {ScrollToModule} from '@nicky-lenaers/ngx-scroll-to';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {ShareModule} from '@ngx-share/core';
 import {ClipboardModule} from 'ngx-clipboard';
 import {ToastrModule} from 'ngx-toastr';
@@ -23,6 +23,8 @@ import {ResultCardComponent} from './result-card/result-card.component';
 import {SearchService} from './search.service';
 import { SignInComponent } from './sign-in/sign-in.component';
 import { GetStartedComponent } from './get-started/get-started.component';
+import {AuthService} from './auth.service';
+import {PasswordValidation} from './validators/password-validation.directive';
 
 const appRoutes: Routes = [
     {path: '', component: HomeComponent},
@@ -47,6 +49,7 @@ const appRoutes: Routes = [
         BrowserModule,
         BrowserAnimationsModule,
         FormsModule,
+        ReactiveFormsModule,
         environment.production
             ? ServiceWorkerModule.register('/ngsw-worker.js')
             : [],
@@ -58,7 +61,7 @@ const appRoutes: Routes = [
         ShareModule.forRoot(),
         ToastrModule.forRoot()
     ],
-    providers: [SearchService],
+    providers: [SearchService, AuthService],
     bootstrap: [AppComponent]
 })
 export class AppModule {
