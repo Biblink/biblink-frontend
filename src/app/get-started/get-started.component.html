@@ -1,5 +1,3 @@
-<app-navbar></app-navbar>
-
 <section class="hero is-fullheight" id="sign-in-main">
     <div class="hero-body">
         <div class="container has-text-centered" id="sign-in-container">
@@ -37,38 +35,45 @@
                         </div>
                     </div>
                 </div>
-                <svg width="24px" height="378px" viewBox="0 0 24 378" version="1.1"
-                     xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                    <!-- Generator: Sketch 48.2 (47327) - http://www.bohemiancoding.com/sketch -->
-                    <title>Group 9</title>
-                    <desc>Created with Sketch.</desc>
-                    <defs></defs>
-                    <g id="Sign-In-Desktop" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"
-                       transform="translate(-709.000000, -375.000000)">
-                        <g id="Group-5" transform="translate(231.000000, 256.000000)">
-                            <g id="Group" transform="translate(103.000000, 119.000000)">
-                                <g id="Group-9" transform="translate(371.000000, 0.000000)">
-                                    <text id="or" font-family="AvenirNext-Bold, Avenir Next" font-size="20"
-                                          font-weight="bold" letter-spacing="3.341666" fill="#BFBFBF">
-                                        <tspan x="3.59631601" y="195">or</tspan>
-                                    </text>
-                                    <path d="M16.6799201,0.5 L16.6799201,171.573084" id="Line-2" stroke="#979797"
-                                          stroke-linecap="square"></path>
-                                    <path d="M16.6799201,205.5 L16.6799201,376.573084" id="Line-2-Copy"
-                                          stroke="#979797" stroke-linecap="square"></path>
+                <div class="is-hidden-mobile">
+                    <svg width="24px" height="378px" viewBox="0 0 24 378" version="1.1"
+                         xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                        <!-- Generator: Sketch 48.2 (47327) - http://www.bohemiancoding.com/sketch -->
+                        <title>Group 9</title>
+                        <desc>Created with Sketch.</desc>
+                        <defs></defs>
+                        <g id="Sign-In-Desktop" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"
+                           transform="translate(-709.000000, -375.000000)">
+                            <g id="Group-5" transform="translate(231.000000, 256.000000)">
+                                <g id="Group" transform="translate(103.000000, 119.000000)">
+                                    <g id="Group-9" transform="translate(371.000000, 0.000000)">
+                                        <text id="or" font-family="AvenirNext-Bold, Avenir Next" font-size="20"
+                                              font-weight="bold" letter-spacing="3.341666" fill="#BFBFBF">
+                                            <tspan x="3.59631601" y="195">or</tspan>
+                                        </text>
+                                        <path d="M16.6799201,0.5 L16.6799201,171.573084" id="Line-2" stroke="#979797"
+                                              stroke-linecap="square"></path>
+                                        <path d="M16.6799201,205.5 L16.6799201,376.573084" id="Line-2-Copy"
+                                              stroke="#979797" stroke-linecap="square"></path>
+                                    </g>
                                 </g>
                             </g>
                         </g>
-                    </g>
-                </svg>
+                    </svg>
+                </div>
+                <div class="is-hidden-tablet">
+                    <img src="/assets/images/feature-images/or-horizontal-line.svg" alt="or" width="70%">
+                </div>
                 <div class="column has-text-left" id="email-sign-in">
                     <form [formGroup]="emailSignupForm" novalidate>
                         <div class="field">
                             <label class="label" for="email">Email:</label>
                             <input class="input" required type="email" formControlName="email" id="email" name="email">
-                            <p *ngIf="email.invalid && email.touched && email.errors.required" class="help invalid" data-aos="fade-up-right">
+                            <p *ngIf="email.invalid && email.touched && email.errors.required" class="help invalid"
+                               data-aos="fade-up-right">
                                 Email is required</p>
-                            <p *ngIf="email.invalid && email.touched && email.errors.pattern" class="help invalid" data-aos="fade-up-right">
+                            <p *ngIf="email.invalid && email.touched && email.errors.pattern" class="help invalid"
+                               data-aos="fade-up-right">
                                 Please provide a valid email</p>
                             <p *ngIf="email.valid && email.touched" class="help valid" data-aos="fade-up-right">
                                 Nice! Let's create a password!</p>
@@ -78,9 +83,11 @@
                             <div class="control">
                                 <input class="input" type="password" formControlName="password" id="password"
                                        name="password">
-                                <p *ngIf="password.invalid && password.touched && password.errors.required" class="help invalid" data-aos="fade-up-right">
+                                <p *ngIf="password.invalid && password.touched && password.errors.required"
+                                   class="help invalid" data-aos="fade-up-right">
                                     Password is required</p>
-                                <p *ngIf="password.valid && password.touched" class="help valid" data-aos="fade-up-right">
+                                <p *ngIf="password.valid && password.touched" class="help valid"
+                                   data-aos="fade-up-right">
                                     Awesome! Almost done!</p>
                             </div>
                         </div>
@@ -89,11 +96,14 @@
                             <div class="control">
                                 <input class="input" type="password" formControlName="confirmPassword"
                                        id="confirm-password" name="confirmPassword">
-                                <p *ngIf="confirmPassword.invalid && confirmPassword.touched && confirmPassword.errors.required" class="help invalid" data-aos="fade-up-right">
+                                <p *ngIf="confirmPassword.invalid && confirmPassword.touched && confirmPassword.errors.required"
+                                   class="help invalid" data-aos="fade-up-right">
                                     Confirm Password is required</p>
-                                <p *ngIf="confirmPassword.invalid && confirmPassword.touched && !confirmPassword.errors.required && confirmPassword.errors.MatchPassword" class="help invalid" data-aos="fade-up-right">
+                                <p *ngIf="confirmPassword.invalid && confirmPassword.touched && !confirmPassword.errors.required && confirmPassword.errors.MatchPassword"
+                                   class="help invalid" data-aos="fade-up-right">
                                     Hmm...Passwords don't match</p>
-                                <p *ngIf="confirmPassword.valid && confirmPassword.touched" class="help valid" data-aos="fade-up-right">
+                                <p *ngIf="confirmPassword.valid && confirmPassword.touched" class="help valid"
+                                   data-aos="fade-up-right">
                                     Awesome! You're ready to sign up!</p>
                             </div>
                         </div>

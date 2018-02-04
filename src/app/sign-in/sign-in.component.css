@@ -1,7 +1,6 @@
 #sign-in-main {
-    background:
-            url('/assets/images/background-images/sign-in-webp.webp') no-repeat center center fixed,
-            url('/assets/images/background-images/sign-in-bg.jpg') no-repeat center center fixed;
+    background: url('/assets/images/background-images/sign-in-webp.webp') no-repeat center center fixed,
+    url('/assets/images/background-images/sign-in-bg.jpg') no-repeat center center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -212,4 +211,69 @@
     float: right;
     margin-top: 10px;
     margin-right: 37px;
+}
+
+@media screen and (max-width: 768px) {
+
+    .connect-title {
+        font-size: 1.2rem;
+    }
+
+    #sign-in-container {
+        margin-top: 40px;
+    }
+
+    #sign-in-container .columns {
+        margin-top: 10px;
+
+    }
+
+    .buttons {
+        margin-bottom: 20px;
+    }
+
+    #email-sign-in {
+        width: 100%;
+        margin-top: 20px;
+    }
+
+    #email-sign-in form {
+        margin: 0 auto;
+    }
+
+    #email-sign-in .field {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .help, .no-account {
+        font-size: 0.6rem;
+    }
+
+    .sign-in-btn {
+        margin-top: 30px;
+    }
+
+    #google-sign-in {
+        background-color: white;
+    }
+
+    #google-sign-in .social-text {
+        margin-top: 8px;
+        margin-right: 10px;
+    }
+
+    #facebook-sign-in .social-text {
+        margin-right: 5px;
+        font-size: 0.8rem;
+    }
+
+    #twitter-sign-in .social-text {
+        margin-right: 5px;
+        font-size: 0.9rem;
+    }
+
+    .social-sign-in-btn {
+        width: 250px;
+    }
 }

@@ -75,16 +75,16 @@
 <div class="is-hidden-tablet" id="menu-overlay" [ngStyle]="{'opacity': menuOpacity, 'height': menuHeight, 'z-index': menuZ}">
     <div class="container has-text-centered menu-links">
         <div>
-            <a class="nav-link">Home</a>
+            <a class="nav-link" [routerLink]="'/'" (click)="toggleMobileMenu()">Home</a>
         </div>
         <div>
-            <a class="nav-link">About</a>
+            <a class="nav-link" (click)="toggleMobileMenu()">About</a>
         </div>
         <div>
-            <a class="nav-link" [routerLink]="'/search'">Search</a>
+            <a class="nav-link" [routerLink]="'/search'" (click)="toggleMobileMenu()">Search</a>
         </div>
         <div>
-            <a class="nav-link" [routerLink]="'/sign-in'">Sign In</a>
+            <a class="nav-link" [routerLink]="'/sign-in'" (click)="toggleMobileMenu()">Sign In</a>
         </div>
     </div>
 </div>
