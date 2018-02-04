@@ -24,7 +24,7 @@ export class GetStartedComponent implements OnInit {
     }
 
     constructor(public title: Title, private _auth: AuthService, private fb: FormBuilder) {
-        this.title.setTitle('Biblya | Search');
+        this.title.setTitle('Biblya | Get Started');
     }
 
     ngOnInit(): void {
