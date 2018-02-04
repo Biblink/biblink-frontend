@@ -15,6 +15,9 @@ export class ResultsComponent implements OnInit {
     }
 
     ngOnInit() {
+        AOS.init({
+            disable: 'mobile'
+        })
         this.type.emit(this.sortType);
     }
 

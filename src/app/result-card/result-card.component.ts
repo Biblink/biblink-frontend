@@ -7,7 +7,7 @@ import {
     transition
 } from '@angular/animations';
 import {ToastrService} from 'ngx-toastr';
-
+declare const AOS: any;
 @Component({
     selector: 'app-result-card',
     templateUrl: './result-card.component.html',
@@ -41,6 +41,9 @@ export class ResultCardComponent implements OnInit {
     }
 
     ngOnInit() {
+        AOS.init({
+            disable: 'mobile'
+        });
         this.reference = this.reference.replace(/<\/?em>/g, '');
         this.text = this.text.replace(/<\/?em>/g, '');
         this.shareTitle = this.reference + ' from Biblya Search';

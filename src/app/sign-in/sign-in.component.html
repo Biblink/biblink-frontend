@@ -3,30 +3,30 @@
 <section class="hero is-fullheight" id="sign-in-main">
     <div class="hero-body">
         <div class="container has-text-centered" id="sign-in-container">
-            <h1 class="title">
+            <h1 class="title" data-aos="fade-down" data-aos-duration="1200">
                 Sign In
             </h1>
             <div class="columns">
                 <div class="column">
                     <div class="has-text-centered">
-                        <h1 class="connect-title">Sign In With</h1>
-                        <div class="buttons is-centered">
+                        <h1 class="connect-title" data-aos="fade-right" data-aos-duration="1200">Sign In With</h1>
+                        <div class="buttons is-centered" >
                             <ul>
-                                <li>
+                                <li data-aos="fade-up-right" data-aos-duration="1200">
                                     <button class="social-sign-in-btn has-text-centered" id="google-sign-in">
                                         <span class="social-logo"><img
                                                 src="/assets/images/feature-images/mobile/icons/google_logo.svg"></span>
                                         <span class="social-text">Sign in with Google</span>
                                     </button>
                                 </li>
-                                <li>
-                                    <button class="social-sign-in-btn" id="facebook-sign-in">
+                                <li data-aos="zoom-in" data-aos-duration="1200">
+                                    <button class="social-sign-in-btn" id="facebook-sign-in" >
                                         <span class="social-logo"><img
                                                 src="/assets/images/feature-images/mobile/icons/facebook_logo.svg"></span>
                                         <span class="social-text">Sign in with Facebook</span>
                                     </button>
                                 </li>
-                                <li>
+                                <li data-aos="fade-up-left" data-aos-duration="1200">
                                     <button class="social-sign-in-btn" id="twitter-sign-in">
                                         <span class="social-logo"><img
                                                 src="/assets/images/feature-images/mobile/icons/twitter_logo.svg"></span>
@@ -37,7 +37,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="is-hidden-mobile">
+                <div class="is-hidden-mobile" data-aos="fade-up"  data-aos-duration="1200">
                     <svg width="24px" height="378px" viewBox="0 0 24 378" version="1.1"
                          xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                         <!-- Generator: Sketch 48.2 (47327) - http://www.bohemiancoding.com/sketch -->
@@ -68,18 +68,18 @@
                 </div>
                 <div class="column has-text-left" id="email-sign-in">
                     <form>
-                        <div class="field">
+                        <div class="field" data-aos="fade-up-right" data-aos="fade-up-left" data-aos-duration="1200">
                             <label class="label" for="email">Email:</label>
                             <input class="input" type="text" id="email" name="email">
                         </div>
-                        <div class="field">
+                        <div class="field" data-aos="fade-up-left" data-aos="fade-up-left" data-aos-duration="1400">
                             <label class="label" for="password">Password:</label>
                             <div class="control">
                                 <input class="input" type="password" id="password" name="password">
                                 <p class="help"><span>Forgot your password?</span><a href="">Reset Password</a></p>
                             </div>
                         </div>
-                        <div class="has-text-right is-hidden-mobile">
+                        <div class="has-text-right is-hidden-mobile" data-aos="zoom-in" data-aos-duration="1200">
                             <button class="sign-in-btn btn">Sign In</button>
                         </div>
                         <div class="has-text-centered is-hidden-tablet">
@@ -88,7 +88,7 @@
                     </form>
                 </div>
             </div>
-            <p class="no-account"><span>Don't have an account?</span> <a [routerLink]="'/get-started'">Sign Up</a></p>
+            <p class="no-account" data-aos="zoom-in" data-aos-duration="1500"><span>Don't have an account?</span> <a [routerLink]="'/get-started'">Sign Up</a></p>
         </div>
     </div>
 </section>

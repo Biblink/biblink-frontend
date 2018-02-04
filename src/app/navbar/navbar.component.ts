@@ -14,6 +14,7 @@ export class NavbarComponent implements OnInit {
     menuOpacity = 0;
     menuHeight = '0';
     menuZ = 0;
+
     constructor() {
     }
 
@@ -33,12 +34,12 @@ export class NavbarComponent implements OnInit {
         const navClasses = document.getElementById('navbar-main').classList;
 
         // returns current scroll position
-        const scrollTop = function() {
+        const scrollTop = function () {
             return window.scrollY;
         };
 
         // Primary scroll event function
-        const scrollDetect = function(home, down, up) {
+        const scrollDetect = function (home, down, up) {
             // Current scroll position
             const currentScroll = scrollTop();
             if (scrollTop() === 0) {
@@ -66,10 +67,11 @@ export class NavbarComponent implements OnInit {
             navClasses.add('open');
         }
 
-        window.addEventListener('scroll', function() {
+        window.addEventListener('scroll', function () {
             scrollDetect(homeAction, downAction, upAction);
         });
     }
+
     toggleMobileMenu() {
         this.activated = !this.activated;
         this.menuOpacity = this.activated ? 1 : 0;

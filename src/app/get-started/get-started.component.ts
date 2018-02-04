@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {AuthService} from '../auth.service';
 import {AbstractControl, FormBuilder, FormGroup, ValidatorFn, Validators} from '@angular/forms';
+import {Title} from '@angular/platform-browser';
 
 @Component({
     selector: 'app-get-started',
@@ -22,7 +23,8 @@ export class GetStartedComponent implements OnInit {
         }
     }
 
-    constructor(private _auth: AuthService, private fb: FormBuilder) {
+    constructor(public title: Title, private _auth: AuthService, private fb: FormBuilder) {
+        this.title.setTitle('Biblya | Search');
     }
 
     ngOnInit(): void {

@@ -3,6 +3,7 @@ import {Title} from '@angular/platform-browser';
 import {SearchService} from '../search.service';
 import {ScrollToConfigOptions, ScrollToService} from '@nicky-lenaers/ngx-scroll-to';
 
+declare const AOS: any;
 @Component({
     selector: 'app-search',
     templateUrl: './search.component.html',
@@ -20,6 +21,9 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewChecked {
 
     ngOnInit() {
         this.title.setTitle('Biblya | Search');
+        AOS.init({
+            disable: 'mobile'
+        });
     }
 
     ngOnDestroy() {
