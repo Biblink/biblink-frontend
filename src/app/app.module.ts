@@ -30,6 +30,8 @@ import {SearchService} from './search.service';
 import {SignInComponent} from './sign-in/sign-in.component';
 import {GetStartedComponent} from './get-started/get-started.component';
 import {AuthService} from './auth.service';
+import { PasswordResetComponent } from './password-reset/password-reset.component';
+import { VerifyEmailComponent } from './verify-email/verify-email.component';
 
 const appRoutes: Routes = [
     {path: '', component: HomeComponent},
@@ -48,7 +50,9 @@ const appRoutes: Routes = [
         ResultsComponent,
         ResultCardComponent,
         SignInComponent,
-        GetStartedComponent
+        GetStartedComponent,
+        PasswordResetComponent,
+        VerifyEmailComponent
     ],
     imports: [
         BrowserModule,

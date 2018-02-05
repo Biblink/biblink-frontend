@@ -283,3 +283,29 @@
         width: 250px;
     }
 }
+
+.help.invalid {
+    color: red;
+}
+
+.input.ng-touched.ng-valid:not(.error) {
+    border-bottom: 1px solid lightgreen !important;
+}
+.input.ng-invalid.ng-touched, .input.error {
+    border-bottom: 1px solid red !important;
+}
+
+.help.valid {
+    color: green;
+}
+
+.help {
+    margin-bottom: -30px;
+}
+
+#password-reset {
+    float: right;
+}
+.btn-container {
+     margin-top: 50px;
+ }

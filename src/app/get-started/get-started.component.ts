@@ -3,6 +3,7 @@ import {AuthService} from '../auth.service';
 import {AbstractControl, FormBuilder, FormGroup, ValidatorFn, Validators} from '@angular/forms';
 import {Title} from '@angular/platform-browser';
 import {User} from '../interfaces/user';
+import {Router} from '@angular/router';
 
 @Component({
     selector: 'app-get-started',
@@ -10,7 +11,7 @@ import {User} from '../interfaces/user';
     styleUrls: ['./get-started.component.css']
 })
 export class GetStartedComponent implements OnInit {
-    emailInUse: boolean = false;
+    emailInUse = false;
     emailSignupForm: FormGroup;
     email_regex = new RegExp('(?:[a-z0-9!#$%&\'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&\'*+/=?^_`{|}~-]+)*|"' +
         '(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")' +
@@ -30,7 +31,7 @@ export class GetStartedComponent implements OnInit {
         }
     }
 
-    constructor(public title: Title, private _auth: AuthService, private fb: FormBuilder) {
+    constructor(public title: Title, private _auth: AuthService, private fb: FormBuilder, private router: Router) {
         this.title.setTitle('Biblya | Get Started');
     }
 
@@ -38,11 +39,8 @@ export class GetStartedComponent implements OnInit {
         this.createForm();
         // this._auth.logout();
         this._auth.authState.subscribe((state) => {
-            if (state === null) {
-                console.log('not logged in');
-            } else {
-                console.log('logged in');
-                console.log('user is logged in');
+            if (state !== null) {
+                this.router.navigateByUrl('/'); // TODO: change to /dashboard when dashboard is created.
             }
         });
     }

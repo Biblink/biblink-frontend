@@ -10,7 +10,8 @@
             <a class="nav-link" [routerLink]="'/search'">Search</a>
         </div>
         <div>
-            <a class="nav-link" [routerLink]="'/sign-in'">Sign In</a>
+            <a class="nav-link" [routerLink]="'/sign-in'" *ngIf="!isLoggedIn">Sign In</a>
+            <a class="nav-link" *ngIf="isLoggedIn" (click)="logout()">Logout</a>
         </div>
     </div>
 </div>
@@ -22,7 +23,8 @@
                     <a class="nav-link" id="logo-link">Logo</a>
                 </li>
                 <li id="sign-in">
-                    <a class="nav-link" [routerLink]="'/sign-in'">Sign In</a>
+                    <a class="nav-link" [routerLink]="'/sign-in'" *ngIf="!isLoggedIn">Sign In</a>
+                    <a class="nav-link" *ngIf="isLoggedIn" (click)="logout()">Logout</a>
                 </li>
                 <div class="mid-nav">
                     <div class="columns">
@@ -49,7 +51,8 @@
                     </div>
                 </li>
                 <li id="sign-in-mobile">
-                    <a class="nav-link" [routerLink]="'/sign-in'">Sign In</a>
+                    <a class="nav-link" [routerLink]="'/sign-in'" *ngIf="!isLoggedIn">Sign In</a>
+                    <a class="nav-link" *ngIf="isLoggedIn" (click)="logout()">Logout</a>
                 </li>
             </ul>
         </nav>
