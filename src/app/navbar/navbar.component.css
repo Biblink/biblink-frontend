@@ -312,7 +312,7 @@
     margin-top: 300px;
 }
 
-.mobile #sign-in-mobile {
+.mobile #sign-in-mobile, #log-out-mobile {
     position: relative;
     right: 15px;
     font-size: 1.1rem;

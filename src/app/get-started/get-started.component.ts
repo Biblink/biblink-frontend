@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {AuthService} from '../auth.service';
 import {AbstractControl, FormBuilder, FormGroup, ValidatorFn, Validators} from '@angular/forms';
 import {Title} from '@angular/platform-browser';
+import {User} from '../interfaces/user';
 
 @Component({
     selector: 'app-get-started',
@@ -9,6 +10,7 @@ import {Title} from '@angular/platform-browser';
     styleUrls: ['./get-started.component.css']
 })
 export class GetStartedComponent implements OnInit {
+    emailInUse: boolean = false;
     emailSignupForm: FormGroup;
     email_regex = new RegExp('(?:[a-z0-9!#$%&\'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&\'*+/=?^_`{|}~-]+)*|"' +
         '(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")' +
@@ -34,6 +36,15 @@ export class GetStartedComponent implements OnInit {
 
     ngOnInit(): void {
         this.createForm();
+        // this._auth.logout();
+        this._auth.authState.subscribe((state) => {
+            if (state === null) {
+                console.log('not logged in');
+            } else {
+                console.log('logged in');
+                console.log('user is logged in');
+            }
+        });
     }
 
     createForm(): void {
@@ -59,4 +70,20 @@ export class GetStartedComponent implements OnInit {
         return this.emailSignupForm.get('confirmPassword');
     }
 
+    signUp(provider, data = null) {
+        this._auth.userSignup(provider, data).then((res: User | Object) => {
+            if (res instanceof User) {
+                console.log(res);
+                console.log(res.email);
+            } else {
+                if (res['errorCode'] === 'auth/email-already-in-use') {
+                    this.emailInUse = true;
+                }
+            }
+        });
+    }
+
+    signUpWithEmail() {
+        this.signUp('email', {email: this.email.value, password: this.password.value});
+    }
 }

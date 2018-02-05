@@ -13,16 +13,16 @@
     margin-top: 50px;
 }
 
-.input.ng-invalid.ng-touched {
-    border-bottom: 1px solid red !important;
-}
 
 .help.invalid {
     color: red;
 }
 
-.input.ng-touched.ng-valid {
+.input.ng-touched.ng-valid:not(.error) {
     border-bottom: 1px solid lightgreen !important;
+}
+.input.ng-invalid.ng-touched, .input.error {
+    border-bottom: 1px solid red !important;
 }
 
 .help.valid {

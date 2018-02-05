@@ -1,5 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {AppComponent} from '../app.component';
+import {AuthService} from '../auth.service';
+import {Router} from '@angular/router';
 
 declare const AOS: any;
 declare const $: any;
@@ -14,8 +16,9 @@ export class NavbarComponent implements OnInit {
     menuOpacity = 0;
     menuHeight = '0';
     menuZ = 0;
+    isLoggedIn: boolean = null;
 
-    constructor() {
+    constructor(private _auth: AuthService, private _router: Router) {
     }
 
     toHome() {
@@ -23,6 +26,10 @@ export class NavbarComponent implements OnInit {
     }
 
     ngOnInit() {
+        this._auth.authState.subscribe((state) => {
+            this.isLoggedIn = !(state === null);
+        });
+
         if (!AppComponent.navInitialized) {
             AOS.init();
             AppComponent.navInitialized = !AppComponent.navInitialized;
@@ -84,5 +91,11 @@ export class NavbarComponent implements OnInit {
             $('body').css('overflow', 'visible');
             $('html').css('overflow', 'visible');
         }
+    }
+
+    logout(): void {
+        this._auth.logout().then(() => {
+            this._router.navigateByUrl('/sign-in');
+        });
     }
 }

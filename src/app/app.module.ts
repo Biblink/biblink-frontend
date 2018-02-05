@@ -10,6 +10,12 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {ShareModule} from '@ngx-share/core';
 import {ClipboardModule} from 'ngx-clipboard';
 import {ToastrModule} from 'ngx-toastr';
+import {AngularFireModule} from 'angularfire2';
+import {AngularFirestoreModule} from 'angularfire2/firestore';
+import {AngularFireStorageModule} from 'angularfire2/storage';
+import {AngularFireAuthModule} from 'angularfire2/auth';
+
+
 // components
 import {AppComponent} from './app.component';
 import {HomeComponent} from './home/home.component';
@@ -21,10 +27,9 @@ import {ResultCardComponent} from './result-card/result-card.component';
 
 // providers
 import {SearchService} from './search.service';
-import { SignInComponent } from './sign-in/sign-in.component';
-import { GetStartedComponent } from './get-started/get-started.component';
+import {SignInComponent} from './sign-in/sign-in.component';
+import {GetStartedComponent} from './get-started/get-started.component';
 import {AuthService} from './auth.service';
-import {PasswordValidation} from './validators/password-validation.directive';
 
 const appRoutes: Routes = [
     {path: '', component: HomeComponent},
@@ -50,6 +55,10 @@ const appRoutes: Routes = [
         BrowserAnimationsModule,
         FormsModule,
         ReactiveFormsModule,
+        AngularFireModule.initializeApp(environment.firebase, 'biblya'),
+        AngularFirestoreModule,
+        AngularFireAuthModule,
+        AngularFireStorageModule,
         environment.production
             ? ServiceWorkerModule.register('/ngsw-worker.js')
             : [],

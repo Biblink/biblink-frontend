@@ -39,7 +39,8 @@
             </a>
         </li>
         <li id="sign-in" data-aos="fade-down-left" data-aos-duration="1200" data-aos-once="true">
-            <a class="nav-link" [routerLink]="'/sign-in'">Sign In</a>
+            <a class="nav-link" [routerLink]="'/sign-in'" *ngIf="!isLoggedIn">Sign In</a>
+            <a class="nav-link" *ngIf="isLoggedIn" (click)="logout()">Logout</a>
         </li>
         <div class="mid-nav">
             <div class="columns">
@@ -67,7 +68,8 @@
             </div>
         </li>
         <li>
-            <a class="nav-link" id="sign-in-mobile" [routerLink]="'/sign-in'">Sign In</a>
+            <a class="nav-link" *ngIf="!isLoggedIn" id="sign-in-mobile" [routerLink]="'/sign-in'" >Sign In</a>
+            <a class="nav-link" *ngIf="isLoggedIn" id="log-out-mobile" (click)="logout()">Logout</a>
         </li>
     </ul>
 </nav>
@@ -84,7 +86,8 @@
             <a class="nav-link" [routerLink]="'/search'" (click)="toggleMobileMenu()">Search</a>
         </div>
         <div>
-            <a class="nav-link" [routerLink]="'/sign-in'" (click)="toggleMobileMenu()">Sign In</a>
+            <a class="nav-link" *ngIf="!isLoggedIn" [routerLink]="'/sign-in'" (click)="toggleMobileMenu()">Sign In</a>
+            <a class="nav-link" *ngIf="isLoggedIn" (click)="logout(); toggleMobileMenu()">Logout</a>
         </div>
     </div>
 </div>
