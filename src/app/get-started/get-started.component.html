@@ -78,7 +78,7 @@
                             <p *ngIf="email.invalid && email.touched && email.errors.pattern" class="help invalid"
                                data-aos="fade-up-right">
                                 Please provide a valid email</p>
-                            <p *ngIf="email.touched && emailInUse" class="help invalid"
+                            <p *ngIf="email.touched && emailInUse" class="help invalid email-invalid"
                                data-aos="fade-up-right">
                                 Hmmm...email is in use, try logging in or resetting your password.</p>
                             <p *ngIf="email.valid && email.touched && !emailInUse" class="help valid" data-aos="fade-up-right">

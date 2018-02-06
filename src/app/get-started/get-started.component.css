@@ -12,3 +12,7 @@
 #confirm-password-field {
     margin-top: 50px;
 }
+
+.email-invalid {
+    width: 100% !important;
+}
