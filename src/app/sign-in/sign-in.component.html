@@ -88,7 +88,7 @@
                                        name="password" [class.error]="incorrectPassword">
                                 <p data-aos="fade-up-left"
                                    *ngIf="(password.invalid && password.untouched) || incorrectPassword" class="help"
-                                   id="password-reset"><span>Forgot your password?</span><a href="">Reset Password</a>
+                                   id="password-reset"><span>Forgot your password?</span><a [routerLink]="'/password-reset'">Reset Password</a>
                                 </p>
                                 <p *ngIf="password.invalid && password.touched && password.errors.required"
                                    class="help invalid" data-aos="fade-up-right">

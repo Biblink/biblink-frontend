@@ -3,6 +3,7 @@ import {Title} from '@angular/platform-browser';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {AuthService} from '../auth.service';
 import {User} from '../interfaces/user';
+import {Router} from '@angular/router';
 
 declare const AOS: any;
 
@@ -21,7 +22,7 @@ export class SignInComponent implements OnInit {
         '|1[0-9][0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]' +
         '|\\\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\\])');
 
-    constructor(public title: Title, private _auth: AuthService, private fb: FormBuilder) {
+    constructor(public title: Title, private _auth: AuthService, private fb: FormBuilder, private router: Router) {
         this.title.setTitle('Biblya | Sign In');
     }
 
@@ -32,11 +33,16 @@ export class SignInComponent implements OnInit {
         this.createForm();
         // this._auth.logout();
         this._auth.authState.subscribe((state) => {
-            if (state === null) {
-                console.log('not logged in');
-            } else {
-                console.log('logged in');
-                console.log('user is logged in');
+            if (state !== null) {
+                if (this._auth.emailVerified) {
+                    this._auth.emailVerified.then((res) => {
+                        if (res) {
+                            this.router.navigateByUrl('/'); // TODO: change to /dashboard when dashboard is created.
+                        } else {
+                            this.router.navigateByUrl('/verify-email');
+                        }
+                    });
+                }
             }
         });
     }
@@ -72,5 +78,4 @@ export class SignInComponent implements OnInit {
     signInWithEmail() {
         this.signIn('email', {email: this.email.value, password: this.password.value});
     }
-
 }

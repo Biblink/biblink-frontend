@@ -286,6 +286,7 @@
 
 .help.invalid {
     color: red;
+    width: 50%;
 }
 
 .input.ng-touched.ng-valid:not(.error) {

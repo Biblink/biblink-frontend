@@ -37,7 +37,9 @@ const appRoutes: Routes = [
     {path: '', component: HomeComponent},
     {path: 'search', component: SearchComponent},
     {path: 'sign-in', component: SignInComponent},
-    {path: 'get-started', component: GetStartedComponent}
+    {path: 'verify-email', component: VerifyEmailComponent},
+    {path: 'get-started', component: GetStartedComponent},
+    {path: 'password-reset', component: PasswordResetComponent}
 ];
 
 @NgModule({
@@ -72,7 +74,9 @@ const appRoutes: Routes = [
         HttpClientJsonpModule,
         ClipboardModule,
         ShareModule.forRoot(),
-        ToastrModule.forRoot()
+        ToastrModule.forRoot({
+            positionClass: 'toast-bottom-left'
+        })
     ],
     providers: [SearchService, AuthService],
     bootstrap: [AppComponent]

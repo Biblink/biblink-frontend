@@ -40,7 +40,13 @@ export class GetStartedComponent implements OnInit {
         // this._auth.logout();
         this._auth.authState.subscribe((state) => {
             if (state !== null) {
-                this.router.navigateByUrl('/'); // TODO: change to /dashboard when dashboard is created.
+                this._auth.emailVerified.then((res) => {
+                    if (res) {
+                        this.router.navigateByUrl('/'); // TODO: change to /dashboard when dashboard is created.
+                    } else {
+                        this.router.navigateByUrl('/verify-email');
+                    }
+                });
             }
         });
     }

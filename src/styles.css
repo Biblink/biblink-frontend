@@ -1,12 +1,14 @@
 /* You can add global styles to this file, and also import other style files */
 
 @import url('https://use.typekit.net/uet5lfg.css');
-html,
-body {
+html {
     height: 100%;
     font-family: 'museo-sans', serif !important;
 }
 
+body {
+    font-family: 'museo-sans', serif !important;
+}
 @-moz-keyframes bounceTop {
     0%,
     20%,
