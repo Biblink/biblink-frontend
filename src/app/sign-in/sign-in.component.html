@@ -33,6 +33,9 @@
                                     <!--<span class="social-text">Sign in with Twitter</span>-->
                                     <!--</button>-->
                                 </li>
+                                <p data-aos="fade-up" data-aos-duration="1200" *ngIf="differentCredential" class="invalid-federation">
+                                    Hmmm...email in use...try signing in another way.
+                                </p>
                             </ul>
                         </div>
                     </div>

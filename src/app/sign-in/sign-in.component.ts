@@ -14,6 +14,7 @@ declare const AOS: any;
 })
 export class SignInComponent implements OnInit {
     incorrectPassword = false;
+    differentCredential = false;
     emailSignInForm: FormGroup;
     email_regex = new RegExp('(?:[a-z0-9!#$%&\'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&\'*+/=?^_`{|}~-]+)*|"' +
         '(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")' +
@@ -63,13 +64,17 @@ export class SignInComponent implements OnInit {
     }
 
     signIn(provider, data = null) {
+        this.differentCredential = false;
         this._auth.userLogin(provider, data).then((res: User | Object) => {
             if (res instanceof User) {
                 console.log(res);
                 console.log(res.email);
             } else {
+                console.log(res);
                 if (res['errorCode'] === 'auth/wrong-password') {
                     this.incorrectPassword = true;
+                } else if (res['errorCode'] === 'auth/account-exists-with-different-credential') {
+                    this.differentCredential = true;
                 }
             }
         });

@@ -310,3 +310,13 @@
 .btn-container {
      margin-top: 50px;
  }
+
+.invalid-federation {
+    color: #f23b2c;
+    margin-top: 40px;
+}
+
+.email-in-use a:hover {
+    text-decoration: underline;
+    color: #3273dc;
+}
