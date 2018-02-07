@@ -104,7 +104,7 @@
                                     Hmmm...password is incorrect</p>
                             </div>
                         </div>
-                        <div class="btn-container has-text-right is-hidden-mobile" data-aos="zoom-in"
+                        <div id="sign-in-button" class="btn-container has-text-right is-hidden-mobile" data-aos="zoom-in"
                              data-aos-duration="1200">
                             <button class="sign-in-btn btn" [disabled]="emailSignInForm.invalid || incorrectPassword">Sign In</button>
                         </div>
@@ -114,7 +114,7 @@
                     </form>
                 </div>
             </div>
-            <p class="no-account" data-aos="zoom-in" data-aos-duration="1500"><span>Don't have an account?</span> <a
+            <p class="no-account" data-aos-anchor="#sign-in-button" data-aos="zoom-in" data-aos-duration="1500"><span>Don't have an account?</span> <a
                     [routerLink]="'/get-started'">Sign Up</a></p>
         </div>
     </div>

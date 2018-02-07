@@ -1,0 +1,98 @@
+#main-text {
+    margin-top: 200px;
+}
+#main-text > h1 {
+    font-family: "museo-sans", sans-serif;
+    font-weight: 900;
+    font-size: 5em;
+    letter-spacing: 8px;
+    color: black;
+    margin-bottom: 30px;
+}
+
+#sub-text {
+    font-family: "museo-sans", sans-serif;
+    width: 50%;
+    font-size: 1.4em;
+    letter-spacing: 6px;
+    color: black;
+}
+
+.envelope {
+    font-size: 5em;
+    margin-bottom: 30px;
+    color: #06292A;
+}
+
+.btn {
+    font-family: 'museo-sans', sans-serif;
+    font-weight: 900;
+    letter-spacing: 2px;
+    line-height: 25px;
+    text-align: center;
+    font-size: 21px;
+    height: 68px;
+    width: 225px;
+}
+
+.btn:hover {
+    cursor: pointer;
+}
+
+.verify-cta {
+    margin-top: 60px;
+    border-radius: 5px;
+    border: #f23b2c;
+    background-color: #f23b2c;
+    box-shadow: 0 8px 18px 0 rgba(90, 89, 89, 0.5);
+    color: #ffffff;
+    font-family: 'museo-sans', sans-serif;
+    font-weight: 900;
+    letter-spacing: 1px;
+    line-height: 19px;
+    text-align: center;
+    transition: all 1s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+.verify-cta:hover {
+    background-color: #d13527;
+    box-shadow: none;
+    transition: all 1s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+.resend-verification {
+    margin-top: 50px;
+    font-size: 1.1rem;
+    letter-spacing: 1px;
+}
+
+#verification-problem {
+    color: #f23b2c;
+    font-size: 1.4rem;
+    letter-spacing: 1px;
+    margin-top: 30px;
+}
+
+.verification-link:hover {
+    color: #3273dc;
+    text-decoration: underline;
+}
+
+#loading-icon {
+    margin-top: 100px;
+    border: none;
+    padding: 0;
+    background:transparent;
+}
+
+#loading-icon::after {
+    height: 4rem;
+    width: 4rem;
+    border: 4px solid #a4afaf;
+    border-right-color: transparent;
+    border-left-color: transparent;
+    position: absolute;
+    left: auto;
+    top: auto;
+
+}
