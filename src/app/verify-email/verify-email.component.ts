@@ -29,11 +29,13 @@ export class VerifyEmailComponent implements OnInit {
     }
 
     resendVerificationEmail() {
-        if (!this._auth.emailVerified) {
-            this._auth.sendVerificationEmail().then(() => {
-                this.toastr.show(`Successfully sent a verification email to ${this._auth.email}`, 'Verified Email Sent');
-            });
-        }
+        this._auth.emailVerified.then((status) => {
+            if (!status) {
+                this._auth.sendVerificationEmail().then(() => {
+                    this.toastr.show(`Successfully sent a verification email to ${this._auth.email}`, 'Verified Email Sent');
+                });
+            }
+        });
     }
 
 }

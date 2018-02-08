@@ -99,7 +99,6 @@ export class AuthService {
 
             case 'twitter': {
                 return this._afAuth.auth.signInWithPopup(new firebase.auth.TwitterAuthProvider()).then((res) => {
-                    console.log(res);
                     const userRes = res['user'];
                     this.userData = new User(userRes['displayName'], userRes['email'], {});
                     return this.userData;
@@ -153,17 +152,15 @@ export class AuthService {
     }
 
     get emailVerified(): Promise<boolean> {
-        if (this._afAuth.auth.currentUser.emailVerified) {
-            return new Promise((resolve) => {
-                resolve(true);
-            });
-        }
         return this._afAuth.auth.currentUser.reload().then((res) => {
             return this._afAuth.auth.currentUser.emailVerified;
         });
     }
 
     get email() {
+        if (this.userData === undefined || this.userData.email === undefined) {
+            return this._afAuth.auth.currentUser.email;
+        }
         return this.userData.email;
     }
 
