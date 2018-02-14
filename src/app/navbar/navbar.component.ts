@@ -1,5 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {AppComponent} from '../app.component';
+import {AuthService} from '../auth.service';
+import {Router} from '@angular/router';
 
 declare const AOS: any;
 declare const $: any;
@@ -14,7 +16,9 @@ export class NavbarComponent implements OnInit {
     menuOpacity = 0;
     menuHeight = '0';
     menuZ = 0;
-    constructor() {
+    isLoggedIn: boolean = null;
+
+    constructor(private _auth: AuthService, private _router: Router) {
     }
 
     toHome() {
@@ -22,6 +26,10 @@ export class NavbarComponent implements OnInit {
     }
 
     ngOnInit() {
+        this._auth.authState.subscribe((state) => {
+            this.isLoggedIn = !(state === null);
+        });
+
         if (!AppComponent.navInitialized) {
             AOS.init();
             AppComponent.navInitialized = !AppComponent.navInitialized;
@@ -33,12 +41,12 @@ export class NavbarComponent implements OnInit {
         const navClasses = document.getElementById('navbar-main').classList;
 
         // returns current scroll position
-        const scrollTop = function() {
+        const scrollTop = function () {
             return window.scrollY;
         };
 
         // Primary scroll event function
-        const scrollDetect = function(home, down, up) {
+        const scrollDetect = function (home, down, up) {
             // Current scroll position
             const currentScroll = scrollTop();
             if (scrollTop() === 0) {
@@ -66,10 +74,11 @@ export class NavbarComponent implements OnInit {
             navClasses.add('open');
         }
 
-        window.addEventListener('scroll', function() {
+        window.addEventListener('scroll', function () {
             scrollDetect(homeAction, downAction, upAction);
         });
     }
+
     toggleMobileMenu() {
         this.activated = !this.activated;
         this.menuOpacity = this.activated ? 1 : 0;
@@ -82,5 +91,11 @@ export class NavbarComponent implements OnInit {
             $('body').css('overflow', 'visible');
             $('html').css('overflow', 'visible');
         }
+    }
+
+    logout(): void {
+        this._auth.logout().then(() => {
+            this._router.navigateByUrl('/sign-in');
+        });
     }
 }
