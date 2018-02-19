@@ -1,16 +1,16 @@
-import {Component, OnInit} from '@angular/core';
-import {Title} from '@angular/platform-browser';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {AuthService} from '../auth.service';
-import {User} from '../interfaces/user';
-import {Router} from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AuthService } from '../auth.service';
+import { User } from '../interfaces/user';
+import { Router } from '@angular/router';
 
 declare const AOS: any;
 
 @Component({
     selector: 'app-sign-in',
     templateUrl: './sign-in.component.html',
-    styleUrls: ['./sign-in.component.css']
+    styleUrls: [ './sign-in.component.css' ]
 })
 export class SignInComponent implements OnInit {
     incorrectPassword = false;
@@ -38,7 +38,7 @@ export class SignInComponent implements OnInit {
                 if (this._auth.emailVerified) {
                     this._auth.emailVerified.then((res) => {
                         if (res) {
-                            this.router.navigateByUrl('/'); // TODO: change to /dashboard when dashboard is created.
+                            this.router.navigateByUrl('/dashboard/home');
                         } else {
                             this.router.navigateByUrl('/verify-email');
                         }
@@ -50,8 +50,8 @@ export class SignInComponent implements OnInit {
 
     createForm(): void {
         this.emailSignInForm = this.fb.group({
-            email: ['', [Validators.required, Validators.pattern(this.email_regex)]],
-            password: ['', Validators.required]
+            email: [ '', [ Validators.required, Validators.pattern(this.email_regex) ] ],
+            password: [ '', Validators.required ]
         });
     }
 
@@ -71,9 +71,9 @@ export class SignInComponent implements OnInit {
                 console.log(res.email);
             } else {
                 console.log(res);
-                if (res['errorCode'] === 'auth/wrong-password') {
+                if (res[ 'errorCode' ] === 'auth/wrong-password') {
                     this.incorrectPassword = true;
-                } else if (res['errorCode'] === 'auth/account-exists-with-different-credential') {
+                } else if (res[ 'errorCode' ] === 'auth/account-exists-with-different-credential') {
                     this.differentCredential = true;
                 }
             }
@@ -81,6 +81,6 @@ export class SignInComponent implements OnInit {
     }
 
     signInWithEmail() {
-        this.signIn('email', {email: this.email.value, password: this.password.value});
+        this.signIn('email', { email: this.email.value, password: this.password.value });
     }
 }

@@ -1,4 +1,4 @@
-import {UserDataInterface} from './user-data.interface';
+import { UserDataInterface } from './user-data.interface';
 
 export class User {
     constructor(private _name, private _email, private _data: UserDataInterface) {
@@ -13,6 +13,6 @@ export class User {
     }
 
     get data() {
-        return this._data
+        return this._data;
     }
 }
