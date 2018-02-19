@@ -1,14 +1,14 @@
-import {Component, OnInit} from '@angular/core';
-import {AuthService} from '../auth.service';
-import {AbstractControl, FormBuilder, FormGroup, ValidatorFn, Validators} from '@angular/forms';
-import {Title} from '@angular/platform-browser';
-import {User} from '../interfaces/user';
-import {Router} from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { AuthService } from '../auth.service';
+import { AbstractControl, FormBuilder, FormGroup, ValidatorFn, Validators } from '@angular/forms';
+import { Title } from '@angular/platform-browser';
+import { User } from '../interfaces/user';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-get-started',
     templateUrl: './get-started.component.html',
-    styleUrls: ['./get-started.component.css']
+    styleUrls: [ './get-started.component.css' ]
 })
 export class GetStartedComponent implements OnInit {
     emailInUse = false;
@@ -26,7 +26,7 @@ export class GetStartedComponent implements OnInit {
         const confirmPassword = AC.get('confirmPassword').value; // to get value in input tag
         if (password !== confirmPassword) {
             const required = AC.get('confirmPassword').getError('required');
-            AC.get('confirmPassword').setErrors({required: required, MatchPassword: true});
+            AC.get('confirmPassword').setErrors({ required: required, MatchPassword: true });
         } else {
             return null;
         }
@@ -43,7 +43,7 @@ export class GetStartedComponent implements OnInit {
             if (state !== null) {
                 this._auth.emailVerified.then((res) => {
                     if (res) {
-                        this.router.navigateByUrl('/'); // TODO: change to /dashboard when dashboard is created.
+                        this.router.navigateByUrl('/dashboard/home');
                     } else {
                         this.router.navigateByUrl('/verify-email');
                     }
@@ -54,10 +54,10 @@ export class GetStartedComponent implements OnInit {
 
     createForm(): void {
         this.emailSignupForm = this.fb.group({
-                email: ['', [Validators.required, Validators.pattern(this.email_regex)]],
-                password: ['', Validators.required],
-                confirmPassword: ['', Validators.required],
-            },
+            email: [ '', [ Validators.required, Validators.pattern(this.email_regex) ] ],
+            password: [ '', Validators.required ],
+            confirmPassword: [ '', Validators.required ],
+        },
             {
                 validator: GetStartedComponent.matchPassword
             });
@@ -82,9 +82,9 @@ export class GetStartedComponent implements OnInit {
                 console.log(res);
                 console.log(res.email);
             } else {
-                if (res['errorCode'] === 'auth/email-already-in-use') {
+                if (res[ 'errorCode' ] === 'auth/email-already-in-use') {
                     this.emailInUse = true;
-                } else if (res['errorCode'] === 'auth/account-exists-with-different-credential') {
+                } else if (res[ 'errorCode' ] === 'auth/account-exists-with-different-credential') {
                     this.differentCredential = true;
                 }
             }
@@ -92,6 +92,6 @@ export class GetStartedComponent implements OnInit {
     }
 
     signUpWithEmail() {
-        this.signUp('email', {email: this.email.value, password: this.password.value});
+        this.signUp('email', { email: this.email.value, password: this.password.value });
     }
 }
