@@ -47,7 +47,22 @@
         </li>
         <li id="sign-in" data-aos="fade-down-left" data-aos-duration="1200" data-aos-once="true">
             <a class="nav-link" [routerLink]="'/sign-in'" *ngIf="!isLoggedIn">Sign In</a>
-
+            <div *ngIf="isLoggedIn" class="notification-widget dropdown is-right is-hoverable">
+                <div class="dropdown-trigger">
+                    <a aria-haspopup="true" aria-controls="user-actions" class="nav-link">
+                        <i class="notif fa fa-bell"></i>
+                    </a>
+                </div>
+                <div class="dropdown-menu" id="notifications" role="menu">
+                    <div class="dropdown-content">
+                        <div class="dropdown-item">
+                            <a class="nav-link" [routerLink]="'/dashboard/home'">Notif #1</a>
+                            <hr class="dropdown-divider">
+                            <a class="nav-link" (click)="logout()">Notif #2</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div *ngIf="isLoggedIn" class="dropdown is-right is-hoverable">
                 <div class="dropdown-trigger">
                     <a aria-haspopup="true" aria-controls="user-actions" class="nav-link">

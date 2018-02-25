@@ -13,7 +13,7 @@ export class AppComponent implements OnInit {
 
     constructor(private _route: Router, private _userData: UserDataService) {
         this._route.events.subscribe((event) => {
-            if (this._route.url === '/') {
+            if (this._route.url === '/' || this._route.url.indexOf('studies') !== -1) {
                 this.onHome = true;
             } else {
                 this.onHome = false;

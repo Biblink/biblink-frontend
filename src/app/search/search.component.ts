@@ -1,13 +1,13 @@
-import {AfterViewChecked, ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
-import {Title} from '@angular/platform-browser';
-import {SearchService} from '../search.service';
-import {ScrollToConfigOptions, ScrollToService} from '@nicky-lenaers/ngx-scroll-to';
+import { AfterViewChecked, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
+import { SearchService } from '../search.service';
+import { ScrollToConfigOptions, ScrollToService } from '@nicky-lenaers/ngx-scroll-to';
 
 declare const AOS: any;
 @Component({
     selector: 'app-search',
     templateUrl: './search.component.html',
-    styleUrls: ['./search.component.css']
+    styleUrls: [ './search.component.css' ]
 })
 export class SearchComponent implements OnInit, OnDestroy, AfterViewChecked {
     searchQuery = '';
@@ -15,8 +15,8 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewChecked {
     searchType = 'relevant';
 
     constructor(private title: Title, public searchService: SearchService,
-                private _scrollToService: ScrollToService,
-                private cdr: ChangeDetectorRef) {
+        private _scrollToService: ScrollToService,
+        private cdr: ChangeDetectorRef) {
     }
 
     ngOnInit() {

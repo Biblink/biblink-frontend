@@ -1,6 +1,7 @@
-import {Component, OnInit} from '@angular/core';
-import {AuthService} from '../auth.service';
-import {Router} from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { AuthService } from '../auth.service';
+import { Router } from '@angular/router';
+import { AngularFirestore } from 'angularfire2/firestore';
 
 declare const AOS: any;
 declare const $: any;
@@ -8,7 +9,7 @@ declare const $: any;
 @Component({
     selector: 'app-home',
     templateUrl: './home.component.html',
-    styleUrls: ['./home.component.css']
+    styleUrls: [ './home.component.css' ]
 })
 export class HomeComponent implements OnInit {
     enhanced = false;
@@ -19,7 +20,7 @@ export class HomeComponent implements OnInit {
     menuHeight = '0';
     menuZ = 0;
 
-    constructor(private _auth: AuthService, private _router: Router) {
+    constructor(private _auth: AuthService, private _router: Router, private afs: AngularFirestore) {
     }
 
     ngOnInit() {
