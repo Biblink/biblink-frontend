@@ -43,7 +43,7 @@
             <div class="studies" *ngIf="tab === 'studies'">
                 <h1 class="title content-header" data-aos="fade-up-right" data-aos-duration="1200">Your Studies</h1>
                 <div class="study-creation has-text-centered container">
-                    <p class="no-study" data-aos="zoom-in" data-aos-duration="1200">Hmmm...Looks like you don't have a study</p>
+                    <p class="no-study" data-aos="zoom-in" data-aos-duration="1200">Hmmm...seems like you don't have a study</p>
                     <div class="columns btn-actions">
                         <div class="column create-container" data-aos="fade-right" data-aos-duration="1200">
                             <div>
@@ -139,62 +139,65 @@
                 <!-- // TODO: Fix and tidy this up based off of designs -->
                 <h1 class="title content-header">Your Profile</h1>
 
-                <div class="profile-info">
+                <div class="personal-info">
+                    <h1 class="content-subheader has-text-centered">Personal Info</h1>
                     <div class="profile-image has-text-centered">
                         <img *ngIf="!(imageUrl === undefined || imageUrl === null || imageUrl === '')" src="{{imageUrl}}" alt="Image">
                     </div>
-                    <div class="has-text-centered">
+                    <div class="has-text-centered profile-icon">
                         <i *ngIf="imageUrl === undefined || imageUrl === null || imageUrl === ''" class="user fa fa-user"></i>
                     </div>
-                    <p class="has-text-centered">Edit Image</p>
-                    <form [formGroup]="profileForm" novalidate (ngSubmit)="updateProfile()" class="profile-form">
+                    <p class="has-text-centered">
+                        <a class="edit-image">Edit Image</a>
+                    </p>
+                    <form id="personal-info-form" (ngSubmit)="updateProfile()">
                         <div class="columns">
-                            <div class="field column">
-                                <label class="label" for="profile-first-name">First Name:</label>
-                                <input class="input" required type="text" formControlName="firstName" id="profile-first-name" name="first-name">
+                            <div class="column">
+                                <div class="field">
+                                    <label class="label" for="first-name">First Name:</label>
+                                    <input [(ngModel)]="user.firstName" class="input" required type="text" id="first-name" name="first-name">
+                                </div>
                             </div>
-                            <div class="field column">
-                                <label class="label" for="profile-last-name">Last Name:</label>
-                                <input class="input" required type="text" formControlName="lastName" id="profile-last-name" name="last-name">
+                            <div class="column">
+                                <div class="field">
+                                    <label class="label" for="last-name">Last Name:</label>
+                                    <input [(ngModel)]="user.lastName" class="input" required type="text" id="last-name" name="last-name">
+                                </div>
                             </div>
                         </div>
-                        <div class="field" data-aos="fade-up-right" data-aos="fade-up-left" data-aos-duration="1200">
+                        <div class="field writing-container">
+                            <label class="label" for="short-description">Short Description:</label>
+                            <input [(ngModel)]="user.data.shortDescription" class="input" required type="text" id="short-description" name="short-description">
+                        </div>
+                        <div class="field bio-container">
+                            <label class="label" for="bio">Bio:</label>
+                            <textarea [(ngModel)]="user.data.bio" class="textarea input" name="bio" id="bio" cols="30" rows="2"></textarea>
+                        </div>
+                        <div class="has-text-centered">
+                            <button type="submit" class="btn update-btn">Update Profile</button>
+                        </div>
+                    </form>
+                </div>
+                <hr class="divider">
+                <div class="security-info">
+                    <h1 class="content-subheader has-text-centered">Security Info</h1>
+                    <form id="security-info-form">
+                        <div class="field">
                             <label class="label" for="email">Email:</label>
-                            <input class="input" required type="email" formControlName="email" id="email" name="email" [class.error]="emailInUse">
-                            <p *ngIf="email.invalid && email.touched && email.errors.required" class="help invalid" data-aos="fade-up-right">
-                                Email is required</p>
-                            <p *ngIf="email.invalid && email.touched && email.errors.pattern" class="help invalid" data-aos="fade-up-right">
-                                Please provide a valid email</p>
-                            <p *ngIf="email.touched && emailInUse" class="help invalid email-invalid" data-aos="fade-up-right">
-                                Hmmm...email is in use, try logging in or resetting your password.</p>
-                            <p *ngIf="email.valid && email.touched && !emailInUse" class="help valid" data-aos="fade-up-right">
-                                Nice! Let's create a password!</p>
+                            <input class="input" required type="text" id="email" name="email">
                         </div>
-                        <div class="field" data-aos="fade-up-left" data-aos="fade-up-left" data-aos-duration="1400">
-                            <label class="label" for="password">Password:</label>
-                            <div class="control">
-                                <input class="input" type="password" formControlName="password" id="password" name="password">
-                                <p *ngIf="password.invalid && password.touched && password.errors.required" class="help invalid" data-aos="fade-up-right">
-                                    Password is required</p>
-                                <p *ngIf="password.valid && password.touched" class="help valid" data-aos="fade-up-right">
-                                    Awesome! Almost done!</p>
+                        <div class="passwords">
+                            <div class="field">
+                                <label class="label" for="password">Password:</label>
+                                <input class="input" required type="text" id="password" name="password">
                             </div>
-                        </div>
-                        <div class="field" id="confirm-password-field" data-aos="fade-up-right" data-aos="fade-up-left" data-aos-duration="1400">
-                            <label class="label" for="confirm-password">Confirm Password:</label>
-                            <div class="control">
-                                <input class="input" type="password" formControlName="confirmPassword" id="confirm-password" name="confirmPassword">
-                                <p *ngIf="confirmPassword.invalid && confirmPassword.touched && confirmPassword.errors.required" class="help invalid" data-aos="fade-up-right">
-                                    Confirm Password is required</p>
-                                <p *ngIf="confirmPassword.invalid && confirmPassword.touched && !confirmPassword.errors.required && confirmPassword.errors.MatchPassword"
-                                    class="help invalid" data-aos="fade-up-right">
-                                    Hmm...Passwords don't match</p>
-                                <p *ngIf="confirmPassword.valid && confirmPassword.touched" class="help valid" data-aos="fade-up-right">
-                                    Awesome! You're ready to sign up!</p>
+                            <div class="field">
+                                <label class="label" for="confirm-password">Confirm Password:</label>
+                                <input class="input" required type="text" id="confirm-password" name="confirm-password">
                             </div>
-                        </div>
-                        <div class="has-text-centered" data-aos="fade-up" data-aos-duration="1200">
-                            <button type="submit" class="sign-in-btn btn" [disabled]="profileForm.invalid || emailInUse">Update Profile</button>
+                            <div class="has-text-centered">
+                                <button type="submit" class="btn update-btn">Update Security</button>
+                            </div>
                         </div>
                     </form>
                 </div>

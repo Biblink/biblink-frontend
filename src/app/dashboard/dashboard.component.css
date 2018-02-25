@@ -64,7 +64,7 @@ li.is-active a {
     letter-spacing: 1px;
 }
 
-input:focus {
+.input:focus {
     border-bottom: 2px solid #979797;
 }
 
@@ -88,8 +88,8 @@ input:focus {
     width: 200px;
 }
 
-.sign-in-btn {
-    margin-top: 20px;
+.update-btn {
+    margin-top: 39px;
     margin-bottom: 20px;
     border-radius: 5px;
     border: #f23b2c;
@@ -104,14 +104,14 @@ input:focus {
     transition: all 1s cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 
-.sign-in-btn:hover {
+.update-btn:hover {
     cursor: pointer;
     background-color: #d13527;
     box-shadow: none;
     transition: all 1s cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 
-.sign-in-btn[disabled] {
+.update-btn[disabled] {
     box-shadow: none;
     background-color: #cb5032;
     cursor: not-allowed !important;
@@ -165,7 +165,8 @@ input:focus {
     border-bottom: 5px solid #255250;
 }
 
-.content-header {
+.content-header,
+.content-subheader {
     margin-top: 61px;
     font-weight: 900;
     letter-spacing: 5px;
@@ -194,4 +195,55 @@ input:focus {
 .btn-actions {
     width: 50%;
     margin: 0 auto;
+}
+
+.edit-image {
+    margin-top: 7px;
+    color: #255250;
+    letter-spacing: 2px;
+    line-height: 14px;
+    text-align: center;
+}
+
+.edit-image:hover {
+    text-decoration: underline;
+}
+
+.profile-icon {
+    border-radius: 100%;
+}
+
+.personal-info,
+.security-info {
+    width: 434px;
+    margin: 0 auto;
+}
+
+.security-info {
+    margin-top: 90px;
+}
+
+.writing-container {
+    margin-top: 39px;
+}
+
+.bio-container {
+    margin-top: 54px;
+}
+
+#personal-info-form {
+    margin-top: 48px;
+}
+
+.divider {
+    box-sizing: border-box;
+    height: 1px;
+    width: 50%;
+    margin: 0 auto;
+    margin-top: 100px;
+    border: 2px solid #bcb8b8;
+}
+
+.passwords {
+    margin-top: 56px;
 }

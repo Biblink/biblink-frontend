@@ -38,7 +38,7 @@ export class UserDataService {
 
   public updateProfile(data: Object) {
     if (data instanceof User) {
-      this.userReference.update(Utils.toJson(data));
+      return this.userReference.update(Utils.toJson(data));
     }
     return this.userReference.update(data);
   }
