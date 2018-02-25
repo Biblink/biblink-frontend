@@ -34,6 +34,7 @@ import { PasswordResetComponent } from './password-reset/password-reset.componen
 import { VerifyEmailComponent } from './verify-email/verify-email.component';
 import { UserDataService } from './user-data.service';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { NavDashboardComponent } from './nav-dashboard/nav-dashboard.component';
 
 const appRoutes: Routes = [
     { path: '', component: HomeComponent },
@@ -41,7 +42,7 @@ const appRoutes: Routes = [
     { path: 'sign-in', component: SignInComponent },
     { path: 'verify-email', component: VerifyEmailComponent },
     { path: 'get-started', component: GetStartedComponent },
-    { path: 'password-reset', component: PasswordResetComponent }
+    { path: 'password-reset', component: PasswordResetComponent },
     { path: 'dashboard/home', component: DashboardComponent }
 ];
 
@@ -58,7 +59,8 @@ const appRoutes: Routes = [
         GetStartedComponent,
         PasswordResetComponent,
         VerifyEmailComponent,
-        DashboardComponent
+        DashboardComponent,
+        NavDashboardComponent
     ],
     imports: [
         BrowserModule,

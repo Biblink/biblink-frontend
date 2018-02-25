@@ -1,7 +1,7 @@
-import {Component, OnInit} from '@angular/core';
-import {AppComponent} from '../app.component';
-import {AuthService} from '../auth.service';
-import {Router} from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { AppComponent } from '../app.component';
+import { AuthService } from '../auth.service';
+import { Router } from '@angular/router';
 
 declare const AOS: any;
 declare const $: any;
@@ -9,7 +9,7 @@ declare const $: any;
 @Component({
     selector: 'app-navbar',
     templateUrl: './navbar.component.html',
-    styleUrls: ['./navbar.component.css']
+    styleUrls: [ './navbar.component.css' ]
 })
 export class NavbarComponent implements OnInit {
     activated = false;

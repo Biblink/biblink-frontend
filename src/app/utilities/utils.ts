@@ -3,7 +3,6 @@ export class Utils {
         const result = {};
         for (const key in obj) {
             if (onlyPublic) {
-                console.log(key);
                 if (key[ 0 ] === '_') {
                     continue;
                 } else {

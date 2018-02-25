@@ -1,3 +1,207 @@
-<p>
-  dashboard works!
-</p>
+<section id="main">
+    <div class="head has-text-centered">
+        <div class="text">
+            <div class="profile-image">
+                <img *ngIf="!(imageUrl === undefined || imageUrl === null || imageUrl === '')" src="{{imageUrl}}" alt="Image">
+                <i *ngIf="imageUrl === undefined || imageUrl === null || imageUrl === ''" class="user fa fa-user"></i>
+            </div>
+            <h1 *ngIf="name!== undefined || name !== null || name !== ' ' || name !== ''" class="title">{{name}}</h1>
+            <div *ngIf="name === null || name === undefined || name === '' || name === ' '" class="container name-input">
+                <form (ngSubmit)="updateName()">
+                    <div class="columns">
+                        <div class="field column">
+                            <label class="label" for="first-name">First Name:</label>
+                            <input class="input" required type="text" [(ngModel)]="firstName" id="first-name" name="first-name">
+                        </div>
+                        <div class="field column">
+                            <label class="label" for="last-name">Last Name:</label>
+                            <input class="input" required type="text" [(ngModel)]="lastName" id="last-name" name="last-name">
+                        </div>
+                    </div>
+                    <div class="has-text-centered">
+                        <button type="submit" class="sign-in-btn btn">Update Name</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="content">
+        <div class="tabs is-centered">
+            <ul>
+                <li [class.is-active]="tab === 'studies'">
+                    <a id="studies" (click)="switchTab('studies')">Studies</a>
+                </li>
+                <li [class.is-active]="tab === 'profile'">
+                    <a (click)="switchTab('profile')">Profile</a>
+                </li>
+                <!-- <li [class.is-active]="tab === 'settings'">
+                    <a (click)="switchTab('settings')">Settings</a>
+                </li> -->
+            </ul>
+        </div>
+        <div class="content-main container">
+            <div class="studies" *ngIf="tab === 'studies'">
+                <h1 class="title content-header" data-aos="fade-up-right" data-aos-duration="1200">Your Studies</h1>
+                <div class="study-creation has-text-centered container">
+                    <p class="no-study" data-aos="zoom-in" data-aos-duration="1200">Hmmm...Looks like you don't have a study</p>
+                    <div class="columns btn-actions">
+                        <div class="column create-container" data-aos="fade-right" data-aos-duration="1200">
+                            <div>
+                                <svg width="141px" height="73px" viewBox="0 0 141 73" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                    <!-- Generator: Sketch 48.2 (47327) - http://www.bohemiancoding.com/sketch -->
+                                    <title>Create Icon</title>
+                                    <desc>Created with Sketch.</desc>
+                                    <defs></defs>
+                                    <g id="Light-Dashboard-Main-Dashboard" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(-459.000000, -1264.000000)">
+                                        <g id="Group" transform="translate(96.000000, 621.000000)">
+                                            <g id="Join/Create-Group" transform="translate(304.000000, 632.000000)">
+                                                <g id="Create-Icon" transform="translate(62.000000, 13.000000)">
+                                                    <path d="M35,58 C35.7536762,43.4585812 47.7776256,31.9 62.5,31.9 C77.2223744,31.9 89.2463238,43.4585812 90,58 L35,58 Z M62.5,31.9 C53.6950595,31.9 46.557245,24.7589418 46.557245,15.95 C46.557245,7.14105824 53.6950595,0 62.5,0 C71.3049405,0 78.442755,7.14105824 78.442755,15.95 C78.442755,24.7589418 71.3049405,31.9 62.5,31.9 Z"
+                                                        id="Combined-Shape-Copy-8" stroke="#000000" stroke-width="4" fill="#FFFFFF"></path>
+                                                    <path d="M-4.47940296e-14,65 C0.753676237,50.4585812 12.7776256,38.9 27.5,38.9 C42.2223744,38.9 54.2463238,50.4585812 55,65 L-4.52415883e-14,65 Z M27.5,38.9 C18.6950595,38.9 11.557245,31.7589418 11.557245,22.95 C11.557245,14.1410582 18.6950595,7 27.5,7 C36.3049405,7 43.442755,14.1410582 43.442755,22.95 C43.442755,31.7589418 36.3049405,38.9 27.5,38.9 Z"
+                                                        id="Combined-Shape-Copy-7" stroke="#000000" stroke-width="4" fill="#FFFFFF"></path>
+                                                    <path d="M69,65 C69.7536762,50.4585812 81.7776256,38.9 96.5,38.9 C111.222374,38.9 123.246324,50.4585812 124,65 L69,65 Z M96.5,38.9 C87.6950595,38.9 80.557245,31.7589418 80.557245,22.95 C80.557245,14.1410582 87.6950595,7 96.5,7 C105.30494,7 112.442755,14.1410582 112.442755,22.95 C112.442755,31.7589418 105.30494,38.9 96.5,38.9 Z"
+                                                        id="Combined-Shape-Copy-9" stroke="#000000" stroke-width="4" fill="#FFFFFF"></path>
+                                                    <g id="Group-12" transform="translate(109.000000, 42.000000)">
+                                                        <circle id="Oval-3" fill="#000000" cx="14.5" cy="14.5" r="14.5"></circle>
+                                                        <g id="Group-13" transform="translate(8.000000, 8.000000)" fill="#D8D8D8" stroke="#FFFFFF" stroke-linecap="square" stroke-width="3">
+                                                            <path d="M6.5,0.25 L6.5,13.75" id="Line"></path>
+                                                            <path d="M12.7592593,7 L0.240740741,7" id="Line-Copy"></path>
+                                                        </g>
+                                                    </g>
+                                                </g>
+                                            </g>
+                                        </g>
+                                    </g>
+                                </svg>
+                                <br>
+                                <button type="submit" class="btn study-btn">Create a Study</button>
+                            </div>
+                        </div>
+                        <div class="column" data-aos="fade-up" data-aos-duration="1200">
+                            <svg width="24px" height="280px" viewBox="0 0 24 378" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                <!-- Generator: Sketch 48.2 (47327) - http://www.bohemiancoding.com/sketch -->
+                                <title>Group 9</title>
+                                <desc>Created with Sketch.</desc>
+                                <defs></defs>
+                                <g id="Sign-In-Desktop" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(-709.000000, -375.000000)">
+                                    <g id="Group-5" transform="translate(231.000000, 256.000000)">
+                                        <g id="Group" transform="translate(103.000000, 119.000000)">
+                                            <g id="Group-9" transform="translate(371.000000, 0.000000)">
+                                                <text id="or" font-family="AvenirNext-Bold, Avenir Next" font-size="20" font-weight="bold" letter-spacing="3.341666" fill="#BFBFBF">
+                                                    <tspan x="3.59631601" y="195">or</tspan>
+                                                </text>
+                                                <path d="M16.6799201,0.5 L16.6799201,171.573084" id="Line-2" stroke="#979797" stroke-linecap="square"></path>
+                                                <path d="M16.6799201,205.5 L16.6799201,376.573084" id="Line-2-Copy" stroke="#979797" stroke-linecap="square"></path>
+                                            </g>
+                                        </g>
+                                    </g>
+                                </g>
+                            </svg>
+                        </div>
+                        <div class="column create-container" data-aos="fade-left" data-aos-duration="1200">
+                            <div>
+                                <svg width="215px" height="69px" viewBox="0 0 215 69" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                    <!-- Generator: Sketch 48.2 (47327) - http://www.bohemiancoding.com/sketch -->
+                                    <title>Join Icon</title>
+                                    <desc>Created with Sketch.</desc>
+                                    <defs></defs>
+                                    <g id="Light-Dashboard-Main-Dashboard" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(-810.000000, -1267.000000)">
+                                        <g id="Group" transform="translate(96.000000, 621.000000)" stroke="#000000">
+                                            <g id="Join/Create-Group" transform="translate(304.000000, 632.000000)">
+                                                <g id="Join-Icon" transform="translate(413.000000, 16.000000)">
+                                                    <path d="M118,58 C118.753676,43.4585812 130.777626,31.9 145.5,31.9 C160.222374,31.9 172.246324,43.4585812 173,58 L118,58 Z M145.5,31.9 C136.69506,31.9 129.557245,24.7589418 129.557245,15.95 C129.557245,7.14105824 136.69506,0 145.5,0 C154.30494,0 161.442755,7.14105824 161.442755,15.95 C161.442755,24.7589418 154.30494,31.9 145.5,31.9 Z"
+                                                        id="Combined-Shape-Copy-8" stroke-width="4" fill="#FFFFFF"></path>
+                                                    <path d="M83,65 C83.7536762,50.4585812 95.7776256,38.9 110.5,38.9 C125.222374,38.9 137.246324,50.4585812 138,65 L83,65 Z M110.5,38.9 C101.69506,38.9 94.557245,31.7589418 94.557245,22.95 C94.557245,14.1410582 101.69506,7 110.5,7 C119.30494,7 126.442755,14.1410582 126.442755,22.95 C126.442755,31.7589418 119.30494,38.9 110.5,38.9 Z"
+                                                        id="Combined-Shape-Copy-7" stroke-width="4" fill="#FFFFFF"></path>
+                                                    <path d="M-4.47940296e-14,65 C0.753676237,50.4585812 12.7776256,38.9 27.5,38.9 C42.2223744,38.9 54.2463238,50.4585812 55,65 L-4.52415883e-14,65 Z M27.5,38.9 C18.6950595,38.9 11.557245,31.7589418 11.557245,22.95 C11.557245,14.1410582 18.6950595,7 27.5,7 C36.3049405,7 43.442755,14.1410582 43.442755,22.95 C43.442755,31.7589418 36.3049405,38.9 27.5,38.9 Z"
+                                                        id="Combined-Shape-Copy-10" stroke-width="4" fill="#FFFFFF"></path>
+                                                    <path d="M154,65 C154.753676,50.4585812 166.777626,38.9 181.5,38.9 C196.222374,38.9 208.246324,50.4585812 209,65 L154,65 Z M181.5,38.9 C172.69506,38.9 165.557245,31.7589418 165.557245,22.95 C165.557245,14.1410582 172.69506,7 181.5,7 C190.30494,7 197.442755,14.1410582 197.442755,22.95 C197.442755,31.7589418 190.30494,38.9 181.5,38.9 Z"
+                                                        id="Combined-Shape-Copy-9" stroke-width="4" fill="#FFFFFF"></path>
+                                                    <g id="Arrow" transform="translate(55.000000, 30.000000)" stroke-linecap="square" stroke-width="3">
+                                                        <path d="M0.5,6.5 L26.5,6.5" id="Line-4"></path>
+                                                        <path d="M21.5,0.5 L27.5,6.5" id="Line-5"></path>
+                                                        <path d="M27.5,6.5 L22.5,12.5" id="Line-6"></path>
+                                                    </g>
+                                                </g>
+                                            </g>
+                                        </g>
+                                    </g>
+                                </svg>
+                                <br>
+                                <button type="submit" class="btn study-btn">Join a Study</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="profile" *ngIf="tab === 'profile'">
+                // TODO: Fix and tidy this up based off of designs
+                <h1 class="title content-header">Your Profile</h1>
+
+                <div class="profile-info">
+                    <div class="profile-image has-text-centered">
+                        <img *ngIf="!(imageUrl === undefined || imageUrl === null || imageUrl === '')" src="{{imageUrl}}" alt="Image">
+                    </div>
+                    <div class="has-text-centered">
+                        <i *ngIf="imageUrl === undefined || imageUrl === null || imageUrl === ''" class="user fa fa-user"></i>
+                    </div>
+                    <p class="has-text-centered">Edit Image</p>
+                    <form [formGroup]="profileForm" novalidate (ngSubmit)="updateProfile()" class="profile-form">
+                        <div class="columns">
+                            <div class="field column">
+                                <label class="label" for="profile-first-name">First Name:</label>
+                                <input class="input" required type="text" formControlName="firstName" id="profile-first-name" name="first-name">
+                            </div>
+                            <div class="field column">
+                                <label class="label" for="profile-last-name">Last Name:</label>
+                                <input class="input" required type="text" formControlName="lastName" id="profile-last-name" name="last-name">
+                            </div>
+                        </div>
+                        <div class="field" data-aos="fade-up-right" data-aos="fade-up-left" data-aos-duration="1200">
+                            <label class="label" for="email">Email:</label>
+                            <input class="input" required type="email" formControlName="email" id="email" name="email" [class.error]="emailInUse">
+                            <p *ngIf="email.invalid && email.touched && email.errors.required" class="help invalid" data-aos="fade-up-right">
+                                Email is required</p>
+                            <p *ngIf="email.invalid && email.touched && email.errors.pattern" class="help invalid" data-aos="fade-up-right">
+                                Please provide a valid email</p>
+                            <p *ngIf="email.touched && emailInUse" class="help invalid email-invalid" data-aos="fade-up-right">
+                                Hmmm...email is in use, try logging in or resetting your password.</p>
+                            <p *ngIf="email.valid && email.touched && !emailInUse" class="help valid" data-aos="fade-up-right">
+                                Nice! Let's create a password!</p>
+                        </div>
+                        <div class="field" data-aos="fade-up-left" data-aos="fade-up-left" data-aos-duration="1400">
+                            <label class="label" for="password">Password:</label>
+                            <div class="control">
+                                <input class="input" type="password" formControlName="password" id="password" name="password">
+                                <p *ngIf="password.invalid && password.touched && password.errors.required" class="help invalid" data-aos="fade-up-right">
+                                    Password is required</p>
+                                <p *ngIf="password.valid && password.touched" class="help valid" data-aos="fade-up-right">
+                                    Awesome! Almost done!</p>
+                            </div>
+                        </div>
+                        <div class="field" id="confirm-password-field" data-aos="fade-up-right" data-aos="fade-up-left" data-aos-duration="1400">
+                            <label class="label" for="confirm-password">Confirm Password:</label>
+                            <div class="control">
+                                <input class="input" type="password" formControlName="confirmPassword" id="confirm-password" name="confirmPassword">
+                                <p *ngIf="confirmPassword.invalid && confirmPassword.touched && confirmPassword.errors.required" class="help invalid" data-aos="fade-up-right">
+                                    Confirm Password is required</p>
+                                <p *ngIf="confirmPassword.invalid && confirmPassword.touched && !confirmPassword.errors.required && confirmPassword.errors.MatchPassword"
+                                    class="help invalid" data-aos="fade-up-right">
+                                    Hmm...Passwords don't match</p>
+                                <p *ngIf="confirmPassword.valid && confirmPassword.touched" class="help valid" data-aos="fade-up-right">
+                                    Awesome! You're ready to sign up!</p>
+                            </div>
+                        </div>
+                        <div class="has-text-centered" data-aos="fade-up" data-aos-duration="1200">
+                            <button type="submit" class="sign-in-btn btn" [disabled]="profileForm.invalid || emailInUse">Update Profile</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="settings" *ngIf="tab === 'settings'">
+                <h1 class="title content-header">Your Settings</h1>
+            </div>
+        </div>
+    </div>
+</section>

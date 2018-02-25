@@ -1,9 +1,10 @@
-import {Injectable} from '@angular/core';
-import {AngularFireAuth} from 'angularfire2/auth';
+import { Injectable } from '@angular/core';
+import { AngularFireAuth } from 'angularfire2/auth';
 import * as firebase from 'firebase/app';
-import {Observable} from 'rxjs/Observable';
-import {EmailUserInterface} from './interfaces/email-user.interface';
-import {User} from './interfaces/user';
+import { Observable } from 'rxjs/Observable';
+import { EmailUserInterface } from './interfaces/email-user.interface';
+import { User } from './interfaces/user';
+import { AngularFirestore } from 'angularfire2/firestore';
 
 @Injectable()
 export class AuthService {
@@ -12,20 +13,19 @@ export class AuthService {
         url: 'http://0.0.0.0:4200/sign-in'
     };
 
-    constructor(private _afAuth: AngularFireAuth) {
-    }
+    constructor(private _afAuth: AngularFireAuth) { }
 
     userLogin(provider: 'google' | 'facebook' | 'twitter' | 'email', data: EmailUserInterface = null): Promise<any> {
         switch (provider) {
             case 'google': {
                 return this._afAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()).then((res) => {
-                    this.userData = new User(res['displayName'], res['email'], {});
+                    this.userData = new User('', '', res[ 'email' ], { profileImage: res[ 'photoUrl' ] });
                     return this.userData;
                 })
                     .catch((err) => {
                         const errorCode = err.code;
                         const errorMessage = err.message;
-                        return {errorCode: errorCode, errorMessage: errorMessage};
+                        return { errorCode: errorCode, errorMessage: errorMessage };
                     });
             }
 
@@ -34,7 +34,7 @@ export class AuthService {
                     .catch((err) => {
                         const errorCode = err.code;
                         const errorMessage = err.message;
-                        return {errorCode: errorCode, errorMessage: errorMessage};
+                        return { errorCode: errorCode, errorMessage: errorMessage };
                     });
             }
 
@@ -45,18 +45,18 @@ export class AuthService {
             case 'email': {
                 if (data === null || data === undefined) {
                     return new Promise((resolve, reject) => {
-                        reject(`Please provide proper data for email login. Data Given: ${data}`);
+                        reject(`Please provide proper data for email login. Data Given: ${ data }`);
                     });
                 } else {
                     return this._afAuth.auth.signInWithEmailAndPassword(data.email, data.password)
                         .then(() => {
-                            return `User with email: ${data.email} was logged in with email authentication.`;
+                            return `User with email: ${ data.email } was logged in with email authentication.`;
                         })
                         .catch((err) => {
                             const errorCode = err.code;
                             const errorMessage = err.message;
                             if (errorCode === 'auth/wrong-password') {
-                                return {errorCode: errorCode, errorMessage: 'wrong password'};
+                                return { errorCode: errorCode, errorMessage: 'wrong password' };
                             } else if (errorCode === 'auth/user-not-found') {
                                 return 'user not found';
                             } else {
@@ -76,31 +76,32 @@ export class AuthService {
             case 'google': {
                 return this._afAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider())
                     .then((res) => {
-                        const userRes = res['user'];
-                        return this.userData = new User(userRes['displayName'], userRes['email'], {});
+                        const userRes = res[ 'user' ];
+                        this.userData = new User('', '', userRes[ 'email' ], { profileImage: res[ 'photoUrl' ] });
+                        return this.userData;
                     }).catch((err) => {
                         const errorCode = err.code;
                         const errorMessage = err.message;
-                        return {errorCode: errorCode, errorMessage: errorMessage};
+                        return { errorCode: errorCode, errorMessage: errorMessage };
                     });
             }
 
             case 'facebook': {
                 return this._afAuth.auth.signInWithPopup(new firebase.auth.FacebookAuthProvider()).then((res) => {
-                    const userRes = res['user'];
-                    this.userData = new User(userRes['displayName'], userRes['email'], {});
+                    const userRes = res[ 'user' ];
+                    this.userData = new User('', '', userRes[ 'email' ], { profileImage: res[ 'photoUrl' ] });
                     return this.userData;
                 }).catch((err) => {
                     const errorCode = err.code;
                     const errorMessage = err.message;
-                    return {errorCode: errorCode, errorMessage: errorMessage};
+                    return { errorCode: errorCode, errorMessage: errorMessage };
                 });
             }
 
             case 'twitter': {
                 return this._afAuth.auth.signInWithPopup(new firebase.auth.TwitterAuthProvider()).then((res) => {
-                    const userRes = res['user'];
-                    this.userData = new User(userRes['displayName'], userRes['email'], {});
+                    const userRes = res[ 'user' ];
+                    this.userData = new User('', '', userRes[ 'email' ], { profileImage: res[ 'photoUrl' ] });
                     return this.userData;
                 });
             }
@@ -108,7 +109,7 @@ export class AuthService {
             case 'email': {
                 if (data === null || data === undefined) {
                     return new Promise((resolve, reject) => {
-                        reject(`Please provide proper data for email creation. Data Given: ${data}`);
+                        reject(`Please provide proper data for email creation. Data Given: ${ data }`);
                     });
                 } else {
                     return this._afAuth.auth.createUserWithEmailAndPassword(data.email, data.password)
@@ -121,7 +122,7 @@ export class AuthService {
                             if (errorCode === 'auth/weak-password') {
                                 return 'weak password';
                             } else {
-                                return {errorCode: errorCode, errorMessage: errorMessage};
+                                return { errorCode: errorCode, errorMessage: errorMessage };
                             }
                         });
                 }
@@ -142,7 +143,7 @@ export class AuthService {
                 return 'success';
             })
             .catch((error) => {
-                return {errorCode: error.code, errorMessage: error.message};
+                return { errorCode: error.code, errorMessage: error.message };
             });
     }
 
@@ -157,6 +158,12 @@ export class AuthService {
         });
     }
 
+
+    get profileImage(): Promise<string> {
+        return this._afAuth.auth.currentUser.reload().then((res) => {
+            return this._afAuth.auth.currentUser.photoURL;
+        });
+    }
     get email() {
         if (this.userData === undefined || this.userData.email === undefined) {
             return this._afAuth.auth.currentUser.email;
