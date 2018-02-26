@@ -26,6 +26,10 @@ export class UserDataService {
               this.userReference.set(data);
               console.log('added to firebase collection');
             } else {
+              if (response.email !== res.email) {
+                response.email = res.email;
+                this.userReference.update(response);
+              }
               this.userData.next(response);
               console.log('received user data: ', this.userData.getValue());
             }
