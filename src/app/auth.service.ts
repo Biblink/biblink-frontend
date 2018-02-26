@@ -19,7 +19,8 @@ export class AuthService {
         switch (provider) {
             case 'google': {
                 return this._afAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()).then((res) => {
-                    this.userData = new User('', '', res[ 'email' ], { profileImage: res[ 'photoUrl' ] });
+                    this.userData = new User('', '', res[ 'email' ],
+                        { profileImage: res[ 'photoUrl' ], bio: '', shortDescription: '' });
                     return this.userData;
                 })
                     .catch((err) => {
@@ -77,7 +78,8 @@ export class AuthService {
                 return this._afAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider())
                     .then((res) => {
                         const userRes = res[ 'user' ];
-                        this.userData = new User('', '', userRes[ 'email' ], { profileImage: res[ 'photoUrl' ] });
+                        this.userData = new User('', '', userRes[ 'email' ],
+                            { profileImage: res[ 'photoUrl' ], bio: '', shortDescription: '' });
                         return this.userData;
                     }).catch((err) => {
                         const errorCode = err.code;
@@ -89,7 +91,8 @@ export class AuthService {
             case 'facebook': {
                 return this._afAuth.auth.signInWithPopup(new firebase.auth.FacebookAuthProvider()).then((res) => {
                     const userRes = res[ 'user' ];
-                    this.userData = new User('', '', userRes[ 'email' ], { profileImage: res[ 'photoUrl' ] });
+                    this.userData = new User('', '', userRes[ 'email' ],
+                        { profileImage: res[ 'photoUrl' ], bio: '', shortDescription: '' });
                     return this.userData;
                 }).catch((err) => {
                     const errorCode = err.code;
@@ -101,7 +104,8 @@ export class AuthService {
             case 'twitter': {
                 return this._afAuth.auth.signInWithPopup(new firebase.auth.TwitterAuthProvider()).then((res) => {
                     const userRes = res[ 'user' ];
-                    this.userData = new User('', '', userRes[ 'email' ], { profileImage: res[ 'photoUrl' ] });
+                    this.userData = new User('', '', userRes[ 'email' ],
+                        { profileImage: res[ 'photoUrl' ], bio: '', shortDescription: '' });
                     return this.userData;
                 });
             }
