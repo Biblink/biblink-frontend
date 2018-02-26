@@ -14,7 +14,7 @@ export class UserDataService {
   constructor(private _auth: AuthService, public afs: AngularFirestore) {
     this._auth.authState.subscribe((res) => {
       if (res === null) {
-        this.userData.next(new User('', '', '', { profileImage: '' }));
+        this.userData.next(new User('', '', '', { profileImage: '', bio: '', shortDescription: '' }));
         console.log('creating default user');
       } else {
         console.log('User is logged in: ' + res.email);
@@ -22,7 +22,7 @@ export class UserDataService {
         if (res.emailVerified) {
           this.userReference.valueChanges().subscribe((response) => {
             if (response == null) {
-              const data = new User('', '', res.email, { profileImage: res.photoURL });
+              const data = new User('', '', res.email, { profileImage: res.photoURL, bio: '', shortDescription: '' });
               this.userReference.set(data);
               console.log('added to firebase collection');
             } else {
