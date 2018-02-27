@@ -19,7 +19,7 @@
                         </div>
                     </div>
                     <div class="has-text-centered">
-                        <button type="submit" class="sign-in-btn btn">Update Name</button>
+                        <button type="submit" class="update-btn btn">Update Name</button>
                     </div>
                 </form>
             </div>
@@ -84,7 +84,7 @@
                                 <title>Group 9</title>
                                 <desc>Created with Sketch.</desc>
                                 <defs></defs>
-                                <g id="Sign-In-Desktop" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(-709.000000, -375.000000)">
+                                <g id="update-In-Desktop" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(-709.000000, -375.000000)">
                                     <g id="Group-5" transform="translate(231.000000, 256.000000)">
                                         <g id="Group" transform="translate(103.000000, 119.000000)">
                                             <g id="Group-9" transform="translate(371.000000, 0.000000)">
@@ -181,22 +181,35 @@
                 <hr class="divider">
                 <div class="security-info">
                     <h1 class="content-subheader has-text-centered">Security Info</h1>
-                    <form id="security-info-form">
-                        <div class="field">
+                    <form [formGroup]="securityForm" id="security-info-form" novalidate>
+                        <div class="field" *ngIf="isVerified">
                             <label class="label" for="email">Email:</label>
-                            <input class="input" required type="text" id="email" name="email">
+                            <input formControlName="email" class="input" required type="text" id="email" name="email">
                         </div>
                         <div class="passwords">
                             <div class="field">
-                                <label class="label" for="password">Password:</label>
-                                <input class="input" required type="text" id="password" name="password">
+                                <label class="label" for="old-password" *ngIf="isVerified">Old Password:</label>
+                                <label class="label" for="old-password" *ngIf="!isVerified">Enter Password To Access Security Info:</label>
+                                <input (blur)="checkPassword()" formControlName="oldPassword" class="input" required type="password" id="old-password" name="old-password"
+                                    required>
+                                <p class="help invalid" *ngIf="oldPassword.invalid && 
+                                oldPassword.touched && oldPassword.errors?.required">Password is Required</p>
+                                <p class="help invalid" *ngIf="oldPassword.invalid && 
+                                oldPassword.touched && oldPassword.errors?.incorrectPassword && !oldPassword.errors?.required">Incorrect Password</p>
+                                <p class="help valid" *ngIf="oldPassword.valid && oldPassword.touched && !isVerified">Looks Good So Far...</p>
+                                <p class="help valid" *ngIf="oldPassword.valid && oldPassword.touched && isVerified">Looks Good!</p>
                             </div>
-                            <div class="field">
-                                <label class="label" for="confirm-password">Confirm Password:</label>
-                                <input class="input" required type="text" id="confirm-password" name="confirm-password">
+                            <div class="field" *ngIf="isVerified">
+                                <label class="label" for="new-password">New Password:</label>
+                                <input formControlName="newPassword" class="input" required type="password" id="new-password" name="new-password">
+                            </div>
+                            <div class="field" *ngIf="isVerified">
+                                <label class="label" for="confirm-password">Confirm New Password:</label>
+                                <input formControlName="confirmPassword" class="input" required type="password" id="confirm-password" name="confirm-password">
                             </div>
                             <div class="has-text-centered">
-                                <button type="submit" class="btn update-btn">Update Security</button>
+                                <button class="btn update-btn" *ngIf="!isVerified" (click)="checkPassword()">Enter Security</button>
+                                <button type="submit" *ngIf="isVerified" class="btn update-btn">Update Security</button>
                             </div>
                         </div>
                     </form>
