@@ -16,6 +16,7 @@ import * as firebase from 'firebase';
 })
 export class DashboardComponent implements OnInit {
   isVerified = false;
+  noPassword = false;
   data = null;
   tab = 'studies';
   imageUrl = '';
@@ -59,9 +60,14 @@ export class DashboardComponent implements OnInit {
     this.tab = tabName;
   }
 
-  updateProfile() {
+
+  updateProfile(name = false) {
     this.updateUser(this.user).then(() => {
-      this.toastr.show('Successfully Updated Your Profile', 'Successful Update');
+      if (name) {
+        this.toastr.show('Successfully Updated Your Name', 'Successful Update of Name');
+      } else {
+        this.toastr.show('Successfully Updated Your Profile', 'Successful Update');
+      }
     });
   }
 
@@ -92,10 +98,16 @@ export class DashboardComponent implements OnInit {
   }
 
   checkPassword() {
+    if (this.afAuth.auth.currentUser.providerId !== 'firebase') {
+      this.isVerified = true;
+      this.noPassword = true;
+      this.oldPassword.value = '';
+      return null;
+    }
     return this.afAuth.auth.currentUser.reauthenticateWithCredential(
       firebase.auth.EmailAuthProvider.credential(this.afAuth.auth.currentUser.email, this.oldPassword.value)
     ).then(() => {
-      this.isVerified = true
+      this.isVerified = true;
       return null;
     }).catch((err) => {
       console.log(err);

@@ -23,7 +23,7 @@ export class UserDataService {
           this.userReference.valueChanges().subscribe((response) => {
             if (response == null) {
               const data = new User('', '', res.email, { profileImage: res.photoURL, bio: '', shortDescription: '' });
-              this.userReference.set(data);
+              this.userReference.set(Utils.toJson(data));
               console.log('added to firebase collection');
             } else {
               if (response.email !== res.email) {

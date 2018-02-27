@@ -7,15 +7,15 @@
             </div>
             <h1 *ngIf="name!== undefined || name !== null || name !== ' ' || name !== ''" class="title">{{name}}</h1>
             <div *ngIf="name === null || name === undefined || name === '' || name === ' '" class="container name-input">
-                <form (ngSubmit)="updateName()">
+                <form (ngSubmit)="updateProfile(true)">
                     <div class="columns">
                         <div class="field column">
-                            <label class="label" for="first-name">First Name:</label>
-                            <input class="input" required type="text" [(ngModel)]="firstName" id="first-name" name="first-name">
+                            <label class="label" for="first-name-top">First Name:</label>
+                            <input class="input" required type="text" [(ngModel)]="user.firstName" id="first-name-top" name="first-name-top">
                         </div>
                         <div class="field column">
-                            <label class="label" for="last-name">Last Name:</label>
-                            <input class="input" required type="text" [(ngModel)]="lastName" id="last-name" name="last-name">
+                            <label class="label" for="last-name-top">Last Name:</label>
+                            <input class="input" required type="text" [(ngModel)]="user.lastName" id="last-name-top" name="last-name-top">
                         </div>
                     </div>
                     <div class="has-text-centered">
@@ -187,7 +187,7 @@
                             <input formControlName="email" class="input" required type="text" id="email" name="email">
                         </div>
                         <div class="passwords">
-                            <div class="field">
+                            <div class="field" *ngIf="!noPassword" >
                                 <label class="label" for="old-password" *ngIf="isVerified">Old Password:</label>
                                 <label class="label" for="old-password" *ngIf="!isVerified">Enter Password To Access Security Info:</label>
                                 <input (blur)="checkPassword()" formControlName="oldPassword" class="input" required type="password" id="old-password" name="old-password"
@@ -200,6 +200,7 @@
                                 <p class="help valid" *ngIf="oldPassword.valid && oldPassword.touched && isVerified">Looks Good!</p>
                             </div>
                             <div class="field" *ngIf="isVerified">
+                                <label *ngIf="noPassword" class="label" for="new-password">Add New Password:</label>
                                 <label class="label" for="new-password">New Password:</label>
                                 <input formControlName="newPassword" class="input" required type="password" id="new-password" name="new-password">
                             </div>
