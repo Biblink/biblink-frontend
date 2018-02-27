@@ -247,3 +247,29 @@ li.is-active a {
 .passwords {
     margin-top: 56px;
 }
+
+.passwords .field:not(:first-child) {
+    margin-top: 36px;
+}
+
+.help {
+    margin-top: 10px;
+}
+
+.help.invalid {
+    color: red;
+    width: 50%;
+}
+
+.input.ng-invalid.ng-touched,
+.input.error {
+    border-bottom: 1px solid red !important;
+}
+
+.input.ng-touched.ng-valid:not(.error) {
+    border-bottom: 1px solid lightgreen !important;
+}
+
+.help.valid {
+    color: green;
+}

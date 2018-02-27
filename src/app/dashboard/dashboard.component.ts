@@ -3,8 +3,11 @@ import { Observable } from 'rxjs/Observable';
 import { Component, OnInit } from '@angular/core';
 import { UserDataService } from '../user-data.service';
 import { AuthService } from '../auth.service';
-import { AbstractControl, FormBuilder, FormGroup, ValidatorFn, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, ValidatorFn, Validators, FormControl } from '@angular/forms';
 import { User } from '../interfaces/user';
+import { AngularFirestore } from 'angularfire2/firestore';
+import { AngularFireAuth } from 'angularfire2/auth';
+import * as firebase from 'firebase';
 
 @Component({
   selector: 'app-dashboard',
@@ -12,6 +15,7 @@ import { User } from '../interfaces/user';
   styleUrls: [ './dashboard.component.css' ]
 })
 export class DashboardComponent implements OnInit {
+  isVerified = false;
   data = null;
   tab = 'studies';
   imageUrl = '';
@@ -29,17 +33,12 @@ export class DashboardComponent implements OnInit {
     '|1[0-9][0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]' +
     '|\\\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\\])');
 
-  static matchPassword(AC: AbstractControl) {
-    const password = AC.get('password').value; // to get value in input tag
-    const confirmPassword = AC.get('confirmPassword').value; // to get value in input tag
-    if (password !== confirmPassword) {
-      const required = AC.get('confirmPassword').getError('required');
-      AC.get('confirmPassword').setErrors({ required: required, MatchPassword: true });
-    } else {
-      return null;
-    }
-  }
-  constructor(private _auth: AuthService, private fb: FormBuilder, private _data: UserDataService, private toastr: ToastrService) { }
+  constructor(
+    private _auth: AuthService,
+    private fb: FormBuilder,
+    private _data: UserDataService,
+    private afAuth: AngularFireAuth,
+    private toastr: ToastrService) { }
 
   ngOnInit() {
     this.createForm();
@@ -48,6 +47,7 @@ export class DashboardComponent implements OnInit {
       if (res !== null) {
         this.user = new User(res[ 'firstName' ], res[ 'lastName' ], res[ 'email' ], res[ 'data' ]);
         this.name = this.user.firstName + ' ' + this.user.lastName;
+        this.securityForm.patchValue({ 'email': res[ 'email' ] });
       }
     });
   }
@@ -68,12 +68,61 @@ export class DashboardComponent implements OnInit {
   createForm(): void {
     this.securityForm = this.fb.group({
       email: [ '', [ Validators.pattern(this.email_regex) ] ],
-      password: [ '' ],
+      oldPassword: [ '', Validators.required ],
+      newPassword: [ '' ],
       confirmPassword: [ '' ],
     },
       {
-        validator: DashboardComponent.matchPassword
+        validator: CustomValidators.matchPassword
       });
+
   }
 
+  get email() {
+    return this.securityForm.get('email');
+  }
+  get oldPassword() {
+    return this.securityForm.get('oldPassword');
+  }
+  get newPassword() {
+    return this.securityForm.get('newPassword');
+  }
+  get confirmPassword() {
+    return this.securityForm.get('confirmPassword');
+  }
+
+  checkPassword() {
+    return this.afAuth.auth.currentUser.reauthenticateWithCredential(
+      firebase.auth.EmailAuthProvider.credential(this.afAuth.auth.currentUser.email, this.oldPassword.value)
+    ).then(() => {
+      this.isVerified = true
+      return null;
+    }).catch((err) => {
+      console.log(err);
+      const required = this.oldPassword.getError('required');
+      return this.oldPassword.setErrors({ required: required, incorrectPassword: true });
+    });
+  }
+}
+
+
+export class CustomValidators {
+
+  static matchPassword(AC: AbstractControl) {
+    const password = AC.get('newPassword').value; // to get value in input tag
+    const confirmPassword = AC.get('confirmPassword').value; // to get value in input tag
+    if (password !== confirmPassword) {
+      const required = AC.get('confirmPassword').getError('required');
+      AC.get('confirmPassword').setErrors({ required: required, MatchPassword: true });
+    } else {
+      return null;
+    }
+  }
+  static oldPassword(afAuth: AngularFireAuth) {
+    return (control: AbstractControl) => {
+      console.log('here');
+      const password = control.get('oldPassword').value;
+
+    };
+  }
 }
