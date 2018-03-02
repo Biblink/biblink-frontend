@@ -224,10 +224,12 @@ li.is-active a {
     background-color: #696666;
     opacity: 0.9;
     cursor: pointer;
+    transition: all 1s cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 
 .profile-icon:hover .middle {
     opacity: 1;
+    transition: all 1s cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 
 .middle {
