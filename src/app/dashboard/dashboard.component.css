@@ -211,6 +211,33 @@ li.is-active a {
 
 .profile-icon {
     border-radius: 100%;
+    width: 100px;
+    height: 100px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.profile-icon:hover {
+    background-color: #696666;
+    opacity: 0.9;
+    cursor: pointer;
+}
+
+.profile-icon:hover .middle {
+    opacity: 1;
+}
+
+.middle {
+    position: absolute;
+    top: 50%;
+    opacity: 0;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    text-align: center;
 }
 
 .personal-info,

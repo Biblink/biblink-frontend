@@ -10,7 +10,7 @@ import { Utils } from './utilities/utils';
 @Injectable()
 export class UserDataService {
   userData: BehaviorSubject<User> = new BehaviorSubject(null);
-  userReference: AngularFirestoreDocument<User>;
+  userReference: AngularFirestoreDocument<any>;
   constructor(private _auth: AuthService, public afs: AngularFirestore) {
     this._auth.authState.subscribe((res) => {
       if (res === null) {
@@ -18,7 +18,7 @@ export class UserDataService {
         console.log('creating default user');
       } else {
         console.log('User is logged in: ' + res.email);
-        this.userReference = this.afs.doc<User>(`/users/${ res.uid }`);
+        this.userReference = this.afs.doc(`/users/${ res.uid }`);
         if (res.emailVerified) {
           this.userReference.valueChanges().subscribe((response) => {
             if (response == null) {

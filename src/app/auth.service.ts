@@ -182,4 +182,16 @@ export class AuthService {
             console.log(err);
         });
     }
+
+    updateEmail(email: string) {
+        return this._afAuth.auth.currentUser.updateEmail(email).then(() => 'success').catch((err) => {
+            console.log(err);
+        });
+    }
+
+    updatePassword(password: string) {
+        return this._afAuth.auth.currentUser.updatePassword(password).then(() => 'success').catch((err) => {
+            console.log(err);
+        });
+    }
 }
