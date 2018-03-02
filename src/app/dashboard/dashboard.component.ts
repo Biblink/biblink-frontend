@@ -73,7 +73,7 @@ export class DashboardComponent implements OnInit {
 
   createForm(): void {
     this.securityForm = this.fb.group({
-      email: [ '', [ Validators.pattern(this.email_regex) ] ],
+      email: [ '', [ Validators.pattern(this.email_regex), Validators.required ] ],
       oldPassword: [ '', Validators.required ],
       newPassword: [ '' ],
       confirmPassword: [ '' ],
@@ -101,7 +101,7 @@ export class DashboardComponent implements OnInit {
     if (this.afAuth.auth.currentUser.providerId !== 'firebase') {
       this.isVerified = true;
       this.noPassword = true;
-      this.oldPassword.value = '';
+      this.oldPassword.setValue('');
       return null;
     }
     return this.afAuth.auth.currentUser.reauthenticateWithCredential(
@@ -115,6 +115,31 @@ export class DashboardComponent implements OnInit {
       return this.oldPassword.setErrors({ required: required, incorrectPassword: true });
     });
   }
+
+  updateSecurityInfo() {
+    if (this.email.value !== this.afAuth.auth.currentUser.email) {
+      this._auth.updateEmail(this.email.value).then((res) => {
+        if (res === 'success') {
+          this.user.email = this.email.value;
+          this.updateUser(this.user).then(() => {
+            this.toastr.show('Successfully Updated Your Email', 'Successful Update of Email');
+          });
+        }
+      });
+    }
+    if (this.newPassword.value.trim() !== '') {
+      this._auth.updatePassword(this.newPassword.value).then((res) => {
+        if (res === 'success') {
+          this.toastr.show('Successfully Updated Your Password', 'Successful Update of Password');
+          const email = this.email.value;
+          const password = this.newPassword.value;
+          this.securityForm.reset();
+          this.securityForm.patchValue({ 'email': email, 'oldPassword': password });
+        }
+      });
+    }
+  }
+
 }
 
 
