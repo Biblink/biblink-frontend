@@ -35,6 +35,8 @@ import { VerifyEmailComponent } from './verify-email/verify-email.component';
 import { UserDataService } from './user-data.service';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { NavDashboardComponent } from './nav-dashboard/nav-dashboard.component';
+import { DropZoneDirective } from './drop-zone.directive';
+import { FileUploadComponent } from './file-upload/file-upload.component';
 
 const appRoutes: Routes = [
     { path: '', component: HomeComponent },
@@ -60,7 +62,9 @@ const appRoutes: Routes = [
         PasswordResetComponent,
         VerifyEmailComponent,
         DashboardComponent,
-        NavDashboardComponent
+        NavDashboardComponent,
+        DropZoneDirective,
+        FileUploadComponent
     ],
     imports: [
         BrowserModule,
