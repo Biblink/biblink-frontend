@@ -15,8 +15,9 @@ import * as firebase from 'firebase';
   styleUrls: [ './dashboard.component.css' ]
 })
 export class DashboardComponent implements OnInit {
-  isVerified = false;
+  activateEditImage = false;
   noPassword = false;
+  isVerified = false;
   data = null;
   tab = 'studies';
   imageUrl = '';
@@ -47,6 +48,7 @@ export class DashboardComponent implements OnInit {
       this.data = res;
       if (res !== null) {
         this.user = new User(res[ 'firstName' ], res[ 'lastName' ], res[ 'email' ], res[ 'data' ]);
+        this.imageUrl = this.user.data.profileImage;
         this.name = this.user.firstName + ' ' + this.user.lastName;
         this.securityForm.patchValue({ 'email': res[ 'email' ] });
       }
@@ -56,8 +58,20 @@ export class DashboardComponent implements OnInit {
   updateUser(user: User) {
     return this._data.updateProfile(user);
   }
+
+  updateImage() {
+    console.log(this.imageUrl);
+    this.user.data.profileImage = this.imageUrl;
+    this.updateUser(this.user).then(() => {
+      this.toastr.show('Successfully Updated Your Profile Image', 'Successful Update of Profile Image');
+    });
+  }
   switchTab(tabName: string) {
     this.tab = tabName;
+  }
+
+  getDownloadUrl(event) {
+    this.imageUrl = event;
   }
 
 
@@ -139,6 +153,8 @@ export class DashboardComponent implements OnInit {
       });
     }
   }
+
+
 
 }
 
