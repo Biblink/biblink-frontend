@@ -190,7 +190,7 @@ li.is-active a {
     margin-top: 2px;
 }
 
-.is-active #studies {
+.is-active-modal #studies {
     border-bottom: 5px solid #255250;
 }
 
@@ -281,7 +281,7 @@ li.is-active a {
     transition: all 1s cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 
-.profile-image-top  img {
+.profile-image-top img {
     margin-top: -100px;
 }
 
@@ -372,4 +372,12 @@ li.is-active a {
 
 .modal-card {
     box-shadow: 0 4px 8px 2px rgba(97, 93, 93, 0.5);
+}
+
+.use-icon {
+    height: 100px;
+}
+
+.no-margin {
+    margin-top: 0;
 }

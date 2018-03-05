@@ -1,11 +1,12 @@
 <section id="main">
     <div class="head has-text-centered">
         <div class="text">
-            <div class="profile-image profile-image-top">
+            <div class="profile-image profile-image-top" [class.use-icon]="imageUrl === undefined || imageUrl === null || imageUrl === ''">
                 <img *ngIf="!(imageUrl === undefined || imageUrl === null || imageUrl === '')" src="{{imageUrl}}" alt="Image">
-                <i *ngIf="imageUrl === undefined || imageUrl === null || imageUrl === ''" class="user fa fa-user"></i>
+                <i style="margin-top: -50px" *ngIf="imageUrl === undefined || imageUrl === null || imageUrl === ''" class="user fa fa-user"></i>
             </div>
-            <h1 *ngIf="name!== undefined || name !== null || name !== ' ' || name !== ''" class="title">{{name}}</h1>
+            <h1 [class.no-margin]="imageUrl === undefined || imageUrl === null || imageUrl === ''" *ngIf="name!== undefined || name !== null || name !== ' ' || name !== ''"
+                class="title">{{name}}</h1>
             <div *ngIf="name === null || name === undefined || name === '' || name === ' '" class="container name-input">
                 <form (ngSubmit)="updateProfile(true)">
                     <div class="columns">
@@ -141,8 +142,9 @@
 
                 <div class="personal-info">
                     <h1 class="content-subheader has-text-centered">Personal Info</h1>
-                    <div class="profile-image personal-info-image has-text-centered" (click)="activateEditImage = true">
-                        <img *ngIf="!(imageUrl === undefined || imageUrl === null || imageUrl === '')" src="{{imageUrl}}" alt="Image">
+                    <div *ngIf="!(imageUrl === undefined || imageUrl === null || imageUrl === '')" class="profile-image personal-info-image has-text-centered"
+                        (click)="activateEditImage = true">
+                        <img src="{{imageUrl}}" alt="Image">
                         <div class="middle">
                             <svg width="28px" height="44px" viewBox="0 0 28 44" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                                 <!-- Generator: Sketch 49 (51002) - http://www.bohemiancoding.com/sketch -->
@@ -272,7 +274,7 @@
     </div>
 </section>
 
-<div class="modal" [class.is-active]="activateEditImage">
+<div class="modal" [class.is-active-modal]="activateEditImage">
     <div class="modal-background"></div>
     <div class="modal-card">
         <header class="modal-card-head">
