@@ -93,7 +93,7 @@
 }
 
 .field:not(:first-child) {
-    margin-top: 73px;
+    margin-top: 50px;
 }
 
 .field:first-child {

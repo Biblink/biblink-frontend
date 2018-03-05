@@ -14,3 +14,7 @@
 .email-invalid {
     width: 100% !important;
 }
+
+.no-account {
+    margin-top: -50px;
+}
