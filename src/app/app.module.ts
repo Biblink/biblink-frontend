@@ -14,6 +14,8 @@ import { AngularFireModule } from 'angularfire2';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { AngularFireStorageModule } from 'angularfire2/storage';
 import { AngularFireAuthModule } from 'angularfire2/auth';
+import { RecaptchaModule } from 'ng-recaptcha';
+import { RecaptchaFormsModule } from 'ng-recaptcha/forms';
 
 
 // components
@@ -79,6 +81,7 @@ const appRoutes: Routes = [
             ? ServiceWorkerModule.register('/ngsw-worker.js')
             : [],
         RouterModule.forRoot(appRoutes),
+        RecaptchaModule.forRoot(),
         ScrollToModule.forRoot(),
         HttpClientModule,
         HttpClientJsonpModule,

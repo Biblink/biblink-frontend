@@ -57,6 +57,7 @@ export class GetStartedComponent implements OnInit {
             email: [ '', [ Validators.required, Validators.pattern(this.email_regex) ] ],
             password: [ '', Validators.required ],
             confirmPassword: [ '', Validators.required ],
+            recaptchaVerification: [ null, Validators.required ]
         },
             {
                 validator: GetStartedComponent.matchPassword
@@ -73,6 +74,10 @@ export class GetStartedComponent implements OnInit {
 
     get confirmPassword() {
         return this.emailSignupForm.get('confirmPassword');
+    }
+
+    get recaptchaVerification() {
+        return this.emailSignupForm.get('recaptchaVerification');
     }
 
     signUp(provider, data = null) {
