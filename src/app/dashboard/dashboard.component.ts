@@ -16,6 +16,9 @@ import * as firebase from 'firebase';
 })
 export class DashboardComponent implements OnInit {
   activateEditImage = false;
+  activateJoinGroup = false;
+  studyGroup = { name: '', uniqueID: '' };
+  defaultGroup = { name: '', uniqueID: '' };
   noPassword = false;
   isVerified = false;
   data = null;
@@ -154,7 +157,9 @@ export class DashboardComponent implements OnInit {
     }
   }
 
-
+  joinGroup() {
+    console.log('joining group');
+  }
 
 }
 
