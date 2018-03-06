@@ -130,7 +130,7 @@
                                     </g>
                                 </svg>
                                 <br>
-                                <button (click)="activateJoinGroup = true" class="btn study-btn">Join a Study</button>
+                                <button (click)="activateJoinStudy = true" class="btn study-btn">Join a Study</button>
                             </div>
                         </div>
                     </div>
@@ -294,13 +294,13 @@
         </footer>
     </div>
 </div>
-<div class="modal with-input" [class.is-active]="activateJoinGroup">
+<div class="modal with-input" [class.is-active]="activateJoinStudy">
     <div class="modal-background"></div>
     <div class="modal-card">
-        <form (ngSubmit)="joinGroup()" #joinForm="ngForm">
+        <form #joinForm="ngForm">
             <header class="modal-card-head">
                 <p class="modal-card-title">Join Study Group</p>
-                <button class="delete" aria-label="close" (click)="activateJoinGroup = false && studyGruop = defaultGroup; joinForm.reset()"></button>
+                <button class="delete" aria-label="close" (click)="activateJoinStudy = false && studyGroup = defaultJoinStudy; joinForm.reset()"></button>
             </header>
             <section class="modal-card-body">
                 <div class="columns">
@@ -317,8 +317,8 @@
             </section>
             <footer class="modal-card-foot">
                 <div>
-                    <button class="btn study-btn modal-btn" (click)="joinGroup(); activateJoinGroup = false; joinForm.reset()">Join Group</button>
-                    <a (click)="activateJoinGroup = false && studyGroup = defaultGroup;joinForm.reset()" class="btn-link">Cancel</a>
+                    <button class="btn study-btn modal-btn" (click)="joinStudy(); activateJoinStudy = false; joinForm.reset()">Join Group</button>
+                    <a (click)="activateJoinStudy = false && studyGroup = defaultJoinStudy; joinForm.reset()" class="btn-link">Cancel</a>
                 </div>
             </footer>
         </form>
@@ -346,18 +346,18 @@
             <hr>
             <div class="field" data-aos="slide-right" data-aos-duration="1200">
                 <label class="label" for="join-study-name">Study Group Name:</label>
-                <input class="input" required type="text" [(ngModel)]="newGroup.name" id="join-study-name" name="join-study-name">
+                <input class="input" required type="text" [(ngModel)]="newStudy.name" id="join-study-name" name="join-study-name">
             </div>
             <div class="field" data-aos="slide-right" data-aos-duration="1200">
                 <label class="label" for="join-study-name">Description:</label>
-                <input class="input" required type="text" [(ngModel)]="newGroup.description" id="join-study-name" name="join-study-name">
+                <input class="input" required type="text" [(ngModel)]="newStudy.description" id="join-study-name" name="join-study-name">
             </div>
 
         </section>
         <footer class="modal-card-foot">
             <div>
                 <button class="btn study-btn modal-btn" (click)="createStudy(); activateCreateStudy = false;">Create Study</button>
-                <a (click)="activateCreateStudy = false && newGroup = newDefaultGroup;" class="btn-link">Cancel</a>
+                <a (click)="activateCreateStudy = false && newStudy = defaultNewStudy;" class="btn-link">Cancel</a>
             </div>
         </footer>
     </div>

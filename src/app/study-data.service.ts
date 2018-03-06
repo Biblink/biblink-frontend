@@ -12,27 +12,25 @@ import { GroupDataInterface } from './interfaces/group-data.interface';
 
 
 @Injectable()
-export class GroupDataService {
-  groups: BehaviorSubject<GroupDataInterface[]> = new BehaviorSubject([]);
-  group_sync = [];
+export class StudyDataService {
+  studies: BehaviorSubject<GroupDataInterface[]> = new BehaviorSubject([]);
+  study_sync = [];
   constructor(private user: UserDataService, public afs: AngularFirestore) {
     this.user.userID.subscribe((uid) => {
       if (uid === '') {
-        this.groups.next([]);
+        this.studies.next([]);
       } else {
-        const groupReference = this.afs.collection(`/users/${ uid }/groups`);
-        groupReference.valueChanges().subscribe((groups) => {
-          this.group_sync = [];
+        const groupsReference = this.afs.collection(`/users/${ uid }/groups`);
+        groupsReference.valueChanges().subscribe((groups) => {
+          this.study_sync = [];
           if (groups.length === 0) {
             console.log('this person does not have any groups');
           }
-          groups.forEach((groupData) => {
-            console.log(groupData);
-            // get group data
-            this.afs.doc(`/groups/${ groupData[ 'id' ] }`).valueChanges().subscribe((data) => {
-              console.log(data);
-              this.group_sync.push(data[ 'metadata' ]);
-              this.groups.next(this.group_sync);
+          groups.forEach((studyData) => {
+            // get study data
+            this.afs.doc(`/studies/${ studyData[ 'id' ] }`).valueChanges().subscribe((data) => {
+              this.study_sync.push(data[ 'metadata' ]);
+              this.studies.next(this.study_sync);
             });
           });
         });
@@ -40,11 +38,11 @@ export class GroupDataService {
     });
   }
 
-  createGroup(name: string, data: GroupDataInterface) {
+  createStudy(name: string, data: GroupDataInterface) {
     const uniqueID = Math.floor(Math.random() * (9999 - 1000 + 1) + 1000);
     const firebaseData = { 'name': name, 'uniqueID': uniqueID, 'metadata': data };
     const firebaseID = this.afs.createId();
-    return this.afs.doc(`/groups/${ firebaseID }`).set(firebaseData).then(() => {
+    return this.afs.doc(`/studies/${ firebaseID }`).set(firebaseData).then(() => {
       return firebaseID;
     });
   }

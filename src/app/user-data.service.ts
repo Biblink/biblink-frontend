@@ -50,8 +50,8 @@ export class UserDataService {
     return this.userReference.update(data);
   }
 
-  public addGroup(groupID: string, role: 'member' | 'admin' | 'leader') {
-    return this.userReference.collection('groups').add({ 'id': groupID, 'role': role });
+  public addStudy(studyID: string, role: 'member' | 'admin' | 'leader') {
+    return this.userReference.collection('studies').add({ 'id': studyID, 'role': role });
   }
 
   public get user() {
