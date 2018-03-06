@@ -1,20 +1,20 @@
 <section id="main">
     <div class="head has-text-centered">
         <div class="text">
-            <div class="profile-image profile-image-top" [class.use-icon]="imageUrl === undefined || imageUrl === null || imageUrl === ''">
+            <div data-aos="zoom-in" data-aos-duration="1200" class="profile-image profile-image-top" [class.use-icon]="imageUrl === undefined || imageUrl === null || imageUrl === ''">
                 <img *ngIf="!(imageUrl === undefined || imageUrl === null || imageUrl === '')" src="{{imageUrl}}" alt="Image">
                 <i style="margin-top: -50px" *ngIf="imageUrl === undefined || imageUrl === null || imageUrl === ''" class="user fa fa-user"></i>
             </div>
             <h1 [class.no-margin]="imageUrl === undefined || imageUrl === null || imageUrl === ''" *ngIf="name!== undefined || name !== null || name !== ' ' || name !== ''"
-                class="title">{{name}}</h1>
+                class="title" data-aos="fade-up-small" data-aos-duration="1200">{{name}}</h1>
             <div *ngIf="name === null || name === undefined || name === '' || name === ' '" class="container name-input">
                 <form (ngSubmit)="updateProfile(true)">
                     <div class="columns">
-                        <div class="field column">
+                        <div class="field column" data-aos="slide-right" data-aos-duration="1200">
                             <label class="label" for="first-name-top">First Name:</label>
                             <input class="input" required type="text" [(ngModel)]="user.firstName" id="first-name-top" name="first-name-top">
                         </div>
-                        <div class="field column">
+                        <div class="field column" data-aos="slide-left" data-aos-duration="1200">
                             <label class="label" for="last-name-top">Last Name:</label>
                             <input class="input" required type="text" [(ngModel)]="user.lastName" id="last-name-top" name="last-name-top">
                         </div>
@@ -216,8 +216,8 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="field writing-container" data-aos="zoom-in" data-aos-duration="1200">
-                            <label class="label" for="short-description">Short Description:</label>
+                        <div class="field writing-container">
+                            <label class="label" for="short-description" data-aos="fade-down" data-aos-duration="1200">Short Description:</label>
                             <input [(ngModel)]="user.data.shortDescription" class="input" required type="text" id="short-description" name="short-description">
                         </div>
                         <div class="field bio-container">
