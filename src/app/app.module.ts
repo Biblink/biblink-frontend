@@ -39,6 +39,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { NavDashboardComponent } from './nav-dashboard/nav-dashboard.component';
 import { DropZoneDirective } from './drop-zone.directive';
 import { FileUploadComponent } from './file-upload/file-upload.component';
+import { GroupDataService } from './group-data.service';
 
 const appRoutes: Routes = [
     { path: '', component: HomeComponent },
@@ -91,7 +92,7 @@ const appRoutes: Routes = [
             positionClass: 'toast-bottom-left'
         })
     ],
-    providers: [ SearchService, AuthService, UserDataService ],
+    providers: [ SearchService, AuthService, UserDataService, GroupDataService ],
     bootstrap: [ AppComponent ]
 })
 export class AppModule {

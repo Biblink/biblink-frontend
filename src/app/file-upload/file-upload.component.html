@@ -1,6 +1,6 @@
 <div *ngIf="uploaded">
   <div class="profile-image has-text-centered">
-    <img [src]="downloadURL" alt="profile-image">
+    <img [src]="downloadURL" alt="profile-image" [ngStyle]="{'border-radius': borderRadius, 'width': profileImageWidth, 'margin': profileMargin, 'height': profileImageHeight}">
   </div>
   <div class="has-text-centered">
     <a (click)="uploaded = false" class="study-link">Choose Another Image</a>
@@ -9,10 +9,8 @@
 </div>
 
 <div *ngIf="!uploaded">
-  <div class="dropzone" dropZone (hovered)="toggleHover($event)" (dropped)="uploadProfileImage($event)" [class.hovering]="isHovering">
-
-
-
+  <div class="dropzone" [ngStyle]="{'height': height}" dropZone (hovered)="toggleHover($event)" (dropped)="uploadProfileImage($event)"
+    [class.hovering]="isHovering">
     <h3>Drag a File Here</h3>
 
     <div class="file">

@@ -8,6 +8,7 @@ import { User } from '../interfaces/user';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { AngularFireAuth } from 'angularfire2/auth';
 import * as firebase from 'firebase';
+import { GroupDataService } from '../group-data.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -16,9 +17,13 @@ import * as firebase from 'firebase';
 })
 export class DashboardComponent implements OnInit {
   activateEditImage = false;
+  hasNoGroups = false;
   activateJoinGroup = false;
+  activateCreateStudy = false;
   studyGroup = { name: '', uniqueID: '' };
   defaultGroup = { name: '', uniqueID: '' };
+  newDefaultGroup = { name: '', leader: '', description: '', bannerImage: '', profileImage: '' };
+  newGroup = { name: '', leader: '', description: '', bannerImage: '', profileImage: '' };
   noPassword = false;
   isVerified = false;
   data = null;
@@ -43,6 +48,7 @@ export class DashboardComponent implements OnInit {
     private fb: FormBuilder,
     private _data: UserDataService,
     private afAuth: AngularFireAuth,
+    private groupData: GroupDataService,
     private toastr: ToastrService) { }
 
   ngOnInit() {
@@ -54,6 +60,13 @@ export class DashboardComponent implements OnInit {
         this.imageUrl = this.user.data.profileImage;
         this.name = this.user.firstName + ' ' + this.user.lastName;
         this.securityForm.patchValue({ 'email': res[ 'email' ] });
+      }
+    });
+    this.groupData.groups.subscribe((groups) => {
+      if (groups.length === 0) {
+        this.hasNoGroups = true;
+      } else {
+        this.hasNoGroups = false;
       }
     });
   }
@@ -161,6 +174,28 @@ export class DashboardComponent implements OnInit {
     console.log('joining group');
   }
 
+  createStudy() {
+    this.groupData.createGroup(this.newGroup.name,
+      {
+        bannerImage: this.newGroup.bannerImage,
+        profileImage: this.newGroup.profileImage,
+        description: this.newGroup.description,
+        leader: this.user.name
+      }).then((firebaseID) => {
+        this._data.addGroup(firebaseID, 'leader').then(() => {
+          this.toastr.show('Successfully Created New Group: ' + this.newGroup.name, 'Created New Group');
+        }).catch(err => console.error(err));
+      });
+  }
+
+  getDownloadUrlStudy(event, type) {
+    if (type === 'banner') {
+      this.newGroup.bannerImage = event;
+    } else if (type === 'study-profile') {
+      this.newGroup.profileImage = event;
+    }
+  }
+
 }
 
 
@@ -180,7 +215,6 @@ export class CustomValidators {
     return (control: AbstractControl) => {
       console.log('here');
       const password = control.get('oldPassword').value;
-
     };
   }
 }
