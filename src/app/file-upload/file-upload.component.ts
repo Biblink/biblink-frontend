@@ -10,6 +10,11 @@ import 'rxjs/add/operator/first';
   styleUrls: [ './file-upload.component.scss' ]
 })
 export class FileUploadComponent {
+  @Input() height = '300px';
+  @Input() borderRadius = '100%';
+  @Input() profileImageWidth = '154px';
+  @Input() profileImageHeight = '154px';
+  @Input() profileMargin = '50px';
   @Output() url = new EventEmitter<string>();
 
   // Main task
