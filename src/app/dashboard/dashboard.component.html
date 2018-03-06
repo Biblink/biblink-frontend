@@ -297,10 +297,10 @@
 <div class="modal with-input" [class.is-active]="activateJoinGroup">
     <div class="modal-background"></div>
     <div class="modal-card">
-        <form (ngSubmit)="joinGroup()">
+        <form (ngSubmit)="joinGroup()" #joinForm="ngForm">
             <header class="modal-card-head">
                 <p class="modal-card-title">Join Study Group</p>
-                <button class="delete" aria-label="close" (click)="activateJoinGroup = false && imageUrl = ''"></button>
+                <button class="delete" aria-label="close" (click)="activateJoinGroup = false && studyGruop = defaultGroup; joinForm.reset()"></button>
             </header>
             <section class="modal-card-body">
                 <div class="columns">
@@ -309,16 +309,16 @@
                         <input class="input" required type="text" [(ngModel)]="studyGroup.name" id="join-study-name" name="join-study-name">
                     </div>
                     <div class="field column" data-aos="slide-right" data-aos-duration="1200">
-                        <label class="label" for="join-study-unique-id">Unique No.:</label>
+                        <label class="label" for="join-study-unique-id">Unique #:</label>
                         <input placeholder="1652" class="input" required type="text" [(ngModel)]="studyGroup.uniqueID" id="join-study-unique-id"
-                            name="join-study-unique-id" maxlength="4" minlength="4" #studyID="ngModel">
+                            name="join-study-unique-id" maxlength="4" pattern="[0-9]" minlength="4" #studyID="ngModel">
                     </div>
                 </div>
             </section>
             <footer class="modal-card-foot">
                 <div>
-                    <button class="btn study-btn modal-btn" (click)="joinGroup(); activateJoinGroup = false;">Join Group</button>
-                    <a (click)="activateJoinGroup = false && studyGroup = defaultGroup" class="btn-link">Cancel</a>
+                    <button class="btn study-btn modal-btn" (click)="joinGroup(); activateJoinGroup = false; joinForm.reset()">Join Group</button>
+                    <a (click)="activateJoinGroup = false && studyGroup = defaultGroup;joinForm.reset()" class="btn-link">Cancel</a>
                 </div>
             </footer>
         </form>
