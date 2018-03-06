@@ -8,7 +8,7 @@ import { User } from '../interfaces/user';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { AngularFireAuth } from 'angularfire2/auth';
 import * as firebase from 'firebase';
-import { GroupDataService } from '../group-data.service';
+import { StudyDataService } from '../study-data.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -16,22 +16,31 @@ import { GroupDataService } from '../group-data.service';
   styleUrls: [ './dashboard.component.css' ]
 })
 export class DashboardComponent implements OnInit {
+
+  // modal activations
   activateEditImage = false;
-  hasNoGroups = false;
-  activateJoinGroup = false;
+  activateJoinStudy = false;
   activateCreateStudy = false;
+
+  // group variables
+
+  hasNoGroups = false;
   studyGroup = { name: '', uniqueID: '' };
-  defaultGroup = { name: '', uniqueID: '' };
-  newDefaultGroup = { name: '', leader: '', description: '', bannerImage: '', profileImage: '' };
-  newGroup = { name: '', leader: '', description: '', bannerImage: '', profileImage: '' };
+  defaultJoinStudy = { name: '', uniqueID: '' };
+  defaultNewStudy = { name: '', leader: '', description: '', bannerImage: '', profileImage: '' };
+  newStudy = { name: '', leader: '', description: '', bannerImage: '', profileImage: '' };
+
+
+  // user profile variables
   noPassword = false;
   isVerified = false;
   data = null;
   tab = 'studies';
   imageUrl = '';
-
   user: User = new User('', '', '', { profileImage: '', bio: '', shortDescription: '' });
   name = '';
+
+  // form variables
 
   emailInUse = false;
   differentCredential = false;
@@ -48,7 +57,7 @@ export class DashboardComponent implements OnInit {
     private fb: FormBuilder,
     private _data: UserDataService,
     private afAuth: AngularFireAuth,
-    private groupData: GroupDataService,
+    private groupData: StudyDataService,
     private toastr: ToastrService) { }
 
   ngOnInit() {
@@ -62,7 +71,7 @@ export class DashboardComponent implements OnInit {
         this.securityForm.patchValue({ 'email': res[ 'email' ] });
       }
     });
-    this.groupData.groups.subscribe((groups) => {
+    this.groupData.studies.subscribe((groups) => {
       if (groups.length === 0) {
         this.hasNoGroups = true;
       } else {
@@ -76,7 +85,6 @@ export class DashboardComponent implements OnInit {
   }
 
   updateImage() {
-    console.log(this.imageUrl);
     this.user.data.profileImage = this.imageUrl;
     this.updateUser(this.user).then(() => {
       this.toastr.show('Successfully Updated Your Profile Image', 'Successful Update of Profile Image');
@@ -170,29 +178,30 @@ export class DashboardComponent implements OnInit {
     }
   }
 
-  joinGroup() {
-    console.log('joining group');
+  joinStudy() {
+    // TODO: Work on implementation once creating study works
+    console.log('joining study');
   }
 
   createStudy() {
-    this.groupData.createGroup(this.newGroup.name,
+    this.groupData.createStudy(this.newStudy.name,
       {
-        bannerImage: this.newGroup.bannerImage,
-        profileImage: this.newGroup.profileImage,
-        description: this.newGroup.description,
+        bannerImage: this.newStudy.bannerImage,
+        profileImage: this.newStudy.profileImage,
+        description: this.newStudy.description,
         leader: this.user.name
       }).then((firebaseID) => {
-        this._data.addGroup(firebaseID, 'leader').then(() => {
-          this.toastr.show('Successfully Created New Group: ' + this.newGroup.name, 'Created New Group');
+        this._data.addStudy(firebaseID, 'leader').then(() => {
+          this.toastr.show('Successfully Created Your New Study', 'Created New Study');
         }).catch(err => console.error(err));
       });
   }
 
   getDownloadUrlStudy(event, type) {
     if (type === 'banner') {
-      this.newGroup.bannerImage = event;
+      this.newStudy.bannerImage = event;
     } else if (type === 'study-profile') {
-      this.newGroup.profileImage = event;
+      this.newStudy.profileImage = event;
     }
   }
 
@@ -213,7 +222,6 @@ export class CustomValidators {
   }
   static oldPassword(afAuth: AngularFireAuth) {
     return (control: AbstractControl) => {
-      console.log('here');
       const password = control.get('oldPassword').value;
     };
   }
