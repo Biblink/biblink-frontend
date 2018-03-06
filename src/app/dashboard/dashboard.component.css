@@ -363,7 +363,7 @@ li.is-active-tab a {
     overflow: hidden;
 }
 
-.modal *:not(.btn) {
+.modal *:not(.btn):not(.input) {
     border: none !important;
     border-radius: 0px !important;
     font-family: 'museo-sans', sans-serif;
