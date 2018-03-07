@@ -780,3 +780,10 @@
     color: #343232;
     transition: all 0.2s ease-in-out;
 }
+
+.user-image {
+    margin-top: -10px;
+    width: 45px;
+    height: 45px;
+    border-radius: 100%;
+}

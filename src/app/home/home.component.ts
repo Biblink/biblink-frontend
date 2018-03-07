@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
 import { AngularFirestore } from 'angularfire2/firestore';
+import { UserDataService } from '../user-data.service';
 
 declare const AOS: any;
 declare const $: any;
@@ -13,6 +14,7 @@ declare const $: any;
 })
 export class HomeComponent implements OnInit {
     enhanced = false;
+    imageUrl = '';
     isLoggedIn = false;
     isCurrent = true;
     activated = false;
@@ -20,10 +22,16 @@ export class HomeComponent implements OnInit {
     menuHeight = '0';
     menuZ = 0;
 
-    constructor(private _auth: AuthService, private _router: Router, private afs: AngularFirestore) {
+    constructor(private _auth: AuthService, private _router: Router, private _data: UserDataService, private afs: AngularFirestore) {
     }
 
     ngOnInit() {
+
+        this._data.userData.subscribe((user) => {
+            if (user !== null) {
+                this.imageUrl = user.data.profileImage;
+            }
+        });
         this._auth.authState.subscribe((state) => {
             this.isLoggedIn = !(state === null);
         });

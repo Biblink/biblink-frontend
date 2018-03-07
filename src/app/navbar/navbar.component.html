@@ -66,7 +66,8 @@
             <div *ngIf="isLoggedIn" class="dropdown is-right is-hoverable">
                 <div class="dropdown-trigger">
                     <a aria-haspopup="true" aria-controls="user-actions" class="nav-link">
-                        <i class="user fa fa-user"></i>
+                        <i *ngIf="imageUrl === ''" class="user fa fa-user"></i>
+                        <img *ngIf="imageUrl !== ''" width="50px" height="50px" class="user user-image" [src]="imageUrl">
                     </a>
                 </div>
                 <div class="dropdown-menu" id="user-actions" role="menu">

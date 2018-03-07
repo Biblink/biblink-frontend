@@ -1,3 +1,4 @@
+import { UserDataService } from './../user-data.service';
 import { Component, OnInit } from '@angular/core';
 import { AppComponent } from '../app.component';
 import { AuthService } from '../auth.service';
@@ -17,8 +18,9 @@ export class NavbarComponent implements OnInit {
     menuHeight = '0';
     menuZ = 0;
     isLoggedIn: boolean = null;
+    imageUrl = '';
 
-    constructor(private _auth: AuthService, private _router: Router) {
+    constructor(private _auth: AuthService, private _router: Router, private _data: UserDataService) {
     }
 
     toHome() {
@@ -26,6 +28,12 @@ export class NavbarComponent implements OnInit {
     }
 
     ngOnInit() {
+
+        this._data.userData.subscribe((user) => {
+            if (user !== null) {
+                this.imageUrl = user.data.profileImage;
+            }
+        });
         this._auth.authState.subscribe((state) => {
             this.isLoggedIn = !(state === null);
         });
