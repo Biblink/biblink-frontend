@@ -335,6 +335,11 @@
 .user {
     margin-top: -5px;
     font-size: 2.0rem;
+    border-radius: 100%;
+}
+
+.user-image {
+    margin-top: -15px;
 }
 
 .notif {
