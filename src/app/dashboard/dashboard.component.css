@@ -380,3 +380,49 @@ li.is-active-tab a {
 .no-margin {
     margin-top: 0;
 }
+
+.study-list {
+    margin-top: 36px;
+    /* margin-left: 50px    ; */
+    margin-bottom: 103px;
+}
+
+.card {
+    height: 442px;
+    width: 489px;
+    background-color: #FFFFFF;
+    box-shadow: 0 4px 8px 2px rgba(202, 187, 187, 0.5);
+    padding: 0;
+}
+
+.card-backdrop {
+    width: 100%;
+    height: 150px;
+    clip-path: inset(0 0 0 0);
+}
+
+.card-backdrop img {
+    width: 100%;
+    height: auto;
+}
+
+.study-image {
+    float: right;
+    margin-right: 40px;
+    margin-top: -50px;
+}
+
+.study-image img {
+    height: 100px;
+    width: 100px;
+    border: 4px solid white;
+}
+
+.card-content .card-text {
+    margin-left: 36px;
+}
+
+.study-light {
+    background-color: #255250;
+    margin-bottom: 46px;
+}
