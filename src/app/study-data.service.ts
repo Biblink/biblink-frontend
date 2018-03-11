@@ -46,11 +46,10 @@ export class StudyDataService {
     const firebaseID = this.afs.createId();
     const studyRef = this.afs.doc(`/studies/${ firebaseID }`);
     return studyRef.set(firebaseData).then(() => {
-      studyRef.collection('members').add({ 'name': data[ 'leader' ], 'role': 'leader', 'uid': userID });
+      studyRef.collection('members').add({ 'role': 'leader', 'uid': userID });
       return firebaseID;
     });
   }
-
   addMember(reference: AngularFirestoreDocument<any>, memberData) {
     return reference.collection('members').add(memberData);
   }
