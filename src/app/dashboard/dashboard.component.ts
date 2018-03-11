@@ -34,6 +34,7 @@ export class DashboardComponent implements OnInit {
   // user profile variables
   noPassword = false;
   isVerified = false;
+  studies = [];
   data = null;
   tab = 'studies';
   imageUrl = '';
@@ -76,6 +77,7 @@ export class DashboardComponent implements OnInit {
         this.hasNoGroups = true;
       } else {
         this.hasNoGroups = false;
+        this.studies = groups;
       }
     });
   }
@@ -184,7 +186,7 @@ export class DashboardComponent implements OnInit {
   }
 
   createStudy() {
-    this.groupData.createStudy(this.newStudy.name,
+    this.groupData.createStudy(this.newStudy.name, this.afAuth.auth.currentUser.uid,
       {
         bannerImage: this.newStudy.bannerImage,
         profileImage: this.newStudy.profileImage,
@@ -193,6 +195,7 @@ export class DashboardComponent implements OnInit {
       }).then((firebaseID) => {
         this._data.addStudy(firebaseID, 'leader').then(() => {
           this.toastr.show('Successfully Created Your New Study', 'Created New Study');
+          this.newStudy = this.defaultNewStudy;
         }).catch(err => console.error(err));
       });
   }

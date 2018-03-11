@@ -20,7 +20,7 @@ export class StudyDataService {
       if (uid === '') {
         this.studies.next([]);
       } else {
-        const groupsReference = this.afs.collection(`/users/${ uid }/groups`);
+        const groupsReference = this.afs.collection(`/users/${ uid }/studies`);
         groupsReference.valueChanges().subscribe((groups) => {
           this.study_sync = [];
           if (groups.length === 0) {
@@ -29,6 +29,8 @@ export class StudyDataService {
           groups.forEach((studyData) => {
             // get study data
             this.afs.doc(`/studies/${ studyData[ 'id' ] }`).valueChanges().subscribe((data) => {
+              data[ 'metadata' ][ 'name' ] = data[ 'name' ];
+              data[ 'metadata' ][ 'role' ] = studyData[ 'role' ];
               this.study_sync.push(data[ 'metadata' ]);
               this.studies.next(this.study_sync);
             });
@@ -38,13 +40,19 @@ export class StudyDataService {
     });
   }
 
-  createStudy(name: string, data: GroupDataInterface) {
+  createStudy(name: string, userID: string, data: GroupDataInterface) {
     const uniqueID = Math.floor(Math.random() * (9999 - 1000 + 1) + 1000);
     const firebaseData = { 'name': name, 'uniqueID': uniqueID, 'metadata': data };
     const firebaseID = this.afs.createId();
-    return this.afs.doc(`/studies/${ firebaseID }`).set(firebaseData).then(() => {
+    const studyRef = this.afs.doc(`/studies/${ firebaseID }`);
+    return studyRef.set(firebaseData).then(() => {
+      studyRef.collection('members').add({ 'name': data[ 'leader' ], 'role': 'leader', 'uid': userID });
       return firebaseID;
     });
+  }
+
+  addMember(reference: AngularFirestoreDocument<any>, memberData) {
+    return reference.collection('members').add(memberData);
   }
 
 }
