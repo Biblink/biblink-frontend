@@ -31,6 +31,7 @@ export class StudyDataService {
             this.afs.doc(`/studies/${ studyData[ 'id' ] }`).valueChanges().subscribe((data) => {
               data[ 'metadata' ][ 'name' ] = data[ 'name' ];
               data[ 'metadata' ][ 'role' ] = studyData[ 'role' ];
+              data[ 'metadata' ][ 'id' ] = studyData[ 'id' ];
               this.study_sync.push(data[ 'metadata' ]);
               this.studies.next(this.study_sync);
             });
@@ -52,6 +53,10 @@ export class StudyDataService {
   }
   addMember(reference: AngularFirestoreDocument<any>, memberData) {
     return reference.collection('members').add(memberData);
+  }
+
+  getStudyData(groupID: string) {
+    return this.afs.doc(`/studies/${ groupID }`).valueChanges();
   }
 
 }
