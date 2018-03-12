@@ -51,7 +51,7 @@ export class UserDataService {
   }
 
   public addStudy(studyID: string, role: 'member' | 'admin' | 'leader') {
-    return this.userReference.collection('studies').add({ 'id': studyID, 'role': role });
+    return this.userReference.collection('studies').doc(studyID).set({ 'id': studyID, 'role': role });
   }
 
   public get user() {
