@@ -15,12 +15,19 @@
                 <h1 class="similar-verse-heading is-hidden-touch">Book Information</h1>
                 <h1 class="similar-verse-heading is-hidden-desktop">Book Info</h1>
                 <div>
-                    <p class="metadata-info"><span class="info-header">Author:</span> {{metadata['author']}}</p>
-                    <p class="metadata-info"><span class="info-header">Date Written:</span> {{metadata['date']}}</p>
+                    <p class="metadata-info">
+                        <span class="info-header">Author:</span> {{metadata['author']}}</p>
+                    <p class="metadata-info">
+                        <span class="info-header">Date Written:</span> {{metadata['date']}}</p>
                 </div>
                 <h1 class="similar-verse-heading">Similar Verses</h1>
                 <div class="verse" *ngFor="let verse of similarVerses">
-                    <p class="similar-verse"><span class="reference">{{verse.verse}}</span><br class="is-hidden-desktop"><br class="is-hidden-desktop"><span class="text">{{verse.text}}</span></p>
+                    <p class="similar-verse">
+                        <span class="reference">{{verse.verse}}</span>
+                        <br class="is-hidden-desktop">
+                        <br class="is-hidden-desktop">
+                        <span class="text">{{verse.text}}</span>
+                    </p>
                 </div>
             </div>
         </div>
@@ -29,56 +36,49 @@
                 <div class="column has-text-left verse-actions">
                     <a class="verse-action" *ngIf="!isSimilar" (click)="showMoreData()">See More</a>
                     <a class="verse-action" *ngIf="isSimilar" (click)="isSimilar = false">Show Less</a>
-                    <div class="dropdown is-left is-hoverable verse-dropdown" (mouseenter)="activateZ = 700" (mouseleave)="activateZ = 10" >
+                    <div class="dropdown is-left is-hoverable verse-dropdown" (mouseenter)="activateZ = 700" (mouseleave)="activateZ = 10">
                         <div class="dropdown-trigger">
                             <a aria-haspopup="true" aria-controls="share-buttons" class="verse-action">Share</a>
                         </div>
                         <div class="dropdown-menu" id="share-buttons" role="menu">
                             <div class="dropdown-content">
                                 <div class="dropdown-item">
-                                    <a class="verse-action"
-                                       shareButton="facebook"
-                                       sbTitle="{{shareTitle}}"
-                                       sbTags="verse, bible"
-                                       sbDescription="{{shareText}}">To Facebook <i class="fa fa-facebook"></i></a>
+                                    <a class="verse-action" shareButton="facebook" sbTitle="{{shareTitle}}" sbTags="verse, bible" sbDescription="{{shareText}}">To Facebook
+                                        <i class="fa fa-facebook"></i>
+                                    </a>
                                 </div>
                                 <hr class="dropdown-divider">
                                 <div class="dropdown-item">
-                                    <a class="verse-action"
-                                       shareButton="twitter"
-                                       sbTitle="{{shareTitle}}"
-                                       sbTags="verse, bible"
-                                       sbDescription="{{twitterText}}">To Twitter <i class="fa fa-twitter"></i></a>
+                                    <a class="verse-action" shareButton="twitter" sbTitle="{{shareTitle}}" sbTags="verse, bible" sbDescription="{{twitterText}}">To Twitter
+                                        <i class="fa fa-twitter"></i>
+                                    </a>
                                 </div>
                                 <hr class="dropdown-divider">
                                 <div class="dropdown-item">
-                                    <a class="verse-action" shareButton="pinterest"
-                                       shareButton="pinterest"
-                                       sbTitle="{{shareTitle}}"
-                                       sbTags="verse, bible"
-                                       sbDescription="{{shareText}}">To Pinterest <i class="fa fa-pinterest-p"></i></a>
+                                    <a class="verse-action" shareButton="pinterest" shareButton="pinterest" sbTitle="{{shareTitle}}" sbTags="verse, bible" sbDescription="{{shareText}}">To Pinterest
+                                        <i class="fa fa-pinterest-p"></i>
+                                    </a>
                                 </div>
                                 <hr class="dropdown-divider">
                                 <div class="dropdown-item">
-                                    <a class="verse-action" shareButton="email"
-                                       shareButton="email"
-                                       sbTitle="{{shareTitle}}"
-                                       sbTags="'verse, bible'"
-                                       sbDescription="{{shareText}}">To Email <i class="fa fa-envelope"></i></a>
+                                    <a class="verse-action" shareButton="email" shareButton="email" sbTitle="{{shareTitle}}" sbTags="'verse, bible'" sbDescription="{{shareText}}">To Email
+                                        <i class="fa fa-envelope"></i>
+                                    </a>
                                 </div>
                                 <hr class="dropdown-divider">
                                 <div class="dropdown-item">
-                                    <a class="verse-action" ngxClipboard
-                                       [cbContent]="shareText" (click)="showCopyToClipboard()">To Clipboard <i class="fa fa-copy"></i></a>
+                                    <a class="verse-action" ngxClipboard [cbContent]="shareText" (click)="showCopyToClipboard()">To Clipboard
+                                        <i class="fa fa-copy"></i>
+                                    </a>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="dropdown is-left is-hoverable verse-dropdown" (mouseenter)="activateZ = 700" (mouseleave)="activateZ = 10" >
+                    <div class="dropdown is-left is-hoverable verse-dropdown" (mouseenter)="activateZ = 700" (mouseleave)="activateZ = 10">
                         <div class="dropdown-trigger">
-                            <a aria-haspopup="true" aria-controls="more-actions" class="verse-action"
-                               id="more-action"><img
-                                    src="/assets/icons/more-icon.svg" alt="more options"></a>
+                            <a aria-haspopup="true" aria-controls="more-actions" class="verse-action" id="more-action">
+                                <img src="/assets/icons/more-icon.svg" alt="more options">
+                            </a>
                         </div>
                         <div class="dropdown-menu" id="more-actions" role="menu">
                             <div class="dropdown-content">
@@ -95,7 +95,10 @@
                 </div>
                 <div class="column is-three-fifths has-text-right verse-likes is-hidden-touch">
                     <p class="like-data">
-                        <span class="likes">6</span><span><i class="fa fa-heart-o fa-2x" aria-hidden="true"></i></span>
+                        <span class="likes">6</span>
+                        <span>
+                            <i class="fa fa-heart-o fa-2x" aria-hidden="true"></i>
+                        </span>
                     </p>
                 </div>
             </div>

@@ -1,0 +1,33 @@
+<div class="post card">
+  <header class="card-header">
+    <ng-content select=".card-header-title"></ng-content>
+    <ng-content select=".metadata"></ng-content>
+  </header>
+  <div class="card-content">
+    <div class="content">
+      <div class="card-text">
+        <ng-content select=".card-body"></ng-content>
+      </div>
+      <div class="card-links">
+        <h1>Links:</h1>
+        <ng-content select=".links"></ng-content>
+      </div>
+    </div>
+    <div class="post-actions columns">
+      <div class="column">
+        <a class="post-action" href="">Reply (1)</a>
+        <a class="post-action" href="">Star</a>
+      </div>
+      <div class="column is-three-fifths has-text-right">
+        <div class="contributors">
+          <span class="contributor-text" href="">Contributor(s): </span>
+          <img class="contributor-image" src="/assets/images/background-images/sign-in-bg.jpg" alt="">
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <div class="replies">
+    <div class="reply">This is but a test of the replies</div>
+  </div>
+</div>
