@@ -41,6 +41,7 @@ import { DropZoneDirective } from './drop-zone.directive';
 import { FileUploadComponent } from './file-upload/file-upload.component';
 import { StudyDataService } from './study-data.service';
 import { StudyComponent } from './study/study.component';
+import { StudyNavComponent } from './study-nav/study-nav.component';
 
 const appRoutes: Routes = [
     { path: '', component: HomeComponent },
@@ -49,7 +50,8 @@ const appRoutes: Routes = [
     { path: 'verify-email', component: VerifyEmailComponent },
     { path: 'get-started', component: GetStartedComponent },
     { path: 'password-reset', component: PasswordResetComponent },
-    { path: 'dashboard/home', component: DashboardComponent }
+    { path: 'dashboard/home', component: DashboardComponent },
+    { path: 'dashboard/studies/study/:id', component: StudyComponent }
 ];
 
 @NgModule({
@@ -69,7 +71,8 @@ const appRoutes: Routes = [
         NavDashboardComponent,
         DropZoneDirective,
         FileUploadComponent,
-        StudyComponent
+        StudyComponent,
+        StudyNavComponent
     ],
     imports: [
         BrowserModule,

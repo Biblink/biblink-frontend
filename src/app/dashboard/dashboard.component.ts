@@ -9,6 +9,7 @@ import { AngularFirestore } from 'angularfire2/firestore';
 import { AngularFireAuth } from 'angularfire2/auth';
 import * as firebase from 'firebase';
 import { StudyDataService } from '../study-data.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
@@ -58,6 +59,7 @@ export class DashboardComponent implements OnInit {
     private fb: FormBuilder,
     private _data: UserDataService,
     private afAuth: AngularFireAuth,
+    private _router: Router,
     private groupData: StudyDataService,
     private toastr: ToastrService) { }
 
@@ -198,6 +200,10 @@ export class DashboardComponent implements OnInit {
           this.newStudy = this.defaultNewStudy;
         }).catch(err => console.error(err));
       });
+  }
+
+  openStudy(id) {
+    this._router.navigateByUrl(`/dashboard/studies/study/${ id }`);
   }
 
   getDownloadUrlStudy(event, type) {
