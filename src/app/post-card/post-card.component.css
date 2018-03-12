@@ -1,0 +1,129 @@
+.post.card {
+    width: 80%;
+    margin: 0 auto;
+    background-color: #FFFFFF;
+    box-shadow: 0 4px 8px 2px rgba(202, 187, 187, 0.5);
+    padding: 0;
+}
+
+.post .card-header-title {
+    color: #000000;
+    font-family: 'museo-sans', sans-serif;
+    font-size: 1.8rem;
+    margin-top: 31px;
+    margin-bottom: 28px;
+    font-weight: 900;
+    letter-spacing: 2px;
+    line-height: 30px;
+    text-align: center;
+    padding: 0;
+}
+
+.post .card-header-title,
+.post .card-content {
+    margin-left: 35px;
+}
+
+.post .card-header {
+    box-shadow: none;
+}
+
+.post .metadata {
+    margin: 19px 25px auto auto;
+    color: #767272;
+    font-size: 0.8rem;
+    font-weight: 700;
+    font-family: "museo-sans", sans-serif;
+    letter-spacing: 2px;
+    line-height: 22px;
+    text-align: center;
+}
+
+.post .metadata .date {
+    color: #242323;
+}
+
+.post .card-links {
+    margin-top: 24px;
+}
+
+.post .card-links h1 {
+    height: 19px;
+    width: 49px;
+    color: #000000;
+    font-family: 'museo-sans', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 900;
+    letter-spacing: 2px;
+    line-height: 19px;
+}
+
+.post .card-body {
+    width: 532px;
+    color: #000000;
+    font-family: 'museo-sans', sans-serif;
+    font-size: 1.0rem;
+    letter-spacing: 1px;
+    line-height: 19px;
+}
+
+.post .card-content {
+    padding: 0;
+    margin-bottom: 50px;
+}
+
+.post-actions {
+    margin-bottom: 29px;
+}
+
+.post-actions a:not(:first-child) {
+    padding-left: 36.5px;
+}
+
+.post-action,
+.contributor-text {
+    color: #000000;
+    font-weight: 700;
+    letter-spacing: 2px;
+    line-height: 25px;
+}
+
+.post-action:hover {
+    text-decoration: underline;
+}
+
+.reply {
+    width: 90%;
+    margin: 0 auto;
+    background-color: #FFFFFF;
+    box-shadow: 0 2px 4px 0 rgba(202, 187, 187, 0.5);
+}
+
+.contributor-text {
+    margin-right: 7px;
+}
+
+.contributor-image {
+    box-sizing: border-box;
+    height: 28px;
+    width: 28px;
+    margin-top: -1px;
+    border: 1px solid #FFFFFF;
+    background-color: #D8D8D8;
+    box-shadow: 0 4px 4px 0 rgba(88, 82, 82, 0.49);
+    border-radius: 100%;
+}
+
+.contributor-image:last-child {
+    margin-right: 35px;
+}
+
+.contributors {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end
+}
+
+.type {
+    color: #313030;
+}

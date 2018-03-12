@@ -42,6 +42,7 @@ import { FileUploadComponent } from './file-upload/file-upload.component';
 import { StudyDataService } from './study-data.service';
 import { StudyComponent } from './study/study.component';
 import { StudyNavComponent } from './study-nav/study-nav.component';
+import { PostCardComponent } from './post-card/post-card.component';
 
 const appRoutes: Routes = [
     { path: '', component: HomeComponent },
@@ -72,7 +73,8 @@ const appRoutes: Routes = [
         DropZoneDirective,
         FileUploadComponent,
         StudyComponent,
-        StudyNavComponent
+        StudyNavComponent,
+        PostCardComponent
     ],
     imports: [
         BrowserModule,

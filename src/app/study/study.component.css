@@ -1,0 +1,20 @@
+.main-info {
+    margin: 200px auto;
+}
+
+.left-nav {
+    position: fixed;
+    height: 100%;
+    background-color: #FFFFFF;
+    box-shadow: 4px 0 4px 0 rgba(202, 187, 187, 0.5);
+    bottom: 0;
+}
+
+.right-nav {
+    height: 100%;
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    background-color: #FFFFFF;
+    box-shadow: -4px 0 4px 0 rgba(202, 187, 187, 0.5);
+}
