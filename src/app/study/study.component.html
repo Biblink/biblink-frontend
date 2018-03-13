@@ -42,41 +42,93 @@
       <div class="nav-section" id="personal">
         <h1 class="nav-header">Personal</h1>
         <ul class="nav-links">
-          <li>
-            <a href="">My Studies</a>
-          </li>
-          <li>
-            <a href="">Edit Profile</a>
+          <li (click)="navigateTo('/dashboard/home')">
+            <a>My Dashboard</a>
           </li>
           <li>
             <a href="">Settings</a>
           </li>
-          <li>
-            <a href="">Logout</a>
+          <li (click)="logout()">
+            <a>Logout</a>
           </li>
         </ul>
       </div>
     </div>
     <div class="main-info column is-three-fifths is-centered">
-      <app-post-card>
-        <p class="card-header-title">Interesting Article on Acts</p>
-        <div class="metadata">
-          <div class="type">
-            <p>Post</p>
+      <div class="posts">
+        <app-post-card>
+          <p class="card-header-title">Interesting Article on Acts</p>
+          <div class="metadata">
+            <div class="type">
+              <p>Post</p>
+            </div>
+            <div class="date">
+              <p>12:22PM</p>
+              <p>2/2/18</p>
+            </div>
           </div>
-          <div class="date">
-            <p>12:22PM</p>
-            <p>2/2/18</p>
+          <div class="card-body">
+            Here’s an interesting article on the topic of Acts, who Luke wrote it to (Theophilus) and more! Hope you guys enjoy!
           </div>
+          <div class="links">
+            <a>https://article.on/acts</a>
+          </div>
+        </app-post-card>
+        <app-post-card>
+          <p class="card-header-title">Interesting Article on Acts</p>
+          <div class="metadata">
+            <div class="type">
+              <p>Post</p>
+            </div>
+            <div class="date">
+              <p>12:22PM</p>
+              <p>2/2/18</p>
+            </div>
+          </div>
+          <div class="card-body">
+            Here’s an interesting article on the topic of Acts, who Luke wrote it to (Theophilus) and more! Hope you guys enjoy!
+          </div>
+          <div class="links">
+            <a>https://article.on/acts</a>
+          </div>
+        </app-post-card>
+        <app-post-card>
+          <p class="card-header-title">Interesting Article on Acts</p>
+          <div class="metadata">
+            <div class="type">
+              <p>Post</p>
+            </div>
+            <div class="date">
+              <p>12:22PM</p>
+              <p>2/2/18</p>
+            </div>
+          </div>
+          <div class="card-body">
+            Here’s an interesting article on the topic of Acts, who Luke wrote it to (Theophilus) and more! Hope you guys enjoy!
+          </div>
+          <div class="links">
+            <a>https://article.on/acts</a>
+          </div>
+        </app-post-card>
+      </div>
+      <div class="expand-actions" (click)="expandActions()" [class.unexpanded]="actionsExpanded">
+        <img src="/assets/images/feature-images/expand-actions.svg">
+      </div>
+      <div class="create-actions column is-three-fifths" [class.expanded]="actionsExpanded">
+        <span class="create-text">Add...</span>
+        <div class="expand">
+          <img src="/assets/images/feature-images/expand.svg" alt="">
         </div>
-        <div class="card-body">
-          Here’s an interesting article on the topic of Acts, who Luke wrote it to (Theophilus) and more! Hope you guys enjoy!
+        <div class="actions">
+          <a class="create-cta first">An Announcement</a>
+          <a class="create-cta">A Post</a>
+          <a class="create-cta">A Question</a>
+          <a class="create-cta">A Discussion</a>
         </div>
-        <div class="links">
-          <a>https://article.on/acts</a>
-        </div>
-      </app-post-card>
+        <img (click)="actionsExpanded = false" class="minimize" src="/assets/images/feature-images/minimize.svg" alt="">
+      </div>
     </div>
     <div class="right-nav column is-one-fifth">hello</div>
+
   </div>
 </div>

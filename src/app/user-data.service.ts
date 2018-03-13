@@ -54,6 +54,10 @@ export class UserDataService {
     return this.userReference.collection('studies').doc(studyID).set({ 'id': studyID, 'role': role });
   }
 
+  public logout() {
+    return this._auth.logout();
+  }
+
   public get user() {
     return this.userData;
   }
