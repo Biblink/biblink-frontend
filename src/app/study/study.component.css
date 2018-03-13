@@ -1,5 +1,8 @@
 .main-info {
-    margin: 200px auto;
+    margin: 200px auto 100px auto;
+    overflow: scroll;
+    max-height: 100%;
+    padding: 0;
 }
 
 .left-nav {
@@ -8,7 +11,8 @@
     background-color: #FFFFFF;
     box-shadow: 4px 0 4px 0 rgba(202, 187, 187, 0.5);
     bottom: 0;
-    padding-right: 0;
+    left: 0;
+    padding: 0;
     overflow: scroll;
 }
 
@@ -91,6 +95,7 @@
     display: flex;
     align-items: center;
     border-left: 9px solid white;
+    transition: all 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 
 .nav-links li a {
@@ -105,8 +110,128 @@
     cursor: pointer;
     background-color: rgba(114, 113, 113, 0.5);
     border-left: 9px solid transparent;
+    transition: all 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 
 .nav-links li:first-child {
     margin-top: 16px;
+}
+
+.create-actions,
+.expand-actions {
+    position: fixed;
+    display: flex;
+    align-items: center;
+    bottom: 0;
+    left: 20%;
+    z-index: 65;
+    margin: 0 auto;
+    height: 58px;
+    transition: 0.5s all cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+.expand-actions {
+    margin-left: -4px;
+    z-index: 700;
+    transition: 0.5s all cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+.expand-actions:hover {
+    cursor: pointer;
+    transition: 0.5s all cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+.create-actions {
+    box-shadow: 0 -3px 5px 0 rgba(0, 0, 0, 0.5);
+    background-color: #06292A;
+    width: 0%;
+    opacity: 0;
+    z-index: -999;
+}
+
+.unexpanded {
+    opacity: 0;
+    z-index: -999;
+    transition: 0.5s all cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+.expanded {
+    width: inherit;
+    opacity: 1;
+    z-index: 999;
+    transition: 0.5s all cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+.create-text {
+    position: absolute;
+    color: #FFFFFF;
+    font-family: 'museo-sans', sans-serif;
+    font-size: 1.0rem;
+    font-weight: 900;
+    letter-spacing: 2px;
+    margin-left: 15px;
+    line-height: 19px;
+    text-align: center;
+}
+
+.create-cta {
+    height: 34px;
+    width: 170px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 900;
+    text-align: center;
+    border: 2px solid #FFFFFF;
+    color: white;
+    font-size: 0.9rem;
+    font-family: 'museo-sans', sans-serif;
+    background-color: transparent;
+    transition: 0.5s all cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+.create-cta:hover {
+    border: none;
+    background-color: #255250;
+    transition: 0.5s all cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+.create-cta {
+    margin-left: 3%;
+}
+
+.actions {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.actions a {
+    float: left;
+}
+
+.create-actions .expand {
+    position: absolute;
+    top: -30px;
+}
+
+.create-actions .minimize {
+    position: absolute;
+    right: 0;
+    margin-right: -4px;
+}
+
+.expand {
+    width: 100%;
+    text-align: center;
+}
+
+.expand:hover {
+    cursor: pointer;
+    filter: brightness(0.9);
+}
+
+.minimize:hover {
+    cursor: pointer;
+    filter: brightness(0.9);
 }

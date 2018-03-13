@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="58px" height="60px" viewBox="0 0 58 60" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 49 (51002) - http://www.bohemiancoding.com/sketch -->
+    <title>Add Icon</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <path d="M24.9999916,0.0247175775 C25.3316362,0.00829273544 25.6650166,0 26,0 C39.254834,0 50,12.9837423 50,29 C50,45.0162577 39.254834,58 26,58 C25.6650166,58 25.3316362,57.9917073 24.9999916,57.9752824 L25,58 L0,58 L0,0 L25,0 L25,0.0247171611 Z" id="path-1"></path>
+        <filter x="-14.0%" y="-8.6%" width="128.0%" height="124.1%" filterUnits="objectBoundingBox" id="filter-2">
+            <feOffset dx="0" dy="2" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="2" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.5 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="Light-Dashboard-Designs" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Light-Dashboard-Desktop" transform="translate(-326.000000, -964.000000)">
+            <g id="Add-Icon" transform="translate(330.000000, 966.000000)">
+                <g id="Combined-Shape">
+                    <use fill="black" fill-opacity="1" filter="url(#filter-2)" xlink:href="#path-1"></use>
+                    <use fill="#06292A" fill-rule="evenodd" xlink:href="#path-1"></use>
+                </g>
+                <g id="Add" transform="translate(14.000000, 21.000000)" stroke="#FFFFFF" stroke-linecap="square" stroke-width="4">
+                    <path d="M0,8.5 L16,8.5" id="Line-4"></path>
+                    <path d="M8,0.326923077 L8,16.6730769" id="Line-3"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

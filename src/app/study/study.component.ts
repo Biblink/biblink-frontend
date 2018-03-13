@@ -11,6 +11,7 @@ import { UserDataService } from '../user-data.service';
 export class StudyComponent implements OnInit {
   title = '';
   profileImage = '';
+  actionsExpanded = false;
   name = '';
   studyData;
   groupID = '';
@@ -30,6 +31,20 @@ export class StudyComponent implements OnInit {
       this.title = data[ 'name' ];
       this.studyData = data;
     });
+  }
+
+  navigateTo(url) {
+    this._router.navigateByUrl(url);
+  }
+
+  logout() {
+    this._user.logout().then(() => {
+      this.navigateTo('/sign-in');
+    });
+  }
+
+  expandActions() {
+    this.actionsExpanded = true;
   }
 
 }
