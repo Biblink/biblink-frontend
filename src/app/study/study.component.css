@@ -1,6 +1,6 @@
 .main-info {
     margin: 200px auto 100px auto;
-    overflow: scroll;
+    overflow: auto;
     max-height: 100%;
     padding: 0;
 }
@@ -13,7 +13,7 @@
     bottom: 0;
     left: 0;
     padding: 0;
-    overflow: scroll;
+    overflow: auto;
 }
 
 .right-nav {
@@ -33,7 +33,7 @@
 }
 
 #main {
-    margin-top: 115px;
+    margin-top: 125px;
 }
 
 .profile-image {
@@ -127,7 +127,7 @@
     z-index: 65;
     margin: 0 auto;
     height: 58px;
-    transition: 0.5s all cubic-bezier(0.075, 0.82, 0.165, 1);
+    transition: 0.5s width cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 
 .expand-actions {
@@ -138,6 +138,7 @@
 
 .expand-actions:hover {
     cursor: pointer;
+    filter: brightness(0.9);
     transition: 0.5s all cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 
@@ -159,7 +160,7 @@
     width: inherit;
     opacity: 1;
     z-index: 999;
-    transition: 0.5s all cubic-bezier(0.075, 0.82, 0.165, 1);
+    transition: 0.5s width cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 
 .create-text {
