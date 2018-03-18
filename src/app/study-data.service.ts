@@ -15,6 +15,7 @@ import { GroupDataInterface } from './interfaces/group-data.interface';
 export class StudyDataService {
   studies: BehaviorSubject<GroupDataInterface[]> = new BehaviorSubject([]);
   study_sync = [];
+  study_indices = [];
   constructor(private user: UserDataService, public afs: AngularFirestore) {
     this.user.userID.subscribe((uid) => {
       if (uid === '') {
@@ -28,11 +29,20 @@ export class StudyDataService {
           }
           groups.forEach((studyData) => {
             // get study data
+            let isFirstTime = false;
+            let metadata = {};
             this.afs.doc(`/studies/${ studyData[ 'id' ] }`).valueChanges().subscribe((data) => {
               data[ 'metadata' ][ 'name' ] = data[ 'name' ];
               data[ 'metadata' ][ 'role' ] = studyData[ 'role' ];
               data[ 'metadata' ][ 'id' ] = studyData[ 'id' ];
-              this.study_sync.push(data[ 'metadata' ]);
+              if (!isFirstTime) {
+                this.study_sync.push(data[ 'metadata' ]);
+                isFirstTime = true;
+                metadata = data[ 'metadata' ];
+              } else {
+                this.study_sync[ this.study_sync.indexOf(metadata) ] = data[ 'metadata' ];
+                metadata = data[ 'metadata' ];
+              }
               this.studies.next(this.study_sync);
             });
           });

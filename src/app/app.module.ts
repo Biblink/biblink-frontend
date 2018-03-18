@@ -52,7 +52,7 @@ const appRoutes: Routes = [
     { path: 'get-started', component: GetStartedComponent },
     { path: 'password-reset', component: PasswordResetComponent },
     { path: 'dashboard/home', component: DashboardComponent },
-    { path: 'dashboard', redirectTo: '/dashboard/home' },
+    { path: 'dashboard', pathMatch: 'full', redirectTo: '/dashboard/home' },
     { path: 'dashboard/studies/study/:id', component: StudyComponent }
 ];
 
