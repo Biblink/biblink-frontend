@@ -91,6 +91,7 @@ const appRoutes: Routes = [
             : [],
         RouterModule.forRoot(appRoutes),
         RecaptchaModule.forRoot(),
+        RecaptchaFormsModule,
         ScrollToModule.forRoot(),
         HttpClientModule,
         HttpClientJsonpModule,
