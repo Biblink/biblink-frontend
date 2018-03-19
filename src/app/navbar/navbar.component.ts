@@ -69,7 +69,6 @@ export class NavbarComponent implements OnInit {
         };
 
         function homeAction() {
-            console.log('home');
         }
 
         function downAction() {
