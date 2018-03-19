@@ -114,18 +114,47 @@
       <div class="expand-actions" (click)="expandActions()" [class.unexpanded]="actionsExpanded">
         <img src="/assets/images/feature-images/expand-actions.svg">
       </div>
-      <div class="create-actions column is-three-fifths" [class.expanded]="actionsExpanded">
-        <span class="create-text">Add...</span>
+      <div class="create-actions column is-three-fifths" [class.creation-expansion]="creationExpanded" [class.expanded]="actionsExpanded">
+        <h1 class="create-label" *ngIf="creationExpanded">Let's Create...</h1>
+        <span class="create-text" *ngIf="!creationExpanded">Add...</span>
         <div class="expand">
-          <img src="/assets/images/feature-images/expand.svg" alt="">
+          <img style="position: relative; top: 3px" *ngIf="!creationExpanded" (click)="toggleCreation(true)" src="/assets/images/feature-images/expand.svg"
+            alt="expand creation">
+          <img *ngIf="creationExpanded" class="minimize-creation" (click)="toggleCreation(false)" src="/assets/images/feature-images/minimize-creation.svg"
+            alt="minimize creation">
         </div>
+        <h1 class="action-label" *ngIf="creationExpanded">Type</h1>
         <div class="actions">
           <a class="create-cta first">An Announcement</a>
           <a class="create-cta">A Post</a>
           <a class="create-cta">A Question</a>
           <a class="create-cta">A Discussion</a>
         </div>
-        <img (click)="actionsExpanded = false" class="minimize" src="/assets/images/feature-images/minimize.svg" alt="">
+        <form action="">
+          <h1 class="action-label" *ngIf="creationExpanded">Information</h1>
+          <div class="fields">
+            <div class="field" *ngIf="creationExpanded">
+              <label class="label" for="title">Title:</label>
+              <input class="input" name="title" type="text" id="title">
+            </div>
+            <div class="field" *ngIf="creationExpanded">
+              <label class="label" for="body">Body:</label>
+              <textarea name="body" class="textarea input" id="body" cols="30" rows="2"></textarea>
+            </div>
+            <!-- <div class="show-files" *ngIf="creationExpanded">
+              <label class="switch">
+                <input type="checkbox">
+                <span class="slider round"></span>
+              </label>
+              <span class="checkbox-label">Add File(s)</span>
+            </div> -->
+            <div class="has-text-centered btn-container">
+              <button *ngIf="creationExpanded" class="btn create-btn" disabled="disabled">Post</button>
+            </div>
+          </div>
+        </form>
+        <img *ngIf="!creationExpanded" (click)="actionsExpanded = false" class="minimize" src="/assets/images/feature-images/minimize.svg"
+          alt="">
       </div>
     </div>
     <div class="right-nav column is-one-fifth">
