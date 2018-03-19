@@ -70,7 +70,6 @@ export class StudyNavComponent implements OnInit {
     };
 
     function homeAction() {
-      console.log('home');
     }
 
     function downAction() {
