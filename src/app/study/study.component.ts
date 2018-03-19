@@ -12,6 +12,7 @@ export class StudyComponent implements OnInit {
   title = '';
   profileImage = '';
   actionsExpanded = false;
+  creationExpanded = false;
   name = '';
   studyData;
   groupID = '';
@@ -45,6 +46,10 @@ export class StudyComponent implements OnInit {
 
   expandActions() {
     this.actionsExpanded = true;
+  }
+
+  toggleCreation(value: boolean) {
+    this.creationExpanded = value;
   }
 
 }
