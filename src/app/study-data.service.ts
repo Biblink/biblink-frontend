@@ -10,6 +10,8 @@ import { Utils } from './utilities/utils';
 import { UserDataService } from './user-data.service';
 import { GroupDataInterface } from './interfaces/group-data.interface';
 import { Post } from './interfaces/post';
+import 'rxjs/add/operator/take';
+import 'rxjs/add/operator/do';
 
 
 @Injectable()
@@ -62,8 +64,23 @@ export class StudyDataService {
       return firebaseID;
     });
   }
-  addMember(reference: AngularFirestoreDocument<any>, memberData) {
-    return reference.collection('members').add(memberData);
+
+  joinStudy(name: string, groupID: number) {
+    return this.afs.collection(`/studies/`, ref => ref.where('search_name', '==', name).where('uniqueID', '==', groupID)).snapshotChanges();
+  }
+  addMember(groupID, userID) {
+    return new Promise((resolve, reject) => {
+      const doc = this.afs.collection('studies').doc(groupID);
+      doc.collection('members').doc(userID).snapshotChanges().take(1).subscribe((res) => {
+        if (!res.payload.exists) {
+          doc.collection('members').doc(userID).set({ 'uid': userID, 'role': 'member' });
+          resolve();
+        } else {
+          reject('already added');
+        }
+      });
+    });
+
   }
 
   getStudyData(groupID: string) {
