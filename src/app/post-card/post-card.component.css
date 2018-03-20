@@ -73,6 +73,9 @@
     font-size: 1.0rem;
     letter-spacing: 1px;
     line-height: 19px;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
 }
 
 .post .card-content {

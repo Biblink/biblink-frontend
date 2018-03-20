@@ -14,7 +14,6 @@ export class PostCardComponent implements OnInit {
   constructor(private afs: AngularFirestore) { }
 
   ngOnInit() {
-    console.log(this.contributors);
     this.contributors.forEach(contributor => {
       let firstTime = false;
       let previousImage = '';
