@@ -144,10 +144,10 @@ export class StudyComponent implements OnInit {
   }
 
   toggleCreation(value: boolean) {
-    this.creationExpanded = value;
-    if (this.createPost.type === '') {
+    if (this.createPost.type === '' && this.creationExpanded === false) {
       this.createPost.type = 'post';
     }
+    this.creationExpanded = value;
   }
 
   publishPost() {
