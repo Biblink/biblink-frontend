@@ -27,7 +27,6 @@ export class DashboardComponent implements OnInit {
 
   hasNoGroups = false;
   studyGroup = { name: '', uniqueID: '' };
-  defaultJoinStudy = { name: '', uniqueID: '' };
   defaultNewStudy = { name: '', leader: '', description: '', bannerImage: '', profileImage: '' };
   newStudy = { name: '', leader: '', description: '', bannerImage: '', profileImage: '' };
 
@@ -84,6 +83,9 @@ export class DashboardComponent implements OnInit {
     });
   }
 
+  resetJoinStudy() {
+    this.studyGroup = { name: '', uniqueID: '' };
+  }
   updateUser(user: User) {
     return this._data.updateProfile(user);
   }
@@ -183,8 +185,22 @@ export class DashboardComponent implements OnInit {
   }
 
   joinStudy() {
-    // TODO: Work on implementation once creating study works
-    console.log('joining study');
+    const name = this.studyGroup.name.replace(/\s/g, '').toLowerCase();
+    const joinStudy = this.groupData.joinStudy(name, parseInt(this.studyGroup.uniqueID, 10)).subscribe((res) => {
+      if (res.length === 1) {
+        const groupName = res[ 0 ].payload.doc.data()[ 'name' ];
+        const groupID = res[ 0 ].payload.doc.id;
+        this.groupData.addMember(groupID, this._data.userID.getValue()).then((test) => {
+          this._data.addStudy(groupID, 'member').then(() => {
+            this.toastr.show(`Added You to ${ groupName }`, 'Successfully Added To Group');
+          });
+        }).catch((reason) => {
+          if (reason === 'already added') {
+            this.toastr.show(`You are already part of ${ groupName }`, 'Already Added');
+          }
+        });
+      }
+    });
   }
 
   createStudy() {
