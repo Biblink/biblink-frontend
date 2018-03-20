@@ -9,6 +9,7 @@ import { User } from './interfaces/user';
 import { Utils } from './utilities/utils';
 import { UserDataService } from './user-data.service';
 import { GroupDataInterface } from './interfaces/group-data.interface';
+import { Post } from './interfaces/post';
 
 
 @Injectable()
@@ -67,6 +68,15 @@ export class StudyDataService {
 
   getStudyData(groupID: string) {
     return this.afs.doc(`/studies/${ groupID }`).valueChanges();
+  }
+
+
+  createPost(studyID: string, post: Post) {
+    return this.afs.doc(`/studies/${ studyID }`).collection('posts').add(Utils.toJson(post));
+  }
+
+  getPosts(studyID: string) {
+    return this.afs.doc(`/studies/${ studyID }`).collection('posts', ref => ref.orderBy('timestamp')).valueChanges();
   }
 
 }

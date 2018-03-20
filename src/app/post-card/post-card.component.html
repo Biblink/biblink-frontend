@@ -9,7 +9,7 @@
         <ng-content select=".card-body"></ng-content>
       </div>
       <div class="card-links">
-        <h1>Links:</h1>
+
         <ng-content select=".links"></ng-content>
       </div>
     </div>
@@ -20,15 +20,15 @@
       </div>
       <div class="column is-three-fifths has-text-right">
         <div class="contributors">
-          <span class="contributor-text" href="">Contributor(s): </span>
-          <img class="contributor-image" src="/assets/images/background-images/sign-in-bg.jpg" alt="">
-          <img class="contributor-image" src="/assets/images/background-images/sign-up-bg.jpg" alt="">
+          <span class="contributor-text" *ngIf="contributorImages.length <= 1">Contributor: </span>
+          <span class="contributor-text" *ngIf="contributorImages.length > 1 ">Contributor(s): </span>
+          <img class="contributor-image" [src]="image" *ngFor="let image of contributorImages">
         </div>
       </div>
     </div>
 
   </div>
-  <div class="replies">
+  <div class="replies" *ngIf="replies.length > 0">
     <div class="reply">
       <div class="person-container">
         <img class="contributor-image" src="/assets/images/background-images/sign-in-bg.jpg" alt="">

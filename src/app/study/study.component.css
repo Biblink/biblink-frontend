@@ -1,6 +1,6 @@
 .main-info {
     margin: 200px auto 100px auto;
-    overflow: auto;
+    overflow: hidden;
     max-height: 100%;
     padding: 0;
 }
@@ -200,6 +200,11 @@ hr {
     border: none;
     background-color: #255250;
     transition: 0.5s all cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+.create-active {
+    background-color: #255250;
+    border: none;
 }
 
 .create-cta {
@@ -406,6 +411,7 @@ hr {
 .input {
     border: none;
     border-bottom: 2px solid white;
+    color: white;
     box-shadow: none;
     border-radius: 0;
     font-family: 'museo-sans', sans-serif;
@@ -545,4 +551,9 @@ input:checked+.slider:before {
 .btn.create-btn:hover {
     box-shadow: none;
     transition: all 1s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+.btn.create-btn:disabled {
+    box-shadow: none;
+    cursor: not-allowed;
 }
