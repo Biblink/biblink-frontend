@@ -306,6 +306,14 @@ hr {
     padding-left: 55px;
 }
 
+.announcement {
+    height: 150px;
+}
+
+.announcement-container {
+    height: 150px;
+}
+
 .announcement-text {
     height: 64px;
     color: #817D7D;
@@ -319,9 +327,15 @@ hr {
 
 .announcement-text,
 .announcement p {
-    height: 64px;
+    height: 100px;
     text-overflow: ellipsis;
     overflow: hidden;
+}
+
+.announcement-text p {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
 }
 
 .connector {
@@ -366,6 +380,7 @@ hr {
 .members {
     margin-left: 41px;
     margin-top: 15px;
+    margin-bottom: 20px;
 }
 
 .creation-expansion {

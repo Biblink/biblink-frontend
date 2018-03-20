@@ -787,3 +787,8 @@
     height: 45px;
     border-radius: 100%;
 }
+
+.user.user-image {
+    height: 50px;
+    width: 50px;
+}

@@ -96,9 +96,19 @@ export class StudyDataService {
     return this.afs.doc(`/studies/${ studyID }`).collection('posts', ref => ref.orderBy('timestamp', 'desc')).valueChanges();
   }
 
+  getKeyAnnouncements(studyID: string) {
+    return this.afs.doc(`/studies/${ studyID }`)
+      .collection('posts', ref => ref.where('type', '==', 'announcement').orderBy('timestamp', 'desc').limit(3)).valueChanges();
+  }
+
   getPostByType(studyID: string, type: string) {
     return this.afs.doc(`/studies/${ studyID }`)
       .collection('posts', ref => ref.where('type', '==', type).orderBy('timestamp', 'desc')).valueChanges();
+  }
+
+  getMembers(studyID: string) {
+    return this.afs.doc(`/studies/${ studyID }`)
+      .collection('members').valueChanges();
   }
 
 }
