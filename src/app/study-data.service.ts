@@ -76,7 +76,12 @@ export class StudyDataService {
   }
 
   getPosts(studyID: string) {
-    return this.afs.doc(`/studies/${ studyID }`).collection('posts', ref => ref.orderBy('timestamp')).valueChanges();
+    return this.afs.doc(`/studies/${ studyID }`).collection('posts', ref => ref.orderBy('timestamp', 'desc')).valueChanges();
+  }
+
+  getPostByType(studyID: string, type: string) {
+    return this.afs.doc(`/studies/${ studyID }`)
+      .collection('posts', ref => ref.where('type', '==', type).orderBy('timestamp', 'desc')).valueChanges();
   }
 
 }

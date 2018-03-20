@@ -13,6 +13,7 @@ import * as firebase from 'firebase';
 export class StudyComponent implements OnInit {
   title = '';
   profileImage = '';
+  currentTab = 'feed';
   actionsExpanded = false;
   creationExpanded = false;
   createPost = new Post();
@@ -36,7 +37,7 @@ export class StudyComponent implements OnInit {
       this.title = data[ 'name' ];
       this.studyData = data;
     });
-    this.posts = this._study.getPosts(this.groupID);
+    this.getPosts();
   }
 
   resetPost() {
@@ -47,9 +48,46 @@ export class StudyComponent implements OnInit {
     this.createPost.type = type;
     this.toggleCreation(true);
   }
+  getAnnouncements() {
+    this.posts = this._study.getPostByType(this.groupID, 'announcement');
+  }
+
+  getQuestions() {
+    this.posts = this._study.getPostByType(this.groupID, 'question');
+  }
+  getDiscussions() {
+    this.posts = this._study.getPostByType(this.groupID, 'discussion');
+  }
+
+  getPosts() {
+    this.posts = this._study.getPosts(this.groupID);
+  }
 
   navigateTo(url) {
     this._router.navigateByUrl(url);
+  }
+
+  switchTab(val) {
+    this.currentTab = val;
+    switch (this.currentTab) {
+      case 'feed': {
+        this.getPosts();
+        break;
+      }
+      case 'announcements': {
+        this.getAnnouncements();
+        break;
+      }
+      case 'questions': {
+        this.getQuestions();
+        break;
+      }
+      case 'discussions': {
+        this.getDiscussions();
+        break;
+      }
+
+    }
   }
 
   logout() {
