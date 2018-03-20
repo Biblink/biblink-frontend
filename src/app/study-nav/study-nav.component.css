@@ -393,3 +393,8 @@
     margin-right: 68px;
     font-size: 1.6rem;
 }
+
+.user.user-image {
+    height: 50px;
+    width: 50px;
+}

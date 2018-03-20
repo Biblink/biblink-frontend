@@ -19,7 +19,9 @@ export class StudyComponent implements OnInit {
   createPost = new Post();
   name = '';
   posts;
+  members = [];
   studyData;
+  keyAnnouncements = [];
   groupID = '';
   constructor(private _router: Router, private _study: StudyDataService, private _user: UserDataService, private toastr: ToastrService) {
 
@@ -38,6 +40,8 @@ export class StudyComponent implements OnInit {
       this.studyData = data;
     });
     this.getPosts();
+    this.getMembers();
+    this.getKeyAnnouncements();
   }
 
   resetPost() {
@@ -61,6 +65,45 @@ export class StudyComponent implements OnInit {
 
   getPosts() {
     this.posts = this._study.getPosts(this.groupID);
+  }
+
+  getKeyAnnouncements() {
+    this._study.getKeyAnnouncements(this.groupID).subscribe((announcements) => {
+      this.keyAnnouncements = [];
+      announcements.forEach((announcement) => {
+        let firstTime = false;
+        let oldData = {};
+        this._user.getDataFromID(announcement[ 'creatorID' ]).subscribe((res) => {
+          announcement[ 'image' ] = res[ 'data' ][ 'profileImage' ];
+          if (firstTime) {
+            this.keyAnnouncements[ this.keyAnnouncements.indexOf(oldData) ] = announcement;
+          } else {
+            this.keyAnnouncements.push(announcement);
+          }
+          firstTime = true;
+          oldData = announcement;
+        });
+      });
+    });
+  }
+
+  getMembers() {
+    this._study.getMembers(this.groupID).subscribe((members) => {
+      this.members = [];
+      members.forEach((member) => {
+        let firstTime = false;
+        let oldImage = { 'name': '', 'image': '' };
+        this._user.getDataFromID(member[ 'uid' ]).subscribe((res) => {
+          if (firstTime) {
+            this.members[ this.members.indexOf(oldImage) ] = { 'name': res[ 'name' ], 'image': res[ 'data' ][ 'profileImage' ] };
+          } else {
+            this.members.push({ 'name': res[ 'name' ], 'image': res[ 'data' ][ 'profileImage' ] });
+          }
+          firstTime = true;
+          oldImage = { 'name': res[ 'name' ], 'image': res[ 'data' ][ 'profileImage' ] };
+        });
+      });
+    });
   }
 
   navigateTo(url) {

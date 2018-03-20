@@ -61,4 +61,8 @@ export class UserDataService {
   public get user() {
     return this.userData;
   }
+
+  getDataFromID(uid) {
+    return this.afs.collection('users').doc(uid).valueChanges();
+  }
 }
