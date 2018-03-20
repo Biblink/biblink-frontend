@@ -118,7 +118,7 @@
             </div>
           </div>
         </form>
-        <img *ngIf="!creationExpanded" (click)="actionsExpanded = false" class="minimize" src="/assets/images/feature-images/minimize.svg"
+        <img *ngIf="!creationExpanded" (click)="actionsExpanded = false; createPost.type = ''" class="minimize" src="/assets/images/feature-images/minimize.svg"
           alt="">
       </div>
     </div>
