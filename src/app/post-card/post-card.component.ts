@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation, Input } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, Input, EventEmitter, Output } from '@angular/core';
 import { AngularFirestore } from 'angularfire2/firestore';
 
 @Component({
@@ -9,7 +9,14 @@ import { AngularFirestore } from 'angularfire2/firestore';
 })
 export class PostCardComponent implements OnInit {
   @Input() contributors = [];
+  @Input() isLeader = false;
+  @Input() isCreator = false;
+  @Output() delete = new EventEmitter<boolean>(false);
+  @Output() edit = new EventEmitter<boolean>(false);
+  activateDeleteModal = false;
+  activateEditModal = false;
   replies = [];
+  activateZ = 10;
   contributorImages = [];
   constructor(private afs: AngularFirestore) { }
 
@@ -27,6 +34,13 @@ export class PostCardComponent implements OnInit {
         previousImage = value[ 'data' ][ 'profileImage' ];
       });
     });
+  }
+
+  emitDelete() {
+    this.delete.emit(true);
+  }
+  emitEdit() {
+    this.edit.emit(true);
   }
 
 }

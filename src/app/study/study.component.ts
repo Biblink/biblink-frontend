@@ -17,11 +17,15 @@ export class StudyComponent implements OnInit {
   actionsExpanded = false;
   creationExpanded = false;
   createPost = new Post();
+  editing = false;
+  editingPostID = '';
   name = '';
   posts;
   members = [];
   studyData;
   keyAnnouncements = [];
+  isLeader = false;
+  userID = '';
   groupID = '';
   constructor(private _router: Router, private _study: StudyDataService, private _user: UserDataService, private toastr: ToastrService) {
 
@@ -39,9 +43,22 @@ export class StudyComponent implements OnInit {
       this.title = data[ 'name' ];
       this.studyData = data;
     });
+    this._user.userID.subscribe((res) => {
+      if (res !== '') {
+        this.userID = res;
+        this._study.getMemberData(this.groupID, res).subscribe((response) => {
+          if (response[ 'role' ] === 'leader') {
+            this.isLeader = true;
+          } else {
+            this.isLeader = false;
+          }
+        });
+      }
+    });
     this.getPosts();
     this.getMembers();
     this.getKeyAnnouncements();
+    // this._study.updatePost(this.groupID);
   }
 
   resetPost() {
@@ -151,6 +168,9 @@ export class StudyComponent implements OnInit {
   }
 
   publishPost() {
+    if (this.editing) {
+      return this.updatePost();
+    }
     const today = new Date();
     const date = `${ today.getMonth() + 1 }/${ today.getDate() }/${ today.getFullYear() }`;
     const time = today.toLocaleTimeString();
@@ -175,5 +195,40 @@ export class StudyComponent implements OnInit {
   checkIfExists(value) {
     return value === undefined || value === null || value === [] || value === {} || Object.keys(value).length === 0;
   }
+
+
+  deletePost(value: boolean, postID: string,
+    creatorID: string, isLeader: boolean) {
+    if (value && (creatorID === this._user.userID.getValue() || isLeader)) {
+      this._study.deletePost(this.groupID, postID).then(() => {
+        this.toastr.show('Successfully Deleted Post');
+
+      });
+    }
+  }
+
+  editPost(value: boolean, postID: string, creatorID: string, isLeader: boolean) {
+    if (value && (creatorID === this._user.userID.getValue() || isLeader)) {
+      this.editing = true;
+      this._study.getPostByID(this.groupID, postID).subscribe((res) => {
+        this.createPost = res as Post;
+        this.editingPostID = postID;
+        this.expandActions();
+        this.toggleCreation(true);
+      });
+    }
+  }
+
+  updatePost() {
+    this._study.updatePost(this.groupID, this.editingPostID, this.createPost).then(() => {
+      this.resetPost();
+      this.editingPostID = '';
+      this.editing = false;
+      this.toastr.show('Successfully Edited Post');
+      this.toggleCreation(false);
+      this.actionsExpanded = false;
+    });
+  }
+
 
 }

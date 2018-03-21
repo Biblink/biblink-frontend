@@ -34,7 +34,6 @@ export class UserDataService {
                 this.userReference.update(response);
               }
               this.userData.next(response);
-              console.log('received user data: ', this.userData.getValue());
             }
           });
         }
