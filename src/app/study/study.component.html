@@ -56,7 +56,7 @@
     </div>
     <div class="main-info column is-three-fifths is-centered">
       <div class="posts">
-        <app-post-card *ngFor="let post of posts | async" [studyID]="groupID" [isLeader]="isLeader" [id]="post['id']" [isCreator]="userID === post['creatorID']" [contributors]="post['contributors']"
+        <app-post-card *ngFor="let post of posts | async" [studyID]="groupID" [isLeader]="isLeader" [id]="post['id']" [userID]="userID" [isCreator]="userID === post['creatorID']" [contributors]="post['contributors']"
           (delete)="deletePost($event, post['id'], post['creatorID'], isLeader)" (edit)="editPost($event, post['id'], post['creatorID'], isLeader)"
           (reply)="replyToPost($event, post['id'])">
           <p class="card-header-title">{{post['title']}}</p>

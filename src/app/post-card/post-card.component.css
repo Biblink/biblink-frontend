@@ -268,3 +268,7 @@
 .reply:not(:first-child) {
     margin-top: 20px;
 }
+
+.sub-reply:not(:first-child) {
+    margin-top: -9px;
+}
