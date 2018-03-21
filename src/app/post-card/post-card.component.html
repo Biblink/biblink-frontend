@@ -15,7 +15,8 @@
     </div>
     <div class="post-actions columns">
       <div class="column">
-        <a class="post-action" href="">Reply (1)</a>
+        <a class="post-action" (click)="activateReplyModal = true" *ngIf="replies.length === 0">Reply</a>
+        <a class="post-action" (click)="activateReplyModal = true" *ngIf="replies.length > 0">Reply ({{replies.length}})</a>
         <a class="post-action" href="">Star</a>
         <div *ngIf="isLeader || isCreator" class="dropdown is-left is-hoverable verse-dropdown" (mouseenter)="activateZ = 700" (mouseleave)="activateZ = 10">
           <div class="dropdown-trigger">
@@ -47,14 +48,13 @@
 
   </div>
   <div class="replies" *ngIf="replies.length > 0">
-    <div class="reply">
+    <div class="reply" *ngFor="let reply of replies" data-aos="fade-up">
       <div class="person-container">
-        <img class="contributor-image" src="/assets/images/background-images/sign-in-bg.jpg" alt="">
-        <span class="name">Brandon Fan</span>
-        <p class="reply-text">Nice man!</p>
+        <img class="contributor-image" [src]="reply['image']" alt="">
+        <span class="name">{{reply['name']}}</span>
+        <p class="reply-text">{{reply['text']}}</p>
       </div>
       <div class="sub-reply">
-
         <div class="person-container">
           <svg width="27px" height="34px" viewBox="0 0 27 34" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
             <!-- Generator: Sketch 49 (51002) - http://www.bohemiancoding.com/sketch -->
@@ -124,6 +124,27 @@
       <div>
         <button class="btn study-btn modal-btn" (click)="emitDelete(); activateDeleteModal = false;">Delete</button>
         <a (click)="activateDeleteModal = false" class="btn-link">Cancel</a>
+      </div>
+    </footer>
+  </div>
+</div>
+<div class="modal" [class.is-active]="activateReplyModal">
+  <div class="modal-background"></div>
+  <div class="modal-card">
+    <header class="modal-card-head">
+      <p class="modal-card-title">Add a Reply</p>
+      <button class="delete" aria-label="close" (click)="activateReplyModal = false"></button>
+    </header>
+    <section class="modal-card-body">
+      <div class="field" data-aos="slide-right" data-aos-duration="1200">
+        <label class="label" for="reply-text">Reply Text:</label>
+        <input class="input" #replyInput="ngModel" [(ngModel)]="replyText" required type="text" name="reply-text">
+      </div>
+    </section>
+    <footer class="modal-card-foot">
+      <div>
+        <button [disabled]="replyInput.invalid" class="btn study-btn modal-btn" (click)="emitReply(); activateReplyModal = false;">Add Reply</button>
+        <a (click)="activateReplyModal = false" class="btn-link">Cancel</a>
       </div>
     </footer>
   </div>

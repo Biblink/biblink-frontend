@@ -5,6 +5,7 @@ import { UserDataService } from '../user-data.service';
 import { Post } from '../interfaces/post';
 import { ToastrService } from 'ngx-toastr';
 import * as firebase from 'firebase';
+import { Reply } from '../interfaces/reply';
 @Component({
   selector: 'app-study',
   templateUrl: './study.component.html',
@@ -230,5 +231,15 @@ export class StudyComponent implements OnInit {
     });
   }
 
+  replyToPost(text: string, postID: string) {
+    const reply = new Reply(text,
+      this._user.userID.getValue(),
+      Math.round((new Date()).getTime() / 1000),
+      [], // TODO: create verse extractor
+      []); // TODO: create link extractor
+    this._study.addReply(postID, this.groupID, reply).then(() => {
+      this.toastr.show('Successfully Created Reply', 'Created Reply');
+    });
+  }
 
 }
