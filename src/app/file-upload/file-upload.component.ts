@@ -3,6 +3,7 @@ import { AngularFireStorage, AngularFireUploadTask } from 'angularfire2/storage'
 import { Observable } from 'rxjs/Observable';
 import { AngularFirestore } from 'angularfire2/firestore';
 import 'rxjs/add/operator/first';
+import { UserDataService } from '../user-data.service';
 
 @Component({
   selector: 'app-file-upload',
@@ -33,7 +34,7 @@ export class FileUploadComponent {
   // State for dropzone CSS toggling
   isHovering: boolean;
 
-  constructor(private storage: AngularFireStorage, private db: AngularFirestore) { }
+  constructor(private storage: AngularFireStorage, private db: AngularFirestore, private _user: UserDataService) { }
 
 
   toggleHover(event: boolean) {
@@ -56,7 +57,7 @@ export class FileUploadComponent {
     const path = `profile_images/${ new Date().getTime() }_${ Math.floor(Math.random() * 2000) }_${ file.name }`;
 
     // Totally optional metadata
-    const customMetadata = { creationDate: `Created on ${ new Date().getTime() }` };
+    const customMetadata = { creationDate: `Created on ${ new Date().getTime() }`, uid: this._user.userID.getValue() };
 
     // The main task
     this.task = this.storage.upload(path, file, { customMetadata });
