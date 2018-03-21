@@ -56,7 +56,8 @@
     </div>
     <div class="main-info column is-three-fifths is-centered">
       <div class="posts">
-        <app-post-card *ngFor="let post of posts | async" [contributors]="post['contributors']">
+        <app-post-card *ngFor="let post of posts | async" [isLeader]="isLeader" [isCreator]="userID === post['creatorID']" [contributors]="post['contributors']"
+          (delete)="deletePost($event, post['id'], post['creatorID'], isLeader)" (edit)="editPost($event, post['id'], post['creatorID'], isLeader)">
           <p class="card-header-title">{{post['title']}}</p>
           <div class="metadata">
             <div class="type">
@@ -114,7 +115,8 @@
               <span class="checkbox-label">Add File(s)</span>
             </div> -->
             <div class="has-text-centered btn-container">
-              <button type="submit" *ngIf="creationExpanded" class="btn create-btn" [disabled]="postCreator.invalid">Post</button>
+              <button type="submit" *ngIf="creationExpanded && !editing" class="btn create-btn" [disabled]="postCreator.invalid">Post</button>
+              <button type="submit" *ngIf="creationExpanded && editing" class="btn create-btn" [disabled]="postCreator.invalid">Update Post</button>
             </div>
           </div>
         </form>

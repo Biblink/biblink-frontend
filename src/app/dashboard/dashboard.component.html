@@ -46,7 +46,7 @@
                 <div class="study-creation has-text-centered container">
                     <p class="no-study" *ngIf="hasNoGroups" data-aos="zoom-in" data-aos-duration="1200" data-aos-anchor="#study-title">Hmmm...seems like you don't have a study</p>
                     <div class="study-list columns is-centered">
-                        <div *ngFor="let study of studies" class="card column is-half">
+                        <div *ngFor="let study of studies" class="card column is-half" data-aos="fade-up" data-aos-duration="1200">
                             <div class="card-backdrop">
                                 <img [src]="study['bannerImage']">
                             </div>

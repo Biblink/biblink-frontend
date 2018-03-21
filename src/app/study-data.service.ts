@@ -90,8 +90,24 @@ export class StudyDataService {
 
 
   createPost(studyID: string, post: Post) {
-    return this.afs.doc(`/studies/${ studyID }`).collection('posts').add(Utils.toJson(post));
+    const firebaseID = this.afs.createId();
+    const jsonPost = Utils.toJson(post);
+    jsonPost[ 'id' ] = firebaseID;
+    return this.afs.doc(`/studies/${ studyID }`).collection('posts').doc(firebaseID).set(Utils.toJson(post));
   }
+
+  updatePost(studyID: string, postID: string, post: Post) {
+    return this.afs.doc(`/studies/${ studyID }`).collection('posts').doc(postID).update(post);
+  }
+
+  // updatePost(studyID: string) {
+  //   this.afs.doc(`/studies/${ studyID }`).collection('posts').snapshotChanges().subscribe((res) => {
+  //     res.forEach((post) => {
+  //       const id = post.payload.doc.id;
+  //       this.afs.doc(`/studies/${ studyID }`).collection('posts').doc(id).update({ id: id });
+  //     });
+  //   });
+  // }
 
   getPosts(studyID: string) {
     return this.afs.doc(`/studies/${ studyID }`).collection('posts', ref => ref.orderBy('timestamp', 'desc')).valueChanges();
@@ -107,9 +123,22 @@ export class StudyDataService {
       .collection('posts', ref => ref.where('type', '==', type).orderBy('timestamp', 'desc')).valueChanges();
   }
 
+  getPostByID(studyID: string, postID: string) {
+    return this.afs.doc(`/studies/${ studyID }`).collection('posts').doc(postID).valueChanges();
+  }
+
   getMembers(studyID: string) {
     return this.afs.doc(`/studies/${ studyID }`)
       .collection('members').valueChanges();
   }
 
+  deletePost(studyID: string, postID: string) {
+    return this.afs.doc(`/studies/${ studyID }`)
+      .collection('posts').doc(postID).delete();
+  }
+
+  getMemberData(studyID: string, uid: string) {
+    console.log(uid);
+    return this.afs.doc(`/studies/${ studyID }`).collection('members').doc(uid).valueChanges();
+  }
 }

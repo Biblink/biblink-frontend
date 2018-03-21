@@ -63,6 +63,11 @@ export class DashboardComponent implements OnInit {
     private toastr: ToastrService) { }
 
   ngOnInit() {
+    this._auth.authState.subscribe((res) => {
+      if (res === null) {
+        setTimeout(() => this._router.navigateByUrl('/sign-in'), 200);
+      }
+    });
     this.createForm();
     this._data.userData.subscribe((res) => {
       this.data = res;
