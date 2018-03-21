@@ -12,6 +12,7 @@ import { GroupDataInterface } from './interfaces/group-data.interface';
 import { Post } from './interfaces/post';
 import 'rxjs/add/operator/take';
 import 'rxjs/add/operator/do';
+import { Reply } from './interfaces/reply';
 
 
 @Injectable()
@@ -93,7 +94,14 @@ export class StudyDataService {
     const firebaseID = this.afs.createId();
     const jsonPost = Utils.toJson(post);
     jsonPost[ 'id' ] = firebaseID;
-    return this.afs.doc(`/studies/${ studyID }`).collection('posts').doc(firebaseID).set(Utils.toJson(post));
+    return this.afs.doc(`/studies/${ studyID }`).collection('posts').doc(firebaseID).set(jsonPost);
+  }
+
+  addReply(postID: string, studyID: string, reply: Reply) {
+    const firebaseID = this.afs.createId();
+    const jsonReply = Utils.toJson(reply);
+    jsonReply[ 'id' ] = firebaseID;
+    return this.afs.doc(`/studies/${ studyID }`).collection('posts').doc(postID).collection('replies').doc(firebaseID).set(jsonReply);
   }
 
   updatePost(studyID: string, postID: string, post: Post) {
@@ -125,6 +133,10 @@ export class StudyDataService {
 
   getPostByID(studyID: string, postID: string) {
     return this.afs.doc(`/studies/${ studyID }`).collection('posts').doc(postID).valueChanges();
+  }
+
+  getPostRepliesByID(studyID: string, postID: string) {
+    return this.afs.doc(`/studies/${ studyID }`).collection('posts').doc(postID).collection('replies').valueChanges();
   }
 
   getMembers(studyID: string) {

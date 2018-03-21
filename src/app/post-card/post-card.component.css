@@ -230,7 +230,7 @@
 
 .study-btn[disabled] {
     box-shadow: none;
-    background-color: #cb5032;
+    background-color: rgba(90, 89, 89, 0.4);
     cursor: not-allowed !important;
 }
 
@@ -249,4 +249,22 @@
     font-size: 16px;
     height: 45px;
     width: 200px;
+}
+
+.input {
+    border: none;
+    border-bottom: 1px solid #979797;
+    box-shadow: none;
+    border-radius: 0;
+    font-family: 'museo-sans', sans-serif;
+    letter-spacing: 1px;
+}
+
+.input:focus {
+    border-bottom: 2px solid #979797;
+    box-shadow: none;
+}
+
+.reply:not(:first-child) {
+    margin-top: 20px;
 }
