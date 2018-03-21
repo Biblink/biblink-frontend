@@ -1,8 +1,11 @@
+import { ToastrService } from 'ngx-toastr';
+import { Utils } from './../utilities/utils';
 import { Component, OnInit, ViewEncapsulation, Input, EventEmitter, Output } from '@angular/core';
-import { AngularFirestore } from 'angularfire2/firestore';
+import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
 import { Observable } from 'rxjs/Observable';
 import { StudyDataService } from '../study-data.service';
 import { UserDataService } from '../user-data.service';
+import { Reply } from '../interfaces/reply';
 
 @Component({
   selector: 'app-post-card',
@@ -13,6 +16,7 @@ import { UserDataService } from '../user-data.service';
 export class PostCardComponent implements OnInit {
   @Input() contributors = [];
   @Input() isLeader = false;
+  @Input() userID = '';
   @Input() id = '';
   @Input() isCreator = false;
   @Input() studyID = '';
@@ -22,10 +26,15 @@ export class PostCardComponent implements OnInit {
   replies = [];
   activateDeleteModal = false;
   activateReplyModal = false;
+  activateSubReplyModal = false;
   replyText = '';
+  subReplyText = '';
+  replyID = '';
   activateZ = 10;
   contributorImages = [];
-  constructor(private afs: AngularFirestore, private _user: UserDataService, private _study: StudyDataService) { }
+  constructor(private afs: AngularFirestore,
+    private _user: UserDataService, private _study: StudyDataService,
+    private toastr: ToastrService) { }
 
   ngOnInit() {
     this.contributors.forEach(contributor => {
@@ -51,12 +60,32 @@ export class PostCardComponent implements OnInit {
       replies.forEach((reply) => {
         let firstTime = false;
         let firstReply = {};
-        this._user.getDataFromID(reply['creatorID']).subscribe((data) => {
-          const profileImage = data['data']['profileImage'];
-          reply['image'] = profileImage;
-          reply['name'] = data['name'];
+        this._user.getDataFromID(reply[ 'creatorID' ]).subscribe((data) => {
+          const profileImage = data[ 'data' ][ 'profileImage' ];
+          reply[ 'image' ] = profileImage;
+          reply[ 'name' ] = data[ 'name' ];
+          reply[ 'subreplies' ] = [];
+          this.getSubReplies(reply[ 'id' ]).subscribe((subreplies) => {
+            reply[ 'subreplies' ] = [];
+            subreplies.forEach((subreply) => {
+              let firstSubReplyTime = false;
+              let firstSubReply = {};
+              this._user.getDataFromID(subreply[ 'creatorID' ]).subscribe((subData) => {
+                const subProfileImage = data[ 'data' ][ 'profileImage' ];
+                subreply[ 'image' ] = subProfileImage;
+                subreply[ 'name' ] = subData[ 'name' ];
+                if (firstSubReplyTime) {
+                  reply[ 'subreplies' ][ reply[ 'subreplies' ].indexOf(firstSubReply) ] = subreply;
+                } else {
+                  reply[ 'subreplies' ].push(subreply);
+                }
+                firstSubReplyTime = true;
+                firstSubReply = subreply;
+              });
+            });
+          });
           if (firstTime) {
-            this.replies[this.replies.indexOf(firstReply)] = reply;
+            this.replies[ this.replies.indexOf(firstReply) ] = reply;
           } else {
             this.replies.push(reply);
           }
@@ -65,6 +94,24 @@ export class PostCardComponent implements OnInit {
         });
       });
     });
+  }
+
+  getSubReplies(postID) {
+    return this.afs.doc(`/studies/${ this.studyID }`)
+      .collection('posts').doc(this.id).collection('replies').doc(postID)
+      .collection('subreplies', ref => ref.orderBy('timestamp', 'asc')).valueChanges();
+  }
+  addSubReply() {
+    const firebaseID = this.afs.createId();
+    const reply = new Reply(this.subReplyText, this.userID, Math.round((new Date()).getTime() / 1000), [], []);
+    const jsonReply = Utils.toJson(reply);
+    jsonReply[ 'id' ] = firebaseID;
+    this.afs.doc(`/studies/${ this.studyID }`)
+      .collection('posts').doc(this.id).collection('replies').doc(this.replyID).collection('subreplies').doc(firebaseID).set(jsonReply)
+      .then(() => {
+        this.toastr.show('Created Subreply', 'Succesfully Created Subreply');
+        this.subReplyText = '';
+      });
   }
   emitDelete() {
     this.delete.emit(true);
@@ -75,6 +122,7 @@ export class PostCardComponent implements OnInit {
 
   emitReply() {
     this.reply.emit(this.replyText);
+    this.replyText = '';
   }
 
 }

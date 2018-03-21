@@ -54,7 +54,7 @@
         <span class="name">{{reply['name']}}</span>
         <p class="reply-text">{{reply['text']}}</p>
       </div>
-      <div class="sub-reply">
+      <div class="sub-reply" *ngFor="let subreply of reply['subreplies']">
         <div class="person-container">
           <svg width="27px" height="34px" viewBox="0 0 27 34" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
             <!-- Generator: Sketch 49 (51002) - http://www.bohemiancoding.com/sketch -->
@@ -100,14 +100,15 @@
             </g>
           </svg>
           <div>
-            <img class="contributor-image" src="/assets/images/background-images/sign-up-bg.jpg" alt="">
-            <span class="name">Howard Shi</span>
+            <img class="contributor-image" [src]="subreply['image']" alt="">
+            <span class="name">{{subreply['name']}}</span>
           </div>
-          <p class="reply-text">Sure No Problem @Brandon Fan!</p>
+          <p class="reply-text">{{subreply['text']}}</p>
         </div>
       </div>
       <div class="add-reply">
-        <a class="post-action" href="">Reply (1)</a>
+        <a class="post-action" (click)="activateSubReplyModal = true; replyID = reply['id'];" *ngIf="reply['subreplies'].length === 0">Reply</a>
+        <a class="post-action" (click)="activateSubReplyModal = true; replyID = reply['id'];" *ngIf="reply['subreplies'].length > 0">Reply ({{reply['subreplies'].length}})</a>
       </div>
     </div>
   </div>
@@ -145,6 +146,27 @@
       <div>
         <button [disabled]="replyInput.invalid" class="btn study-btn modal-btn" (click)="emitReply(); activateReplyModal = false;">Add Reply</button>
         <a (click)="activateReplyModal = false" class="btn-link">Cancel</a>
+      </div>
+    </footer>
+  </div>
+</div>
+<div class="modal" [class.is-active]="activateSubReplyModal">
+  <div class="modal-background"></div>
+  <div class="modal-card">
+    <header class="modal-card-head">
+      <p class="modal-card-title">Add a Sub Reply</p>
+      <button class="delete" aria-label="close" (click)="activateSubReplyModal = false"></button>
+    </header>
+    <section class="modal-card-body">
+      <div class="field" data-aos="slide-right" data-aos-duration="1200">
+        <label class="label" for="reply-text">Sub Reply Text:</label>
+        <input class="input" #replyInput="ngModel" [(ngModel)]="subReplyText" required type="text" name="reply-text">
+      </div>
+    </section>
+    <footer class="modal-card-foot">
+      <div>
+        <button [disabled]="replyInput.invalid" class="btn study-btn modal-btn" (click)="addSubReply(); activateSubReplyModal = false;">Add Reply</button>
+        <a (click)="activateSubReplyModal = false" class="btn-link">Cancel</a>
       </div>
     </footer>
   </div>
