@@ -230,6 +230,11 @@ export class DashboardComponent implements OnInit {
     }
   }
 
+
+  capitalize(str) {
+    return str.charAt(0).toUpperCase() + str.substr(1);
+  }
+
 }
 
 
