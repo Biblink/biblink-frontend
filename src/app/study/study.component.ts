@@ -69,7 +69,6 @@ export class StudyComponent implements OnInit {
         });
       }
     });
-    this.getPosts();
     this.getMembers();
     this.getKeyAnnouncements();
     // this._study.updatePost(this.groupID);
@@ -84,18 +83,19 @@ export class StudyComponent implements OnInit {
     this.toggleCreation(true);
   }
   getAnnouncements() {
-    this.posts = this._study.getPostByType(this.groupID, 'announcement');
+    this.page.init(this.groupID, 'posts', 'timestamp', { type: 'announcement', limit: 4, reverse: true });
+
   }
 
   getQuestions() {
-    this.posts = this._study.getPostByType(this.groupID, 'question');
+    this.page.init(this.groupID, 'posts', 'timestamp', { type: 'question', limit: 4, reverse: true });
   }
   getDiscussions() {
-    this.posts = this._study.getPostByType(this.groupID, 'discussion');
+    this.page.init(this.groupID, 'posts', 'timestamp', { type: 'discussion', limit: 4, reverse: true });
   }
 
   getPosts() {
-    this.posts = this._study.getPosts(this.groupID);
+    this.page.init(this.groupID, 'posts', 'timestamp', { limit: 4, reverse: true });
   }
 
   getKeyAnnouncements() {
