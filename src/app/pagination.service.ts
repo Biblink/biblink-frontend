@@ -10,7 +10,6 @@ import 'rxjs/add/operator/take';
 interface QueryConfig {
   path: string;
   field: string;
-  type?: string;
   limit?: number;
   reverse?: boolean;
   prepend?: boolean;
@@ -27,38 +26,20 @@ export class PaginationService {
   loading: Observable<boolean> = this._loading.asObservable();
   constructor(private afs: AngularFirestore) { }
   init(id, path, field, opts?) {
-    this.query = null;
-    this._data = new BehaviorSubject([]);
-    this._done = new BehaviorSubject(false);
-    this._loading = new BehaviorSubject(false);
-    this.done = this._done.asObservable();
-    this.loading = this._loading.asObservable();
-    this.data = null;
     this.query = {
       path,
       field,
       limit: 2,
       reverse: false,
       prepend: false,
-      type: 'all',
       ...opts
     };
     this._id = id;
-    console.log(this.query.type);
-    let first = this.afs.collection('studies');
-    if (this.query.type === 'all') {
-      console.log('here');
-      first = this.afs.collection('studies').doc(id).collection(this.query.path, ref => {
-        return ref.orderBy(this.query.field, this.query.reverse ? 'desc' : 'asc')
-          .limit(this.query.limit);
-      });
-    } else {
-      first = this.afs.collection('studies').doc(id).collection(this.query.path, ref => {
-        return ref.where('type', '==', this.query.type).orderBy(this.query.field, this.query.reverse ? 'desc' : 'asc')
-          .limit(this.query.limit);
-      });
-    }
-    console.log(first);
+    const first = this.afs.collection('studies').doc(id).collection(this.query.path, ref => {
+      return ref.orderBy(this.query.field, this.query.reverse ? 'desc' : 'asc')
+        .limit(this.query.limit);
+    });
+
     this.mapAndUpdate(first);
 
     this.data = this._data.asObservable()
@@ -78,7 +59,6 @@ export class PaginationService {
       });
       values = this.query.prepend ? values.reverse() : values;
       this._data.next(values);
-      console.log(values);
       this._loading.next(false);
       if (!values.length) {
         this._done.next(true);
