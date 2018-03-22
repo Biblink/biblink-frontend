@@ -155,7 +155,6 @@ export class StudyDataService {
   }
 
   getMemberData(studyID: string, uid: string) {
-    console.log(uid);
     return this.afs.doc(`/studies/${ studyID }`).collection('members').doc(uid).valueChanges();
   }
 }
