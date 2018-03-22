@@ -44,7 +44,6 @@ export class PaginationService {
       ...opts
     };
     this._id = id;
-    console.log(this.query.type);
     let first = this.afs.collection('studies');
     if (this.query.type === 'all') {
       console.log('here');
@@ -58,7 +57,6 @@ export class PaginationService {
           .limit(this.query.limit);
       });
     }
-    console.log(first);
     this.mapAndUpdate(first);
 
     this.data = this._data.asObservable()
@@ -78,7 +76,6 @@ export class PaginationService {
       });
       values = this.query.prepend ? values.reverse() : values;
       this._data.next(values);
-      console.log(values);
       this._loading.next(false);
       if (!values.length) {
         this._done.next(true);
