@@ -22,6 +22,7 @@ export class DashboardComponent implements OnInit {
   activateEditImage = false;
   activateJoinStudy = false;
   activateCreateStudy = false;
+  createStudyID = '';
 
   // group variables
 
@@ -40,6 +41,7 @@ export class DashboardComponent implements OnInit {
   imageUrl = '';
   user: User = new User('', '', '', { profileImage: '', bio: '', shortDescription: '' });
   name = '';
+  userID = '';
 
   // form variables
 
@@ -63,6 +65,9 @@ export class DashboardComponent implements OnInit {
     private toastr: ToastrService) { }
 
   ngOnInit() {
+    this._data.userID.subscribe((id) => {
+      this.userID = id;
+    });
     this._auth.authState.subscribe((res) => {
       if (res === null) {
         setTimeout(() => this._router.navigateByUrl('/sign-in'), 200);
@@ -215,12 +220,18 @@ export class DashboardComponent implements OnInit {
         profileImage: this.newStudy.profileImage,
         description: this.newStudy.description,
         leader: this.user.name
-      }).then((firebaseID) => {
+      }, this.createStudyID).then((firebaseID) => {
         this._data.addStudy(firebaseID, 'leader').then(() => {
           this.toastr.show('Successfully Created Your New Study', 'Created New Study');
           this.newStudy = this.defaultNewStudy;
+          this.createStudyID = '';
         }).catch(err => console.error(err));
       });
+  }
+
+  openCreateStudyModal() {
+    this.activateCreateStudy = true;
+    this.createStudyID = this.groupData.generateID();
   }
 
   openStudy(id) {

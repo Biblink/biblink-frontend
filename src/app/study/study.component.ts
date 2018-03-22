@@ -6,6 +6,8 @@ import { Post } from '../interfaces/post';
 import { ToastrService } from 'ngx-toastr';
 import * as firebase from 'firebase';
 import { Reply } from '../interfaces/reply';
+import { PaginationService } from '../pagination.service';
+declare const AOS: any;
 @Component({
   selector: 'app-study',
   templateUrl: './study.component.html',
@@ -28,11 +30,21 @@ export class StudyComponent implements OnInit {
   isLeader = false;
   userID = '';
   groupID = '';
-  constructor(private _router: Router, private _study: StudyDataService, private _user: UserDataService, private toastr: ToastrService) {
+  constructor(private _router: Router, public page: PaginationService,
+    private _study: StudyDataService, private _user: UserDataService, private toastr: ToastrService) {
 
   }
 
   ngOnInit() {
+    const init = [];
+    const x = setInterval(() => {
+      init.push(AOS.init({
+        disable: 'mobile'
+      }));
+      if (init.length >= 2) {
+        clearInterval(x);
+      }
+    }, 1500);
     this._user.userData.subscribe((user) => {
       if (user !== null) {
         this.profileImage = user.data.profileImage;
@@ -44,6 +56,7 @@ export class StudyComponent implements OnInit {
       this.title = data[ 'name' ];
       this.studyData = data;
     });
+    this.page.init(this.groupID, 'posts', 'timestamp', { limit: 4, reverse: true });
     this._user.userID.subscribe((res) => {
       if (res !== '') {
         this.userID = res;
@@ -242,4 +255,9 @@ export class StudyComponent implements OnInit {
     });
   }
 
+  scrollHandler(e) {
+    if (e === 'bottom') {
+      this.page.more();
+    }
+  }
 }
