@@ -7,7 +7,7 @@ import { ToastrService } from 'ngx-toastr';
 import * as firebase from 'firebase';
 import { Reply } from '../interfaces/reply';
 import { PaginationService } from '../pagination.service';
-declare const AOS: any;
+
 @Component({
   selector: 'app-study',
   templateUrl: './study.component.html',
@@ -37,14 +37,6 @@ export class StudyComponent implements OnInit {
 
   ngOnInit() {
     const init = [];
-    const x = setInterval(() => {
-      init.push(AOS.init({
-        disable: 'mobile'
-      }));
-      if (init.length >= 2) {
-        clearInterval(x);
-      }
-    }, 1500);
     this._user.userData.subscribe((user) => {
       if (user !== null) {
         this.profileImage = user.data.profileImage;
