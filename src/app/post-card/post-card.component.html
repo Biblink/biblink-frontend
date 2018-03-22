@@ -1,4 +1,4 @@
-<div class="post card" [ngStyle]="{'z-index': activateZ}">
+<div class="post card" data-aos="fade-up" data-aos-duration="1200" [ngStyle]="{'z-index': activateZ}">
   <header class="card-header">
     <ng-content select=".card-header-title"></ng-content>
     <ng-content select=".metadata"></ng-content>
@@ -48,7 +48,7 @@
 
   </div>
   <div class="replies" *ngIf="replies.length > 0">
-    <div class="reply" *ngFor="let reply of replies">
+    <div class="reply" *ngFor="let reply of replies" data-aos="fade-up">
       <div class="person-container">
         <img class="contributor-image" [src]="reply['image']" alt="">
         <span class="name">{{reply['name']}}</span>
@@ -160,12 +160,12 @@
     <section class="modal-card-body">
       <div class="field" data-aos="slide-right" data-aos-duration="1200">
         <label class="label" for="reply-text">Sub Reply Text:</label>
-        <input class="input" #subReplyInput="ngModel" [(ngModel)]="subReplyText" required type="text" name="reply-text">
+        <input class="input" #replyInput="ngModel" [(ngModel)]="subReplyText" required type="text" name="reply-text">
       </div>
     </section>
     <footer class="modal-card-foot">
       <div>
-        <button [disabled]="subReplyInput.invalid" class="btn study-btn modal-btn" (click)="addSubReply(); activateSubReplyModal = false;">Add Reply</button>
+        <button [disabled]="replyInput.invalid" class="btn study-btn modal-btn" (click)="addSubReply(); activateSubReplyModal = false;">Add Reply</button>
         <a (click)="activateSubReplyModal = false" class="btn-link">Cancel</a>
       </div>
     </footer>
