@@ -34,6 +34,7 @@ export class StudyComponent implements OnInit {
   keyAnnouncements = [];
   isLeader = false;
   isLoading = false;
+  isDone = false;
   userID = '';
   groupID = '';
   constructor(private _router: Router, private _study: StudyDataService, private _user: UserDataService, private toastr: ToastrService) {
@@ -71,13 +72,23 @@ export class StudyComponent implements OnInit {
       .scan((acc, val) => {
         if (this.resetPosts) {
           this.resetPosts = false;
+          this.postIndices = [];
+          this.isDone = false;
           val.forEach((post) => {
             this.postIndices.push(post[ 'id' ]);
           });
           this.isLoading = false;
+          this.postLength = val.length;
           return acc = val;
         }
+        if (this.isDone) {
+          this.isLoading = false;
+          return acc;
+        }
         const valid = [];
+        if (val.length === 0) {
+          this.isDone = true;
+        }
         val.forEach((post) => {
           if (this.postIndices.indexOf(post[ 'id' ]) === -1) {
             valid.push(post);
@@ -85,6 +96,7 @@ export class StudyComponent implements OnInit {
           }
         });
         this.isLoading = false;
+        this.postLength = acc.length + valid.length;
         return acc.concat(valid);
       });
     // this._study.updatePost(this.groupID);
@@ -105,9 +117,6 @@ export class StudyComponent implements OnInit {
       this._posts.next(res);
     });
     this.type = 'announcement';
-    this._posts.subscribe((res) => {
-      this.postLength = res.length;
-    });
   }
 
   getQuestions() {
@@ -117,9 +126,6 @@ export class StudyComponent implements OnInit {
       this._posts.next(res);
     });
     this.type = 'question';
-    this._posts.subscribe((res) => {
-      this.postLength = res.length;
-    });
   }
   getDiscussions() {
     this.isLoading = true;
@@ -128,9 +134,6 @@ export class StudyComponent implements OnInit {
       this._posts.next(res);
     });
     this.type = 'discussion';
-    this.posts.subscribe((res) => {
-      this.postLength = res.length;
-    });
   }
 
   getPosts(limit = 4) {
@@ -140,12 +143,12 @@ export class StudyComponent implements OnInit {
       this._posts.next(res);
     });
     this.type = 'all';
-    this._posts.subscribe((res) => {
-      this.postLength = res.length;
-    });
   }
 
   getMorePosts(timestamp: string, limit = 4) {
+    if (this.isDone) {
+      return;
+    }
     if (this.type === 'all') {
       this.isLoading = true;
       this._study.getPosts(this.groupID, timestamp, limit).subscribe((res) => {
@@ -157,9 +160,6 @@ export class StudyComponent implements OnInit {
         this._posts.next(res);
       });
     }
-    this._posts.subscribe((res) => {
-      this.postLength = res.length;
-    });
   }
   getKeyAnnouncements() {
     this._study.getKeyAnnouncements(this.groupID).subscribe((announcements) => {
