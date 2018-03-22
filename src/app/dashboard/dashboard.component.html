@@ -310,7 +310,7 @@
             <button class="delete" aria-label="close" (click)="activateEditImage = false && imageUrl = ''"></button>
         </header>
         <section class="modal-card-body">
-            <app-file-upload [id]="userID" [isGroup]="false" [imageType]="'profile'" (url)="getDownloadUrl($event)" [height]="'300px'"></app-file-upload>
+            <app-file-upload (url)="getDownloadUrl($event)" [height]="'300px'"></app-file-upload>
         </section>
         <footer class="modal-card-foot">
             <div>
@@ -326,7 +326,7 @@
         <form #joinForm="ngForm">
             <header class="modal-card-head">
                 <p class="modal-card-title">Join Study Group</p>
-                <button class="delete" aria-label="close" (click)="activateJoinStudy = false && resetJoinStudy(); joinForm.reset()"></button>
+                <button class="delete" aria-label="close" (click)="activateJoinStudy = false && studyGroup = defaultJoinStudy; joinForm.reset()"></button>
             </header>
             <section class="modal-card-body">
                 <div class="columns">
@@ -344,7 +344,7 @@
             <footer class="modal-card-foot">
                 <div>
                     <button class="btn study-btn modal-btn" (click)="joinStudy(); activateJoinStudy = false; joinForm.reset()">Join Group</button>
-                    <a (click)="activateJoinStudy = false && resetJoinStudy(); joinForm.reset()" class="btn-link">Cancel</a>
+                    <a (click)="activateJoinStudy = false && studyGroup = defaultJoinStudy; joinForm.reset()" class="btn-link">Cancel</a>
                 </div>
             </footer>
         </form>
@@ -361,22 +361,22 @@
         <section class="modal-card-body">
             <div class="field">
                 <label>Banner Image</label>
-                <app-file-upload [isGroup]="true" [imageType]="'banner'" [id]="createStudyID" (url)="getDownloadUrlStudy($event, 'banner')" [height]="'100px'" [borderRadius]="'0'" [profileImageWidth]="'100%'"
+                <app-file-upload (url)="getDownloadUrlStudy($event, 'banner')" [height]="'100px'" [borderRadius]="'0'" [profileImageWidth]="'100%'"
                     [profileMargin]="0"></app-file-upload>
             </div>
             <hr>
             <div class="field">
                 <label>Study Profile Image</label>
-                <app-file-upload [isGroup]="true" [imageType]="'profile'" [id]="createStudyID" (url)="getDownloadUrlStudy($event, 'study-profile')" [height]="'100px'"></app-file-upload>
+                <app-file-upload (url)="getDownloadUrlStudy($event, 'study-profile')" [height]="'100px'"></app-file-upload>
             </div>
             <hr>
             <div class="field" data-aos="slide-right" data-aos-duration="1200">
-                <label class="label" for="create-study-name">Study Group Name:</label>
-                <input class="input" required type="text" [(ngModel)]="newStudy.name" id="create-study-name" name="create-study-name">
+                <label class="label" for="join-study-name">Study Group Name:</label>
+                <input class="input" required type="text" [(ngModel)]="newStudy.name" id="join-study-name" name="join-study-name">
             </div>
             <div class="field" data-aos="slide-right" data-aos-duration="1200">
-                <label class="label" for="join-study-description">Description:</label>
-                <input class="input" required type="text" [(ngModel)]="newStudy.description" id="join-study-description" name="join-study-description">
+                <label class="label" for="join-study-name">Description:</label>
+                <input class="input" required type="text" [(ngModel)]="newStudy.description" id="join-study-name" name="join-study-name">
             </div>
 
         </section>

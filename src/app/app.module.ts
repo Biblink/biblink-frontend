@@ -43,9 +43,6 @@ import { StudyDataService } from './study-data.service';
 import { StudyComponent } from './study/study.component';
 import { StudyNavComponent } from './study-nav/study-nav.component';
 import { PostCardComponent } from './post-card/post-card.component';
-import { ScrollableDirective } from './scrollable.directive';
-import { LoadingSpinnerComponent } from './loading-spinner/loading-spinner.component';
-import { PaginationService } from './pagination.service';
 
 const appRoutes: Routes = [
     { path: '', component: HomeComponent },
@@ -78,9 +75,7 @@ const appRoutes: Routes = [
         FileUploadComponent,
         StudyComponent,
         StudyNavComponent,
-        PostCardComponent,
-        ScrollableDirective,
-        LoadingSpinnerComponent
+        PostCardComponent
     ],
     imports: [
         BrowserModule,
@@ -106,7 +101,7 @@ const appRoutes: Routes = [
             positionClass: 'toast-bottom-left'
         })
     ],
-    providers: [ SearchService, AuthService, UserDataService, StudyDataService, PaginationService ],
+    providers: [ SearchService, AuthService, UserDataService, StudyDataService ],
     bootstrap: [ AppComponent ]
 })
 export class AppModule {
