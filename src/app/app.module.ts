@@ -43,6 +43,7 @@ import { StudyDataService } from './study-data.service';
 import { StudyComponent } from './study/study.component';
 import { StudyNavComponent } from './study-nav/study-nav.component';
 import { PostCardComponent } from './post-card/post-card.component';
+import { LoadingSpinnerComponent } from './loading-spinner/loading-spinner.component';
 
 const appRoutes: Routes = [
     { path: '', component: HomeComponent },
@@ -75,7 +76,8 @@ const appRoutes: Routes = [
         FileUploadComponent,
         StudyComponent,
         StudyNavComponent,
-        PostCardComponent
+        PostCardComponent,
+        LoadingSpinnerComponent
     ],
     imports: [
         BrowserModule,

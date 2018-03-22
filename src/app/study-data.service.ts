@@ -117,8 +117,18 @@ export class StudyDataService {
   //   });
   // }
 
-  getPosts(studyID: string) {
-    return this.afs.doc(`/studies/${ studyID }`).collection('posts', ref => ref.orderBy('timestamp', 'desc')).valueChanges();
+  getPosts(studyID: string, startAfter = '', limit = 4) {
+    if (startAfter !== '') {
+      return this.afs.doc(`/studies/${ studyID }`).collection('posts',
+        ref => ref.orderBy('timestamp', 'desc')
+          .startAfter(startAfter)
+          .limit(limit))
+        .valueChanges();
+    }
+    return this.afs.doc(`/studies/${ studyID }`).collection('posts',
+      ref => ref.orderBy('timestamp', 'desc')
+        .limit(limit))
+      .valueChanges();
   }
 
   getKeyAnnouncements(studyID: string) {
@@ -126,9 +136,20 @@ export class StudyDataService {
       .collection('posts', ref => ref.where('type', '==', 'announcement').orderBy('timestamp', 'desc').limit(3)).valueChanges();
   }
 
-  getPostByType(studyID: string, type: string) {
+  getPostByType(studyID: string, type: string, startAfter = '', limit = 4) {
+    if (startAfter !== '') {
+      return this.afs.doc(`/studies/${ studyID }`)
+        .collection('posts', ref => ref.where('type', '==', type)
+          .orderBy('timestamp', 'desc')
+          .startAfter(startAfter)
+          .limit(limit))
+        .valueChanges();
+    }
     return this.afs.doc(`/studies/${ studyID }`)
-      .collection('posts', ref => ref.where('type', '==', type).orderBy('timestamp', 'desc')).valueChanges();
+      .collection('posts', ref => ref.where('type', '==', type)
+        .orderBy('timestamp', 'desc')
+        .limit(limit))
+      .valueChanges();
   }
 
   getPostByID(studyID: string, postID: string) {

@@ -1,6 +1,6 @@
 import { ToastrService } from 'ngx-toastr';
 import { Utils } from './../utilities/utils';
-import { Component, OnInit, ViewEncapsulation, Input, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, Input, EventEmitter, Output, HostListener, ElementRef } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
 import { Observable } from 'rxjs/Observable';
 import { StudyDataService } from '../study-data.service';
@@ -18,11 +18,13 @@ export class PostCardComponent implements OnInit {
   @Input() isLeader = false;
   @Input() userID = '';
   @Input() id = '';
+  @Input() isLast = false;
   @Input() isCreator = false;
   @Input() studyID = '';
   @Output() delete = new EventEmitter<boolean>(false);
   @Output() edit = new EventEmitter<boolean>(false);
   @Output() reply = new EventEmitter<string>();
+  @Output() more = new EventEmitter<boolean>(false);
   replies = [];
   activateDeleteModal = false;
   activateReplyModal = false;
@@ -32,9 +34,13 @@ export class PostCardComponent implements OnInit {
   replyID = '';
   activateZ = 10;
   contributorImages = [];
-  constructor(private afs: AngularFirestore,
-    private _user: UserDataService, private _study: StudyDataService,
-    private toastr: ToastrService) { }
+  constructor(
+    private afs: AngularFirestore,
+    private _user: UserDataService,
+    private _study: StudyDataService,
+    private toastr: ToastrService,
+    private el: ElementRef,
+  ) { }
 
   ngOnInit() {
     this.contributors.forEach(contributor => {
@@ -96,6 +102,7 @@ export class PostCardComponent implements OnInit {
     });
   }
 
+
   getSubReplies(postID) {
     return this.afs.doc(`/studies/${ this.studyID }`)
       .collection('posts').doc(this.id).collection('replies').doc(postID)
@@ -123,6 +130,12 @@ export class PostCardComponent implements OnInit {
   emitReply() {
     this.reply.emit(this.replyText);
     this.replyText = '';
+  }
+
+  @HostListener('mouseover') onMouseOver() {
+    if (this.isLast) {
+      this.more.emit(true);
+    }
   }
 
 }
