@@ -272,3 +272,7 @@
 .sub-reply:not(:first-child) {
     margin-top: -9px;
 }
+
+.modal.is-active {
+    z-index: 9999;
+}

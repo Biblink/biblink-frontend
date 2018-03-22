@@ -168,6 +168,10 @@ hr {
     transition: 0.5s all cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 
+.modal.is-active {
+    z-index: 9999;
+}
+
 .create-text {
     position: absolute;
     color: #FFFFFF;
