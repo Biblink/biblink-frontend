@@ -16,6 +16,7 @@ import { Observable } from 'rxjs/Observable';
 export class StudyComponent implements OnInit {
   title = '';
   profileImage = '';
+  numberOfMembers = 3;
   currentTab = 'feed';
   actionsExpanded = false;
   creationExpanded = false;
@@ -204,7 +205,10 @@ export class StudyComponent implements OnInit {
     this._router.navigateByUrl(url);
   }
 
-  switchTab(val) {
+  switchTab(val, override = false) {
+    if (this.currentTab === val && !override) {
+      return;
+    }
     this.currentTab = val;
     switch (this.currentTab) {
       case 'feed': {
@@ -262,6 +266,11 @@ export class StudyComponent implements OnInit {
       this.resetPost();
       this.toggleCreation(false);
       this.resetPosts = true;
+      if (this.type === 'all') {
+        this.getPosts();
+      } else {
+        this.switchTab(this.type + 's', true);
+      }
     });
   }
 
@@ -276,15 +285,17 @@ export class StudyComponent implements OnInit {
 
   deletePost(value: boolean, postID: string,
     creatorID: string, isLeader: boolean) {
+    this.resetPosts = true;
+
     if (value && (creatorID === this._user.userID.getValue() || isLeader)) {
       this._study.deletePost(this.groupID, postID).then(() => {
         this.toastr.show('Successfully Deleted Post');
-
       });
     }
   }
 
   editPost(value: boolean, postID: string, creatorID: string, isLeader: boolean) {
+    this.resetPosts = true;
     if (value && (creatorID === this._user.userID.getValue() || isLeader)) {
       this.editing = true;
       this._study.getPostByID(this.groupID, postID).subscribe((res) => {

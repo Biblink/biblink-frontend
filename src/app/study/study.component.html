@@ -156,9 +156,9 @@
         <hr>
         <div class="nav-header center">Members</div>
         <div class="members">
-          <div class="member" *ngFor="let member of members">
-            <img class="profile-image" [src]="member['image']">
-            <span class="member-name">{{member['name']}}</span>
+          <div class="member" *ngFor="let member of members; let i = index">
+            <img class="profile-image" [src]="member['image']" *ngIf="i < numberOfMembers">
+            <span class="member-name" *ngIf="i < numberOfMembers">{{member['name']}}</span>
           </div>
         </div>
         <div class="bottom has-text-centered">
