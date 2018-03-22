@@ -1,8 +1,16 @@
 .main-info {
-    margin: 200px auto 100px auto;
-    overflow: hidden;
-    max-height: 100%;
+    position: absolute;
+    overflow: auto;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
     padding: 0;
+    height: 100%;
+}
+
+.posts {
+    margin-top: 200px;
 }
 
 .left-nav {

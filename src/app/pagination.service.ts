@@ -1,0 +1,86 @@
+import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
+import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/do';
+import 'rxjs/add/operator/scan';
+import 'rxjs/add/operator/take';
+
+
+interface QueryConfig {
+  path: string;
+  field: string;
+  limit?: number;
+  reverse?: boolean;
+  prepend?: boolean;
+}
+@Injectable()
+export class PaginationService {
+  private _done = new BehaviorSubject(false);
+  private _loading = new BehaviorSubject(false);
+  private _data = new BehaviorSubject([]);
+  private query: QueryConfig;
+  private _id: string;
+  data: Observable<any>;
+  done: Observable<boolean> = this._done.asObservable();
+  loading: Observable<boolean> = this._loading.asObservable();
+  constructor(private afs: AngularFirestore) { }
+  init(id, path, field, opts?) {
+    this.query = {
+      path,
+      field,
+      limit: 2,
+      reverse: false,
+      prepend: false,
+      ...opts
+    };
+    this._id = id;
+    const first = this.afs.collection('studies').doc(id).collection(this.query.path, ref => {
+      return ref.orderBy(this.query.field, this.query.reverse ? 'desc' : 'asc')
+        .limit(this.query.limit);
+    });
+
+    this.mapAndUpdate(first);
+
+    this.data = this._data.asObservable()
+      .scan((acc, val) => {
+        return this.query.prepend ? val.concat(acc) : acc.concat(val);
+      });
+  }
+
+  private mapAndUpdate(col: AngularFirestoreCollection<any>) {
+    if (this._done.value || this._loading.value) { return; }
+    this._loading.next(true);
+    return col.snapshotChanges().do(arr => {
+      let values = arr.map(snap => {
+        const data = snap.payload.doc.data();
+        const doc = snap.payload.doc;
+        return { ...data, doc };
+      });
+      values = this.query.prepend ? values.reverse() : values;
+      this._data.next(values);
+      this._loading.next(false);
+      if (!values.length) {
+        this._done.next(true);
+      }
+    })
+      .take(1)
+      .subscribe();
+  }
+
+  private getCurosr() {
+    const current = this._data.value;
+    if (current.length) {
+      return this.query.prepend ? current[ 0 ].doc : current[ current.length - 1 ].doc;
+    }
+    return null;
+  }
+
+  more() {
+    const cursor = this.getCurosr();
+    const more = this.afs.collection('studies').doc(this._id).collection(this.query.path, ref => {
+      return ref.orderBy(this.query.field, this.query.reverse ? 'desc' : 'asc').limit(this.query.limit).startAfter(cursor);
+    });
+    this.mapAndUpdate(more);
+  }
+}

@@ -6,7 +6,7 @@ import { Observable } from 'rxjs/Observable';
 import { StudyDataService } from '../study-data.service';
 import { UserDataService } from '../user-data.service';
 import { Reply } from '../interfaces/reply';
-
+declare const AOS: any;
 @Component({
   selector: 'app-post-card',
   templateUrl: './post-card.component.html',

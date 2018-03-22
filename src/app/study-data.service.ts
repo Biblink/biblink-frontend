@@ -55,15 +55,17 @@ export class StudyDataService {
     });
   }
 
-  createStudy(name: string, userID: string, data: GroupDataInterface) {
+  createStudy(name: string, userID: string, data: GroupDataInterface, studyID = '') {
     const uniqueID = Math.floor(Math.random() * (9999 - 1000 + 1) + 1000);
     const firebaseData = { 'name': name, 'uniqueID': uniqueID, 'metadata': data };
     firebaseData[ 'search_name' ] = firebaseData[ 'name' ].replace(/\s/g, '').toLowerCase();
-    const firebaseID = this.afs.createId();
-    const studyRef = this.afs.doc(`/studies/${ firebaseID }`);
+    if (studyID === '') {
+      studyID = this.afs.createId();
+    }
+    const studyRef = this.afs.doc(`/studies/${ studyID }`);
     return studyRef.set(firebaseData).then(() => {
       studyRef.collection('members').doc(userID).set({ 'role': 'leader', 'uid': userID });
-      return firebaseID;
+      return studyID;
     });
   }
 
@@ -83,6 +85,9 @@ export class StudyDataService {
       });
     });
 
+  }
+  generateID() {
+    return this.afs.createId();
   }
 
   getStudyData(groupID: string) {
