@@ -160,12 +160,12 @@
     <section class="modal-card-body">
       <div class="field" data-aos="slide-right" data-aos-duration="1200">
         <label class="label" for="reply-text">Sub Reply Text:</label>
-        <input class="input" #replyInput="ngModel" [(ngModel)]="subReplyText" required type="text" name="reply-text">
+        <input class="input" #subReplyInput="ngModel" [(ngModel)]="subReplyText" required type="text" name="reply-text">
       </div>
     </section>
     <footer class="modal-card-foot">
       <div>
-        <button [disabled]="replyInput.invalid" class="btn study-btn modal-btn" (click)="addSubReply(); activateSubReplyModal = false;">Add Reply</button>
+        <button [disabled]="subReplyInput.invalid" class="btn study-btn modal-btn" (click)="addSubReply(); activateSubReplyModal = false;">Add Reply</button>
         <a (click)="activateSubReplyModal = false" class="btn-link">Cancel</a>
       </div>
     </footer>
