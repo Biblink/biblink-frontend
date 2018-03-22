@@ -81,11 +81,11 @@ export class PaginationService {
         this._done.next(true);
       }
     })
-      .take(3)
+      .take(5)
       .subscribe();
   }
 
-  private getCurosr() {
+  private getCursor() {
     const current = this._data.value;
     if (current.length) {
       return this.query.prepend ? current[ 0 ].doc : current[ current.length - 1 ].doc;
@@ -94,7 +94,7 @@ export class PaginationService {
   }
 
   more() {
-    const cursor = this.getCurosr();
+    const cursor = this.getCursor();
     let more = this.afs.collection('studies');
     if (this.query.type === 'all') {
       more = this.afs.collection('studies').doc(this._id).collection(this.query.path, ref => {
