@@ -91,9 +91,13 @@ export class StudyComponent implements OnInit {
           this.isDone = true;
         }
         val.forEach((post) => {
-          if (this.postIndices.indexOf(post[ 'id' ]) === -1) {
-            valid.push(post);
+          const index = this.postIndices.indexOf(post[ 'id' ]);
+          if (index !== -1) {
+            this.postIndices[ index ] = post[ 'id' ];
+            acc[ index ] = post;
+          } else {
             this.postIndices.push(post[ 'id' ]);
+            valid.push(post);
           }
         });
         this.isLoading = false;
@@ -141,6 +145,7 @@ export class StudyComponent implements OnInit {
     this.resetPosts = true;
     this.isLoading = true;
     this._study.getPosts(this.groupID, '', 4).subscribe((res) => {
+      console.log(res);
       this._posts.next(res);
     });
     this.type = 'all';
@@ -295,14 +300,15 @@ export class StudyComponent implements OnInit {
   }
 
   editPost(value: boolean, postID: string, creatorID: string, isLeader: boolean) {
-    this.resetPosts = true;
     if (value && (creatorID === this._user.userID.getValue() || isLeader)) {
       this.editing = true;
       this._study.getPostByID(this.groupID, postID).subscribe((res) => {
-        this.createPost = res as Post;
-        this.editingPostID = postID;
-        this.expandActions();
-        this.toggleCreation(true);
+        if (this.editing) {
+          this.createPost = res as Post;
+          this.editingPostID = postID;
+          this.expandActions();
+          this.toggleCreation(true);
+        }
       });
     }
   }
@@ -310,6 +316,12 @@ export class StudyComponent implements OnInit {
   updatePost() {
     this._study.updatePost(this.groupID, this.editingPostID, this.createPost).then(() => {
       this.resetPost();
+      this.resetPosts = true;
+      if (this.type === 'all') {
+        this.getPosts();
+      } else {
+        this.switchTab(this.type + 's', true);
+      }
       this.editingPostID = '';
       this.editing = false;
       this.toastr.show('Successfully Edited Post');
