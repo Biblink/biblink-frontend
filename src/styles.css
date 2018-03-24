@@ -9,6 +9,7 @@ html {
 body {
     font-family: 'museo-sans', serif !important;
 }
+
 @-moz-keyframes bounceTop {
     0%,
     20%,
@@ -137,12 +138,25 @@ body {
     }
 }
 
-.toast-title, .toast-message {
+.toast-title,
+.toast-message {
     font-family: 'museo-sans', sans-serif;
     letter-spacing: 1px;
 }
 
 .toast {
     background-color: #06292a !important;
-    box-shadow: 0 4px 8px 2px rgba(105,100,100,0.5) !important;
+    box-shadow: 0 4px 8px 2px rgba(105, 100, 100, 0.5) !important;
+}
+
+.more-link {
+    color: #06292A;
+    font-family: "museo-sans", sans-serif;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+    line-height: 16px;
+}
+
+.more-link:hover {
+    text-decoration: underline;
 }

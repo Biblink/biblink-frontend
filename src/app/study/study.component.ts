@@ -1,3 +1,4 @@
+import { SearchService } from './../search.service';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
@@ -8,11 +9,13 @@ import { ToastrService } from 'ngx-toastr';
 import * as firebase from 'firebase';
 import { Reply } from '../interfaces/reply';
 import { Observable } from 'rxjs/Observable';
+declare const $: any;
 @Component({
   selector: 'app-study',
   templateUrl: './study.component.html',
   styleUrls: [ './study.component.css' ]
 })
+
 export class StudyComponent implements OnInit {
   title = '';
   profileImage = '';
@@ -38,7 +41,11 @@ export class StudyComponent implements OnInit {
   isDone = false;
   userID = '';
   groupID = '';
-  constructor(private _router: Router, private _study: StudyDataService, private _user: UserDataService, private toastr: ToastrService) {
+  constructor(private _router: Router,
+    private _search: SearchService,
+    private _study: StudyDataService,
+    private _user: UserDataService,
+    private toastr: ToastrService) {
 
   }
 
@@ -145,8 +152,16 @@ export class StudyComponent implements OnInit {
     this.resetPosts = true;
     this.isLoading = true;
     this._study.getPosts(this.groupID, '', 4).subscribe((res) => {
+      const edited = [];
       console.log(res);
-      this._posts.next(res);
+      res.forEach((val) => {
+        if (val[ 'htmlText' ] === undefined || val[ 'htmlText' ] === '') {
+          val[ 'htmlText' ] = val[ 'text' ];
+        }
+        edited.push(val);
+      });
+      this._posts.next(edited);
+      console.log(edited);
     });
     this.type = 'all';
   }
@@ -158,11 +173,25 @@ export class StudyComponent implements OnInit {
     if (this.type === 'all') {
       this.isLoading = true;
       this._study.getPosts(this.groupID, timestamp, limit).subscribe((res) => {
+        const edited = [];
+        res.forEach((val) => {
+          if (val[ 'htmlText' ] === undefined || val[ 'htmlText' ] === '') {
+            val[ 'htmlText' ] = val[ 'text' ];
+            edited.push(val);
+          }
+        });
         this._posts.next(res);
       });
     } else {
       this.isLoading = true;
       this._study.getPostByType(this.groupID, this.type, timestamp, limit).subscribe((res) => {
+        const edited = [];
+        res.forEach((val) => {
+          if (val[ 'htmlText' ] === undefined || val[ 'htmlText' ] === '') {
+            val[ 'htmlText' ] = val[ 'text' ];
+            edited.push(val);
+          }
+        });
         this._posts.next(res);
       });
     }
@@ -171,6 +200,9 @@ export class StudyComponent implements OnInit {
     this._study.getKeyAnnouncements(this.groupID).subscribe((announcements) => {
       this.keyAnnouncements = [];
       announcements.forEach((announcement) => {
+        if (announcement[ 'htmlText' ] === undefined || announcement[ 'htmlText' ] === '') {
+          announcement[ 'htmlText' ] = announcement[ 'text' ];
+        }
         let firstTime = false;
         let oldData = {};
         this._user.getDataFromID(announcement[ 'creatorID' ]).subscribe((res) => {
@@ -208,6 +240,23 @@ export class StudyComponent implements OnInit {
 
   navigateTo(url) {
     this._router.navigateByUrl(url);
+  }
+
+  getVerse(event) {
+    console.log(event);
+    const spans = $('div#' + event.srcElement.id + '.card-body span');
+    spans.each((index, el) => {
+      const jElement = $(el);
+      const reference = jElement.text();
+      let verseText = '';
+      const textSubscriber = this._search.getVerseText(reference).take(1).subscribe((res) => {
+        verseText = res;
+      });
+      jElement.hover(() => {
+        console.log(verseText);
+        textSubscriber.unsubscribe();
+      });
+    });
   }
 
   switchTab(val, override = false) {
@@ -314,6 +363,7 @@ export class StudyComponent implements OnInit {
   }
 
   updatePost() {
+    this.createPost.htmlText = this.createPost.text;
     this._study.updatePost(this.groupID, this.editingPostID, this.createPost).then(() => {
       this.resetPost();
       this.resetPosts = true;

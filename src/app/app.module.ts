@@ -1,3 +1,4 @@
+import { SafeHtmlPipe } from './pipes/safe-html.pipe';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ServiceWorkerModule } from '@angular/service-worker';
@@ -77,7 +78,8 @@ const appRoutes: Routes = [
         StudyComponent,
         StudyNavComponent,
         PostCardComponent,
-        LoadingSpinnerComponent
+        LoadingSpinnerComponent,
+        SafeHtmlPipe
     ],
     imports: [
         BrowserModule,

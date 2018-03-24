@@ -4,6 +4,7 @@ export class Post {
         public title = '',
         public type = '',
         public text = '',
+        public htmlText = '',
         public creatorID = '',
         public timestamp = {},
         public dateInfo = { date: '', time: '' },
