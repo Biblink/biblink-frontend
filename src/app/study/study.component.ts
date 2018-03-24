@@ -37,7 +37,7 @@ export class StudyComponent implements OnInit {
   studyData;
   keyAnnouncements = [];
   isLeader = false;
-  isLoading = false;
+  isLoading = new BehaviorSubject<boolean>(true);
   isDone = false;
   userID = '';
   groupID = '';
@@ -85,17 +85,19 @@ export class StudyComponent implements OnInit {
           val.forEach((post) => {
             this.postIndices.push(post[ 'id' ]);
           });
-          this.isLoading = false;
+          this.isLoading.next(false);
           this.postLength = val.length;
           return acc = val;
         }
         if (this.isDone) {
-          this.isLoading = false;
+          console.log('done');
+          this.isLoading.next(false);
           return acc;
         }
         const valid = [];
         if (val.length === 0) {
           this.isDone = true;
+          this.isLoading.next(false);
         }
         val.forEach((post) => {
           const index = this.postIndices.indexOf(post[ 'id' ]);
@@ -107,7 +109,7 @@ export class StudyComponent implements OnInit {
             valid.push(post);
           }
         });
-        this.isLoading = false;
+        this.isLoading.next(false);
         this.postLength = acc.length + valid.length;
         return acc.concat(valid);
       });
@@ -123,7 +125,7 @@ export class StudyComponent implements OnInit {
     this.toggleCreation(true);
   }
   getAnnouncements() {
-    this.isLoading = true;
+    this.isLoading.next(true);
     this.resetPosts = true;
     this._study.getPostByType(this.groupID, 'announcement').subscribe((res) => {
       this._posts.next(res);
@@ -132,7 +134,7 @@ export class StudyComponent implements OnInit {
   }
 
   getQuestions() {
-    this.isLoading = true;
+    this.isLoading.next(true);
     this.resetPosts = true;
     this._study.getPostByType(this.groupID, 'question').subscribe((res) => {
       this._posts.next(res);
@@ -140,7 +142,7 @@ export class StudyComponent implements OnInit {
     this.type = 'question';
   }
   getDiscussions() {
-    this.isLoading = true;
+    this.isLoading.next(true);
     this.resetPosts = true;
     this._study.getPostByType(this.groupID, 'discussion').subscribe((res) => {
       this._posts.next(res);
@@ -148,10 +150,10 @@ export class StudyComponent implements OnInit {
     this.type = 'discussion';
   }
 
-  getPosts(limit = 4) {
+  getPosts(limit = 10) {
     this.resetPosts = true;
-    this.isLoading = true;
-    this._study.getPosts(this.groupID, '', 4).subscribe((res) => {
+    this.isLoading.next(true);
+    this._study.getPosts(this.groupID, '', limit).subscribe((res) => {
       const edited = [];
       console.log(res);
       res.forEach((val) => {
@@ -166,35 +168,36 @@ export class StudyComponent implements OnInit {
     this.type = 'all';
   }
 
-  getMorePosts(timestamp: string, limit = 4) {
+  getMorePosts(timestamp: string, limit = 10) {
     if (this.isDone) {
       return;
     }
-    if (this.type === 'all') {
-      this.isLoading = true;
-      this._study.getPosts(this.groupID, timestamp, limit).subscribe((res) => {
-        const edited = [];
-        res.forEach((val) => {
-          if (val[ 'htmlText' ] === undefined || val[ 'htmlText' ] === '') {
-            val[ 'htmlText' ] = val[ 'text' ];
-            edited.push(val);
-          }
+    this.isLoading.next(true);
+    setTimeout(() => {
+      if (this.type === 'all') {
+        this._study.getPosts(this.groupID, timestamp, limit).subscribe((res) => {
+          const edited = [];
+          res.forEach((val) => {
+            if (val[ 'htmlText' ] === undefined || val[ 'htmlText' ] === '') {
+              val[ 'htmlText' ] = val[ 'text' ];
+              edited.push(val);
+            }
+          });
+          this._posts.next(res);
         });
-        this._posts.next(res);
-      });
-    } else {
-      this.isLoading = true;
-      this._study.getPostByType(this.groupID, this.type, timestamp, limit).subscribe((res) => {
-        const edited = [];
-        res.forEach((val) => {
-          if (val[ 'htmlText' ] === undefined || val[ 'htmlText' ] === '') {
-            val[ 'htmlText' ] = val[ 'text' ];
-            edited.push(val);
-          }
+      } else {
+        this._study.getPostByType(this.groupID, this.type, timestamp, limit).subscribe((res) => {
+          const edited = [];
+          res.forEach((val) => {
+            if (val[ 'htmlText' ] === undefined || val[ 'htmlText' ] === '') {
+              val[ 'htmlText' ] = val[ 'text' ];
+              edited.push(val);
+            }
+          });
+          this._posts.next(res);
         });
-        this._posts.next(res);
-      });
-    }
+      }
+    }, 1000);
   }
   getKeyAnnouncements() {
     this._study.getKeyAnnouncements(this.groupID).subscribe((announcements) => {

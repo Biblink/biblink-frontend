@@ -79,7 +79,7 @@
           </div>
         </app-post-card>
       </div>
-      <app-loading-spinner *ngIf="isLoading"></app-loading-spinner>
+      <app-loading-spinner *ngIf="isLoading | async"></app-loading-spinner>
       <div class="expand-actions" (click)="expandActions()" [class.unexpanded]="actionsExpanded">
         <img src="/assets/images/feature-images/expand-actions.svg">
       </div>
