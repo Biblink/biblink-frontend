@@ -53,7 +53,7 @@
         <div class="person-container">
           <img class="contributor-image" [src]="reply['image']" alt="">
           <span class="name">{{reply['name']}}</span>
-          <p class="reply-text">{{reply['text']}}</p>
+          <p class="reply-text" [innerHTML]="reply['htmlText'] | safeHtml"></p>
         </div>
         <div class="sub-reply" *ngFor="let subreply of reply['subreplies']">
           <div class="person-container">
@@ -104,7 +104,7 @@
               <img class="contributor-image" [src]="subreply['image']" alt="">
               <span class="name">{{subreply['name']}}</span>
             </div>
-            <p class="reply-text">{{subreply['text']}}</p>
+            <p class="reply-text" [innerHtml]="subreply['htmlText'] | safeHtml"></p>
           </div>
         </div>
         <div class="add-reply">

@@ -70,8 +70,8 @@
               <p>{{post['dateInfo']['date']}}</p>
             </div>
           </div>
-          <div class="card-body">
-            {{post['text']}}
+          <div class="card-body" [innerHtml]="post['htmlText'] | safeHtml" (mouseenter)="getVerse($event)" [id]="'post-text-' + i">
+
           </div>
           <div class="links" *ngIf="!checkIfExists(post['links'])">
             <h1>Links:</h1>
@@ -143,7 +143,7 @@
                   <h1 class="announcement-title">{{announcement['title']}}</h1>
                 </div>
                 <div class="announcement-text">
-                  <p>{{announcement['text']}}</p>
+                  <p [innerHtml]="announcement['htmlText']"></p>
                 </div>
               </div>
             </div>

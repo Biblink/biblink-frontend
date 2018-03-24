@@ -66,6 +66,9 @@ export class PostCardComponent implements OnInit {
       replies.forEach((reply) => {
         let firstTime = false;
         let firstReply = {};
+        if (reply[ 'htmlText' ] === undefined || reply[ 'htmlText' ] === '') {
+          reply[ 'htmlText' ] = reply[ 'text' ];
+        }
         this._user.getDataFromID(reply[ 'creatorID' ]).subscribe((data) => {
           const profileImage = data[ 'data' ][ 'profileImage' ];
           reply[ 'image' ] = profileImage;
@@ -78,6 +81,9 @@ export class PostCardComponent implements OnInit {
               let firstSubReply = {};
               this._user.getDataFromID(subreply[ 'creatorID' ]).subscribe((subData) => {
                 const subProfileImage = data[ 'data' ][ 'profileImage' ];
+                if (subreply[ 'htmlText' ] === undefined || subreply[ 'htmlText' ] === '') {
+                  subreply[ 'htmlText' ] = subreply[ 'text' ];
+                }
                 subreply[ 'image' ] = subProfileImage;
                 subreply[ 'name' ] = subData[ 'name' ];
                 if (firstSubReplyTime) {
