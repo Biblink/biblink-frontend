@@ -19,7 +19,7 @@
           <a class="post-action" (click)="activateReplyModal = true" *ngIf="replies.length === 0">Reply</a>
           <a class="post-action" (click)="activateReplyModal = true" *ngIf="replies.length > 0">Reply ({{replies.length}})</a>
           <a class="post-action" href="">Star</a>
-          <div *ngIf="isLeader || isCreator" class="dropdown is-left is-hoverable verse-dropdown" (mouseenter)="activateZ = 700" (mouseleave)="activateZ = 10">
+          <div *ngIf="isLeader || isCreator" class="dropdown is-left is-hoverable verse-dropdown" (mouseenter)="activateZ = 700" (mouseleave)="activateZ = 0">
             <div class="dropdown-trigger">
               <a aria-haspopup="true" aria-controls="more-actions" class="post-action" id="more-action">
                 <img src="/assets/icons/more-icon.svg" alt="more options">

@@ -5,7 +5,7 @@
     <p>A smart and simple search engine</p>
 </div>
 <div class="control has-text-centered" id="search-bar">
-    <form #search="ngForm" (ngSubmit)="searchService.searchES(searchQuery, searchType); isSearching = true; seeResults()" id="search-form">
+    <form #search="ngForm" (ngSubmit)="searchService.searchES(searchQuery, searchType); isSearching = true;" id="search-form">
         <ul id="wrapper">
             <li id="search-input" data-aos="fade-up-right" data-aos-duration="1200">
                 <input name="search" [(ngModel)]="searchQuery" class="is-large" id="search" type="text" placeholder="Search">
