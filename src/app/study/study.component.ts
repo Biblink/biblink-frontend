@@ -155,7 +155,6 @@ export class StudyComponent implements OnInit {
     this.isLoading.next(true);
     this._study.getPosts(this.groupID, '', limit).subscribe((res) => {
       const edited = [];
-      console.log(res);
       res.forEach((val) => {
         if (val[ 'htmlText' ] === undefined || val[ 'htmlText' ] === '') {
           val[ 'htmlText' ] = val[ 'text' ];
@@ -246,18 +245,48 @@ export class StudyComponent implements OnInit {
   }
 
   getVerse(event) {
-    console.log(event);
     const spans = $('div#' + event.srcElement.id + '.card-body span');
     spans.each((index, el) => {
       const jElement = $(el);
+      const parentDiv = jElement.parent();
       const reference = jElement.text();
       let verseText = '';
       const textSubscriber = this._search.getVerseText(reference).take(1).subscribe((res) => {
-        verseText = res;
+        verseText = res[ 'data' ][ 0 ][ 'combined_text' ];
       });
       jElement.hover(() => {
-        console.log(verseText);
+        if ($(`div#${ event.srcElement.id }~.verse-text-${ index }`).length !== 0) {
+          const val = $('div#' + event.srcElement.id + `~div.verse-text-${ index }`);
+          val.show();
+          val.hover(() => {
+            val.show();
+          }, () => val.hide());
+        } else {
+          parentDiv.after(`
+          <div class="verse-text-${index }">
+            ${ verseText }
+          </div>
+          `);
+        }
         textSubscriber.unsubscribe();
+      }, () => {
+        let hovering = false;
+        const val = $('div#' + event.srcElement.id + `~div.verse-text-${ index }`);
+        setTimeout(() => {
+          if (hovering) {
+            return;
+          } else {
+            val.hide();
+          }
+        }, 200);
+        val.hover(() => {
+          hovering = true;
+          val.show();
+        }, () => val.hide());
+      });
+
+      jElement.click(() => {
+        this._router.navigateByUrl(`/search?query=${ reference }`);
       });
     });
   }

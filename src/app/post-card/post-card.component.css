@@ -27,6 +27,10 @@
     box-shadow: none;
 }
 
+.post .card-content .content {
+    padding: 0;
+}
+
 .post .metadata {
     margin: 19px 25px auto auto;
     color: #767272;
