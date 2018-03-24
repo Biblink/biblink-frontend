@@ -1,5 +1,5 @@
 <div>
-  <div class="post card" data-aos="fade-up" data-aos-duration="1200" [ngStyle]="{'z-index': activateZ}">
+  <div class="post card" [ngStyle]="{'z-index': activateZ}">
     <header class="card-header">
       <ng-content select=".card-header-title"></ng-content>
       <ng-content select=".metadata"></ng-content>
@@ -49,7 +49,7 @@
 
     </div>
     <div class="replies" *ngIf="replies.length > 0">
-      <div class="reply" *ngFor="let reply of replies" data-aos="fade-up">
+      <div class="reply" *ngFor="let reply of replies">
         <div class="person-container">
           <img class="contributor-image" [src]="reply['image']" alt="">
           <span class="name">{{reply['name']}}</span>
