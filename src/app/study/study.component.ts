@@ -128,7 +128,14 @@ export class StudyComponent implements OnInit {
     this.isLoading.next(true);
     this.resetPosts = true;
     this._study.getPostByType(this.groupID, 'announcement').subscribe((res) => {
-      this._posts.next(res);
+      const edited = [];
+      res.forEach((val) => {
+        if (val[ 'htmlText' ] === undefined || val[ 'htmlText' ] === '') {
+          val[ 'htmlText' ] = val[ 'text' ];
+        }
+        edited.push(val);
+      });
+      this._posts.next(edited);
     });
     this.type = 'announcement';
   }
@@ -137,7 +144,14 @@ export class StudyComponent implements OnInit {
     this.isLoading.next(true);
     this.resetPosts = true;
     this._study.getPostByType(this.groupID, 'question').subscribe((res) => {
-      this._posts.next(res);
+      const edited = [];
+      res.forEach((val) => {
+        if (val[ 'htmlText' ] === undefined || val[ 'htmlText' ] === '') {
+          val[ 'htmlText' ] = val[ 'text' ];
+        }
+        edited.push(val);
+      });
+      this._posts.next(edited);
     });
     this.type = 'question';
   }
@@ -145,7 +159,14 @@ export class StudyComponent implements OnInit {
     this.isLoading.next(true);
     this.resetPosts = true;
     this._study.getPostByType(this.groupID, 'discussion').subscribe((res) => {
-      this._posts.next(res);
+      const edited = [];
+      res.forEach((val) => {
+        if (val[ 'htmlText' ] === undefined || val[ 'htmlText' ] === '') {
+          val[ 'htmlText' ] = val[ 'text' ];
+        }
+        edited.push(val);
+      });
+      this._posts.next(edited);
     });
     this.type = 'discussion';
   }
@@ -162,7 +183,6 @@ export class StudyComponent implements OnInit {
         edited.push(val);
       });
       this._posts.next(edited);
-      console.log(edited);
     });
     this.type = 'all';
   }
