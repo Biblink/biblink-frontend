@@ -75,7 +75,11 @@
           </div>
           <div class="links" *ngIf="!checkIfExists(post['links'])">
             <h1>Links:</h1>
-            <a>https://article.on/acts</a>
+            <div class="link-container" *ngFor="let link of post['links']" [innerHtml]="link | safeHtml"></div>
+          </div>
+          <div class="verses" *ngIf="!checkIfExists(post['verses'])" (mouseenter)="getVerseLinks($event)" [id]="'verses-links-' + i">
+            <h1>Verses:</h1>
+            <div class="verse-container" *ngFor="let verse of post['verses']" [innerHtml]="verse | safeHtml"></div>
           </div>
         </app-post-card>
       </div>
