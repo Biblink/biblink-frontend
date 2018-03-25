@@ -136,7 +136,7 @@ export class StudyDataService {
       .collection('posts', ref => ref.where('type', '==', 'announcement').orderBy('timestamp', 'desc').limit(3)).valueChanges();
   }
 
-  getPostByType(studyID: string, type: string, startAfter = '', limit = 4) {
+  getPostByType(studyID: string, type: string, startAfter = '', limit = 10) {
     if (startAfter !== '') {
       return this.afs.doc(`/studies/${ studyID }`)
         .collection('posts', ref => ref.where('type', '==', type)
