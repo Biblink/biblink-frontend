@@ -179,3 +179,7 @@ div[class^="verse-text-"] {
 .card-body span {
     color: #255250;
 }
+
+n {
+    margin-right: 5px;
+}
