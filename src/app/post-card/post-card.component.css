@@ -50,15 +50,12 @@
     margin-top: 24px;
 }
 
-.post .links a {
-    color: black;
-}
-
 .post .links a:hover {
     text-decoration: underline;
 }
 
-.post .card-links h1 {
+.post .card-links h1,
+.post .card-verses h1 {
     height: 19px;
     width: 49px;
     color: #000000;
@@ -67,6 +64,10 @@
     font-weight: 900;
     letter-spacing: 2px;
     line-height: 19px;
+}
+
+.post .card-verses h1 {
+    margin-top: 25px;
 }
 
 .post .card-body {

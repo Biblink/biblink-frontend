@@ -311,6 +311,27 @@ export class StudyComponent implements OnInit {
     });
   }
 
+  getVerseLinks(event) {
+    const spans = $('div#' + event.srcElement.id + ' .verse-container span');
+    spans.each((index, el) => {
+      const jElement = $(el);
+      const parentDiv = jElement.parent();
+      const reference = jElement.text();
+      let verseText = '';
+      let addedText = false;
+      const textSubscriber = this._search.getVerseText(reference).take(1).subscribe((res) => {
+        verseText = res[ 'data' ][ 0 ][ 'combined_text' ];
+        if (!addedText && reference.indexOf(': ') === -1) {
+          jElement.html(reference + ': ' + verseText.replace(/<n[^>]*>([^<]+)<\/n>/g, ''));
+          textSubscriber.unsubscribe();
+        }
+        addedText = true;
+      });
+      jElement.click(() => {
+        this._router.navigateByUrl(`/search?query=${ reference.split(': ')[ 0 ] }`);
+      });
+    });
+  }
   switchTab(val, override = false) {
     if (this.currentTab === val && !override) {
       return;

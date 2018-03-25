@@ -164,19 +164,24 @@ body {
 div[class^="verse-text-"] {
     background-color: #FFFFFF;
     position: absolute;
-    bottom: -25px;
     box-shadow: 0 4px 8px 2px rgba(202, 187, 187, 0.5);
     z-index: 500;
     padding: 30px;
     font-size: 1.0rem;
 }
 
-.card-body span:hover {
+.card-body span:hover,
+.verse-link:hover {
     cursor: pointer;
     text-decoration: underline;
 }
 
-.card-body span {
+.verse-link {
+    font-size: 1.0rem;
+}
+
+.card-body span,
+.verse-link {
     color: #255250;
 }
 
