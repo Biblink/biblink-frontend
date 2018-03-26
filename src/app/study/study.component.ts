@@ -337,21 +337,35 @@ export class StudyComponent implements OnInit {
       return;
     }
     this.currentTab = val;
+    this.resetPosts = true;
+    this._posts.next([]);
     switch (this.currentTab) {
       case 'feed': {
-        this.getPosts();
+        this.isLoading.next(true);
+        setTimeout(() => {
+          this.getPosts();
+        }, 500);
         break;
       }
       case 'announcements': {
-        this.getAnnouncements();
+        this.isLoading.next(true);
+        setTimeout(() => {
+          this.getAnnouncements();
+        }, 500);
         break;
       }
       case 'questions': {
-        this.getQuestions();
+        this.isLoading.next(true);
+        setTimeout(() => {
+          this.getQuestions();
+        }, 500);
         break;
       }
       case 'discussions': {
-        this.getDiscussions();
+        this.isLoading.next(true);
+        setTimeout(() => {
+          this.getDiscussions();
+        }, 500);
         break;
       }
 
