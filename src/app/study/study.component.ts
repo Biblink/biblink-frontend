@@ -90,7 +90,6 @@ export class StudyComponent implements OnInit {
           return acc = val;
         }
         if (this.isDone) {
-          console.log('done');
           this.isLoading.next(false);
           return acc;
         }
