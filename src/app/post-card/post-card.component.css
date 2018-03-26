@@ -80,6 +80,11 @@
     word-wrap: break-word;
     overflow-wrap: break-word;
     hyphens: auto;
+    white-space: pre-wrap;
+}
+
+.verse-container {
+    width: 90%;
 }
 
 .post .card-content {
