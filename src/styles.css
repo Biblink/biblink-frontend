@@ -187,4 +187,6 @@ div[class^="verse-text-"] {
 
 n {
     margin-right: 5px;
+    margin-left: 5px;
+    color: #255250;
 }
