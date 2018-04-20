@@ -19,6 +19,10 @@ declare const $: any;
 export class StudyComponent implements OnInit {
   title = '';
   profileImage = '';
+  bibleData = {};
+  books = [];
+  activeBook = 'Genesis';
+  activeChapter = 1;
   numberOfMembers = 3;
   currentTab = 'feed';
   actionsExpanded = false;
@@ -50,6 +54,22 @@ export class StudyComponent implements OnInit {
   }
 
   ngOnInit() {
+    this._search.getBooks().subscribe((res) => {
+      this.books = res[ 'data' ];
+      this.books.forEach((book, index) => {
+        const words = book.split(' ');
+        const fixed = [];
+        words.forEach((word) => {
+          if (word === 'of') {
+            fixed.push(word);
+          } else {
+            fixed.push(this.capitalize(word));
+          }
+        });
+        const fixedBook = fixed.join(' ');
+        this.books[ index ] = fixedBook;
+      });
+    });
     this._user.userData.subscribe((user) => {
       if (user !== null) {
         this.profileImage = user.data.profileImage;
@@ -367,6 +387,10 @@ export class StudyComponent implements OnInit {
         }, 500);
         break;
       }
+      case 'shared-bible': {
+        this.isLoading.next(true);
+        this.getChapter('Genesis', '1');
+      }
 
     }
   }
@@ -474,6 +498,15 @@ export class StudyComponent implements OnInit {
       []); // TODO: create link extractor
     this._study.addReply(postID, this.groupID, reply).then(() => {
       this.toastr.show('Successfully Created Reply', 'Created Reply');
+    });
+  }
+
+  getChapter(book, chapter) {
+    this.isLoading.next(true);
+    this._search.getChapter(book, chapter).subscribe((res) => {
+      this.bibleData = res[ 'data' ][ 0 ];
+      console.log(this.bibleData);
+      this.isLoading.next(false);
     });
   }
 

@@ -459,7 +459,6 @@ hr {
     margin: 0 auto;
 }
 
-
 /* The switch - the box around the slider */
 
 .switch {
@@ -469,13 +468,11 @@ hr {
     height: 20px;
 }
 
-
 /* Hide default HTML checkbox */
 
 .switch input {
     display: none;
 }
-
 
 /* The slider */
 
@@ -509,7 +506,6 @@ hr {
     align-items: center;
 }
 
-
 /* input:checked+.slider {
     background-color: #2196F3;
 }
@@ -523,7 +519,6 @@ input:checked+.slider:before {
     -ms-transform: translateX(28px);
     transform: translateX(28px);
 }
-
 
 /* Rounded sliders */
 
@@ -579,4 +574,123 @@ input:checked+.slider:before {
 
 .bottom {
     margin-top: 25px;
+}
+
+.shared-select {
+    width: 100px;
+    float: left;
+}
+
+#chapter {
+    width: 60px;
+    text-align: center;
+}
+
+.sort-label {
+    float: left;
+    margin-left: 100px;
+    font-weight: 700;
+}
+
+#chapter-label.sort-label {
+    margin-left: 100px;
+}
+
+#controls {
+    float: left;
+    padding: 5px;
+    height: 24px;
+}
+
+#controls {
+    height: 24px;
+}
+
+#controls li {
+    line-height: 24px;
+}
+
+/* Custom dropdown */
+
+.custom-dropdown {
+    position: relative;
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 10px;
+    /* demo only */
+}
+
+.custom-dropdown select {
+    font-family: "museo-sans", sans-serif;
+    color: #000000;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 2px;
+    line-height: 19px;
+    border: 1px solid #979797;
+    padding: .2em 1.2em .2em .5em;
+    margin: 0;
+    text-indent: 0.01px;
+    border-radius: 0;
+    background: transparent;
+    /*Hiding the select arrow for firefox*/
+    -moz-appearance: none;
+    /*Hiding the select arrow for chrome*/
+    -webkit-appearance: none;
+}
+
+/*Hiding the select arrow for IE10*/
+
+.custom-dropdown select::-ms-expand {
+    display: none;
+}
+
+.custom-dropdown::before,
+.custom-dropdown::after {
+    content: "";
+    position: absolute;
+    pointer-events: none;
+}
+
+.custom-dropdown::after {
+    /*  Custom dropdown arrow */
+    content: "\25BC";
+    height: 1em;
+    font-size: .425em;
+    line-height: 1;
+    right: 1.2em;
+    top: 50%;
+    margin-top: -.5em;
+}
+
+.reference {
+    height: 49px;
+    width: 215px;
+    color: #343232;
+    font-family: 'museo-sans';
+    font-size: 2.5rem;
+    font-weight: 900;
+    letter-spacing: 3px;
+    line-height: 49px;
+    margin-left: 100px;
+    padding-top: 75px;
+}
+
+.bible-text {
+    width: 60%;
+    color: #343232;
+    font-family: "Avenir Next";
+    font-size: 18px;
+    line-height: 25px;
+    margin: 0 auto;
+    margin-top: 100px;
+    letter-spacing: 2px;
+}
+
+.verse-number {
+    font-size: 0.9rem;
+    margin-right: 1px;
+    position: relative;
+    top: -10px;
+    color: #255250;
 }
