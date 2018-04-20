@@ -29,6 +29,13 @@ export class SearchService {
     getVerseText(reference: string): Observable<any> {
         return this.http.get(`${ this.searchUrl }/query?query=${ reference }`);
     }
+
+    getChapter(book: string, chapter: string): Observable<any> {
+        return this.http.get(`${ this.searchUrl }/query?book=${ book }&chapter=${ chapter }`);
+    }
+    getBooks(): Observable<any> {
+        return this.http.get(`${ this.searchUrl }/all`);
+    }
     getSimilarVerses(reference: string): Observable<any> {
         return this.http.get(`${ this.searchUrl }/similarity?reference=${ reference }`);
     }

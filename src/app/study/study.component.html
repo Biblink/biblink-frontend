@@ -55,7 +55,7 @@
       </div>
     </div>
     <div class="main-info column is-three-fifths is-centered">
-      <div class="posts">
+      <div class="posts" *ngIf="currentTab !== 'shared-bible' || currentTab !== 'shared-calendar'">
         <app-post-card *ngFor="let post of posts | async; let i = index;" [studyID]="groupID" [isLeader]="isLeader" [isLast]="(i + 1) === postLength"
           [id]="post['id']" [userID]="userID" [isCreator]="userID === post['creatorID']" [contributors]="post['contributors']"
           (delete)="deletePost($event, post['id'], post['creatorID'], isLeader)" (edit)="editPost($event, post['id'], post['creatorID'], isLeader)"
@@ -82,6 +82,37 @@
             <div class="verse-container" *ngFor="let verse of post['verses']" [innerHtml]="verse | safeHtml"></div>
           </div>
         </app-post-card>
+      </div>
+      <div class="shared-bible" *ngIf="currentTab === 'shared-bible'">
+        <div class="container" id="preferences">
+          <ul id="controls">
+            <li class="sort-label">
+              <label for="sort">Book:</label>
+            </li>
+            <li class="shared-select">
+              <span class="custom-dropdown">
+                <select class="sort-select" id="book" [(ngModel)]="activeBook" (ngModelChange)="getChapter(activeBook, activeChapter);">
+                  <option [ngValue]="book" *ngFor="let book of books">{{book}}</option>
+                </select>
+              </span>
+            </li>
+            <li class="sort-label" id="chapter-label">
+              <label for="sort">Chapter:</label>
+            </li>
+            <li class="shared-select">
+              <span class="custom-dropdown">
+                <select class="sort-select" id="chapter" [(ngModel)]="activeChapter" (ngModelChange)="getChapter(activeBook, activeChapter)">
+                  <option [ngValue]="number" *ngFor="let number of bibleData['chapters']">{{number}}</option>
+                </select>
+              </span>
+            </li>
+          </ul>
+        </div>
+        <h1 class="reference">{{activeBook}} {{activeChapter}}</h1>
+        <div class="bible-text">
+          <span *ngFor="let verse of bibleData['verse_data']">
+            <span class="verse-number">{{verse['verse_number']}}</span>{{verse['text']}}</span>
+        </div>
       </div>
       <app-loading-spinner *ngIf="isLoading | async"></app-loading-spinner>
       <div class="expand-actions" (click)="expandActions()" [class.unexpanded]="actionsExpanded">
