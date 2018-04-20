@@ -665,7 +665,6 @@ input:checked+.slider:before {
 
 .reference {
     height: 49px;
-    width: 215px;
     color: #343232;
     font-family: 'museo-sans';
     font-size: 2.5rem;
