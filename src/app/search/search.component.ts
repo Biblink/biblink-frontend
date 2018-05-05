@@ -46,6 +46,11 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewChecked {
         this.searchService.results = [];
     }
 
+    scroll() {
+        setTimeout(() => {
+            this._scrollToService.scrollTo({ target: '#results' });
+        }, 400);
+    }
     ngAfterViewChecked() {
         this.cdr.detectChanges();
     }
