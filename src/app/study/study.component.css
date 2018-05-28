@@ -673,6 +673,7 @@ input:checked+.slider:before {
     line-height: 49px;
     margin-left: 100px;
     padding-top: 75px;
+    margin-bottom: 30px;
 }
 
 .bible-text {
@@ -692,4 +693,26 @@ input:checked+.slider:before {
     position: relative;
     top: -10px;
     color: #255250;
+}
+
+.bible-navigation {
+    margin: 40px 100px;
+}
+
+.bible-navigation-left {
+    float: left;
+}
+
+.bible-navigation-right {
+    float: right;
+}
+
+.bible-actions {
+    padding-bottom: 2px;
+}
+
+.disabled {
+    text-decoration: none !important;
+    color: gray;
+    cursor: not-allowed;
 }

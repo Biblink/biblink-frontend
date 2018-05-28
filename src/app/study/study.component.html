@@ -108,10 +108,22 @@
             </li>
           </ul>
         </div>
-        <h1 class="reference">{{activeBook}} {{activeChapter}}</h1>
+        <div class="bible-header">
+          <h1 class="reference">{{activeBook}} {{activeChapter}}</h1>
+          <div class="bible-actions">
+            <a class="more-link bible-navigation bible-navigation-left" (click)="previousChapter()" [class.disabled]="activeChapter === 1">
+              < Previous Chapter</a>
+                <a class="more-link bible-navigation bible-navigation-right" (click)="nextChapter()" [class.disabled]="activeChapter === numChapters">Next Chapter ></a>
+          </div>
+        </div>
         <div class="bible-text">
           <span *ngFor="let verse of bibleData['verse_data']">
             <span class="verse-number">{{verse['verse_number']}}</span>{{verse['text']}}</span>
+        </div>
+        <div class="bible-actions">
+          <a class="more-link bible-navigation bible-navigation-left" (click)="previousChapter()" [class.disabled]="activeChapter === 1">
+            < Previous Chapter</a>
+              <a class="more-link bible-navigation bible-navigation-right" (click)="nextChapter()" [class.disabled]="activeChapter === numChapters">Next Chapter ></a>
         </div>
       </div>
       <app-loading-spinner *ngIf="isLoading | async"></app-loading-spinner>
