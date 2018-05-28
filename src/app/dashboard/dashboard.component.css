@@ -426,3 +426,11 @@ li.is-active-tab a {
     background-color: #255250;
     margin-bottom: 46px;
 }
+
+.float-right {
+    float: right;
+}
+
+.float-left {
+    float: left;
+}
