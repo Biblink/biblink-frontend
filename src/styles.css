@@ -190,3 +190,7 @@ n {
     margin-left: 5px;
     color: #255250;
 }
+
+.columns {
+    margin-right: auto;
+}
