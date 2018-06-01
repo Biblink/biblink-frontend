@@ -687,6 +687,14 @@ input:checked+.slider:before {
     letter-spacing: 2px;
 }
 
+.verse:hover {
+    cursor: pointer;
+}
+
+.is-underlined {
+    text-decoration: underline;
+}
+
 .verse-number {
     font-size: 0.9rem;
     margin-right: 1px;
