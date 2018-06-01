@@ -20,6 +20,7 @@ export class StudyComponent implements OnInit {
   title = '';
   profileImage = '';
   bibleData = {};
+  underlinedVerses = [];
   numChapters = 50;
   books = [];
   activeBook = 'Genesis';
@@ -506,6 +507,7 @@ export class StudyComponent implements OnInit {
     this.isLoading.next(true);
     this._search.getChapter(book, chapter).subscribe((res) => {
       this.bibleData = res[ 'data' ][ 0 ];
+      this.underlinedVerses = [].fill(false, 0, this.bibleData['verse_data'].length)
       this.numChapters = this.bibleData[ 'chapters' ].length;
       this.isLoading.next(false);
     });

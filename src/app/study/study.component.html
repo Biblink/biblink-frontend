@@ -117,8 +117,11 @@
           </div>
         </div>
         <div class="bible-text">
-          <span *ngFor="let verse of bibleData['verse_data']">
-            <span class="verse-number">{{verse['verse_number']}}</span>{{verse['text']}}</span>
+          <span class="verse" *ngFor="let verse of bibleData['verse_data']; let i = index;" [class.is-underlined]="underlinedVerses[i]"
+            (click)="underlinedVerses[i] = underlinedVerses[i] === true ? false: true">
+            <span class="verse-number">{{verse['verse_number']}}</span>
+            {{verse['text']}}
+          </span>
         </div>
         <div class="bible-actions">
           <a class="more-link bible-navigation bible-navigation-left" (click)="previousChapter()" [class.disabled]="activeChapter === 1">
