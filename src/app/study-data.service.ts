@@ -1,3 +1,4 @@
+import { Annotation } from './interfaces/annotation';
 
 import { take } from 'rxjs/operators';
 import 'rxjs/add/operator/take';
@@ -98,16 +99,48 @@ export class StudyDataService {
     jsonPost[ 'id' ] = firebaseID;
     return this.afs.doc(`/studies/${ studyID }`).collection('posts').doc(firebaseID).set(jsonPost);
   }
+  createAnnotation(studyID: string, chapterReference: string, annotation: Annotation) {
+    const firebaseID = this.afs.createId();
+    const jsonPost = Utils.toJson(annotation);
+    jsonPost[ 'id' ] = firebaseID;
+    return this.afs.doc(`/studies/${ studyID }`)
+      .collection('annotations')
+      .doc(chapterReference)
+      .collection('chapter-annotations')
+      .doc(firebaseID)
+      .set(jsonPost);
+  }
 
-  addReply(postID: string, studyID: string, reply: Reply) {
+  addPostReply(postID: string, studyID: string, reply: Reply) {
     const firebaseID = this.afs.createId();
     const jsonReply = Utils.toJson(reply);
     jsonReply[ 'id' ] = firebaseID;
     return this.afs.doc(`/studies/${ studyID }`).collection('posts').doc(postID).collection('replies').doc(firebaseID).set(jsonReply);
   }
 
+  addAnnotationReply(annotationID: string, studyID: string, chapterReference: string, reply: Reply) {
+    const firebaseID = this.afs.createId();
+    const jsonReply = Utils.toJson(reply);
+    jsonReply[ 'id' ] = firebaseID;
+    return this.afs.doc(`/studies/${ studyID }`)
+      .collection('annotations')
+      .doc(chapterReference)
+      .collection('chapter-annotations')
+      .doc(annotationID)
+      .collection('replies')
+      .doc(firebaseID)
+      .set(jsonReply);
+  }
+
   updatePost(studyID: string, postID: string, post: Post) {
     return this.afs.doc(`/studies/${ studyID }`).collection('posts').doc(postID).update(post);
+  }
+  updateAnnotation(studyID: string, chapterReference: string, annotationID: string, annotation: Annotation) {
+    return this.afs.doc(`/studies/${ studyID }`)
+      .collection('annotations')
+      .doc(chapterReference)
+      .collection('chapter-annotations')
+      .doc(annotationID).update(annotation);
   }
 
   // updatePost(studyID: string) {
@@ -158,8 +191,25 @@ export class StudyDataService {
     return this.afs.doc(`/studies/${ studyID }`).collection('posts').doc(postID).valueChanges();
   }
 
+  getAnnotationByID(studyID: string, chapterReference: string, annotationID: string) {
+    return this.afs.doc(`/studies/${ studyID }`)
+      .collection('annotations')
+      .doc(chapterReference)
+      .collection('chapter-annotations')
+      .doc(annotationID);
+  }
+
   getPostRepliesByID(studyID: string, postID: string) {
     return this.afs.doc(`/studies/${ studyID }`).collection('posts').doc(postID).collection('replies').valueChanges();
+  }
+
+  getAnnotationRepliesByID(studyID: string, chapterReference: string, annotationID: string) {
+    return this.afs.doc(`/studies/${ studyID }`)
+      .collection('annotations')
+      .doc(chapterReference)
+      .collection('chapter-annotations')
+      .doc(annotationID)
+      .collection('replies').valueChanges();
   }
 
   getMembers(studyID: string) {
@@ -170,6 +220,15 @@ export class StudyDataService {
   deletePost(studyID: string, postID: string) {
     return this.afs.doc(`/studies/${ studyID }`)
       .collection('posts').doc(postID).delete();
+  }
+
+  deleteAnnotation(studyID: string, chapterReference: string, annotationID: string) {
+    return this.afs.doc(`/studies/${ studyID }`)
+      .collection('annotations')
+      .doc(chapterReference)
+      .collection('chapter-annotations')
+      .doc(annotationID)
+      .delete();
   }
 
   getMemberData(studyID: string, uid: string) {
