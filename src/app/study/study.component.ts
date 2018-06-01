@@ -43,6 +43,8 @@ export class StudyComponent implements OnInit {
   name = '';
   private _posts = new BehaviorSubject([]);
   posts: Observable<any>;
+  chapterAnnotations: Observable<any>;
+  numOfAnnotations = 1;
   postIndices = [];
   members = [];
   studyData;
@@ -406,6 +408,7 @@ export class StudyComponent implements OnInit {
       case 'shared-bible': {
         this.isLoading.next(true);
         this.getChapter('Genesis', '1');
+        this.getAnnotationsForChapter();
       }
 
     }
@@ -527,6 +530,14 @@ export class StudyComponent implements OnInit {
           }
         });
     }
+  }
+
+  getAnnotationsForChapter() {
+    const chapterReference = `${ this.activeBook.toLowerCase() }-${ this.activeChapter }`;
+    this.chapterAnnotations = this._study.getAnnotationsByChapterReference(this.groupID, chapterReference);
+    this.chapterAnnotations.subscribe((res) => {
+      this.numOfAnnotations = res.length;
+    });
   }
 
   updatePost() {

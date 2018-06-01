@@ -199,6 +199,13 @@ export class StudyDataService {
       .doc(annotationID).valueChanges();
   }
 
+  getAnnotationsByChapterReference(studyID: string, chapterReference: string) {
+    return this.afs.doc(`/studies/${ studyID }`)
+      .collection('annotations')
+      .doc(chapterReference)
+      .collection('chapter-annotations').valueChanges();
+  }
+
   getPostRepliesByID(studyID: string, postID: string) {
     return this.afs.doc(`/studies/${ studyID }`).collection('posts').doc(postID).collection('replies').valueChanges();
   }

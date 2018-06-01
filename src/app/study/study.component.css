@@ -685,6 +685,10 @@ input:checked+.slider:before {
     -webkit-appearance: none;
 }
 
+.actions a:first-child {
+    margin-left: 0;
+}
+
 /*Hiding the select arrow for IE10*/
 
 .custom-dropdown select::-ms-expand {
