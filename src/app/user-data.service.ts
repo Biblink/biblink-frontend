@@ -1,8 +1,7 @@
 import { Injectable, OnInit } from '@angular/core';
 import { AuthService } from './auth.service';
 import { AngularFirestore, AngularFirestoreDocument } from 'angularfire2/firestore';
-import { Observable } from 'rxjs/Observable';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { Observable, BehaviorSubject } from 'rxjs';
 import { UserDataInterface } from './interfaces/user-data.interface';
 import { User } from './interfaces/user';
 import { Utils } from './utilities/utils';
@@ -23,17 +22,18 @@ export class UserDataService {
         this.userReference = this.afs.doc(`/users/${ res.uid }`);
         if (res.emailVerified) {
           this.userID.next(res.uid);
-          this.userReference.valueChanges().subscribe((response) => {
-            if (response == null) {
+          this.userReference.snapshotChanges().subscribe((response) => {
+            if (response.payload.exists === false) {
               const data = new User('', '', res.email, { profileImage: res.photoURL, bio: '', shortDescription: '' });
               this.userReference.set(Utils.toJson(data));
               console.log('added to firebase collection');
             } else {
-              if (response.email !== res.email) {
-                response.email = res.email;
-                this.userReference.update(response);
+              const data = response.payload.data() as User;
+              if (data.email !== res.email) {
+                data.email = res.email;
+                this.userReference.update(data);
               }
-              this.userData.next(response);
+              this.userData.next(data);
             }
           });
         }

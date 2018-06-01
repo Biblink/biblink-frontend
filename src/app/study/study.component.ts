@@ -1,5 +1,7 @@
+
+import {scan} from 'rxjs/operators';
 import { SearchService } from './../search.service';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { BehaviorSubject ,  Observable } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { StudyDataService } from '../study-data.service';
@@ -8,7 +10,6 @@ import { Post } from '../interfaces/post';
 import { ToastrService } from 'ngx-toastr';
 import * as firebase from 'firebase';
 import { Reply } from '../interfaces/reply';
-import { Observable } from 'rxjs/Observable';
 declare const $: any;
 @Component({
   selector: 'app-study',
@@ -98,8 +99,8 @@ export class StudyComponent implements OnInit {
     this.getPosts();
     this.getMembers();
     this.getKeyAnnouncements();
-    this.posts = this._posts.asObservable()
-      .scan((acc, val) => {
+    this.posts = this._posts.asObservable().pipe(
+      scan((acc, val) => {
         if (this.resetPosts) {
           this.resetPosts = false;
           this.postIndices = [];
@@ -133,7 +134,7 @@ export class StudyComponent implements OnInit {
         this.isLoading.next(false);
         this.postLength = acc.length + valid.length;
         return acc.concat(valid);
-      });
+      }));
     // this._study.updatePost(this.groupID);
   }
 
@@ -507,7 +508,7 @@ export class StudyComponent implements OnInit {
     this.isLoading.next(true);
     this._search.getChapter(book, chapter).subscribe((res) => {
       this.bibleData = res[ 'data' ][ 0 ];
-      this.underlinedVerses = [].fill(false, 0, this.bibleData['verse_data'].length)
+      this.underlinedVerses = [].fill(false, 0, this.bibleData['verse_data'].length);
       this.numChapters = this.bibleData[ 'chapters' ].length;
       this.isLoading.next(false);
     });
