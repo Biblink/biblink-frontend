@@ -207,7 +207,8 @@
         <div class="nav-header center">Members</div>
         <div class="members">
           <div class="member" *ngFor="let member of members; let i = index">
-            <img class="profile-image" [src]="member['image']" *ngIf="i < numberOfMembers">
+            <i *ngIf="(member['image'] === null || member['image'] === '') && i < numberOfMembers" class="user fa fa-user"></i>
+            <img *ngIf="member['image'] !== null && member['image'] !== '' && i < numberOfMembers" class="profile-image" [src]="member['image']">
             <span class="member-name" *ngIf="i < numberOfMembers">{{member['name']}}</span>
           </div>
         </div>

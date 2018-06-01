@@ -1,17 +1,19 @@
+
+import { take } from 'rxjs/operators';
+import 'rxjs/add/operator/take';
 import { Group } from './interfaces/group';
 import { Injectable, OnInit } from '@angular/core';
 import { AuthService } from './auth.service';
 import { AngularFirestore, AngularFirestoreDocument } from 'angularfire2/firestore';
-import { Observable } from 'rxjs/Observable';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { Observable, BehaviorSubject } from 'rxjs';
 import { UserDataInterface } from './interfaces/user-data.interface';
 import { User } from './interfaces/user';
 import { Utils } from './utilities/utils';
 import { UserDataService } from './user-data.service';
 import { GroupDataInterface } from './interfaces/group-data.interface';
 import { Post } from './interfaces/post';
-import 'rxjs/add/operator/take';
-import 'rxjs/add/operator/do';
+
+
 import { Reply } from './interfaces/reply';
 
 
@@ -73,7 +75,7 @@ export class StudyDataService {
   addMember(groupID, userID) {
     return new Promise((resolve, reject) => {
       const doc = this.afs.collection('studies').doc(groupID);
-      doc.collection('members').doc(userID).snapshotChanges().take(1).subscribe((res) => {
+      doc.collection('members').doc(userID).snapshotChanges().pipe(take(1)).subscribe((res) => {
         if (!res.payload.exists) {
           doc.collection('members').doc(userID).set({ 'uid': userID, 'role': 'member' });
           resolve();

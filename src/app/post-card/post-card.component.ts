@@ -2,7 +2,7 @@ import { ToastrService } from 'ngx-toastr';
 import { Utils } from './../utilities/utils';
 import { Component, OnInit, ViewEncapsulation, Input, EventEmitter, Output, HostListener, ElementRef } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { StudyDataService } from '../study-data.service';
 import { UserDataService } from '../user-data.service';
 import { Reply } from '../interfaces/reply';

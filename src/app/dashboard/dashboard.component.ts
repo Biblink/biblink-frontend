@@ -1,5 +1,5 @@
 import { ToastrService } from 'ngx-toastr';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
 import { UserDataService } from '../user-data.service';
 import { AuthService } from '../auth.service';

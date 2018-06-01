@@ -1,8 +1,10 @@
+
+import { first, finalize } from 'rxjs/operators';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { AngularFireStorage, AngularFireUploadTask } from 'angularfire2/storage';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { AngularFirestore } from 'angularfire2/firestore';
-import 'rxjs/add/operator/first';
+
 import { UserDataService } from '../user-data.service';
 
 @Component({
@@ -61,17 +63,20 @@ export class FileUploadComponent {
 
     // The main task
     this.task = this.storage.upload(path, file, { customMetadata });
-
+    const fileRef = this.storage.ref(path);
     // Progress monitoring
     this.percentage = this.task.percentageChanges();
     this.snapshot = this.task.snapshotChanges();
 
     // The file's download URL
-    this.task.downloadURL().first().subscribe((url_response) => {
-      this.downloadURL = url_response;
-      this.url.emit(url_response);
-      this.uploaded = true;
-    });
+    this.task.snapshotChanges().pipe(
+      finalize(() => {
+        fileRef.getDownloadURL().pipe(first()).subscribe((url_response) => {
+          this.downloadURL = url_response;
+          this.url.emit(url_response);
+          this.uploaded = true;
+        });
+      })).subscribe();
 
   }
 
