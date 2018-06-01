@@ -6,10 +6,13 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { StudyDataService } from '../study-data.service';
 import { UserDataService } from '../user-data.service';
-import { Post } from '../interfaces/post';
 import { ToastrService } from 'ngx-toastr';
 import * as firebase from 'firebase';
+
 import { Reply } from '../interfaces/reply';
+import { Post } from '../interfaces/post';
+import { Annotation } from './../interfaces/annotation';
+
 declare const $: any;
 @Component({
   selector: 'app-study',
@@ -31,6 +34,7 @@ export class StudyComponent implements OnInit {
   actionsExpanded = false;
   creationExpanded = false;
   createPost = new Post();
+  createAnnotation = new Annotation();
   postLength = 1;
   type = 'all';
   editing = false;
@@ -142,9 +146,18 @@ export class StudyComponent implements OnInit {
     this.createPost = new Post();
   }
 
+  resetAnnotation() {
+    this.createAnnotation = new Annotation();
+  }
+
   setPostType(type: string) {
     this.createPost.type = type;
     this.toggleCreation(true);
+  }
+
+  setAnnotationType(type: string) {
+    this.createAnnotation.type = type;
+    this.toggleCreation(true, true);
   }
   getAnnouncements() {
     this.isLoading.next(true);
@@ -408,9 +421,15 @@ export class StudyComponent implements OnInit {
     this.actionsExpanded = true;
   }
 
-  toggleCreation(value: boolean) {
-    if (this.createPost.type === '' && this.creationExpanded === false) {
-      this.createPost.type = 'post';
+  toggleCreation(value: boolean, annotation = false) {
+    if (annotation) {
+      if (this.createAnnotation.type === '' && this.creationExpanded === false) {
+        this.createAnnotation.type = 'note';
+      }
+    } else {
+      if (this.createPost.type === '' && this.creationExpanded === false) {
+        this.createPost.type = 'post';
+      }
     }
     this.creationExpanded = value;
   }
@@ -438,6 +457,26 @@ export class StudyComponent implements OnInit {
       } else {
         this.switchTab(this.type + 's', true);
       }
+    });
+  }
+
+  publishAnnotation() {
+    if (this.editing) {
+      // return this.updateAnnotation(); TODO: Implement updateAnnotation
+    }
+    this.createAnnotation.chapterReference = `${ this.activeBook.toLowerCase() }-${ this.activeChapter }`;
+    const today = new Date();
+    const date = `${ today.getMonth() + 1 }/${ today.getDate() }/${ today.getFullYear() }`;
+    const time = today.toLocaleTimeString();
+    const annotationType = this.capitalize(this.createAnnotation.type);
+    this.createAnnotation.dateInfo = { date: date, time: time };
+    this.createAnnotation.timestamp = Math.round((new Date()).getTime() / 1000);
+    this.createAnnotation.creatorID = this._user.userID.getValue();
+    this._study.createAnnotation(this.groupID, this.createAnnotation.chapterReference, this.createAnnotation).then(() => {
+      this.toastr.show('Successfully Created Your ' + annotationType,
+        'Successful Creation of ' + annotationType);
+      this.resetAnnotation();
+      this.toggleCreation(false);
     });
   }
 
@@ -474,6 +513,21 @@ export class StudyComponent implements OnInit {
       });
     }
   }
+  editAnnotation(value: boolean, annotationID: string, creatorID: string, isLeader: boolean) {
+    if (value && (creatorID === this._user.userID.getValue() || isLeader)) {
+      this.editing = true;
+
+      this._study.getAnnotationByID(this.groupID, `${ this.activeBook.toLowerCase() }-${ this.activeChapter }`,
+        annotationID).subscribe((res) => {
+          if (this.editing) {
+            this.createPost = res as Post;
+            this.editingPostID = annotationID;
+            this.expandActions();
+            this.toggleCreation(true);
+          }
+        });
+    }
+  }
 
   updatePost() {
     this.createPost.htmlText = this.createPost.text;
@@ -499,7 +553,7 @@ export class StudyComponent implements OnInit {
       Math.round((new Date()).getTime() / 1000),
       [], // TODO: create verse extractor
       []); // TODO: create link extractor
-    this._study.addReply(postID, this.groupID, reply).then(() => {
+    this._study.addPostReply(postID, this.groupID, reply).then(() => {
       this.toastr.show('Successfully Created Reply', 'Created Reply');
     });
   }
