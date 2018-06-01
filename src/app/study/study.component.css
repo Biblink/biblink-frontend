@@ -381,7 +381,7 @@ hr {
 }
 
 .members {
-    margin-left: 25%;
+    margin-left: 55px;
     margin-top: 15px;
     margin-bottom: 20px;
 }
@@ -574,6 +574,51 @@ input:checked+.slider:before {
 
 .bottom {
     margin-top: 25px;
+}
+
+.btn {
+    font-family: 'museo-sans', sans-serif;
+    font-weight: 900;
+    letter-spacing: 2px;
+    line-height: 25px;
+    text-align: center;
+    font-size: 16px;
+    height: 45px;
+    width: 200px;
+}
+
+.study-btn {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    border: #06292A;
+    background-color: #06292A;
+    box-shadow: 0 8px 18px 0 rgba(90, 89, 89, 0.5);
+    color: #ffffff;
+    font-family: 'museo-sans', sans-serif;
+    font-weight: 900;
+    letter-spacing: 1px;
+    line-height: 19px;
+    text-align: center;
+    transition: all 1s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+.study-btn:hover {
+    cursor: pointer;
+    background-color: rgb(3, 33, 34);
+    box-shadow: none;
+    transition: all 1s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+.study-btn[disabled] {
+    box-shadow: none;
+    background-color: #cb5032;
+    cursor: not-allowed !important;
+}
+
+.no-announcements {
+    width: 75%;
+    margin: 0 auto;
 }
 
 .shared-select {
