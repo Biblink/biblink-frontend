@@ -55,7 +55,7 @@
       </div>
     </div>
     <div class="main-info column is-three-fifths is-centered">
-      <div class="posts" *ngIf="currentTab !== 'shared-bible' || currentTab !== 'shared-calendar'">
+      <div class="posts" *ngIf="currentTab !== 'shared-bible' && currentTab !== 'shared-calendar'">
         <app-post-card *ngFor="let post of posts | async; let i = index;" [studyID]="groupID" [isLeader]="isLeader" [isLast]="(i + 1) === postLength"
           [id]="post['id']" [userID]="userID" [isCreator]="userID === post['creatorID']" [contributors]="post['contributors']"
           (delete)="deletePost($event, post['id'], post['creatorID'], isLeader)" (edit)="editPost($event, post['id'], post['creatorID'], isLeader)"
@@ -82,7 +82,7 @@
             <div class="verse-container" *ngFor="let verse of post['verses']" [innerHtml]="verse | safeHtml"></div>
           </div>
         </app-post-card>
-        <div class="has-text-centered" *ngIf="postLength === 0">
+        <div class="has-text-centered" *ngIf="postLength === 0 && (currentTab !== 'shared-bible' && currentTab !== 'shared-calendar')">
           <h1 class="title is-4">Be the first to add a post!</h1>
           <button class="btn study-btn" (click)="expandActions(); setPostType('post');">Add a Post</button>
         </div>
@@ -147,11 +147,16 @@
             alt="minimize creation">
         </div>
         <h1 class="action-label" *ngIf="creationExpanded">Type</h1>
-        <div class="actions">
+        <div class="actions" *ngIf="currentTab !== 'shared-bible' && currentTab !== 'shared-calendar'">
           <a class="create-cta first" [class.create-active]="createPost.type == 'announcement'" (click)="setPostType('announcement')">An Announcement</a>
           <a class="create-cta" [class.create-active]="createPost.type == 'post'" (click)="setPostType('post')">A Post</a>
           <a class="create-cta" [class.create-active]="createPost.type == 'question'" (click)="setPostType('question')">A Question</a>
           <a class="create-cta" [class.create-active]="createPost.type == 'discussion'" (click)="setPostType('discussion')">A Discussion</a>
+        </div>
+        <div class="actions" *ngIf="currentTab !== 'shared-bible' && currentTab !== 'shared-calendar'">
+          <a class="create-cta" [class.create-active]="createAnnotation.type == 'note'" (click)="setAnnotationType('post')">A Post</a>
+          <a class="create-cta" [class.create-active]="createAnnotation.type == 'question'" (click)="setAnnotationType('question')">A Question</a>
+          <a class="create-cta" [class.create-active]="createAnnotation.type == 'discussion'" (click)="setAnnotationType('discussion')">A Discussion</a>
         </div>
         <form #postCreator="ngForm" (ngSubmit)="publishPost()">
           <h1 class="action-label" *ngIf="creationExpanded">Information</h1>
@@ -183,52 +188,69 @@
     </div>
     <div class="right-nav column is-one-fifth">
       <div id="right">
-        <h1 class="nav-header center">Key Announcement
-          <span *ngIf="keyAnnouncements.length > 1">s</span>
-        </h1>
-        <br>
-        <div class="no-announcements has-text-centered" *ngIf="keyAnnouncements.length === 0">
-          <p>Seems like you have no announcements! Be the first to add one!</p>
+        <ng-container *ngIf="currentTab !== 'shared-bible' && currentTab !== 'shared-calendar'">
+          <h1 class="nav-header center">Key Announcement
+            <span *ngIf="keyAnnouncements.length > 1">s</span>
+          </h1>
           <br>
-          <a class="more-link" (click)="expandActions(); setPostType('announcement')">Add First Announcement</a>
-        </div>
-        <div class="announcements">
-          <div class="announcement-container" *ngFor="let announcement of keyAnnouncements; let i = index;">
-            <div class="announcement">
-              <div class="head">
-                <img class="profile-image" [src]="announcement['image']">
-                <span class="date-info time">{{announcement['dateInfo']['time']}}</span>
-                <span class="date-info date">{{announcement['dateInfo']['date']}}</span>
-              </div>
-              <div class="content">
-                <div class="title-container">
-                  <h1 class="announcement-title">{{announcement['title']}}</h1>
+          <div class="no-announcements has-text-centered" *ngIf="keyAnnouncements.length === 0">
+            <p>Seems like you have no announcements! Be the first to add one!</p>
+            <br>
+            <a class="more-link" (click)="expandActions(); setPostType('announcement')">Add First Announcement</a>
+          </div>
+          <div class="announcements">
+            <div class="announcement-container" *ngFor="let announcement of keyAnnouncements; let i = index;">
+              <div class="announcement">
+                <div class="head">
+                  <img class="profile-image" [src]="announcement['image']">
+                  <span class="date-info time">{{announcement['dateInfo']['time']}}</span>
+                  <span class="date-info date">{{announcement['dateInfo']['date']}}</span>
                 </div>
-                <div class="announcement-text">
-                  <p [innerHtml]="announcement['htmlText']"></p>
+                <div class="content">
+                  <div class="title-container">
+                    <h1 class="announcement-title">{{announcement['title']}}</h1>
+                  </div>
+                  <div class="announcement-text">
+                    <p [innerHtml]="announcement['htmlText']"></p>
+                  </div>
                 </div>
               </div>
+              <img *ngIf="(i + 1) != keyAnnouncements.length" class="connector" src="/assets/images/feature-images/announcement-connector.svg">
             </div>
-            <img *ngIf="(i + 1) != keyAnnouncements.length" class="connector" src="/assets/images/feature-images/announcement-connector.svg">
           </div>
-        </div>
-        <div class="bottom has-text-centered">
-          <a class="more-link" (click)="switchTab('announcements')" *ngIf="keyAnnouncements.length > 0">See More</a>
-        </div>
-        <hr>
-        <div class="nav-header center">Member
-          <span *ngIf="members.length > 1">s</span>
-        </div>
-        <div class="members">
-          <div class="member" *ngFor="let member of members; let i = index">
-            <i *ngIf="(member['image'] === null || member['image'] === '') && i < numberOfMembers" class="user fa fa-user"></i>
-            <img *ngIf="member['image'] !== null && member['image'] !== '' && i < numberOfMembers" class="profile-image" [src]="member['image']">
-            <span class="member-name" *ngIf="i < numberOfMembers">{{member['name']}}</span>
+          <div class="bottom has-text-centered">
+            <a class="more-link" (click)="switchTab('announcements')" *ngIf="keyAnnouncements.length > 0">See More</a>
           </div>
-        </div>
-        <div class="bottom has-text-centered">
-          <a class="more-link" *ngIf="members.length > numberOfMembers">See More</a>
-        </div>
+          <hr>
+          <div class="nav-header center">Member
+            <span *ngIf="members.length > 1">s</span>
+          </div>
+          <div class="members">
+            <div class="member" *ngFor="let member of members; let i = index">
+              <i *ngIf="(member['image'] === null || member['image'] === '') && i < numberOfMembers" class="user fa fa-user"></i>
+              <img *ngIf="member['image'] !== null && member['image'] !== '' && i < numberOfMembers" class="profile-image" [src]="member['image']">
+              <span class="member-name" *ngIf="i < numberOfMembers">{{member['name']}}</span>
+            </div>
+          </div>
+          <div class="bottom has-text-centered">
+            <a class="more-link" *ngIf="members.length > numberOfMembers">See More</a>
+          </div>
+        </ng-container>
+        <ng-container *ngIf="currentTab === 'shared-bible'">
+          <h1 class="nav-header center">Chapter Annotations
+            <!-- <span *ngIf="keyAnnouncements.length > 1">s</span> -->
+          </h1>
+          <br>
+          <div class="no-annotations has-text-centered">
+            <!-- TODO: add annotation list -->
+            <p>Seems like this chapter has no annotations! Be the first to add one!</p>
+            <br>
+            <button class="btn study-btn" (click)="expandActions(); setPostType('announcement')">Add Annotation</button>
+          </div>
+          <div class="annotations">
+
+          </div>
+        </ng-container>
       </div>
     </div>
 
