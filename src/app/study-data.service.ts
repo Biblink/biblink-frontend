@@ -196,7 +196,7 @@ export class StudyDataService {
       .collection('annotations')
       .doc(chapterReference)
       .collection('chapter-annotations')
-      .doc(annotationID);
+      .doc(annotationID).valueChanges();
   }
 
   getPostRepliesByID(studyID: string, postID: string) {
