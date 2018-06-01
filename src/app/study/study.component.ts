@@ -1,7 +1,7 @@
 
-import {scan} from 'rxjs/operators';
+import { scan } from 'rxjs/operators';
 import { SearchService } from './../search.service';
-import { BehaviorSubject ,  Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { StudyDataService } from '../study-data.service';
@@ -31,7 +31,7 @@ export class StudyComponent implements OnInit {
   actionsExpanded = false;
   creationExpanded = false;
   createPost = new Post();
-  postLength = 0;
+  postLength = 1;
   type = 'all';
   editing = false;
   resetPosts = false;
@@ -508,7 +508,7 @@ export class StudyComponent implements OnInit {
     this.isLoading.next(true);
     this._search.getChapter(book, chapter).subscribe((res) => {
       this.bibleData = res[ 'data' ][ 0 ];
-      this.underlinedVerses = [].fill(false, 0, this.bibleData['verse_data'].length);
+      this.underlinedVerses = [].fill(false, 0, this.bibleData[ 'verse_data' ].length);
       this.numChapters = this.bibleData[ 'chapters' ].length;
       this.isLoading.next(false);
     });

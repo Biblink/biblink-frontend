@@ -82,6 +82,10 @@
             <div class="verse-container" *ngFor="let verse of post['verses']" [innerHtml]="verse | safeHtml"></div>
           </div>
         </app-post-card>
+        <div class="has-text-centered" *ngIf="postLength === 0">
+          <h1 class="title is-4">Be the first to add a post!</h1>
+          <button class="btn study-btn" (click)="expandActions(); setPostType('post');">Add a Post</button>
+        </div>
       </div>
       <div class="shared-bible" *ngIf="currentTab === 'shared-bible'">
         <div class="container" id="preferences">
@@ -179,7 +183,15 @@
     </div>
     <div class="right-nav column is-one-fifth">
       <div id="right">
-        <h1 class="nav-header center">Key Announcements</h1>
+        <h1 class="nav-header center">Key Announcement
+          <span *ngIf="keyAnnouncements.length > 1">s</span>
+        </h1>
+        <br>
+        <div class="no-announcements has-text-centered" *ngIf="keyAnnouncements.length === 0">
+          <p>Seems like you have no announcements! Be the first to add one!</p>
+          <br>
+          <a class="more-link" (click)="expandActions(); setPostType('announcement')">Add First Announcement</a>
+        </div>
         <div class="announcements">
           <div class="announcement-container" *ngFor="let announcement of keyAnnouncements; let i = index;">
             <div class="announcement">
@@ -201,10 +213,12 @@
           </div>
         </div>
         <div class="bottom has-text-centered">
-          <a class="more-link" (click)="switchTab('announcements')">See More</a>
+          <a class="more-link" (click)="switchTab('announcements')" *ngIf="keyAnnouncements.length > 0">See More</a>
         </div>
         <hr>
-        <div class="nav-header center">Members</div>
+        <div class="nav-header center">Member
+          <span *ngIf="members.length > 1">s</span>
+        </div>
         <div class="members">
           <div class="member" *ngFor="let member of members; let i = index">
             <i *ngIf="(member['image'] === null || member['image'] === '') && i < numberOfMembers" class="user fa fa-user"></i>
@@ -213,7 +227,7 @@
           </div>
         </div>
         <div class="bottom has-text-centered">
-          <a class="more-link">See More</a>
+          <a class="more-link" *ngIf="members.length > numberOfMembers">See More</a>
         </div>
       </div>
     </div>
