@@ -164,11 +164,14 @@
             <div class="field" *ngIf="creationExpanded">
               <label class="label" for="title" *ngIf="currentTab !== 'shared-bible' && currentTab !== 'shared-calendar'">Title:</label>
               <label class="label" for="title" *ngIf="currentTab === 'shared-bible'">Verses:</label>
-              <input class="input" #title="ngModel" [(ngModel)]="createAnnotation.passage" name="title" type="text" id="title" required>
+              <input class="input" #title="ngModel" *ngIf="currentTab === 'shared-bible'" [(ngModel)]="createAnnotation.passage" name="title" type="text" id="annotation-title"
+                required>
+              <input class="input" #title="ngModel" *ngIf="currentTab !== 'shared-bible' && currentTab !== 'shared-calendar'" [(ngModel)]="createPost.title" name="title" type="text" id="title" required>
             </div>
             <div class="field" *ngIf="creationExpanded">
               <label class="label" for="body">Body:</label>
-              <textarea [(ngModel)]="createAnnotation.text" name="body" class="textarea input" id="body" cols="30" rows="2"></textarea>
+              <textarea [(ngModel)]="createAnnotation.text" *ngIf="currentTab === 'shared-bible'" name="body" class="textarea input" id="annotation-body" cols="30" rows="2"></textarea>
+              <textarea [(ngModel)]="createPost.text" name="body" *ngIf="currentTab !== 'shared-bible' && currentTab !== 'shared-calendar'" class="textarea input" id="body" cols="30" rows="2"></textarea>
             </div>
             <!-- <div class="show-files" *ngIf="creationExpanded">
               <label class="switch">
