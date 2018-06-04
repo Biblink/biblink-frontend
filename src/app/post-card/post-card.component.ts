@@ -80,7 +80,7 @@ export class PostCardComponent implements OnInit {
               let firstSubReplyTime = false;
               let firstSubReply = {};
               this._user.getDataFromID(subreply[ 'creatorID' ]).subscribe((subData) => {
-                const subProfileImage = data[ 'data' ][ 'profileImage' ];
+                const subProfileImage = subData[ 'data' ][ 'profileImage' ];
                 if (subreply[ 'htmlText' ] === undefined || subreply[ 'htmlText' ] === '') {
                   subreply[ 'htmlText' ] = subreply[ 'text' ];
                 }
