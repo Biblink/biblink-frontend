@@ -222,7 +222,10 @@
             <a class="more-link" (click)="switchTab('announcements')" *ngIf="keyAnnouncements.length > 0">See More</a>
           </div>
           <hr>
-          <div class="nav-header center">Member<span *ngIf="members.length > 1">s</span></div>
+          <div class="nav-header center">
+            <span *ngIf="members.length === 1">Member</span>
+            <span *ngIf="members.length > 1">Members</span>
+          </div>
           <div class="members">
             <div class="member" *ngFor="let member of members; let i = index">
               <i *ngIf="(member['image'] === null || member['image'] === '') && i < numberOfMembers" class="user fa fa-user"></i>
