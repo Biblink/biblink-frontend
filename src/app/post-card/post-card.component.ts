@@ -119,7 +119,7 @@ export class PostCardComponent implements OnInit {
     const reply = new Reply(this.subReplyText, this.userID, Math.round((new Date()).getTime() / 1000), [], []);
     const jsonReply = Utils.toJson(reply);
     jsonReply[ 'id' ] = firebaseID;
-    const ref = this.afs.doc(`/studies/${ this.studyID }/${ this.id }/${ this.replyID }`);
+    const ref = this.afs.doc(`/studies/${ this.studyID }`).collection('posts').doc(`${ this.id }`);
     const updateContributor = ref.valueChanges().subscribe((val) => {
       if (val[ 'contributors' ].indexOf(reply.creatorID) !== -1) {
         val[ 'contributors' ].push(reply.creatorID);
