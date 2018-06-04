@@ -117,7 +117,7 @@ export class StudyDataService {
     jsonReply[ 'id' ] = firebaseID;
     const ref = this.afs.doc(`/studies/${ studyID }`).collection('posts').doc(`${ postID }`);
     const updateContributor = ref.valueChanges().subscribe((val) => {
-      if (val[ 'contributors' ].indexOf(reply.creatorID) !== -1) {
+      if (val[ 'contributors' ].indexOf(reply.creatorID) === -1) {
         val[ 'contributors' ].push(reply.creatorID);
       }
       ref.update(val).then(() => {
