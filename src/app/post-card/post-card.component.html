@@ -43,7 +43,7 @@
         <div class="column is-three-fifths has-text-right">
           <div class="contributors">
             <span class="contributor-text" *ngIf="contributorImages.length <= 1">Contributor: </span>
-            <span class="contributor-text" *ngIf="contributorImages.length > 1 ">Contributor(s): </span>
+            <span class="contributor-text" *ngIf="contributorImages.length > 1 ">Contributors: </span>
             <ng-container *ngFor="let image of contributorImages">
               <i *ngIf="image === null || image === ''" class="user fa fa-user"></i>
               <img class="contributor-image" [src]="image" *ngIf="image !== null && image !== ''">
