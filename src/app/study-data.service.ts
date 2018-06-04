@@ -115,6 +115,15 @@ export class StudyDataService {
     const firebaseID = this.afs.createId();
     const jsonReply = Utils.toJson(reply);
     jsonReply[ 'id' ] = firebaseID;
+    const ref = this.afs.doc(`/studies/${ studyID }`);
+    const updateContributor = this.afs.doc(`/studies/${ studyID }`).valueChanges().subscribe((val) => {
+      if (val[ 'contributors' ].indexOf(reply.creatorID) !== -1) {
+        val[ 'contributors' ].push(reply.creatorID);
+      }
+      ref.update(val).then(() => {
+        updateContributor.unsubscribe();
+      });
+    });
     return this.afs.doc(`/studies/${ studyID }`).collection('posts').doc(postID).collection('replies').doc(firebaseID).set(jsonReply);
   }
 
