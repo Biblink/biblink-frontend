@@ -562,8 +562,8 @@ export class StudyComponent implements OnInit {
     const reply = new Reply(text,
       this._user.userID.getValue(),
       Math.round((new Date()).getTime() / 1000),
-      [], // TODO: create verse extractor
-      []); // TODO: create link extractor
+      [],
+      []);
     this._study.addPostReply(postID, this.groupID, reply).then(() => {
       this.toastr.show('Successfully Created Reply', 'Created Reply');
     });
