@@ -107,6 +107,13 @@ export class StudyComponent implements OnInit {
     this.getKeyAnnouncements();
     this.posts = this._posts.asObservable().pipe(
       scan((acc, val) => {
+        if (val.length === 0) {
+          this.isDone = true;
+          this.isLoading.next(false);
+        } else {
+          this.isDone = false;
+          this.isLoading.next(true);
+        }
         if (this.resetPosts) {
           this.resetPosts = false;
           this.postIndices = [];
@@ -123,23 +130,20 @@ export class StudyComponent implements OnInit {
           return acc;
         }
         const valid = [];
-        if (val.length === 0) {
-          this.isDone = true;
-          this.isLoading.next(false);
-        }
         val.forEach((post) => {
           const index = this.postIndices.indexOf(post[ 'id' ]);
           if (index !== -1) {
             this.postIndices[ index ] = post[ 'id' ];
             acc[ index ] = post;
           } else {
-            this.postIndices.push(post[ 'id' ]);
+            this.postIndices.unshift(post[ 'id' ]);
             valid.push(post);
           }
         });
         this.isLoading.next(false);
         this.postLength = acc.length + valid.length;
-        return acc.concat(valid);
+        acc = valid.concat(acc);
+        return acc;
       }));
     // this._study.updatePost(this.groupID);
   }
