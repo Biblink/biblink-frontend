@@ -162,7 +162,8 @@
           <h1 class="action-label" *ngIf="creationExpanded">Information</h1>
           <div class="fields">
             <div class="field" *ngIf="creationExpanded">
-              <label class="label" for="title">Verses:</label>
+              <label class="label" for="title" *ngIf="currentTab !== 'shared-bible' && currentTab !== 'shared-calendar'">Title:</label>
+              <label class="label" for="title" *ngIf="currentTab === 'shared-bible'">Verses:</label>
               <input class="input" #title="ngModel" [(ngModel)]="createAnnotation.passage" name="title" type="text" id="title" required>
             </div>
             <div class="field" *ngIf="creationExpanded">
