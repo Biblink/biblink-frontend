@@ -254,7 +254,12 @@ export class StudyDataService {
 
   formatAnnotations(reference) {
     const bookChapter = reference.slice(0, reference.indexOf(':')); // Example: Genesis 1:1,2,3,4 => Genesis 1
-    const verses = reference.slice(reference.indexOf(':') + 1, reference.length); // Example: Genesis 1:1,2,3,4 => 1,2,3,4
+    let verses = reference.slice(reference.indexOf(':') + 1, reference.length); // Example: Genesis 1:1,2,3,4 => 1,2,3,4
+    verses = verses.trim();
+    if (verses.endsWith(",")) {
+      verses = verses.slice(0, -1);
+    }
+    // const exisRanges = verses.match(/(\d){1-2}(-)(\d){1-2}/g) This line is for a feature later
     const digits = verses.split(','); // Creates array out of the verses
     // tslint:disable-next-line:forin
     for (const index in digits) {
@@ -265,7 +270,7 @@ export class StudyDataService {
     let hi = -1;
     const ranges = []; // Container for formatted verse segments
     if (ranges.length <= 1) {
-      return reference
+      return reference;
     }
     for (const index in digits) {
       if (digits[ Number(index) + 1 ] - digits[ Number(index) ] === 1) { // If elements are adjacent on the number line...
