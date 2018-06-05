@@ -24,9 +24,13 @@ export class UserDataService {
           this.userID.next(res.uid);
           this.userReference.snapshotChanges().subscribe((response) => {
             if (response.payload.exists === false) {
-              const data = new User('', '', res.email, { profileImage: res.photoURL, bio: '', shortDescription: '' });
-              this.userReference.set(Utils.toJson(data));
-              console.log('added to firebase collection');
+              console.log('waiting to see if any data is updated');
+              setTimeout(() => {
+                console.log('didn\'t receive update in one second...');
+                const data = new User('', '', res.email, { profileImage: res.photoURL, bio: '', shortDescription: '' });
+                this.userReference.set(Utils.toJson(data));
+                console.log('added to firebase collection');
+              }, 1000);
             } else {
               const data = response.payload.data() as User;
               if (data.email !== res.email) {
