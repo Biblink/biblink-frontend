@@ -264,6 +264,9 @@ export class StudyDataService {
     let lo = digits[ 0 ];
     let hi = -1;
     const ranges = []; // Container for formatted verse segments
+    if (ranges.length <= 1) {
+      return reference
+    }
     for (const index in digits) {
       if (digits[ Number(index) + 1 ] - digits[ Number(index) ] === 1) { // If elements are adjacent on the number line...
         hi = digits[ Number(index) + 1 ]; // Increase the variable representing the end of a continuous range (like 1-4)
