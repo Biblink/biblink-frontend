@@ -348,7 +348,8 @@
 }
 
 #user-actions,
-#notifications {
+#notifications,
+#add-user-actions {
     width: 120px;
     border: none;
     min-width: auto;
@@ -360,6 +361,7 @@
 }
 
 #user-actions .dropdown-content,
+#add-user-actions .dropdown-content,
 #notifications .dropdown-content {
     font-family: 'museo-sans', sans-serif;
     text-align: right;
@@ -370,12 +372,14 @@
 }
 
 #user-actions .nav-link,
-#notifications .nav-link {
+#notifications .nav-link,
+#add-user-actions .nav-link {
     font-size: 0.9rem;
     color: black;
 }
 
 #user-actions .nav-link:hover,
+#add-user-actions .nav-link:hover,
 #notifications .nav-link:hover {
     color: grey;
 }
@@ -389,8 +393,11 @@
     color: #ffffff;
 }
 
-.add-person {
+.add-user-widget {
     margin-right: 68px;
+}
+
+.add-person {
     font-size: 1.6rem;
 }
 
