@@ -251,4 +251,56 @@ export class StudyDataService {
     console.log(uid);
     return this.afs.doc(`/studies/${ studyID }`).collection('members').doc(uid).valueChanges();
   }
+
+  formatAnnotations(reference) {
+    const bookChapter = reference.slice(0, reference.indexOf(':')); // Example: Genesis 1:1,2,3,4 => Genesis 1
+    const verses = reference.slice(reference.indexOf(':') + 1, reference.length); // Example: Genesis 1:1,2,3,4 => 1,2,3,4
+    const digits = verses.split(','); // Creates array out of the verses
+    // tslint:disable-next-line:forin
+    for (const index in digits) {
+      digits[ index ] = Number(digits[ index ]); // Iterate through the list and turn each element into an integer
+    }
+    digits.sort(function (a, b) { return a - b; }); // Ensures all verse numbers are in ascending order
+    let lo = digits[ 0 ];
+    let hi = -1;
+    const ranges = []; // Container for formatted verse segments
+    for (const index in digits) {
+      if (digits[ Number(index) + 1 ] - digits[ Number(index) ] === 1) { // If elements are adjacent on the number line...
+        hi = digits[ Number(index) + 1 ]; // Increase the variable representing the end of a continuous range (like 1-4)
+      } else if (digits[ Number(index) + 1 ] - digits[ Number(index) ] !== 1) { // If two elements of the array are not adjacent...
+        // The two blocks below check to see if the failiure was the end of a range or a discrete jump
+        if (hi === -1) {
+          const strlo = String(lo);
+          ranges.push(strlo);
+          lo = digits[ Number(index) + 1 ];
+          hi = -1;
+        } else if (hi !== -1) {
+          const strlo = String(lo);
+          const strhi = String(hi);
+          const range = strlo.concat('-', strhi);
+          ranges.push(range);
+          lo = digits[ Number(index) + 1 ];
+          hi = -1;
+        }
+      } else if (Number(index) === (digits.length - 1)) { // If you're at the end of the array perform a failure check
+
+        if (hi === -1) {
+          ranges.push(String(lo));
+          lo = digits[ Number(index) + 1 ];
+          hi = -1;
+          break; // Don't bother checking the last element because array[index + 1] is out of range
+        } else if (hi !== -1) {
+          const range = String(lo).concat('-', String(hi));
+          ranges.push(range);
+          lo = digits[ Number(index) + 1 ];
+          hi = -1;
+          break; // Don't bother checking the last element because array[index + 1] is out of range
+        }
+      }
+    }
+    const formattedDigits = ranges.join(',');
+    const completeReference = bookChapter.concat(':', formattedDigits);
+    return completeReference;
+  }
+
 }
