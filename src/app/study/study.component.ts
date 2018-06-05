@@ -22,6 +22,7 @@ declare const $: any;
 
 export class StudyComponent implements OnInit {
   title = '';
+  groupUniqueID = '';
   profileImage = '';
   bibleData = {};
   underlinedVerses = [];
@@ -88,6 +89,7 @@ export class StudyComponent implements OnInit {
     this.groupID = this._router.url.split('/').pop();
     this._study.getStudyData(this.groupID).subscribe((data) => {
       this.title = data[ 'name' ];
+      this.groupUniqueID = data[ 'uniqueID' ];
       this.studyData = data;
     });
     this._user.userID.subscribe((res) => {
@@ -442,6 +444,10 @@ export class StudyComponent implements OnInit {
   }
 
   publishPost() {
+    if (this.currentTab === 'shared-bible') {
+      this.publishAnnotation();
+      return;
+    }
     if (this.editing) {
       return this.updatePost();
     }
@@ -471,11 +477,13 @@ export class StudyComponent implements OnInit {
     if (this.editing) {
       // return this.updateAnnotation(); TODO: Implement updateAnnotation
     }
+
     this.createAnnotation.chapterReference = `${ this.activeBook.toLowerCase() }-${ this.activeChapter }`;
     const today = new Date();
     const date = `${ today.getMonth() + 1 }/${ today.getDate() }/${ today.getFullYear() }`;
     const time = today.toLocaleTimeString();
     const annotationType = this.capitalize(this.createAnnotation.type);
+    console.log(annotationType);
     this.createAnnotation.dateInfo = { date: date, time: time };
     this.createAnnotation.timestamp = Math.round((new Date()).getTime() / 1000);
     this.createAnnotation.creatorID = this._user.userID.getValue();
@@ -577,7 +585,9 @@ export class StudyComponent implements OnInit {
     this.isLoading.next(true);
     this._search.getChapter(book, chapter).subscribe((res) => {
       this.bibleData = res[ 'data' ][ 0 ];
-      this.underlinedVerses = [].fill(false, 0, this.bibleData[ 'verse_data' ].length);
+      for (let i = 0; i < this.bibleData[ 'verse_data' ].length; i++) {
+        this.underlinedVerses.push(false);
+      }
       this.numChapters = this.bibleData[ 'chapters' ].length;
       this.isLoading.next(false);
     });
@@ -597,4 +607,36 @@ export class StudyComponent implements OnInit {
     }
   }
 
+  reformatPassage(value) {
+    const allVerses = value.split(':')[ 1 ].split(',');
+    const verseNumbers = [];
+    allVerses.forEach((verseNumber) => {
+      verseNumbers.push(Number(verseNumber));
+    });
+    this.underlinedVerses.forEach((val, index) => {
+      if (verseNumbers.indexOf(index + 1) === -1) {
+        this.underlinedVerses[ index ] = false;
+      } else {
+        this.underlinedVerses[ index ] = true;
+      }
+    });
+    this.createAnnotation.passage = this._study.formatAnnotations(value);
+  }
+
+  prepareAnnotation() {
+    this.createAnnotation.passage = `${ this.capitalize(this.activeBook) } ${ this.activeChapter }:`;
+    let finishedFirst = false;
+    this.underlinedVerses.forEach((isUnderlined, index) => {
+      if (isUnderlined) {
+        if (!finishedFirst) {
+          this.createAnnotation.passage += this.bibleData[ 'verse_data' ][ index ][ 'verse_number' ];
+          finishedFirst = true;
+        } else {
+          this.createAnnotation.passage += ',' + this.bibleData[ 'verse_data' ][ index ][ 'verse_number' ];
+        }
+      }
+    });
+    this.reformatPassage(this.createAnnotation.passage);
+    console.log(this.createAnnotation.passage);
+  }
 }

@@ -47,9 +47,22 @@
     </li>
     <li id="sign-in" data-aos="fade-down-left" data-aos-duration="1200" data-aos-once="true">
       <a class="nav-link" [routerLink]="'/sign-in'" *ngIf="!isLoggedIn">Sign In</a>
-      <a class="nav-link">
-        <i class="add-person fa fa-user-plus"></i>
-      </a>
+
+      <div *ngIf="isLoggedIn" class="add-user-widget dropdown is-right is-hoverable">
+        <div class="dropdown-trigger">
+          <a class="nav-link">
+            <i class="add-person fa fa-user-plus"></i>
+          </a>
+        </div>
+        <div class="dropdown-menu" id="add-user-actions" role="menu">
+          <div class="dropdown-content">
+            <div class="dropdown-item">
+              <a class="nav-link">Unique Group ID: {{groupID}}</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div *ngIf="isLoggedIn" class="notification-widget dropdown is-right is-hoverable">
         <div class="dropdown-trigger">
           <a aria-haspopup="true" aria-controls="user-actions" class="nav-link">

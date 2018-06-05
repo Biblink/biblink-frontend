@@ -14,6 +14,7 @@ declare const $: any;
 })
 export class StudyNavComponent implements OnInit {
   @Input() title = '';
+  @Input() groupID = '';
   activated = false;
   menuOpacity = 0;
   menuHeight = '0';
