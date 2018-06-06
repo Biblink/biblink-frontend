@@ -5,7 +5,7 @@
 
 export const environment = {
     production: false,
-    es_url: 'http://0.0.0.0:5000', // change this if you are doing a demo
+    es_url: 'http://198.199.66.233', // change this if you are doing a demo
     firebase: {
         apiKey: 'AIzaSyAruFcRRzxkzNydXszNkZiHJE6fbqOHpf0',
         authDomain: 'biblya-ed2ec.firebaseapp.com',
