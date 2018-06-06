@@ -256,22 +256,44 @@ export class StudyDataService {
     const bookChapter = reference.slice(0, reference.indexOf(':')); // Example: Genesis 1:1,2,3,4 => Genesis 1
     let verses = reference.slice(reference.indexOf(':') + 1, reference.length); // Example: Genesis 1:1,2,3,4 => 1,2,3,4
     verses = verses.trim();
-    if (verses.endsWith(",")) {
+    if (verses.endsWith(',')) {
       verses = verses.slice(0, -1);
     }
-    // const exisRanges = verses.match(/(\d){1-2}(-)(\d){1-2}/g) This line is for a feature later
-    const digits = verses.split(','); // Creates array out of the verses
+    if (verses.startsWith(',')) {
+      verses = verses.slice(1);
+    }
+    verses.match(/(,){0,1}(\d){1,2}(-)(\d){1,2}(,){0,1}/g).forEach((match) => {
+      if (match.endsWith(',')) {
+        match = match.slice(0, -1);
+      }
+      if (match.startsWith(',')) {
+        match = match.slice(1);
+      }
+      const matchContainer = match.split('-');
+      let lo_early = Number(matchContainer[ 0 ]);
+      const hi_early = Number(matchContainer[ 1 ]);
+      let strbase = '';
+      let firstTime = false;
+      while (lo_early <= hi_early) {
+        if (firstTime) {
+          strbase += ',';
+        }
+        strbase += `${ lo_early }`;
+        firstTime = true;
+        lo_early += 1;
+      }
+      verses = verses.replace(match, strbase);
+    });
+    let digits = verses.split(','); // Creates array out of the verses
     // tslint:disable-next-line:forin
     for (const index in digits) {
       digits[ index ] = Number(digits[ index ]); // Iterate through the list and turn each element into an integer
     }
-    digits.sort(function (a, b) { return a - b; }); // Ensures all verse numbers are in ascending order
+    digits = digits.sort(function (a, b) { return a - b; });
+    digits = Array.from(new Set(digits)); // Ensures all verse numbers are in ascending order
     let lo = digits[ 0 ];
     let hi = -1;
     const ranges = []; // Container for formatted verse segments
-    if (ranges.length <= 1) {
-      return reference;
-    }
     for (const index in digits) {
       if (digits[ Number(index) + 1 ] - digits[ Number(index) ] === 1) { // If elements are adjacent on the number line...
         hi = digits[ Number(index) + 1 ]; // Increase the variable representing the end of a continuous range (like 1-4)
@@ -310,5 +332,4 @@ export class StudyDataService {
     const completeReference = bookChapter.concat(':', formattedDigits);
     return completeReference;
   }
-
 }
