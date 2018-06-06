@@ -3,3 +3,4 @@ dist
 package-lock.json
 firebase-debug.log
 .idea
+src/environments
