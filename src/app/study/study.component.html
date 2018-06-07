@@ -185,7 +185,8 @@
             </div> -->
             <div class="has-text-centered btn-container">
               <button type="submit" *ngIf="creationExpanded && !editing" class="btn create-btn" [disabled]="postCreator.invalid">Post</button>
-              <button type="submit" *ngIf="creationExpanded && editing" class="btn create-btn" [disabled]="postCreator.invalid">Update Post</button>
+              <button type="submit" *ngIf="creationExpanded && editing && !editingAnnotation" class="btn create-btn" [disabled]="postCreator.invalid">Update Post</button>
+              <button type="submit" *ngIf="creationExpanded && editing && editingAnnotation" class="btn create-btn" [disabled]="postCreator.invalid">Update</button>
             </div>
           </div>
         </form>
@@ -257,9 +258,9 @@
           <div class="annotations">
             <app-post-card *ngFor="let annotation of chapterAnnotations | async; let i = index;" [studyID]="groupID" [isLeader]="isLeader"
               [isLast]="false" [isAnnotation]="true" [id]="annotation['id']" [contributors]="[annotation['creatorID']]" [userID]="userID"
-              [isCreator]="userID === annotation['creatorID']" (delete)="deletePost($event, annotation['id'], annotation['creatorID'], isLeader)"
-              (edit)="editPost($event, annotation['id'], annotation['creatorID'], isLeader)" (reply)="replyToPost($event, annotation['id'])"
-              (more)="getMorePosts(annotation['timestamp'])">
+              [isCreator]="userID === annotation['creatorID']" (delete)="deleteAnnotation($event, annotation['id'], annotation['creatorID'], isLeader)"
+              (edit)="editAnnotation($event, annotation['id'], annotation['creatorID'], isLeader)" [chapterRef]="chapterRef"
+              (reply)="replyToAnnotation($event, annotation['id'])">
               <p class="card-header-title annotation-title">{{annotation['passage']}}</p>
               <div class="metadata annotation-metadata">
                 <div class="type annotation-type">

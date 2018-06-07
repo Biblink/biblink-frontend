@@ -23,6 +23,7 @@ declare const $: any;
 export class StudyComponent implements OnInit {
   title = '';
   groupUniqueID = '';
+  chapterRef = '';
   profileImage = '';
   bibleData = {};
   underlinedVerses = [];
@@ -39,8 +40,10 @@ export class StudyComponent implements OnInit {
   postLength = 1;
   type = 'all';
   editing = false;
+  editingAnnotation = false;
   resetPosts = false;
   editingPostID = '';
+  editingAnnotationID = '';
   name = '';
   private _posts = new BehaviorSubject([]);
   posts: Observable<any>;
@@ -475,7 +478,7 @@ export class StudyComponent implements OnInit {
 
   publishAnnotation() {
     if (this.editing) {
-      // return this.updateAnnotation(); TODO: Implement updateAnnotation
+      return this.updateAnnotation();
     }
 
     this.createAnnotation.chapterReference = `${ this.activeBook.toLowerCase() }-${ this.activeChapter }`;
@@ -492,6 +495,19 @@ export class StudyComponent implements OnInit {
         'Successful Creation of ' + annotationType);
       this.resetAnnotation();
       this.toggleCreation(false);
+    });
+  }
+
+  updateAnnotation() {
+    this.createAnnotation.htmlText = this.createAnnotation.text;
+    this._study.updateAnnotation(this.groupID, this.chapterRef, this.editingAnnotationID, this.createAnnotation).then(() => {
+      this.resetAnnotation();
+      this.editingAnnotationID = '';
+      this.editingAnnotation = false;
+      this.editing = false;
+      this.toastr.show('Successfully Edited Annotation');
+      this.toggleCreation(false);
+      this.actionsExpanded = false;
     });
   }
 
@@ -531,12 +547,13 @@ export class StudyComponent implements OnInit {
   editAnnotation(value: boolean, annotationID: string, creatorID: string, isLeader: boolean) {
     if (value && (creatorID === this._user.userID.getValue() || isLeader)) {
       this.editing = true;
+      this.editingAnnotation = true;
 
       this._study.getAnnotationByID(this.groupID, `${ this.activeBook.toLowerCase() }-${ this.activeChapter }`,
         annotationID).subscribe((res) => {
           if (this.editing) {
-            this.createPost = res as Post;
-            this.editingPostID = annotationID;
+            this.createAnnotation = res as Annotation;
+            this.editingAnnotationID = annotationID;
             this.expandActions();
             this.toggleCreation(true);
           }
@@ -581,6 +598,26 @@ export class StudyComponent implements OnInit {
     });
   }
 
+  replyToAnnotation(text: string, annotationID: string) {
+    const reply = new Reply(text,
+      this._user.userID.getValue(),
+      Math.round((new Date()).getTime() / 1000),
+      [],
+      []);
+    this._study.addAnnotationReply(annotationID, this.groupID, this.chapterRef, reply).then(() => {
+      this.toastr.show('Successfully Created Reply', 'Created Reply');
+    });
+  }
+
+  deleteAnnotation(value: boolean, annotationID: string,
+    creatorID: string, isLeader: boolean) {
+    if (value && (creatorID === this._user.userID.getValue() || isLeader)) {
+      this._study.deleteAnnotation(this.groupID, this.chapterRef, annotationID).then(() => {
+        this.toastr.show('Successfully Deleted Annotation', 'Deleted Annotation');
+      });
+    }
+  }
+
   getChapter(book, chapter) {
     this.isLoading.next(true);
     this._search.getChapter(book, chapter).subscribe((res) => {
@@ -591,6 +628,7 @@ export class StudyComponent implements OnInit {
       this.numChapters = this.bibleData[ 'chapters' ].length;
       this.isLoading.next(false);
     });
+    this.chapterRef = this.activeBook.toLowerCase() + '-' + this.activeChapter;
   }
 
   nextChapter() {

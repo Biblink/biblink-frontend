@@ -26,7 +26,7 @@ export class UserDataService {
             if (response.payload.exists === false) {
               console.log('waiting to see if any data is updated');
               setTimeout(() => {
-                console.log('didn\'t receive update in one second...');
+                console.log('didn\'t receive update in 5 seconds...');
                 const data = new User('', '', res.email, { profileImage: res.photoURL, bio: '', shortDescription: '' });
                 this.userReference.set(Utils.toJson(data));
                 console.log('added to firebase collection');
