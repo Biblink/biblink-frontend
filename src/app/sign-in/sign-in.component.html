@@ -81,7 +81,8 @@
                         <div class="field" data-aos="fade-up-left" data-aos="fade-up-left" data-aos-duration="1400">
                             <label class="label" for="password">Password:</label>
                             <div class="control">
-                                <input formControlName="password" class="input" type="password" id="password" name="password" [class.error]="incorrectPassword">
+                                <input formControlName="password" class="input" type="password" id="password" name="password" [class.error]="incorrectPassword"
+                                    (keyup)="resetErrors()">
                                 <p data-aos="fade-up-left" *ngIf="(password.invalid && password.untouched) || incorrectPassword" class="help" id="password-reset">
                                     <span>Forgot your password?</span>
                                     <a [routerLink]="'/password-reset'">Reset Password</a>

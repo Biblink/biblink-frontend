@@ -80,6 +80,11 @@ export class SignInComponent implements OnInit {
         });
     }
 
+    resetErrors() {
+        this.incorrectPassword = false;
+        this.differentCredential = false;
+    }
+
     signInWithEmail() {
         this.signIn('email', { email: this.email.value, password: this.password.value });
     }
