@@ -1,14 +1,14 @@
-import {Component, OnInit} from '@angular/core';
-import {Router} from '@angular/router';
-import {AuthService} from '../auth.service';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {Title} from '@angular/platform-browser';
-import {ToastrService} from 'ngx-toastr';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { AuthService } from '../auth.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Title } from '@angular/platform-browser';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
     selector: 'app-password-reset',
     templateUrl: './password-reset.component.html',
-    styleUrls: ['./password-reset.component.css']
+    styleUrls: [ './password-reset.component.css' ]
 })
 export class PasswordResetComponent implements OnInit {
     passwordSent = false;
@@ -21,7 +21,9 @@ export class PasswordResetComponent implements OnInit {
         '|1[0-9][0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]' +
         '|\\\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\\])');
 
-    constructor(public title: Title, private toastr: ToastrService, private router: Router, private _auth: AuthService, private fb: FormBuilder) {
+    constructor(public title: Title, private toastr: ToastrService,
+        private router: Router, private _auth: AuthService,
+        private fb: FormBuilder) {
     }
 
     ngOnInit() {
@@ -31,7 +33,7 @@ export class PasswordResetComponent implements OnInit {
 
     createForm() {
         this.passwordResetForm = this.fb.group({
-            email: ['', [Validators.required, Validators.pattern(this.email_regex)]]
+            email: [ '', [ Validators.required, Validators.pattern(this.email_regex) ] ]
         });
     }
 
@@ -56,7 +58,7 @@ export class PasswordResetComponent implements OnInit {
 
     resendResetPassword() {
         this.sendPasswordReset().then(() => {
-            this.toastr.show(`Successfully resent a password reset email to ${this.email.value}`, 'Reset Password Email Resent');
+            this.toastr.show(`Successfully resent a password reset email to ${ this.email.value }`, 'Reset Password Email Resent');
         });
     }
 

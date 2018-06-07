@@ -14,15 +14,17 @@
                             <ul>
                                 <li data-aos="fade-up-right" data-aos-duration="1200">
                                     <button class="social-sign-in-btn has-text-centered" id="google-sign-in" (click)="signIn('google')">
-                                        <span class="social-logo"><img
-                                                src="/assets/images/feature-images/mobile/icons/google_logo.svg"></span>
+                                        <span class="social-logo">
+                                            <img src="/assets/images/feature-images/mobile/icons/google_logo.svg">
+                                        </span>
                                         <span class="social-text">Sign in with Google</span>
                                     </button>
                                 </li>
                                 <li data-aos="zoom-in" data-aos-duration="1200">
                                     <button class="social-sign-in-btn" id="facebook-sign-in" (click)="signIn('facebook')">
-                                        <span class="social-logo"><img
-                                                src="/assets/images/feature-images/mobile/icons/facebook_logo.svg"></span>
+                                        <span class="social-logo">
+                                            <img src="/assets/images/feature-images/mobile/icons/facebook_logo.svg">
+                                        </span>
                                         <span class="social-text">Sign in with Facebook</span>
                                     </button>
                                 </li>
@@ -41,25 +43,20 @@
                     </div>
                 </div>
                 <div class="is-hidden-mobile" data-aos="fade-up" data-aos-duration="1200">
-                    <svg width="24px" height="378px" viewBox="0 0 24 378" version="1.1"
-                         xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <svg width="24px" height="378px" viewBox="0 0 24 378" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                         <!-- Generator: Sketch 48.2 (47327) - http://www.bohemiancoding.com/sketch -->
                         <title>Group 9</title>
                         <desc>Created with Sketch.</desc>
                         <defs></defs>
-                        <g id="Sign-In-Desktop" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"
-                           transform="translate(-709.000000, -375.000000)">
+                        <g id="Sign-In-Desktop" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(-709.000000, -375.000000)">
                             <g id="Group-5" transform="translate(231.000000, 256.000000)">
                                 <g id="Group" transform="translate(103.000000, 119.000000)">
                                     <g id="Group-9" transform="translate(371.000000, 0.000000)">
-                                        <text id="or" font-family="AvenirNext-Bold, Avenir Next" font-size="20"
-                                              font-weight="bold" letter-spacing="3.341666" fill="#BFBFBF">
+                                        <text id="or" font-family="AvenirNext-Bold, Avenir Next" font-size="20" font-weight="bold" letter-spacing="3.341666" fill="#BFBFBF">
                                             <tspan x="3.59631601" y="195">or</tspan>
                                         </text>
-                                        <path d="M16.6799201,0.5 L16.6799201,171.573084" id="Line-2" stroke="#979797"
-                                              stroke-linecap="square"></path>
-                                        <path d="M16.6799201,205.5 L16.6799201,376.573084" id="Line-2-Copy"
-                                              stroke="#979797" stroke-linecap="square"></path>
+                                        <path d="M16.6799201,0.5 L16.6799201,171.573084" id="Line-2" stroke="#979797" stroke-linecap="square"></path>
+                                        <path d="M16.6799201,205.5 L16.6799201,376.573084" id="Line-2-Copy" stroke="#979797" stroke-linecap="square"></path>
                                     </g>
                                 </g>
                             </g>
@@ -74,38 +71,30 @@
                         <div class="field" data-aos="fade-up-right" data-aos="fade-up-left" data-aos-duration="1200">
                             <label class="label" for="email">Email:</label>
                             <input formControlName="email" class="input" required type="text" id="email" name="email">
-                            <p *ngIf="email.invalid && email.touched && email.errors.required" class="help invalid"
-                               data-aos="fade-up-right">
+                            <p *ngIf="email.invalid && email.touched && email.errors.required" class="help invalid" data-aos="fade-up-right">
                                 Email is required</p>
-                            <p *ngIf="email.invalid && email.touched && email.errors.pattern" class="help invalid"
-                               data-aos="fade-up-right">
+                            <p *ngIf="email.invalid && email.touched && email.errors.pattern" class="help invalid" data-aos="fade-up-right">
                                 Please provide a valid email</p>
-                            <p *ngIf="email.valid && email.touched && !emailInUse" class="help valid"
-                               data-aos="fade-up-right">
+                            <p *ngIf="email.valid && email.touched" class="help valid" data-aos="fade-up-right">
                                 Looking good so far! Now your password!</p>
                         </div>
                         <div class="field" data-aos="fade-up-left" data-aos="fade-up-left" data-aos-duration="1400">
                             <label class="label" for="password">Password:</label>
                             <div class="control">
-                                <input formControlName="password" class="input" type="password" id="password"
-                                       name="password" [class.error]="incorrectPassword">
-                                <p data-aos="fade-up-left"
-                                   *ngIf="(password.invalid && password.untouched) || incorrectPassword" class="help"
-                                   id="password-reset"><span>Forgot your password?</span><a [routerLink]="'/password-reset'">Reset Password</a>
+                                <input formControlName="password" class="input" type="password" id="password" name="password" [class.error]="incorrectPassword">
+                                <p data-aos="fade-up-left" *ngIf="(password.invalid && password.untouched) || incorrectPassword" class="help" id="password-reset">
+                                    <span>Forgot your password?</span>
+                                    <a [routerLink]="'/password-reset'">Reset Password</a>
                                 </p>
-                                <p *ngIf="password.invalid && password.touched && password.errors.required"
-                                   class="help invalid" data-aos="fade-up-right">
+                                <p *ngIf="password.invalid && password.touched && password.errors.required" class="help invalid" data-aos="fade-up-right">
                                     Password is required</p>
-                                <p *ngIf="password.valid && password.touched && !incorrectPassword" class="help valid"
-                                   data-aos="fade-up-right">
+                                <p *ngIf="password.valid && password.touched && !incorrectPassword" class="help valid" data-aos="fade-up-right">
                                     Looks good! Let's try signing you in!</p>
-                                <p *ngIf="incorrectPassword" class="help invalid"
-                                   data-aos="fade-up-right">
+                                <p *ngIf="incorrectPassword" class="help invalid" data-aos="fade-up-right">
                                     Hmmm...password is incorrect</p>
                             </div>
                         </div>
-                        <div id="sign-in-button" class="btn-container has-text-right is-hidden-mobile" data-aos="zoom-in"
-                             data-aos-duration="1200">
+                        <div id="sign-in-button" class="btn-container has-text-right is-hidden-mobile" data-aos="zoom-in" data-aos-duration="1200">
                             <button class="sign-in-btn btn" [disabled]="emailSignInForm.invalid || incorrectPassword">Sign In</button>
                         </div>
                         <div class="has-text-centered is-hidden-tablet">
@@ -114,8 +103,10 @@
                     </form>
                 </div>
             </div>
-            <p class="no-account" data-aos-anchor="#sign-in-button" data-aos="zoom-in" data-aos-duration="1500"><span>Don't have an account?</span> <a
-                    [routerLink]="'/get-started'">Sign Up</a></p>
+            <p class="no-account" data-aos-anchor="#sign-in-button" data-aos="zoom-in" data-aos-duration="1500">
+                <span>Don't have an account?</span>
+                <a [routerLink]="'/get-started'">Sign Up</a>
+            </p>
         </div>
     </div>
 </section>
