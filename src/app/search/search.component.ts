@@ -64,8 +64,13 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewChecked {
         this.searchType = sort_type;
         this.searchService.searchES(this.searchQuery, sort_type);
         this.angulartics2.eventTrack.next({
-            action: `${ this.searchQuery }`,
-            properties: { category: 'searchBox' },
+            action: 'User performed search',
+            properties: {
+                category: 'service-use',
+                label: 'action',
+                value: `${ this.searchQuery }`
+            },
+
         });
     }
 
