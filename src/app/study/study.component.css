@@ -214,6 +214,10 @@ hr {
     width: 90% !important;
 }
 
+.annotation-date {
+    margin-left: 0 !important;
+}
+
 .create-cta {
     margin-left: 3%;
 }
