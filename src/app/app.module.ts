@@ -18,6 +18,10 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
 import { RecaptchaModule } from 'ng-recaptcha';
 import { RecaptchaFormsModule } from 'ng-recaptcha/forms';
 
+// analytics
+import { Angulartics2Module } from 'angulartics2';
+import { Angulartics2GoogleAnalytics } from 'angulartics2/ga'
+
 
 // components
 import { AppComponent } from './app.component';
@@ -82,6 +86,7 @@ const appRoutes: Routes = [
         SafeHtmlPipe
     ],
     imports: [
+        Angulartics2Module.forRoot([ Angulartics2GoogleAnalytics ]),
         BrowserModule,
         BrowserAnimationsModule,
         FormsModule,
