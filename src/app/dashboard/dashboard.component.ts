@@ -1,3 +1,4 @@
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
@@ -26,6 +27,8 @@ export class DashboardComponent implements OnInit {
   // group variables
 
   hasNoGroups = false;
+  isLoading: BehaviorSubject<boolean> = new BehaviorSubject(true);
+  showResults = false;
   studyGroup = { name: '', uniqueID: '' };
   defaultNewStudy = { name: '', leader: '', description: '', bannerImage: '', profileImage: '' };
   newStudy = { name: '', leader: '', description: '', bannerImage: '', profileImage: '' };
@@ -63,6 +66,7 @@ export class DashboardComponent implements OnInit {
     private toastr: ToastrService) { }
 
   ngOnInit() {
+    this.isLoading.next(true);
     this._auth.authState.subscribe((res) => {
       if (res === null) {
         setTimeout(() => this._router.navigateByUrl('/sign-in'), 200);
@@ -72,6 +76,10 @@ export class DashboardComponent implements OnInit {
     this._data.userData.subscribe((res) => {
       this.data = res;
       if (res !== null) {
+        setTimeout(() => {
+          this.isLoading.next(false);
+          this.showResults = true;
+        }, 300);
         this.user = new User(res[ 'firstName' ], res[ 'lastName' ], res[ 'email' ], res[ 'data' ]);
         this.imageUrl = this.user.data.profileImage;
         this.name = this.user.firstName + ' ' + this.user.lastName;
