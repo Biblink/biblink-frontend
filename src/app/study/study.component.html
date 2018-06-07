@@ -256,21 +256,25 @@
           </div>
           <div class="annotations">
             <app-post-card *ngFor="let annotation of chapterAnnotations | async; let i = index;" [studyID]="groupID" [isLeader]="isLeader"
-              [isLast]="false" [id]="annotation['id']" [contributors]="[annotation['creatorID']]" [userID]="userID" [isCreator]="userID === annotation['creatorID']"
-              (delete)="deletePost($event, annotation['id'], annotation['creatorID'], isLeader)" (edit)="editPost($event, annotation['id'], annotation['creatorID'], isLeader)"
-              (reply)="replyToPost($event, annotation['id'])" (more)="getMorePosts(annotation['timestamp'])">
-              <p class="card-header-title">{{annotation['passage']}}</p>
-              <div class="metadata">
-                <div class="type">
+              [isLast]="false" [isAnnotation]="true" [id]="annotation['id']" [contributors]="[annotation['creatorID']]" [userID]="userID"
+              [isCreator]="userID === annotation['creatorID']" (delete)="deletePost($event, annotation['id'], annotation['creatorID'], isLeader)"
+              (edit)="editPost($event, annotation['id'], annotation['creatorID'], isLeader)" (reply)="replyToPost($event, annotation['id'])"
+              (more)="getMorePosts(annotation['timestamp'])">
+              <p class="card-header-title annotation-title">{{annotation['passage']}}</p>
+              <div class="metadata annotation-metadata">
+                <div class="type annotation-type">
                   <p>{{capitalize(annotation['type'])}}</p>
                 </div>
-                <div class="date">
+                <div class="date annotation-date">
                   <p>{{annotation['dateInfo']['time']}}</p>
                   <p>{{annotation['dateInfo']['date']}}</p>
                 </div>
               </div>
-              <div class="card-body" [innerHtml]="annotation['htmlText'] | safeHtml" (mouseenter)="getVerse($event)" [id]="'post-text-' + i">
-
+              <!-- <div class="card-body" [innerHtml]="annotation['htmlText'] | safeHtml" (mouseenter)="getVerse($event)" [id]="'post-text-' + i">
+                {{annotation['text']}}
+              </div> TODO: add route for htmlText -->
+              <div class="card-body" [id]="'annotation-text-' + i">
+                {{annotation['text']}}
               </div>
             </app-post-card>
           </div>

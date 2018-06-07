@@ -15,6 +15,7 @@ import { Reply } from '../interfaces/reply';
 })
 export class PostCardComponent implements OnInit {
   @Input() contributors = [];
+  @Input() isAnnotation = false;
   @Input() isLeader = false;
   @Input() userID = '';
   @Input() id = '';
