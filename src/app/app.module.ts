@@ -41,7 +41,6 @@ import { PasswordResetComponent } from './password-reset/password-reset.componen
 import { VerifyEmailComponent } from './verify-email/verify-email.component';
 import { UserDataService } from './user-data.service';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { NavDashboardComponent } from './nav-dashboard/nav-dashboard.component';
 import { DropZoneDirective } from './drop-zone.directive';
 import { FileUploadComponent } from './file-upload/file-upload.component';
 import { StudyDataService } from './study-data.service';
@@ -76,7 +75,6 @@ const appRoutes: Routes = [
         PasswordResetComponent,
         VerifyEmailComponent,
         DashboardComponent,
-        NavDashboardComponent,
         DropZoneDirective,
         FileUploadComponent,
         StudyComponent,
