@@ -210,6 +210,10 @@ hr {
     border: none;
 }
 
+.annotation-body {
+    width: 90% !important;
+}
+
 .create-cta {
     margin-left: 3%;
 }

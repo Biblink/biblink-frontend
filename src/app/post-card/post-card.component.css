@@ -199,6 +199,7 @@
 
 .annotation-subreply {
     word-wrap: break-word;
+    width: 60px !important;
 }
 
 .annotation-name {
