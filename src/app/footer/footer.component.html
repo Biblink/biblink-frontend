@@ -15,7 +15,7 @@
             <div class="content">
                 <div class="columns" data-aos="fade-up" data-aos-duration="1000">
                     <div class="column">
-                        <a>Bible Studies</a>
+                        <a [routerLink]="'/dashboard/home'">Bible Studies</a>
                     </div>
                     <div class="column">
                         <a>About Biblya</a>
@@ -70,8 +70,14 @@
                         <h3 data-aos="fade-right" data-aos-duration="1000">Product</h3>
                     </div>
                     <div class="content" data-aos="fade-up-left" data-aos-duration="1000">
-                        <div><a>Bible Studies</a></div>
-                        <div><a [routerLink]="'/search'">Bible Search</a></div>
+                        <div>
+                            <a [routerLink]="'/dashboard/home'" angulartics2On="click"
+    angularticsAction="Clicked Bible Studies link in footer" [angularticsCategory]="'link-click'" angularticsLabel="navigation">Bible Studies</a>
+                        </div>
+                        <div>
+<a [routerLink]="'/search'" angulartics2On="click" angularticsAction="Clicked Bible Search link in footer" [angularticsCategory]="'link-click'"
+    angularticsLabel="navigation">Bible Search</a>
+                        </div>
                     </div>
                 </div>
                 <div>
@@ -79,11 +85,21 @@
                         <h3 data-aos="fade-left" data-aos-duration="1000">Organization</h3>
                     </div>
                     <div class="content" data-aos="fade-up-right" data-aos-duration="1000">
-                        <div><a>About Biblya</a></div>
-                        <div><a>Terms of Use</a></div>
-                        <div><a>Privacy Policy</a></div>
-                        <div><a>Updates & Releases</a></div>
-                        <div><a>Contact Us</a></div>
+                        <div>
+                            <a>About Biblya</a>
+                        </div>
+                        <div>
+                            <a>Terms of Use</a>
+                        </div>
+                        <div>
+                            <a>Privacy Policy</a>
+                        </div>
+                        <div>
+                            <a>Updates & Releases</a>
+                        </div>
+                        <div>
+                            <a>Contact Us</a>
+                        </div>
                     </div>
                 </div>
                 <div>
@@ -91,8 +107,12 @@
                         <h3 data-aos="fade-right" data-aos-duration="1000">Support</h3>
                     </div>
                     <div class="content" data-aos="fade-up-left" data-aos-duration="1000">
-                        <div><a>FAQ</a></div>
-                        <div><a>Support Center</a></div>
+                        <div>
+                            <a>FAQ</a>
+                        </div>
+                        <div>
+                            <a>Support Center</a>
+                        </div>
                     </div>
                 </div>
             </div>

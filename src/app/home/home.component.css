@@ -187,6 +187,33 @@
     }
 }
 
+.user {
+    margin-top: -5px;
+    font-size: 2.0rem;
+}
+
+#user-actions {
+    width: 120px;
+    min-width: auto;
+}
+
+#user-actions .dropdown-content {
+    font-family: 'museo-sans', sans-serif;
+    text-align: right;
+    color: black;
+    border: none;
+    border-radius: 0
+}
+
+#user-actions .nav-link {
+    font-size: 0.9rem;
+    color: black;
+}
+
+#user-actions .nav-link:hover {
+    color: grey;
+}
+
 #menu-overlay {
     height: 0;
     width: 100%;
@@ -206,7 +233,7 @@
 }
 
 .menu-links .nav-link {
-    text-spacing: 3px;
+    letter-spacing: 3px;
 }
 
 .menu-links {
@@ -267,7 +294,6 @@
     right: 17px;
     float: right;
 }
-
 
 .nav-link:hover {
     color: #afacac;
@@ -437,7 +463,8 @@
     animation: fadeInDownTop 3.5s;
 }
 
-.desktop .get-started-btn:hover, .mobile .get-started-btn:hover {
+.desktop .get-started-btn:hover,
+.mobile .get-started-btn:hover {
     color: #343232;
     background-color: #f1f1f1;
     border: 3px solid #f1f1f1;
@@ -754,3 +781,14 @@
     transition: all 0.2s ease-in-out;
 }
 
+.user-image {
+    margin-top: -10px;
+    width: 45px;
+    height: 45px;
+    border-radius: 100%;
+}
+
+.user.user-image {
+    height: 50px;
+    width: 50px;
+}

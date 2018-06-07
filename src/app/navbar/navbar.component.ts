@@ -1,7 +1,8 @@
-import {Component, OnInit} from '@angular/core';
-import {AppComponent} from '../app.component';
-import {AuthService} from '../auth.service';
-import {Router} from '@angular/router';
+import { UserDataService } from './../user-data.service';
+import { Component, OnInit } from '@angular/core';
+import { AppComponent } from '../app.component';
+import { AuthService } from '../auth.service';
+import { Router } from '@angular/router';
 
 declare const AOS: any;
 declare const $: any;
@@ -9,7 +10,7 @@ declare const $: any;
 @Component({
     selector: 'app-navbar',
     templateUrl: './navbar.component.html',
-    styleUrls: ['./navbar.component.css']
+    styleUrls: [ './navbar.component.css' ]
 })
 export class NavbarComponent implements OnInit {
     activated = false;
@@ -17,8 +18,9 @@ export class NavbarComponent implements OnInit {
     menuHeight = '0';
     menuZ = 0;
     isLoggedIn: boolean = null;
+    imageUrl = '';
 
-    constructor(private _auth: AuthService, private _router: Router) {
+    constructor(private _auth: AuthService, private _router: Router, private _data: UserDataService) {
     }
 
     toHome() {
@@ -26,6 +28,12 @@ export class NavbarComponent implements OnInit {
     }
 
     ngOnInit() {
+
+        this._data.userData.subscribe((user) => {
+            if (user !== null) {
+                this.imageUrl = user.data.profileImage;
+            }
+        });
         this._auth.authState.subscribe((state) => {
             this.isLoggedIn = !(state === null);
         });
@@ -61,7 +69,6 @@ export class NavbarComponent implements OnInit {
         };
 
         function homeAction() {
-            console.log('home');
         }
 
         function downAction() {
