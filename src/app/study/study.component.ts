@@ -58,6 +58,7 @@ export class StudyComponent implements OnInit {
   isDone = false;
   userID = '';
   groupID = '';
+  isGettingMorePosts = false;
   constructor(private _router: Router,
     private _search: SearchService,
     private _study: StudyDataService,
@@ -141,13 +142,22 @@ export class StudyComponent implements OnInit {
             this.postIndices[ index ] = post[ 'id' ];
             acc[ index ] = post;
           } else {
-            this.postIndices.unshift(post[ 'id' ]);
+            if (this.isGettingMorePosts) {
+              this.postIndices.push(post[ 'id' ]);
+            } else {
+              this.postIndices.unshift(post[ 'id' ]);
+            }
             valid.push(post);
           }
         });
         this.isLoading.next(false);
         this.postLength = acc.length + valid.length;
-        acc = valid.concat(acc);
+        if (this.isGettingMorePosts) {
+          acc = acc.concat(valid);
+        } else {
+          acc = valid.concat(acc);
+        }
+        this.isGettingMorePosts = false;
         return acc;
       }));
     // this._study.updatePost(this.groupID);
@@ -234,6 +244,7 @@ export class StudyComponent implements OnInit {
   }
 
   getMorePosts(timestamp: string, limit = 10) {
+    this.isGettingMorePosts = true;
     if (this.isDone) {
       return;
     }
