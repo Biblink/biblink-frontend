@@ -79,7 +79,7 @@ export class DashboardComponent implements OnInit {
         setTimeout(() => {
           this.isLoading.next(false);
           this.showResults = true;
-        }, 300);
+        }, 500);
         this.user = new User(res[ 'firstName' ], res[ 'lastName' ], res[ 'email' ], res[ 'data' ]);
         this.imageUrl = this.user.data.profileImage;
         this.name = this.user.firstName + ' ' + this.user.lastName;
