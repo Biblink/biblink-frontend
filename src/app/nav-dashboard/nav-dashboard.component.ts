@@ -4,6 +4,8 @@ import { AppComponent } from '../app.component';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
 
+declare const $: any;
+declare const AOS: any;
 @Component({
   selector: 'app-nav-dashboard',
   templateUrl: './nav-dashboard.component.html',
