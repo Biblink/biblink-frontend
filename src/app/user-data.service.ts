@@ -18,7 +18,6 @@ export class UserDataService {
         this.userID.next('');
         console.log('creating default user');
       } else {
-        console.log('User is logged in: ' + res.email);
         this.userReference = this.afs.doc(`/users/${ res.uid }`);
         setTimeout(() => {
           if (res.emailVerified) {
