@@ -7,7 +7,7 @@
     "start": "ng serve",
     "ngsw-config": "node_modules/.bin/ngsw-config dist src/ngsw-config.json",
     "ngsw-copy": "cp node_modules/@angular/service-worker/ngsw-worker.js dist/",
-    "deploy": "ng build --prod && yarn run ngsw-config && yarn run ngsw-copy",
+    "deploy": "ng build --prod && npm run ngsw-config && npm run ngsw-copy",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
