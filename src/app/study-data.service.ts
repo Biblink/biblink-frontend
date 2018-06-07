@@ -252,7 +252,7 @@ export class StudyDataService {
     return this.afs.doc(`/studies/${ studyID }`).collection('members').doc(uid).valueChanges();
   }
 
-  formatAnnotations(reference) {
+  formatAnnotations(reference, returnVersesList = false) {
     const bookChapter = reference.slice(0, reference.indexOf(':')); // Example: Genesis 1:1,2,3,4 => Genesis 1
     let verses = reference.slice(reference.indexOf(':') + 1, reference.length); // Example: Genesis 1:1,2,3,4 => 1,2,3,4
     verses = verses.trim();
@@ -291,6 +291,9 @@ export class StudyDataService {
     }
     digits = digits.sort(function (a, b) { return a - b; });
     digits = Array.from(new Set(digits)); // Ensures all verse numbers are in ascending order
+    if (returnVersesList) {
+      return digits;
+    }
     let lo = digits[ 0 ];
     let hi = -1;
     const ranges = []; // Container for formatted verse segments
