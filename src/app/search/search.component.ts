@@ -3,6 +3,8 @@ import { Title } from '@angular/platform-browser';
 import { SearchService } from '../search.service';
 import { ScrollToConfigOptions, ScrollToService } from '@nicky-lenaers/ngx-scroll-to';
 import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
+import { Angulartics2 } from 'angulartics2'
+
 
 declare const AOS: any;
 @Component({
@@ -19,7 +21,9 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewChecked {
         private _router: Router,
         private _scrollToService: ScrollToService,
         private _route: ActivatedRoute,
-        private cdr: ChangeDetectorRef) {
+        private cdr: ChangeDetectorRef,
+        private angulartics2: Angulartics2) {
+
     }
 
     ngOnInit() {
@@ -59,6 +63,10 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewChecked {
         this.isSearching = true;
         this.searchType = sort_type;
         this.searchService.searchES(this.searchQuery, sort_type);
+        this.angulartics2.eventTrack.next({
+            action: `${ this.searchQuery }`,
+            properties: { category: 'searchBox' },
+        });
     }
 
 }
