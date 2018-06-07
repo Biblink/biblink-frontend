@@ -3,6 +3,7 @@ import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { UserDataService } from '../user-data.service';
+import { Angulartics2Module } from 'angulartics2';
 
 declare const AOS: any;
 declare const $: any;

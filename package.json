@@ -31,6 +31,7 @@
     "@ngx-share/core": "^5.3.1",
     "@nicky-lenaers/ngx-scroll-to": "^0.5.0",
     "angularfire2": "^5.0.0-rc.10",
+    "angulartics2": "^6.1.0",
     "core-js": "^2.4.1",
     "firebase": "^5.0.4",
     "ng-recaptcha": "^3.0.3",
