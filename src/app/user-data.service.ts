@@ -20,27 +20,32 @@ export class UserDataService {
       } else {
         console.log('User is logged in: ' + res.email);
         this.userReference = this.afs.doc(`/users/${ res.uid }`);
-        if (res.emailVerified) {
-          this.userID.next(res.uid);
-          this.userReference.snapshotChanges().subscribe((response) => {
-            if (response.payload.exists === false) {
-              console.log('waiting to see if any data is updated');
-              setTimeout(() => {
-                console.log('didn\'t receive update in 5 seconds...');
-                const data = new User('', '', res.email, { profileImage: res.photoURL, bio: '', shortDescription: '' });
-                this.userReference.set(Utils.toJson(data));
-                console.log('added to firebase collection');
-              }, 5000);
-            } else {
-              const data = response.payload.data() as User;
-              if (data.email !== res.email) {
-                data.email = res.email;
-                this.userReference.update(data);
+        setTimeout(() => {
+          if (res.emailVerified) {
+            this.userID.next(res.uid);
+            const dataRef = this.userReference.snapshotChanges();
+            const dataSubscription = dataRef.subscribe((response) => {
+              if (response.payload.exists === false) {
+                console.log('waiting to see if any data is updated');
+                console.log('retrying...');
+                setTimeout(() => {
+                  console.log('didn\'t receive update in 5 seconds...');
+                  const data = new User('', '', res.email, { profileImage: res.photoURL, bio: '', shortDescription: '' });
+                  this.userReference.set(Utils.toJson(data));
+                  console.log('added to firebase collection');
+                }, 5000);
+              } else {
+                const data = response.payload.data() as User;
+                if (data.email !== res.email) {
+                  data.email = res.email;
+                  this.userReference.update(data);
+                }
+                this.userData.next(data);
               }
-              this.userData.next(data);
-            }
-          });
-        }
+            });
+          }
+        }, 1000);
+
       }
     });
   }
