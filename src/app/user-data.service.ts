@@ -30,7 +30,7 @@ export class UserDataService {
                 const data = new User('', '', res.email, { profileImage: res.photoURL, bio: '', shortDescription: '' });
                 this.userReference.set(Utils.toJson(data));
                 console.log('added to firebase collection');
-              }, 1000);
+              }, 5000);
             } else {
               const data = response.payload.data() as User;
               if (data.email !== res.email) {

@@ -18,6 +18,12 @@
     padding: 0;
 }
 
+.post .annotation-title {
+    font-size: 1.4rem !important;
+    margin-top: 20px;
+    margin-left: 25px !important;
+}
+
 .post .card-header-title,
 .post .card-content {
     margin-left: 35px;
@@ -44,6 +50,18 @@
 
 .post .metadata .date {
     color: #242323;
+}
+
+.post .metadata .annotation-date,
+.post .annotation-type {
+    font-size: 0.6rem !important;
+    color: #767272 !important;
+    line-height: 1.5 !important;
+}
+
+.post .annotation-metadata {
+    margin-right: 15px !important;
+    margin-top: 11px !important;
 }
 
 .post .card-links {
@@ -109,6 +127,45 @@
     line-height: 25px;
 }
 
+.lower {
+    position: relative;
+    bottom: -9px;
+}
+
+.annotation-action {
+    font-size: 0.8rem !important;
+    margin-right: 5px;
+}
+
+.annotation-with-replies {
+    position: relative;
+    top: 2px;
+}
+
+.annotation-dropdown {
+    position: relative;
+    right: -3px;
+}
+
+.remove-padding {
+    padding-right: 0;
+    padding-left: 0;
+}
+
+.annotation-contributors {
+    padding-left: 0;
+}
+
+.annotation-actions {
+    margin-left: -10px;
+}
+
+.annotation-contributor {
+    font-size: 0.7rem !important;
+    color: #767272;
+    margin-right: 3px !important;
+}
+
 .post-action:hover {
     text-decoration: underline;
 }
@@ -118,6 +175,10 @@
     margin-bottom: 50px;
 }
 
+.annotation-card-content {
+    margin-bottom: 25px !important;
+}
+
 .reply {
     width: 90%;
     margin: 0 auto;
@@ -125,11 +186,43 @@
     box-shadow: 0 2px 4px 0 rgba(202, 187, 187, 0.5);
 }
 
+.annotation-reply {
+    width: 80% !important;
+}
+
+.annotation-reply-text {
+    font-size: 0.8rem;
+    margin-left: 10px !important;
+    word-wrap: break-word;
+    width: 100px;
+}
+
+.annotation-subreply {
+    word-wrap: break-word;
+}
+
+.annotation-name {
+    font-size: 0.7rem !important;
+}
+
+.reply-annotation-image {
+    width: 24px;
+    height: 24px;
+    margin-right: 0 !important;
+}
+
 .contributor-text {
     margin-right: 7px;
 }
 
+.annotator-image {
+    position: relative;
+    top: 7px !important;
+    margin-right: 0 !important;
+}
+
 .contributor-image {
+    z-index: 5;
     box-sizing: border-box;
     height: 28px;
     width: 28px;
@@ -175,6 +268,8 @@
 
 .reply-text {
     margin-left: 29px;
+    width: 60%;
+    word-wrap: break-word;
 }
 
 .sub-reply {
