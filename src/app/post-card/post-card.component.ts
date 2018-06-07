@@ -16,6 +16,7 @@ import { Reply } from '../interfaces/reply';
 export class PostCardComponent implements OnInit {
   @Input() contributors = [];
   @Input() isAnnotation = false;
+  @Input() chapterRef = '';
   @Input() isLeader = false;
   @Input() userID = '';
   @Input() id = '';
@@ -62,7 +63,11 @@ export class PostCardComponent implements OnInit {
   }
 
   getReplies() {
-    this._study.getPostRepliesByID(this.studyID, this.id).subscribe((replies) => {
+    let repliesSubscriber = this._study.getPostRepliesByID(this.studyID, this.id);
+    if (this.isAnnotation) {
+      repliesSubscriber = this._study.getAnnotationRepliesByID(this.studyID, this.chapterRef, this.id);
+    }
+    repliesSubscriber.subscribe((replies) => {
       this.replies = [];
       replies.forEach((reply) => {
         let firstTime = false;
@@ -111,6 +116,11 @@ export class PostCardComponent implements OnInit {
 
 
   getSubReplies(postID) {
+    if (this.isAnnotation) {
+      return this.afs.doc(`/studies/${ this.studyID }`)
+        .collection('annotations').doc(this.chapterRef).collection('chapter-annotations').doc(this.id).collection('replies').doc(postID)
+        .collection('subreplies', ref => ref.orderBy('timestamp', 'asc')).valueChanges();
+    }
     return this.afs.doc(`/studies/${ this.studyID }`)
       .collection('posts').doc(this.id).collection('replies').doc(postID)
       .collection('subreplies', ref => ref.orderBy('timestamp', 'asc')).valueChanges();
@@ -120,17 +130,24 @@ export class PostCardComponent implements OnInit {
     const reply = new Reply(this.subReplyText, this.userID, Math.round((new Date()).getTime() / 1000), [], []);
     const jsonReply = Utils.toJson(reply);
     jsonReply[ 'id' ] = firebaseID;
-    const ref = this.afs.doc(`/studies/${ this.studyID }`).collection('posts').doc(`${ this.id }`);
-    const updateContributor = ref.valueChanges().subscribe((val) => {
-      if (val[ 'contributors' ].indexOf(reply.creatorID) === -1) {
-        val[ 'contributors' ].push(reply.creatorID);
-      }
-      ref.update(val).then(() => {
-        updateContributor.unsubscribe();
+    let ref = this.afs.doc(`/studies/${ this.studyID }`).collection('posts').doc(`${ this.id }`);
+    if (this.isAnnotation) {
+      ref = this.afs.doc(`/studies/${ this.studyID }`)
+        .collection('annotations')
+        .doc(this.chapterRef)
+        .collection('chapter-annotations').doc(this.id);
+    }
+    if (!this.isAnnotation) {
+      const updateContributor = ref.valueChanges().subscribe((val) => {
+        if (val[ 'contributors' ].indexOf(reply.creatorID) === -1) {
+          val[ 'contributors' ].push(reply.creatorID);
+        }
+        ref.update(val).then(() => {
+          updateContributor.unsubscribe();
+        });
       });
-    });
-    this.afs.doc(`/studies/${ this.studyID }`)
-      .collection('posts').doc(this.id).collection('replies').doc(this.replyID).collection('subreplies').doc(firebaseID).set(jsonReply)
+    }
+    ref.collection('replies').doc(this.replyID).collection('subreplies').doc(firebaseID).set(jsonReply)
       .then(() => {
         this.toastr.show('Created Subreply', 'Succesfully Created Subreply');
         this.subReplyText = '';
