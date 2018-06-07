@@ -10,7 +10,8 @@
             <a class="nav-link" [routerLink]="'/search'">Search</a>
         </div>
         <div>
-            <a class="nav-link" [routerLink]="'/dashboard/home'">Dashboard</a>
+            <a class="nav-link" [routerLink]="'/dashboard/home'" angulartics2On="click"
+    angularticsAction="Clicked Dashboard link under profile image" [angularticsCategory]="'link-click'" angularticsLabel="navigation">Dashboard</a>
         </div>
         <div>
             <a class="nav-link" [routerLink]="'/sign-in'" *ngIf="!isLoggedIn">Sign In</a>
@@ -38,7 +39,8 @@
                         <div class="dropdown-menu" id="user-actions" role="menu">
                             <div class="dropdown-content">
                                 <div class="dropdown-item">
-                                    <a class="nav-link" [routerLink]="'/dashboard/home'">Dashboard</a>
+                                    <a class="nav-link" [routerLink]="'/dashboard/home'" angulartics2On="click"
+    angularticsAction="Clicked Dashboard link under profile image" [angularticsCategory]="'link-click'" angularticsLabel="navigation">Dashboard</a>
                                     <hr class="dropdown-divider">
                                     <a class="nav-link" (click)="logout()">Logout</a>
                                 </div>
@@ -81,7 +83,8 @@
                         <div class="dropdown-menu" id="user-actions" role="menu">
                             <div class="dropdown-content">
                                 <div class="dropdown-item">
-                                    <a class="nav-link" [routerLink]="'/dashboard/home'">Dashboard</a>
+                                    <a class="nav-link" [routerLink]="'/dashboard/home'" angulartics2On="click"
+    angularticsAction="Clicked Dashboard link under profile image" [angularticsCategory]="'link-click'" angularticsLabel="navigation">Dashboard</a>
                                     <hr class="dropdown-divider">
                                     <a class="nav-link" (click)="logout()">Logout</a>
                                 </div>
@@ -104,13 +107,17 @@
                     </h2>
                 </div>
                 <div class="column is-1">
-                    <button *ngIf="!isLoggedIn" class="get-started-btn btn" [routerLink]="'/get-started'">
+                    <button *ngIf="!isLoggedIn" class="get-started-btn btn" [routerLink]="'/get-started'" angulartics2On="click" angularticsAction="Clicked top Get Started button"
+                        [angularticsCategory]="'button-click'" angularticsLabel="conversion">
                         Get Started
                     </button>
-                    <button *ngIf="isLoggedIn" class="get-started-btn btn" [routerLink]="'/dashboard/home'">
+                    <button *ngIf="isLoggedIn" class="get-started-btn btn" [routerLink]="'/dashboard/home'" angulartics2On="click"
+    angularticsAction="Clicked Dashboard button" [angularticsCategory]="'button-click'" angularticsLabel="navigation">
                         To Dashboard
                     </button>
-                    <button class="learn-more-btn btn" [ngx-scroll-to]="'#verse'" [ngx-scroll-to-duration]="1500" [ngx-scroll-to-easing]="'easeInOutQuart'">
+                    <button class="learn-more-btn btn" [ngx-scroll-to]="'#verse'" [ngx-scroll-to-duration]="1500" [ngx-scroll-to-easing]="'easeInOutQuart'"
+                    angulartics2On="click"
+    angularticsAction="Clicked Learn More button" [angularticsCategory]="'buttom-click'" angularticsLabel="learn-more">
                         Learn More
                     </button>
                 </div>
@@ -263,7 +270,7 @@
         <h4 class="cta-header subheader" data-aos="zoom-out-down" data-aos-duration="1200">So what are you waiting for?</h4>
         <p class="cta-text" data-aos="zoom-out-up" data-aos-duration="1500">Get your church started now!</p>
         <button class="get-started-cta btn" data-aos="fade-up" data-aos-duration="1000" [routerLink]="'/get-started'" angulartics2On="click"
-            angularticsAction="clicked get-started" [angularticsCategory]="'bottom of page get-started'">
+            angularticsAction="Clicked bottom Get Started button" [angularticsCategory]="'button-click'" angularticsLabel="conversion">
             Get Started
         </button>
         <p>
@@ -275,7 +282,8 @@
         <hr class="has-text-centered cta-divider" data-aos="zoom-in-up" data-aos-duration="800">
         <h4 class="cta-header" data-aos="zoom-out-down" data-aos-duration="1200">So what are you waiting for?</h4>
         <p class="cta-text" data-aos="zoom-out-up" data-aos-duration="1500">Get your church started now!</p>
-        <button class="get-started-cta btn" data-aos="fade-up" data-aos-duration="1000" [routerLink]="'/get-started'">
+        <button class="get-started-cta btn" data-aos="fade-up" data-aos-duration="1000" [routerLink]="'/get-started'" angulartics2On="click"
+            angularticsAction="Clicked bottom Get Started button" [angularticsCategory]="'button-click'" angularticsLabel="conversion">
             Get Started
         </button>
         <p>
