@@ -67,10 +67,7 @@ export class SignInComponent implements OnInit {
         this.differentCredential = false;
         this._auth.userLogin(provider, data).then((res: User | Object) => {
             if (res instanceof User) {
-                console.log(res);
-                console.log(res.email);
             } else {
-                console.log(res);
                 if (res[ 'errorCode' ] === 'auth/wrong-password') {
                     this.incorrectPassword = true;
                 } else if (res[ 'errorCode' ] === 'auth/account-exists-with-different-credential') {
