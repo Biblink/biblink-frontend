@@ -10,8 +10,8 @@
             <a class="nav-link" [routerLink]="'/search'">Search</a>
         </div>
         <div>
-            <a class="nav-link" [routerLink]="'/dashboard/home'" angulartics2On="click"
-    angularticsAction="Clicked Dashboard link under profile image" [angularticsCategory]="'link-click'" angularticsLabel="navigation">Dashboard</a>
+            <a class="nav-link" [routerLink]="'/dashboard/home'" angulartics2On="click" angularticsAction="Clicked Dashboard link under profile image"
+                [angularticsCategory]="'link-click'" angularticsLabel="navigation">Dashboard</a>
         </div>
         <div>
             <a class="nav-link" [routerLink]="'/sign-in'" *ngIf="!isLoggedIn">Sign In</a>
@@ -39,8 +39,8 @@
                         <div class="dropdown-menu" id="user-actions" role="menu">
                             <div class="dropdown-content">
                                 <div class="dropdown-item">
-                                    <a class="nav-link" [routerLink]="'/dashboard/home'" angulartics2On="click"
-    angularticsAction="Clicked Dashboard link under profile image" [angularticsCategory]="'link-click'" angularticsLabel="navigation">Dashboard</a>
+                                    <a class="nav-link" [routerLink]="'/dashboard/home'" angulartics2On="click" angularticsAction="Clicked Dashboard link under profile image"
+                                        [angularticsCategory]="'link-click'" angularticsLabel="navigation">Dashboard</a>
                                     <hr class="dropdown-divider">
                                     <a class="nav-link" (click)="logout()">Logout</a>
                                 </div>
@@ -83,8 +83,8 @@
                         <div class="dropdown-menu" id="user-actions" role="menu">
                             <div class="dropdown-content">
                                 <div class="dropdown-item">
-                                    <a class="nav-link" [routerLink]="'/dashboard/home'" angulartics2On="click"
-    angularticsAction="Clicked Dashboard link under profile image" [angularticsCategory]="'link-click'" angularticsLabel="navigation">Dashboard</a>
+                                    <a class="nav-link" [routerLink]="'/dashboard/home'" angulartics2On="click" angularticsAction="Clicked Dashboard link under profile image"
+                                        [angularticsCategory]="'link-click'" angularticsLabel="navigation">Dashboard</a>
                                     <hr class="dropdown-divider">
                                     <a class="nav-link" (click)="logout()">Logout</a>
                                 </div>
@@ -111,13 +111,13 @@
                         [angularticsCategory]="'button-click'" angularticsLabel="conversion">
                         Get Started
                     </button>
-                    <button *ngIf="isLoggedIn" class="get-started-btn btn" [routerLink]="'/dashboard/home'" angulartics2On="click"
-    angularticsAction="Clicked Dashboard button" [angularticsCategory]="'button-click'" angularticsLabel="navigation">
+                    <button *ngIf="isLoggedIn" class="get-started-btn btn" [routerLink]="'/dashboard/home'" angulartics2On="click" angularticsAction="Clicked Dashboard button"
+                        [angularticsCategory]="'button-click'" angularticsLabel="navigation">
                         To Dashboard
                     </button>
                     <button class="learn-more-btn btn" [ngx-scroll-to]="'#verse'" [ngx-scroll-to-duration]="1500" [ngx-scroll-to-easing]="'easeInOutQuart'"
-                    angulartics2On="click"
-    angularticsAction="Clicked Learn More button" [angularticsCategory]="'buttom-click'" angularticsLabel="learn-more">
+                        angulartics2On="click" angularticsAction="Clicked Learn More button" [angularticsCategory]="'buttom-click'"
+                        angularticsLabel="learn-more">
                         Learn More
                     </button>
                 </div>

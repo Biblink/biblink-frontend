@@ -8,7 +8,8 @@ import { AbstractControl, FormBuilder, FormGroup, ValidatorFn, Validators, FormC
 import { User } from '../interfaces/user';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { AngularFireAuth } from 'angularfire2/auth';
-import * as firebase from 'firebase';
+import * as firebase from 'firebase/app';
+import 'firebase/auth';
 import { StudyDataService } from '../study-data.service';
 import { Router } from '@angular/router';
 
