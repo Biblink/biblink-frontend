@@ -123,7 +123,7 @@
           </div>
         </div>
         <div class="bible-text">
-          <span class="verse" *ngFor="let verse of bibleData['verse_data']; let i = index;" [class.is-underlined]="underlinedVerses[i]"
+          <span class="shared-bible-verse" *ngFor="let verse of bibleData['verse_data']; let i = index;" [class.is-underlined]="underlinedVerses[i]"
             (click)="underlinedVerses[i] = underlinedVerses[i] === true ? false: true; expandActions(); prepareAnnotation();">
             <span class="verse-number">{{verse['verse_number']}}</span>
             {{verse['text']}}

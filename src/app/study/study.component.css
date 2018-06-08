@@ -745,7 +745,7 @@ input:checked+.slider:before {
     letter-spacing: 2px;
 }
 
-.verse:hover {
+.shared-bible-verse:hover {
     cursor: pointer;
 }
 
