@@ -226,7 +226,11 @@ li.is-active-tab a {
 }
 
 .btn-actions {
-    width: 50%;
+    width: 55%;
+    margin: 0 auto;
+}
+
+.create-study {
     margin: 0 auto;
 }
 
@@ -393,6 +397,8 @@ li.is-active-tab a {
     margin-top: 36px;
     /* margin-left: 50px    ; */
     margin-bottom: 103px;
+    width: 75%;
+    margin: 0 auto;
 }
 
 .card {
@@ -401,6 +407,7 @@ li.is-active-tab a {
     background-color: #FFFFFF;
     box-shadow: 0 4px 8px 2px rgba(202, 187, 187, 0.5);
     padding: 0;
+    margin-bottom: 50px;
 }
 
 .card-backdrop {
