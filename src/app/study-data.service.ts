@@ -5,8 +5,8 @@ import 'rxjs/add/operator/take';
 import { Group } from './interfaces/group';
 import { Injectable, OnInit } from '@angular/core';
 import { AuthService } from './auth.service';
-import { AngularFirestore, AngularFirestoreDocument } from 'angularfire2/firestore';
-import { Observable, BehaviorSubject } from 'rxjs';
+import { AngularFirestore, AngularFirestoreDocument, AngularFirestoreCollection } from 'angularfire2/firestore';
+import { Observable, BehaviorSubject, Subscription } from 'rxjs';
 import { UserDataInterface } from './interfaces/user-data.interface';
 import { User } from './interfaces/user';
 import { Utils } from './utilities/utils';
@@ -24,12 +24,27 @@ export class StudyDataService {
   study_sync = [];
   study_indices = [];
   constructor(private user: UserDataService, public afs: AngularFirestore) {
+    let groupsReference: AngularFirestoreCollection = null;
+    let groupSubscription: Subscription = null;
+    const studySubscriptions: Subscription[] = [];
+    let isLoggedOut = false;
     this.user.userID.subscribe((uid) => {
       if (uid === '') {
         this.studies.next([]);
+        isLoggedOut = true;
+        groupsReference = null;
+        if (groupSubscription !== null) {
+          groupSubscription.unsubscribe();
+        }
+
+        if (studySubscriptions.length > 0) {
+          studySubscriptions.forEach((subscription: Subscription) => {
+            subscription.unsubscribe();
+          });
+        }
       } else {
-        const groupsReference = this.afs.collection(`/users/${ uid }/studies`);
-        groupsReference.valueChanges().subscribe((groups) => {
+        groupsReference = this.afs.collection(`/users/${ uid }/studies`);
+        groupSubscription = groupsReference.valueChanges().subscribe((groups) => {
           this.study_sync = [];
           if (groups.length === 0) {
             console.log('this person does not have any groups');
@@ -38,7 +53,7 @@ export class StudyDataService {
             // get study data
             let isFirstTime = false;
             let metadata = {};
-            this.afs.doc(`/studies/${ studyData[ 'id' ] }`).valueChanges().subscribe((data) => {
+            studySubscriptions.push(this.afs.doc(`/studies/${ studyData[ 'id' ] }`).valueChanges().subscribe((data) => {
               data[ 'metadata' ][ 'name' ] = data[ 'name' ];
               data[ 'metadata' ][ 'role' ] = studyData[ 'role' ];
               data[ 'metadata' ][ 'id' ] = studyData[ 'id' ];
@@ -51,7 +66,7 @@ export class StudyDataService {
                 metadata = data[ 'metadata' ];
               }
               this.studies.next(this.study_sync);
-            });
+            }));
           });
         });
       }

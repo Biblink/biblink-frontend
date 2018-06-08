@@ -76,11 +76,9 @@ export class DashboardComponent implements OnInit {
     this.createForm();
     this._data.userData.subscribe((res) => {
       this.data = res;
-      if (res !== null) {
-        setTimeout(() => {
-          this.isLoading.next(false);
-          this.showResults = true;
-        }, 500);
+      if (res !== null && (res.email !== null && res.email !== '')) {
+        this.isLoading.next(false);
+        this.showResults = true;
         this.user = new User(res[ 'firstName' ], res[ 'lastName' ], res[ 'email' ], res[ 'data' ]);
         this.imageUrl = this.user.data.profileImage;
         this.name = this.user.firstName + ' ' + this.user.lastName;

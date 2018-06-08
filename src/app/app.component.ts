@@ -12,7 +12,7 @@ export class AppComponent implements OnInit {
     static navInitialized = false;
     onHome = false;
 
-    constructor(private _route: Router, private _userData: UserDataService, angulartics2GoogleAnalytics: Angulartics2GoogleAnalytics) {
+    constructor(private _route: Router, angulartics2GoogleAnalytics: Angulartics2GoogleAnalytics) {
         this._route.events.subscribe((event) => {
             if (this._route.url === '/' || this._route.url.indexOf('studies') !== -1) {
                 this.onHome = true;
