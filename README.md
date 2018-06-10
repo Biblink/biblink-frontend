@@ -8,8 +8,9 @@ Authors: Brandon Fan, Jordan Seiler
 
 ## TODO List
 
-* Design and Implement Authentication & Get Started
-* Design and Implement Dashboard Feed and Features
+* Implement user types: Administrator & Study Leaders
+* Continue implementing dashboard features
+* Implement highlighting in the shared Bible
 
 ## Resources
 
