@@ -11,7 +11,7 @@ import { AngularFirestore } from 'angularfire2/firestore';
 export class AuthService {
     userData: User;
     actionCodeSettings = {
-        url: 'http://0.0.0.0:4200/sign-in'
+        url: 'https://biblya-ed2ec.firebaseapp.com//sign-in' // TODO: change with new domain
     };
 
     constructor(private _afAuth: AngularFireAuth) { }
