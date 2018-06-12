@@ -82,7 +82,7 @@
             <div class="verse-container" *ngFor="let verse of post['verses']" [innerHtml]="verse | safeHtml"></div>
           </div>
         </app-post-card>
-        <div class="has-text-centered" *ngIf="postLength === 0 && (currentTab !== 'shared-bible' && currentTab !== 'shared-calendar')">
+        <div class="has-text-centered" *ngIf="(!isLoading | async) && (postLength === 0 && (currentTab !== 'shared-bible' && currentTab !== 'shared-calendar'))">
           <h1 class="title is-4">Be the first to add a{{currentTab === 'announcements' ? 'n announcement' : (currentTab === 'feed' ? ' post' : '
             ' + currentTab.slice(0, -1))}}!
           </h1>
