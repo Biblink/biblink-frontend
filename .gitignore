@@ -4,3 +4,5 @@ package-lock.json
 firebase-debug.log
 .idea
 src/environments
+src/environments/environment.ts
+src/environments/environment.prod.ts
