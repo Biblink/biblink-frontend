@@ -2,8 +2,8 @@ import { Title } from '@angular/platform-browser';
 
 import { scan, map, pluck } from 'rxjs/operators';
 import { SearchService } from './../search.service';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { Component, OnInit } from '@angular/core';
+import { BehaviorSubject, Observable, Subscription } from 'rxjs';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { StudyDataService } from '../study-data.service';
 import { UserDataService } from '../user-data.service';
@@ -21,7 +21,21 @@ declare const $: any;
   styleUrls: [ './study.component.css' ]
 })
 
-export class StudyComponent implements OnInit {
+export class StudyComponent implements OnInit, OnDestroy {
+  editPostSubscription: Subscription = new Subscription();
+  chapterAnnotationsSubscription: Subscription = new Subscription();
+  editAnnotationSubscription: Subscription = new Subscription();
+  getMorePostSubscription: Subscription = new Subscription();
+  chapterSubscription: Subscription = new Subscription();
+  membersSubscription: Subscription = new Subscription();
+  keyAnnouncementSubscription: Subscription = new Subscription();
+
+  postSubscription: Subscription = new Subscription();
+  roleSubscription: Subscription = new Subscription();
+  userIDSubscription: Subscription = new Subscription();
+  studyDataSubscription: Subscription = new Subscription();
+  userDataSubscription: Subscription = new Subscription();
+  searchSubscription: Subscription = new Subscription();
   title = '';
   groupUniqueID = '';
   chapterRef = '';
@@ -46,7 +60,6 @@ export class StudyComponent implements OnInit {
   editingPostID = '';
   editingAnnotationID = '';
   name = '';
-  private _posts = new BehaviorSubject([]);
   posts: Observable<any>;
   chapterAnnotations: Observable<any>;
   numOfAnnotations = 1;
@@ -55,6 +68,7 @@ export class StudyComponent implements OnInit {
   studyData;
   keyAnnouncements = [];
   isLeader = false;
+  private _posts = new BehaviorSubject([]);
   isLoading = new BehaviorSubject<boolean>(true);
   isDone = false;
   userID = '';
@@ -68,9 +82,19 @@ export class StudyComponent implements OnInit {
     private toastr: ToastrService) {
 
   }
-
+  ngOnDestroy() {
+    this.searchSubscription.unsubscribe();
+    this.roleSubscription.unsubscribe();
+    this.userDataSubscription.unsubscribe();
+    this.userIDSubscription.unsubscribe();
+    this.postSubscription.unsubscribe();
+    this.membersSubscription.unsubscribe();
+    this.chapterSubscription.unsubscribe();
+    this.editPostSubscription.unsubscribe();
+    this.keyAnnouncementSubscription.unsubscribe();
+  }
   ngOnInit() {
-    this._search.getBooks().subscribe((res) => {
+    this.searchSubscription = this._search.getBooks().subscribe((res) => {
       this.books = res[ 'data' ];
       this.books.forEach((book, index) => {
         const words = book.split(' ');
@@ -86,23 +110,23 @@ export class StudyComponent implements OnInit {
         this.books[ index ] = fixedBook;
       });
     });
-    this._user.userData.subscribe((user) => {
+    this.userDataSubscription = this._user.userData.subscribe((user) => {
       if (user !== null) {
         this.profileImage = user.data.profileImage;
         this.name = user.name;
       }
     });
     this.groupID = this._router.url.split('/').pop();
-    this._study.getStudyData(this.groupID).subscribe((data) => {
+    this.studyDataSubscription = this._study.getStudyData(this.groupID).subscribe((data) => {
       this.title = data[ 'name' ];
       this._title.setTitle(this.title);
       this.groupUniqueID = data[ 'uniqueID' ];
       this.studyData = data;
     });
-    this._user.userID.subscribe((res) => {
+    this.userIDSubscription = this._user.userID.subscribe((res) => {
       if (res !== '') {
         this.userID = res;
-        this._study.getMemberData(this.groupID, res).subscribe((response) => {
+        this.roleSubscription = this._study.getMemberData(this.groupID, res).subscribe((response) => {
           if (response[ 'role' ] === 'leader') {
             this.isLeader = true;
           } else {
@@ -204,7 +228,7 @@ export class StudyComponent implements OnInit {
   }
 
   private _getFeedByType(type: string): void {
-    this._study.getPostByType(this.groupID, type).pipe(map(res => {
+    this.postSubscription = this._study.getPostByType(this.groupID, type).pipe(map(res => {
       res.map(val => this._checkHtmlText(val));
       return res;
     })).subscribe((res) => {
@@ -215,7 +239,7 @@ export class StudyComponent implements OnInit {
   getPosts(limit = 10) {
     this.resetPosts = true;
     this.isLoading.next(true);
-    this._study.getPosts(this.groupID, '', limit).pipe(map(res => {
+    this.postSubscription = this._study.getPosts(this.groupID, '', limit).pipe(map(res => {
       res.map(val => this._checkHtmlText(val));
       return res;
     })).subscribe((res) => {
@@ -232,19 +256,21 @@ export class StudyComponent implements OnInit {
     this.isLoading.next(true);
     setTimeout(() => {
       if (this.type === 'all') {
-        this._study.getPosts(this.groupID, timestamp, limit).pipe(map(res => {
+
+        this.getMorePostSubscription = this._study.getPosts(this.groupID, timestamp, limit).pipe(map(res => {
           res.map(val => this._checkHtmlText(val));
           return res;
         })).subscribe((res) => {
           this._posts.next(res);
         });
       } else {
-        this._study.getPostByType(this.groupID, this.type, timestamp, limit).pipe(map(res => {
-          res.map(val => this._checkHtmlText(val));
-          return res;
-        })).subscribe((res) => {
-          this._posts.next(res);
-        });
+        this.getMorePostSubscription =
+          this._study.getPostByType(this.groupID, this.type, timestamp, limit).pipe(map(res => {
+            res.map(val => this._checkHtmlText(val));
+            return res;
+          })).subscribe((res) => {
+            this._posts.next(res);
+          });
       }
     }, 1000);
   }
@@ -254,7 +280,7 @@ export class StudyComponent implements OnInit {
   }
 
   getKeyAnnouncements() {
-    this._study.getKeyAnnouncements(this.groupID).pipe(map(res => {
+    this.keyAnnouncementSubscription = this._study.getKeyAnnouncements(this.groupID).pipe(map(res => {
       res.map(val => {
         val = this._checkHtmlText(val);
         const contained = this.keyAnnouncements.filter(value => value[ 'id' ] === val[ 'id' ]);
@@ -272,7 +298,7 @@ export class StudyComponent implements OnInit {
   }
 
   getMembers() {
-    this._study.getMembers(this.groupID).subscribe((members) => {
+    this.membersSubscription = this._study.getMembers(this.groupID).subscribe((members) => {
       this.members = [];
       members.forEach((member) => {
         let firstTime = false;
@@ -518,7 +544,7 @@ export class StudyComponent implements OnInit {
   editPost(value: boolean, postID: string, creatorID: string, isLeader: boolean) {
     if (value && (creatorID === this._user.userID.getValue() || isLeader)) {
       this.editing = true;
-      this._study.getPostByID(this.groupID, postID).subscribe((res) => {
+      this.editPostSubscription = this._study.getPostByID(this.groupID, postID).subscribe((res) => {
         if (this.editing) {
           this.createPost = res as Post;
           this.editingPostID = postID;
@@ -533,7 +559,9 @@ export class StudyComponent implements OnInit {
       this.editing = true;
       this.editingAnnotation = true;
 
-      this._study.getAnnotationByID(this.groupID, `${ this.activeBook.toLowerCase() }-${ this.activeChapter }`,
+
+      this.editAnnotationSubscription = this._study.getAnnotationByID(this.groupID,
+        `${ this.activeBook.toLowerCase() }-${ this.activeChapter }`,
         annotationID).subscribe((res) => {
           if (this.editing) {
             this.createAnnotation = res as Annotation;
@@ -548,7 +576,7 @@ export class StudyComponent implements OnInit {
   getAnnotationsForChapter() {
     const chapterReference = `${ this.activeBook.toLowerCase() }-${ this.activeChapter }`;
     this.chapterAnnotations = this._study.getAnnotationsByChapterReference(this.groupID, chapterReference);
-    this.chapterAnnotations.subscribe((res) => {
+    this.chapterAnnotationsSubscription = this.chapterAnnotations.subscribe((res) => {
       this.numOfAnnotations = res.length;
     });
   }
@@ -604,7 +632,7 @@ export class StudyComponent implements OnInit {
 
   getChapter(book, chapter) {
     this.isLoading.next(true);
-    this._search.getChapter(book, chapter).pipe(
+    this.chapterSubscription = this._search.getChapter(book, chapter).take(1).pipe(
       pluck('data'),
       map(val => val[ 0 ])
     ).subscribe((res) => {
@@ -662,6 +690,5 @@ export class StudyComponent implements OnInit {
       }
     });
     this.reformatPassage(this.createAnnotation.passage);
-    console.log(this.createAnnotation.passage);
   }
 }

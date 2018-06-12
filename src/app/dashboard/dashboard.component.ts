@@ -1,7 +1,7 @@
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { ToastrService } from 'ngx-toastr';
-import { Observable } from 'rxjs';
-import { Component, OnInit } from '@angular/core';
+import { Observable, Subscription } from 'rxjs';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { UserDataService } from '../user-data.service';
 import { AuthService } from '../auth.service';
 import { AbstractControl, FormBuilder, FormGroup, ValidatorFn, Validators, FormControl } from '@angular/forms';
@@ -19,8 +19,11 @@ import { Title } from '@angular/platform-browser';
   templateUrl: './dashboard.component.html',
   styleUrls: [ './dashboard.component.css' ]
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent implements OnInit, OnDestroy {
 
+  authStateSubscription: Subscription;
+  userDataSubscription: Subscription;
+  groupDataSubscription: Subscription;
   // modal activations
   activateEditImage = false;
   activateJoinStudy = false;
@@ -67,17 +70,16 @@ export class DashboardComponent implements OnInit {
     private _router: Router,
     private groupData: StudyDataService,
     private toastr: ToastrService) { }
-
   ngOnInit() {
     this.title.setTitle('Your Dashboard');
     this.isLoading.next(true);
-    this._auth.authState.subscribe((res) => {
+    this.authStateSubscription = this._auth.authState.subscribe((res) => {
       if (res === null) {
         setTimeout(() => this._router.navigateByUrl('/sign-in'), 200);
       }
     });
     this.createForm();
-    this._data.userData.subscribe((res) => {
+    this.userDataSubscription = this._data.userData.subscribe((res) => {
       this.data = res;
       if (res !== null && (res.email !== null && res.email !== '')) {
         this.isLoading.next(false);
@@ -88,7 +90,7 @@ export class DashboardComponent implements OnInit {
         this.securityForm.patchValue({ 'email': res[ 'email' ] });
       }
     });
-    this.groupData.studies.subscribe((groups) => {
+    this.groupDataSubscription = this.groupData.studies.subscribe((groups) => {
       if (groups.length === 0) {
         this.hasNoGroups = true;
       } else {
@@ -96,6 +98,13 @@ export class DashboardComponent implements OnInit {
         this.studies = groups;
       }
     });
+  }
+
+  ngOnDestroy() {
+    console.log('unsubscribing....');
+    this.authStateSubscription.unsubscribe();
+    this.userDataSubscription.unsubscribe();
+    this.groupDataSubscription.unsubscribe();
   }
 
   resetJoinStudy() {
