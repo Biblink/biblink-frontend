@@ -186,36 +186,30 @@ export class StudyComponent implements OnInit {
   getAnnouncements() {
     this.isLoading.next(true);
     this.resetPosts = true;
-    this._study.getPostByType(this.groupID, 'announcement').pipe(map(res => {
-      res.map(val => this._checkHtmlText(val));
-      return res;
-    })).subscribe((res) => {
-      this._posts.next(res);
-    });
+    this._getFeedByType('announcement');
     this.type = 'announcement';
   }
 
   getQuestions() {
     this.isLoading.next(true);
     this.resetPosts = true;
-    this._study.getPostByType(this.groupID, 'question').pipe(map(res => {
-      res.map(val => this._checkHtmlText(val));
-      return res;
-    })).subscribe((res) => {
-      this._posts.next(res);
-    });
+    this._getFeedByType('question');
     this.type = 'question';
   }
   getDiscussions() {
     this.isLoading.next(true);
     this.resetPosts = true;
-    this._study.getPostByType(this.groupID, 'discussion').pipe(map(res => {
+    this._getFeedByType('discussion');
+    this.type = 'discussion';
+  }
+
+  private _getFeedByType(type: string): void {
+    this._study.getPostByType(this.groupID, type).pipe(map(res => {
       res.map(val => this._checkHtmlText(val));
       return res;
     })).subscribe((res) => {
       this._posts.next(res);
     });
-    this.type = 'discussion';
   }
 
   getPosts(limit = 10) {
