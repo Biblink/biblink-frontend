@@ -1,6 +1,6 @@
 import { Title } from '@angular/platform-browser';
 
-import { scan, map } from 'rxjs/operators';
+import { scan, map, pluck } from 'rxjs/operators';
 import { SearchService } from './../search.service';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
@@ -604,8 +604,11 @@ export class StudyComponent implements OnInit {
 
   getChapter(book, chapter) {
     this.isLoading.next(true);
-    this._search.getChapter(book, chapter).subscribe((res) => {
-      this.bibleData = res[ 'data' ][ 0 ];
+    this._search.getChapter(book, chapter).pipe(
+      pluck('data'),
+      map(val => val[ 0 ])
+    ).subscribe((res) => {
+      this.bibleData = res;
       for (let i = 0; i < this.bibleData[ 'verse_data' ].length; i++) {
         this.underlinedVerses.push(false);
       }
