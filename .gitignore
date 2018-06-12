@@ -1,0 +1,9 @@
+node_modules
+dist
+package-lock.json
+firebase-debug.log
+.idea
+src/environments/*.ts
+src/environments/environment.ts
+src/environments/environment.prod.ts
+*.log

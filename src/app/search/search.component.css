@@ -1,0 +1,205 @@
+#main-text > h1 {
+    font-family: "museo-sans", sans-serif;
+    font-weight: 900;
+    font-size: 5em;
+    letter-spacing: 8px;
+    color: black;
+    margin-top: 80px;
+}
+
+#sub-text {
+    font-family: "museo-sans", sans-serif;
+    font-weight: 800;
+    font-size: 1.4em;
+    letter-spacing: 6px;
+    color: black;
+}
+
+#wrapper {
+    display: flex;
+}
+
+#search-bar {
+    padding: 5px;
+    width: 50%;
+    margin: 91px auto 0 auto;
+    transition: all 1s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+#main-text {
+    margin-top: 200px;
+}
+#search {
+    border: none;
+    width: 100%;
+    padding-left: 35px;
+    outline: none;
+    height: 86px;
+    float: right;
+    font-size: 1.6rem;
+    letter-spacing: 2px;
+    line-height: 38px;
+    font-family: 'museo-sans', sans-serif;
+}
+
+#search::-webkit-input-placeholder {
+    font-family: 'museo-sans', sans-serif;
+}
+
+#search:-ms-input-placeholder {
+    font-family: 'museo-sans', sans-serif;
+}
+
+#search:-moz-placeholder {
+    font-family: 'museo-sans', sans-serif;
+}
+
+#search::-moz-placeholder {
+    font-family: 'museo-sans', sans-serif;
+}
+
+#search-input /*LI*/
+{
+    border: none;
+    margin-right: auto;
+    margin-left: auto;
+    float: left;
+    width: 100%;
+    box-shadow: -2px 4px 8px 2px rgba(175, 167, 167, 0.5);
+    font-family: "museo-sans", sans-serif;
+    letter-spacing: 3px;
+    height: 86px;
+}
+
+#search-button /*LI*/
+{
+    background: #F23B2C  center no-repeat;
+    transition: all 1s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+#search-button:hover {
+    background: #ca3f4a  center no-repeat;
+    transition: all 1s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+#button /*Actual button element to mess with bulma stlyes*/
+{
+    padding: 0;
+    border: none;
+    width: 86px;
+    height: 86px;
+    margin-right: auto;
+    margin-left: 0;
+    float: left;
+    color: white;
+    background: transparent;
+    border-radius: 2px;
+    box-shadow: 0 4px 4px 0 rgba(142, 135, 135, 0.5);
+    transition: all 1s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+#button:hover {
+    box-shadow: 0 0 0 0;
+    transition: all 1s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+.divider {
+    box-sizing: border-box;
+    height: 1px;
+    width: 75%;
+    border: 1px solid #BCB8B8;
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: 10%;
+    /* This will be dynamically set */
+    opacity: 0;
+}
+
+#search-icon {
+    background: url('/assets/icons/search-button-icon.svg');
+}
+
+.see-more {
+    margin-top: 100px;
+}
+@media screen and (max-width: 1024px) {
+    #main-text h1 {
+        font-size: 2.5rem;
+        margin-bottom: 12px;
+    }
+
+    #sub-text {
+        height: 16px;
+        width: 244px;
+        font-size: 1.2rem;
+        font-weight: bold;
+        letter-spacing: 3px;
+        line-height: 20px;
+    }
+
+    #wrapper {
+        height: 60px;
+        width: 90%;
+        margin: 0 auto;
+        background-color: #FFFFFF;
+        box-shadow: -2px 4px 8px 2px rgba(175,167,167,0.5);
+    }
+
+    #wrapper li {
+        height: 60px;
+    }
+
+    #wrapper li * {
+        height: 60px !important;
+    }
+
+    #search-bar {
+        width: auto;
+    }
+
+    #search-form {
+        width: 100%;
+    }
+
+    #search-button, #button {
+        width: 60px;
+    }
+
+
+    #search-icon-image {
+        width: 30%;
+    }
+
+    #search {
+        font-size: 1.2rem;
+    }
+}
+
+#loading-icon {
+    margin-top: 100px;
+    border: none;
+    padding: 0;
+    background:transparent;
+}
+
+#loading-icon::after {
+    height: 4rem;
+    width: 4rem;
+    border: 4px solid #a4afaf;
+    border-right-color: transparent;
+    border-left-color: transparent;
+    position: absolute;
+    left: auto;
+    top: auto;
+
+}
+
+#not-found {
+    font-weight: 700;
+    font-size: 1.2rem;
+}
+
+@media screen and (max-width: 768px) {
+    #main-text {
+        margin-top: 0;
+    }
+}

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="12px" height="19px" viewBox="0 0 12 19" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 48.2 (47327) - http://www.bohemiancoding.com/sketch -->
+    <title>Shape</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Sign-In-Desktop" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(-360.000000, -530.000000)">
+        <g id="Group-5" transform="translate(231.000000, 256.000000)" fill="#FFFFFF" fill-rule="nonzero">
+            <g id="Group" transform="translate(103.000000, 119.000000)">
+                <g id="Connection">
+                    <g id="Sign-Up-Button" transform="translate(0.000000, 137.000000)">
+                        <path d="M33.4031008,22.429 L33.4031008,25 L37.1744186,25 L36.6356589,28 L33.4031008,28 L33.4031008,37 L29.0930233,37 L29.0930233,28 L26.9379845,28 L26.9379845,25 L29.1059535,25.008 L29.1059535,22.436 C29.1059535,19.579 30.3375581,18.007 33.8782868,18.007 L37.7131783,18 L37.7131783,21 L34.942876,21 C33.557186,21 33.4031008,21.429 33.4031008,22.429 Z" id="Shape"></path>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
