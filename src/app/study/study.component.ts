@@ -1,6 +1,6 @@
 import { Title } from '@angular/platform-browser';
 
-import { scan } from 'rxjs/operators';
+import { scan, map } from 'rxjs/operators';
 import { SearchService } from './../search.service';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
@@ -186,15 +186,11 @@ export class StudyComponent implements OnInit {
   getAnnouncements() {
     this.isLoading.next(true);
     this.resetPosts = true;
-    this._study.getPostByType(this.groupID, 'announcement').subscribe((res) => {
-      const edited = [];
-      res.forEach((val) => {
-        if (val[ 'htmlText' ] === undefined || val[ 'htmlText' ] === '') {
-          val[ 'htmlText' ] = val[ 'text' ];
-        }
-        edited.push(val);
-      });
-      this._posts.next(edited);
+    this._study.getPostByType(this.groupID, 'announcement').pipe(map(res => {
+      res.map(val => this._checkHtmlText(val));
+      return res;
+    })).subscribe((res) => {
+      this._posts.next(res);
     });
     this.type = 'announcement';
   }
@@ -202,30 +198,22 @@ export class StudyComponent implements OnInit {
   getQuestions() {
     this.isLoading.next(true);
     this.resetPosts = true;
-    this._study.getPostByType(this.groupID, 'question').subscribe((res) => {
-      const edited = [];
-      res.forEach((val) => {
-        if (val[ 'htmlText' ] === undefined || val[ 'htmlText' ] === '') {
-          val[ 'htmlText' ] = val[ 'text' ];
-        }
-        edited.push(val);
-      });
-      this._posts.next(edited);
+    this._study.getPostByType(this.groupID, 'question').pipe(map(res => {
+      res.map(val => this._checkHtmlText(val));
+      return res;
+    })).subscribe((res) => {
+      this._posts.next(res);
     });
     this.type = 'question';
   }
   getDiscussions() {
     this.isLoading.next(true);
     this.resetPosts = true;
-    this._study.getPostByType(this.groupID, 'discussion').subscribe((res) => {
-      const edited = [];
-      res.forEach((val) => {
-        if (val[ 'htmlText' ] === undefined || val[ 'htmlText' ] === '') {
-          val[ 'htmlText' ] = val[ 'text' ];
-        }
-        edited.push(val);
-      });
-      this._posts.next(edited);
+    this._study.getPostByType(this.groupID, 'discussion').pipe(map(res => {
+      res.map(val => this._checkHtmlText(val));
+      return res;
+    })).subscribe((res) => {
+      this._posts.next(res);
     });
     this.type = 'discussion';
   }
@@ -233,15 +221,11 @@ export class StudyComponent implements OnInit {
   getPosts(limit = 10) {
     this.resetPosts = true;
     this.isLoading.next(true);
-    this._study.getPosts(this.groupID, '', limit).subscribe((res) => {
-      const edited = [];
-      res.forEach((val) => {
-        if (val[ 'htmlText' ] === undefined || val[ 'htmlText' ] === '') {
-          val[ 'htmlText' ] = val[ 'text' ];
-        }
-        edited.push(val);
-      });
-      this._posts.next(edited);
+    this._study.getPosts(this.groupID, '', limit).pipe(map(res => {
+      res.map(val => this._checkHtmlText(val));
+      return res;
+    })).subscribe((res) => {
+      this._posts.next(res);
     });
     this.type = 'all';
   }
@@ -254,51 +238,43 @@ export class StudyComponent implements OnInit {
     this.isLoading.next(true);
     setTimeout(() => {
       if (this.type === 'all') {
-        this._study.getPosts(this.groupID, timestamp, limit).subscribe((res) => {
-          const edited = [];
-          res.forEach((val) => {
-            if (val[ 'htmlText' ] === undefined || val[ 'htmlText' ] === '') {
-              val[ 'htmlText' ] = val[ 'text' ];
-              edited.push(val);
-            }
-          });
+        this._study.getPosts(this.groupID, timestamp, limit).pipe(map(res => {
+          res.map(val => this._checkHtmlText(val));
+          return res;
+        })).subscribe((res) => {
           this._posts.next(res);
         });
       } else {
-        this._study.getPostByType(this.groupID, this.type, timestamp, limit).subscribe((res) => {
-          const edited = [];
-          res.forEach((val) => {
-            if (val[ 'htmlText' ] === undefined || val[ 'htmlText' ] === '') {
-              val[ 'htmlText' ] = val[ 'text' ];
-              edited.push(val);
-            }
-          });
+        this._study.getPostByType(this.groupID, this.type, timestamp, limit).pipe(map(res => {
+          res.map(val => this._checkHtmlText(val));
+          return res;
+        })).subscribe((res) => {
           this._posts.next(res);
         });
       }
     }, 1000);
   }
+  private _checkHtmlText(val: any) {
+    val[ 'htmlText' ] = val[ 'htmlText' ] === undefined || val[ 'htmlText' ] === '' ? val[ 'text' ] : val[ 'htmlText' ];
+    return val;
+  }
+
   getKeyAnnouncements() {
-    this._study.getKeyAnnouncements(this.groupID).subscribe((announcements) => {
-      this.keyAnnouncements = [];
-      announcements.forEach((announcement) => {
-        if (announcement[ 'htmlText' ] === undefined || announcement[ 'htmlText' ] === '') {
-          announcement[ 'htmlText' ] = announcement[ 'text' ];
-        }
-        let firstTime = false;
-        let oldData = {};
-        this._user.getDataFromID(announcement[ 'creatorID' ]).subscribe((res) => {
-          announcement[ 'image' ] = res[ 'data' ][ 'profileImage' ];
-          if (firstTime) {
-            this.keyAnnouncements[ this.keyAnnouncements.indexOf(oldData) ] = announcement;
+    this._study.getKeyAnnouncements(this.groupID).pipe(map(res => {
+      res.map(val => {
+        val = this._checkHtmlText(val);
+        const contained = this.keyAnnouncements.filter(value => value[ 'id' ] === val[ 'id' ]);
+        this._user.getDataFromID(val[ 'creatorID' ]).take(1).subscribe((response) => {
+          val[ 'image' ] = response[ 'data' ][ 'profileImage' ];
+          if (contained.length === 1) {
+            this.keyAnnouncements[ this.keyAnnouncements.indexOf(contained[ 0 ]) ] = val;
           } else {
-            this.keyAnnouncements.push(announcement);
+            this.keyAnnouncements.push(val);
           }
-          firstTime = true;
-          oldData = announcement;
         });
       });
-    });
+      return res;
+    })).subscribe();
   }
 
   getMembers() {
