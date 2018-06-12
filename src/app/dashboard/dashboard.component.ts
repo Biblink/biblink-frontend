@@ -12,6 +12,7 @@ import * as firebase from 'firebase/app';
 import 'firebase/auth';
 import { StudyDataService } from '../study-data.service';
 import { Router } from '@angular/router';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-dashboard',
@@ -58,6 +59,7 @@ export class DashboardComponent implements OnInit {
     '|\\\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\\])');
 
   constructor(
+    private title: Title,
     private _auth: AuthService,
     private fb: FormBuilder,
     private _data: UserDataService,
@@ -67,6 +69,7 @@ export class DashboardComponent implements OnInit {
     private toastr: ToastrService) { }
 
   ngOnInit() {
+    this.title.setTitle('Your Dashboard');
     this.isLoading.next(true);
     this._auth.authState.subscribe((res) => {
       if (res === null) {

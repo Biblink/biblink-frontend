@@ -33,7 +33,7 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewChecked {
             }
             window.scrollTo(0, 0);
         });
-        this.title.setTitle('Biblya | Search');
+        this.title.setTitle('Biblink | Search');
         this._route.queryParams.subscribe(param => {
             if (param[ 'query' ] !== undefined) {
                 this.searchQuery = param[ 'query' ];

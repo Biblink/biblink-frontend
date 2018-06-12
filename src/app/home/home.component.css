@@ -300,7 +300,6 @@
     transition: all 1s cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 
-
 /* top/banner css */
 
 @media screen and (max-width: 768px) {
@@ -369,7 +368,7 @@
     height: 107px;
     color: #ffffff;
     font-family: 'museo-sans', sans-serif;
-    font-size: 10rem;
+    font-size: 9rem;
     font-weight: 900;
     letter-spacing: 10px;
     line-height: 131px;
@@ -529,7 +528,6 @@
     animation: fadeInUpTop 5s, bounceTop 3s infinite;
 }
 
-
 /* Bible Verse CSS */
 
 @media screen and (min-width: 769px) {
@@ -569,7 +567,6 @@
 .bible-verse-content {
     box-shadow: none;
 }
-
 
 /* Feature/Main CSS */
 
@@ -669,7 +666,6 @@
 .mobile .feature-icon {
     margin-bottom: 25px;
 }
-
 
 /* Call to action CSS */
 

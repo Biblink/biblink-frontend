@@ -1,3 +1,4 @@
+import { Title } from '@angular/platform-browser';
 
 import { scan } from 'rxjs/operators';
 import { SearchService } from './../search.service';
@@ -60,6 +61,7 @@ export class StudyComponent implements OnInit {
   groupID = '';
   isGettingMorePosts = false;
   constructor(private _router: Router,
+    private _title: Title,
     private _search: SearchService,
     private _study: StudyDataService,
     private _user: UserDataService,
@@ -93,6 +95,7 @@ export class StudyComponent implements OnInit {
     this.groupID = this._router.url.split('/').pop();
     this._study.getStudyData(this.groupID).subscribe((data) => {
       this.title = data[ 'name' ];
+      this._title.setTitle(this.title);
       this.groupUniqueID = data[ 'uniqueID' ];
       this.studyData = data;
     });

@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { UserDataService } from '../user-data.service';
 import { Angulartics2Module } from 'angulartics2';
+import { Title } from '@angular/platform-browser';
 
 declare const AOS: any;
 declare const $: any;
@@ -23,11 +24,12 @@ export class HomeComponent implements OnInit {
     menuHeight = '0';
     menuZ = 0;
 
-    constructor(private _auth: AuthService, private _router: Router, private _data: UserDataService, private afs: AngularFirestore) {
+    constructor(private title: Title, private _auth: AuthService,
+        private _router: Router, private _data: UserDataService, private afs: AngularFirestore) {
     }
 
     ngOnInit() {
-
+        this.title.setTitle('Biblink | Home');
         this._data.userData.subscribe((user) => {
             if (user !== null) {
                 this.imageUrl = user.data.profileImage;
