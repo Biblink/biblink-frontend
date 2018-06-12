@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { ToastrService } from 'ngx-toastr';
 
@@ -47,7 +47,7 @@ export class PasswordResetComponent implements OnInit {
         });
     }
 
-    get email() {
+    get email(): AbstractControl {
         return this.passwordResetForm.get('email');
     }
 

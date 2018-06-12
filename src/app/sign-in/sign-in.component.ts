@@ -32,7 +32,6 @@ export class SignInComponent implements OnInit {
             disable: 'mobile'
         });
         this.createForm();
-        // this._auth.logout();
         this._auth.authState.subscribe((state) => {
             if (state !== null) {
                 if (this._auth.emailVerified) {
@@ -67,6 +66,7 @@ export class SignInComponent implements OnInit {
         this.differentCredential = false;
         this._auth.userLogin(provider, data).then((res: User | Object) => {
             if (res instanceof User) {
+                return;
             } else {
                 if (res[ 'errorCode' ] === 'auth/wrong-password') {
                     this.incorrectPassword = true;
