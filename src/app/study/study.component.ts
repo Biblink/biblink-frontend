@@ -329,39 +329,13 @@ export class StudyComponent implements OnInit, OnDestroy {
       const parentDiv = jElement.parent();
       const reference = jElement.text();
       let verseText = '';
+      console.log('here');
       const textSubscriber = this._search.getVerseText(reference).take(1).subscribe((res) => {
         verseText = res[ 'data' ][ 0 ][ 'combined_text' ];
+        jElement.attr('data-tooltip', verseText.replace(/<\/?n>/g, ''));
+        jElement.addClass('tooltip is-tooltip-bottom is-tooltip-multiline');
       });
-      jElement.hover(() => {
-        if ($(`div#${ event.srcElement.id }~.verse-text-${ index }`).length !== 0) {
-          const val = $('div#' + event.srcElement.id + `~div.verse-text-${ index }`);
-          val.show();
-          val.hover(() => {
-            val.show();
-          }, () => val.hide());
-        } else {
-          parentDiv.after(`
-          <div class="verse-text-${index }">
-            ${ verseText }
-          </div>
-          `);
-        }
-        textSubscriber.unsubscribe();
-      }, () => {
-        let hovering = false;
-        const val = $('div#' + event.srcElement.id + `~div.verse-text-${ index }`);
-        setTimeout(() => {
-          if (hovering) {
-            return;
-          } else {
-            val.hide();
-          }
-        }, 200);
-        val.hover(() => {
-          hovering = true;
-          val.show();
-        }, () => val.hide());
-      });
+
 
       jElement.click(() => {
         this._router.navigateByUrl(`/search?query=${ reference }`);
@@ -373,18 +347,7 @@ export class StudyComponent implements OnInit, OnDestroy {
     const spans = $('div#' + event.srcElement.id + ' .verse-container span');
     spans.each((index, el) => {
       const jElement = $(el);
-      const parentDiv = jElement.parent();
       const reference = jElement.text();
-      let verseText = '';
-      let addedText = false;
-      const textSubscriber = this._search.getVerseText(reference).take(1).subscribe((res) => {
-        verseText = res[ 'data' ][ 0 ][ 'combined_text' ];
-        if (!addedText && reference.indexOf(': ') === -1) {
-          jElement.html(reference + ': ' + verseText.replace(/<n[^>]*>([^<]+)<\/n>/g, ''));
-          textSubscriber.unsubscribe();
-        }
-        addedText = true;
-      });
       jElement.click(() => {
         this._router.navigateByUrl(`/search?query=${ reference.split(': ')[ 0 ] }`);
       });
