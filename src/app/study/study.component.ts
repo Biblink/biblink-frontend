@@ -74,6 +74,8 @@ export class StudyComponent implements OnInit, OnDestroy {
   userID = '';
   groupID = '';
   isGettingMorePosts = false;
+  isVisibleLinks = true;
+  isVisibleVerses = true;
   constructor(private _router: Router,
     private _title: Title,
     private _search: SearchService,
@@ -692,4 +694,15 @@ export class StudyComponent implements OnInit, OnDestroy {
     });
     this.reformatPassage(this.createAnnotation.passage);
   }
+
+  toggleVisibleLinks() {
+    this.isVisibleLinks = !this.isVisibleLinks;
+  }
+
+  toggleVisibleVerses() {
+    this.isVisibleVerses = !this.isVisibleVerses;
+  }
 }
+
+
+
