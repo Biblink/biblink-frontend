@@ -1,0 +1,57 @@
+#main-text {
+    margin-top: 200px;
+}
+
+#main-text>h1 {
+    font-family: "museo-sans", sans-serif;
+    font-weight: 900;
+    font-size: 3em;
+    letter-spacing: 8px;
+    color: black;
+    margin-bottom: 30px;
+}
+
+#sub-text {
+    font-family: "museo-sans", sans-serif;
+    width: 50%;
+    font-size: 1.4em;
+    letter-spacing: 6px;
+    color: black;
+}
+
+.btn {
+    font-family: 'museo-sans', sans-serif;
+    font-weight: 900;
+    letter-spacing: 2px;
+    line-height: 25px;
+    text-align: center;
+    font-size: 21px;
+    height: 68px;
+    width: 225px;
+}
+
+.btn:hover {
+    cursor: pointer;
+}
+
+.verify-cta {
+    margin-top: 60px;
+    margin-bottom: 60px;
+    border-radius: 5px;
+    border: #f23b2c;
+    background-color: #f23b2c;
+    box-shadow: 0 8px 18px 0 rgba(90, 89, 89, 0.5);
+    color: #ffffff;
+    font-family: 'museo-sans', sans-serif;
+    font-weight: 900;
+    letter-spacing: 1px;
+    line-height: 19px;
+    text-align: center;
+    transition: all 1s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+.verify-cta:hover {
+    background-color: #d13527;
+    box-shadow: none;
+    transition: all 1s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
