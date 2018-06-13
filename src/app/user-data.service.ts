@@ -5,12 +5,12 @@ import { Observable, BehaviorSubject, Subscription } from 'rxjs';
 import { UserDataInterface } from './interfaces/user-data.interface';
 import { User } from './interfaces/user';
 import { Utils } from './utilities/utils';
-
 @Injectable()
 export class UserDataService {
   userData: BehaviorSubject<User> = new BehaviorSubject(null);
   userID: BehaviorSubject<string> = new BehaviorSubject('');
   userReference: AngularFirestoreDocument<any> = null;
+
   constructor(private _auth: AuthService, public afs: AngularFirestore) {
     let dataRef: Observable<Action<DocumentSnapshot<any>>> = null;
     let dataSubscription: Subscription = null;
@@ -32,14 +32,9 @@ export class UserDataService {
           dataRef = this.userReference.snapshotChanges();
           dataSubscription = dataRef.subscribe((response) => {
             if (response.payload.exists === false) {
-              console.log('waiting to see if any data is updated');
-              console.log('retrying...');
-              setTimeout(() => {
-                console.log('didn\'t receive update in 5 seconds...');
-                const data = new User('', '', res.email, { profileImage: res.photoURL, bio: '', shortDescription: '' });
-                this.userReference.set(Utils.toJson(data));
-                console.log('added to firebase collection');
-              }, 5000);
+              const data = new User('', '', res.email, { profileImage: res.photoURL, bio: '', shortDescription: '' });
+              this.userReference.update(Utils.toJson(data));
+              console.log('added to firebase collection');
             } else {
               const data = response.payload.data() as User;
               if (data.email !== res.email) {
@@ -48,13 +43,11 @@ export class UserDataService {
               }
               this.userData.next(data);
             }
-          });
+          }, (error) => { console.log('There was an error: ' + error); });
         }
       }
     });
   }
-
-
   public updateProfile(data: Object) {
     if (data instanceof User) {
       return this.userReference.update(Utils.toJson(data));

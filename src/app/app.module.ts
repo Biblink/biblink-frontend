@@ -20,7 +20,7 @@ import { RecaptchaFormsModule } from 'ng-recaptcha/forms';
 
 // analytics
 import { Angulartics2Module } from 'angulartics2';
-import { Angulartics2GoogleAnalytics } from 'angulartics2/ga'
+import { Angulartics2GoogleAnalytics } from 'angulartics2/ga';
 
 
 // components
@@ -90,7 +90,7 @@ const appRoutes: Routes = [
         FormsModule,
         ReactiveFormsModule,
         AngularFireModule.initializeApp(environment.firebase, 'biblya'),
-        AngularFirestoreModule,
+        AngularFirestoreModule.enablePersistence(),
         AngularFireAuthModule,
         AngularFireStorageModule,
         environment.production
