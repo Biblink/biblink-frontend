@@ -1,6 +1,29 @@
 /* You can add global styles to this file, and also import other style files */
 
+$tooltip-max-width: 50rem;
 @import url('https://use.typekit.net/uet5lfg.css');
+.tooltip.is-tooltip-multiline::before {
+    width: 436px;
+    box-shadow: 0 4px 8px 2px rgba(202, 187, 187, 0.5) !important;
+    background-color: white !important;
+    color: black !important;
+    font-family: 'museo-sans', serif !important;
+    font-size: 1.5rem;
+    letter-spacing: 1.93px;
+    line-height: 19px;
+}
+
+.tooltip.is-tooltip-bottom.is-tooltip-active:not(.is-loading)::after,
+.tooltip.is-tooltip-bottom:focus:not(.is-loading)::after,
+.tooltip.is-tooltip-bottom:hover:not(.is-loading)::after {
+    border-color: transparent transparent white transparent !important;
+}
+
+.tooltip.is-tooltip-active::before,
+.tooltip:hover::before {
+    font-size: 0.9rem !important;
+}
+
 html {
     height: 100%;
     font-family: 'museo-sans', serif !important;
@@ -149,6 +172,25 @@ body {
     box-shadow: 0 4px 8px 2px rgba(105, 100, 100, 0.5) !important;
 }
 
+.link-container {
+    width: 80%;
+    padding-top: 10px;
+}
+
+.link-container .more-link {
+    padding: 8px;
+    border: 1px solid #6B6B6B;
+    border-radius: 7px;
+    color: black;
+    background-color: #FFFFFF;
+}
+
+.link-container .more-link:hover {
+    background-color: rgb(209, 209, 209);
+    text-decoration: none !important;
+    transition: 0.2s all cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
 .more-link {
     color: #255250;
     font-family: "museo-sans", sans-serif;
@@ -174,6 +216,26 @@ div[class^="verse-text-"] {
 .verse-link:hover {
     cursor: pointer;
     text-decoration: underline;
+}
+
+.verse-container {
+    width: 80%;
+    padding-top: 10px;
+}
+
+.verse-container .verse-link {
+    padding: 8px;
+    margin-right: 10px;
+    border: 1px solid #6B6B6B;
+    border-radius: 7px;
+    color: black;
+    background-color: #FFFFFF;
+}
+
+.verse-container .verse-link:hover {
+    background-color: rgb(209, 209, 209);
+    text-decoration: none !important;
+    transition: 0.2s all cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 
 .verse-link {

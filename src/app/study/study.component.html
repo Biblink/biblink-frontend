@@ -74,21 +74,15 @@
 
           </div>
           <div class="links" *ngIf="!checkIfExists(post['links'])">
-            <h1 *ngIf="isVisibleLinks">Links:</h1>
-            <span (click)="toggleVisibleLinks()" class="icon">
-              <i class="fa fa-chevron-down"></i>
-            </span>
-            <div *ngIf="isVisibleLinks">
-            <div class="link-container" *ngFor="let link of post['links']" [innerHtml]="link | safeHtml"></div>
+            <h1>Links:</h1>
+            <div>
+              <div class="link-container" *ngFor="let link of post['links']" [innerHtml]="link | safeHtml"></div>
             </div>
           </div>
           <div class="verses" *ngIf="!checkIfExists(post['verses'])" (mouseenter)="getVerseLinks($event)" [id]="'verses-links-' + i">
-            <h1 *ngIf="isVisibleVerses">Verses:</h1>
-            <span (click)="toggleVisibleVerses()" class="icon">
-              <i class="fa fa-chevron-down"></i>
-            </span>
-            <div *ngIf="isVisibleVerses">
-            <div class="verse-container" *ngFor="let verse of post['verses']" [innerHtml]="verse | safeHtml"></div>
+            <h1>Verses:</h1>
+            <div>
+              <div class="verse-container" *ngFor="let verse of post['verses']" [innerHtml]="verse | safeHtml"></div>
             </div>
           </div>
         </app-post-card>

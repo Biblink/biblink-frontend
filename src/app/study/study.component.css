@@ -263,18 +263,6 @@ hr {
     text-align: center;
 }
 
-.more-link {
-    color: #255250;
-    font-family: "museo-sans", sans-serif;
-    font-size: 0.9rem;
-    letter-spacing: 1px;
-    line-height: 16px;
-}
-
-.more-link:hover {
-    text-decoration: underline;
-}
-
 .date-info {
     color: #837E7E;
     font-family: 'museo-sans', sans-serif;
