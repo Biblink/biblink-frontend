@@ -87,7 +87,7 @@
                     <a [routerLink]="'/'" class="nav-link" (click)="toHome()">Home</a>
                 </div>
                 <div class="column" data-aos="zoom-in" data-aos-duration="1200" data-aos-once="true">
-                    <a class="nav-link">About</a>
+                    <a class="nav-link" [routerLink]="'/not-finished'">About</a>
                 </div>
                 <div class="column" data-aos="zoom-in-left" data-aos-duration="1200" data-aos-once="true">
                     <a [routerLink]="'/search'" class="nav-link">Search</a>
@@ -134,7 +134,7 @@
             <a class="nav-link" [routerLink]="'/'" (click)="toggleMobileMenu()">Home</a>
         </div>
         <div>
-            <a class="nav-link" (click)="toggleMobileMenu()">About</a>
+            <a class="nav-link" (click)="toggleMobileMenu()" [routerLink]="'/not-finished'">About</a>
         </div>
         <div>
             <a class="nav-link" [routerLink]="'/search'" (click)="toggleMobileMenu()">Search</a>

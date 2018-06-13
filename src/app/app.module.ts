@@ -48,6 +48,7 @@ import { StudyComponent } from './study/study.component';
 import { StudyNavComponent } from './study-nav/study-nav.component';
 import { PostCardComponent } from './post-card/post-card.component';
 import { LoadingSpinnerComponent } from './loading-spinner/loading-spinner.component';
+import { NotFinishedComponent } from './not-finished/not-finished.component';
 
 const appRoutes: Routes = [
     { path: '', component: HomeComponent },
@@ -58,7 +59,8 @@ const appRoutes: Routes = [
     { path: 'password-reset', component: PasswordResetComponent },
     { path: 'dashboard/home', component: DashboardComponent },
     { path: 'dashboard', pathMatch: 'full', redirectTo: '/dashboard/home' },
-    { path: 'dashboard/studies/study/:id', component: StudyComponent }
+    { path: 'dashboard/studies/study/:id', component: StudyComponent },
+    { path: 'not-finished', component: NotFinishedComponent }
 ];
 
 @NgModule({
@@ -81,7 +83,8 @@ const appRoutes: Routes = [
         StudyNavComponent,
         PostCardComponent,
         LoadingSpinnerComponent,
-        SafeHtmlPipe
+        SafeHtmlPipe,
+        NotFinishedComponent
     ],
     imports: [
         Angulartics2Module.forRoot([ Angulartics2GoogleAnalytics ]),
