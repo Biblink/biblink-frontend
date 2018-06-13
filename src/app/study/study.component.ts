@@ -644,6 +644,7 @@ export class StudyComponent implements OnInit, OnDestroy {
       this.isLoading.next(false);
     });
     this.chapterRef = this.activeBook.toLowerCase() + '-' + this.activeChapter;
+    this.getAnnotationsForChapter();
   }
 
   nextChapter() {
