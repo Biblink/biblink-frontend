@@ -7,8 +7,9 @@
     "start": "ng serve",
     "ngsw-config": "node_modules/.bin/ngsw-config dist src/ngsw-config.json",
     "ngsw-copy": "cp node_modules/@angular/service-worker/ngsw-worker.js dist/",
-    "deploy": "ng build --prod  && npm run ngsw-config && npm run ngsw-copy && firebase deploy --only hosting",
+    "deploy": "npm run build:prod && firebase deploy --only hosting",
     "build": "ng build",
+    "build:prod": "ng build --prod --build-optimizer --vendor-chunk=true --stats-json",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
@@ -23,6 +24,7 @@
     "@angular/http": "6.0.3",
     "@angular/platform-browser": "6.0.3",
     "@angular/platform-browser-dynamic": "6.0.3",
+    "@angular/pwa": "^0.6.8",
     "@angular/router": "6.0.3",
     "@angular/service-worker": "6.0.3",
     "@fortawesome/fontawesome-svg-core": "^1.2.0-11",

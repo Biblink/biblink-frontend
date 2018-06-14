@@ -96,9 +96,7 @@ const appRoutes: Routes = [
         AngularFirestoreModule.enablePersistence(),
         AngularFireAuthModule,
         AngularFireStorageModule,
-        environment.production
-            ? ServiceWorkerModule.register('/ngsw-worker.js')
-            : [],
+        ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production }),
         RouterModule.forRoot(appRoutes),
         RecaptchaModule.forRoot(),
         RecaptchaFormsModule,
