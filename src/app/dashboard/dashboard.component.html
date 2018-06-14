@@ -328,7 +328,7 @@
 <div class="modal with-input" [class.is-active]="activateJoinStudy">
     <div class="modal-background"></div>
     <div class="modal-card">
-        <form #joinForm="ngForm">
+        <form #joinForm="ngForm" (keydown.enter)="joinStudy(); activateJoinStudy = false; joinForm.reset()" (ngSubmit)="joinStudy(); activateJoinStudy = false; joinForm.reset()">
             <header class="modal-card-head">
                 <p class="modal-card-title">Join Study Group</p>
                 <button class="delete" aria-label="close" (click)="activateJoinStudy = false; joinForm.reset()"></button>
@@ -348,7 +348,7 @@
             </section>
             <footer class="modal-card-foot">
                 <div>
-                    <button class="btn study-btn modal-btn" (click)="joinStudy(); activateJoinStudy = false; joinForm.reset()">Join Group</button>
+                    <button class="btn study-btn modal-btn" type="submit">Join Group</button>
                     <a (click)="activateJoinStudy = false; joinForm.reset()" class="btn-link">Cancel</a>
                 </div>
             </footer>
