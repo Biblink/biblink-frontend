@@ -26,14 +26,14 @@ export class UserDataService {
         this.userData.next(new User('', '', '', { profileImage: '', bio: '', shortDescription: '' }));
         this.userID.next('');
       } else {
-        this.userReference = this.afs.doc(`/users/${ res.uid }`);
+        this.userReference = this.afs.doc(`/users/${res.uid}`);
         if (res.emailVerified) {
           this.userID.next(res.uid);
           dataRef = this.userReference.snapshotChanges();
           dataSubscription = dataRef.subscribe((response) => {
             if (response.payload.exists === false) {
               const data = new User('', '', res.email, { profileImage: res.photoURL, bio: '', shortDescription: '' });
-              this.userReference.update(Utils.toJson(data));
+              this.userReference.set(Utils.toJson(data));
               console.log('added to firebase collection');
             } else {
               const data = response.payload.data() as User;
