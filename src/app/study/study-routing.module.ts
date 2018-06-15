@@ -5,7 +5,7 @@ import { StudyComponent } from './pages/study/study.page';
 
 
 const routes: Routes = [
-    { path: 'dashboard/studies/study/:id', component: StudyComponent },
+    { path: 'study/:id', component: StudyComponent },
 ];
 @NgModule({
     imports: [ RouterModule.forChild(routes) ],

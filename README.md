@@ -37,7 +37,7 @@ Run `npm install` to install all third-party dependencies.
 }
 ```
 
-3. Rerun `ng serve`
+3. Rerun `ng serve --aot`
 
 #### Use in Typescript
 
@@ -49,7 +49,7 @@ declare const <corresponding-symbol-to-js-file>: any;
 
 ## Development server
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+Run `ng serve --aot` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
 ## Generating New Pages/Code Scaffolding
 

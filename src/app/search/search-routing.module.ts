@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { SearchComponent } from './pages/search/search.page';
 
 const routes: Routes = [
-    { path: 'search', component: SearchComponent },
+    { path: '', component: SearchComponent },
 ];
 @NgModule({
     imports: [ RouterModule.forChild(routes) ],

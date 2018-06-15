@@ -6,7 +6,7 @@ import { RouterModule, Routes } from '@angular/router';
 //     { path: '/about', component: AboutComponent },
 // ]; // TODO: update when finished
 const routes: Routes = [
-    { path: 'about', component: NotFinishedComponent },
+    { path: '', component: NotFinishedComponent },
 ];
 @NgModule({
     imports: [ RouterModule.forChild(routes) ],

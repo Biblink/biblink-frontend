@@ -9,8 +9,8 @@ import { NotFinishedComponent } from './../not-finished/not-finished.component';
 //     { path: 'organization/contact-us', component: ContactComponent },
 // ]; // TODO: uncomment when these pages have been implemented
 const routes: Routes = [
-    { path: 'organization/updates-&-releases', component: NotFinishedComponent },
-    { path: 'organization/contact-us', component: NotFinishedComponent },
+    { path: 'updates-&-releases', component: NotFinishedComponent },
+    { path: 'contact-us', component: NotFinishedComponent },
 ];
 @NgModule({
     imports: [ RouterModule.forChild(routes) ],
