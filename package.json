@@ -9,7 +9,7 @@
     "ngsw-copy": "cp node_modules/@angular/service-worker/ngsw-worker.js dist/",
     "deploy": "npm run build:prod && firebase deploy --only hosting",
     "build": "ng build",
-    "build:prod": "ng build --prod --build-optimizer --vendor-chunk=true --stats-json",
+    "build:prod": "ng build --prod --build-optimizer --vendor-chunk=true",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
