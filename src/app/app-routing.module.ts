@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { HomeComponent } from './home/home.component';
 import { SearchComponent } from './search/search.component';
 import { SignInComponent } from './sign-in/sign-in.component';
 import { StudyComponent } from './study/study.component';
@@ -13,7 +12,6 @@ import { PasswordResetComponent } from './password-reset/password-reset.componen
 
 
 const routes: Routes = [
-  { path: '', component: HomeComponent },
   { path: 'search', component: SearchComponent },
   { path: 'sign-in', component: SignInComponent },
   { path: 'verify-email', component: VerifyEmailComponent },
@@ -22,7 +20,6 @@ const routes: Routes = [
   { path: 'dashboard/home', component: DashboardComponent },
   { path: 'dashboard', pathMatch: 'full', redirectTo: '/dashboard/home' },
   { path: 'dashboard/studies/study/:id', component: StudyComponent },
-  { path: 'not-finished', component: NotFinishedComponent }
 ];
 @NgModule({
   imports: [ RouterModule.forRoot(routes) ],
