@@ -1,11 +1,13 @@
 import { Injectable, OnInit } from '@angular/core';
-import { AuthService } from './auth.service';
+import { AuthService } from '../auth/auth.service';
 import { AngularFirestore, AngularFirestoreDocument, DocumentSnapshot, Action } from 'angularfire2/firestore';
 import { Observable, BehaviorSubject, Subscription } from 'rxjs';
-import { UserDataInterface } from './core/interfaces/user-data.interface';
-import { User } from './core/interfaces/user';
-import { Utils } from './utilities/utils';
-@Injectable()
+import { UserDataInterface } from '../../interfaces/user-data.interface';
+import { User } from '../../interfaces/user';
+import { Utils } from '../../../utilities/utils';
+@Injectable({
+  providedIn: 'root'
+})
 export class UserDataService {
   userData: BehaviorSubject<User> = new BehaviorSubject(null);
   userID: BehaviorSubject<string> = new BehaviorSubject('');

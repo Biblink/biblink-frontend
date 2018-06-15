@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { UserDataService } from './user-data.service';
+import { UserDataService } from './core/services/user-data/user-data.service';
 import { Angulartics2GoogleAnalytics } from 'angulartics2/ga';
 
 @Component({

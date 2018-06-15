@@ -5,7 +5,7 @@ import { AngularFireStorage, AngularFireUploadTask } from 'angularfire2/storage'
 import { Observable } from 'rxjs';
 import { AngularFirestore } from 'angularfire2/firestore';
 
-import { UserDataService } from '../../../user-data.service';
+import { UserDataService } from '../../../core/services/user-data/user-data.service';
 
 @Component({
   selector: 'app-file-upload',

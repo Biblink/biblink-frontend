@@ -1,6 +1,6 @@
 import { AfterViewChecked, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
-import { SearchService } from '../../../search.service';
+import { SearchService } from '../../../core/services/search/search.service';
 import { ScrollToConfigOptions, ScrollToService } from '@nicky-lenaers/ngx-scroll-to';
 import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { Angulartics2 } from 'angulartics2';

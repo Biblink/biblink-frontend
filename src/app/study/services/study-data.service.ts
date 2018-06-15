@@ -1,19 +1,20 @@
-import { Annotation } from './core/interfaces/annotation';
+import { Annotation } from '../../core/interfaces/annotation';
 
 import { take } from 'rxjs/operators';
 import 'rxjs/add/operator/take';
-import { Group } from './core/interfaces/group';
+import { Group } from '../../core/interfaces/group';
 import { Injectable, OnInit } from '@angular/core';
-import { AuthService } from './auth.service';
+import { AuthService } from '../../core/services/auth/auth.service';
 import { AngularFirestore, AngularFirestoreDocument, AngularFirestoreCollection } from 'angularfire2/firestore';
 import { Observable, BehaviorSubject, Subscription } from 'rxjs';
-import { UserDataInterface } from './core/interfaces/user-data.interface';
-import { User } from './core/interfaces/user';
-import { Utils } from './utilities/utils';
-import { UserDataService } from './user-data.service';
-import { GroupDataInterface } from './core/interfaces/group-data.interface';
-import { Post } from './core/interfaces/post';
-import { Reply } from './core/interfaces/reply';
+import { UserDataInterface } from '../../core/interfaces/user-data.interface';
+import { User } from '../../core/interfaces/user';
+import { Utils } from '../../utilities/utils';
+import { UserDataService } from '../../core/services/user-data/user-data.service';
+import { GroupDataInterface } from '../../core/interfaces/group-data.interface';
+import { Post } from '../../core/interfaces/post';
+import { Reply } from '../../core/interfaces/reply';
+import { StudyModule } from '../study.module';
 
 
 

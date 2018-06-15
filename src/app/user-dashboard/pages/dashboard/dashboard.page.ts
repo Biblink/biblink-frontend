@@ -2,22 +2,22 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { ToastrService } from 'ngx-toastr';
 import { Observable, Subscription } from 'rxjs';
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { UserDataService } from '../user-data.service';
-import { AuthService } from '../auth.service';
+import { UserDataService } from '../../../core/services/user-data/user-data.service';
+import { AuthService } from '../../../core/services/auth/auth.service';
 import { AbstractControl, FormBuilder, FormGroup, ValidatorFn, Validators, FormControl } from '@angular/forms';
-import { User } from '../core/interfaces/user';
+import { User } from '../../../core/interfaces/user';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { AngularFireAuth } from 'angularfire2/auth';
 import * as firebase from 'firebase/app';
 import 'firebase/auth';
-import { StudyDataService } from '../study-data.service';
+import { StudyDataService } from '../../../study/services/study-data.service';
 import { Router } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-dashboard',
-  templateUrl: './dashboard.component.html',
-  styleUrls: [ './dashboard.component.css' ]
+  templateUrl: './dashboard.page.html',
+  styleUrls: [ './dashboard.page.css' ]
 })
 export class DashboardComponent implements OnInit, OnDestroy {
 

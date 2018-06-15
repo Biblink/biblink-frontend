@@ -8,7 +8,6 @@ import { SafeHtmlPipe } from './pipes/safe-html.pipe';
 import { FileUploadComponent } from './components/file-upload/file-upload.component';
 import { LoadingSpinnerComponent } from './components/loading-spinner/loading-spinner.component';
 import { DropZoneDirective } from './directives/drop-zone.directive';
-import { PostCardComponent } from './components/post-card/post-card.component';
 
 @NgModule({
   imports: [
@@ -21,7 +20,6 @@ import { PostCardComponent } from './components/post-card/post-card.component';
     NavbarComponent,
     FileUploadComponent,
     LoadingSpinnerComponent,
-    PostCardComponent,
     SafeHtmlPipe,
     DropZoneDirective
   ],
@@ -32,7 +30,6 @@ import { PostCardComponent } from './components/post-card/post-card.component';
     LoadingSpinnerComponent,
     SafeHtmlPipe,
     DropZoneDirective,
-    PostCardComponent,
     SharedImportsModule
   ]
 })

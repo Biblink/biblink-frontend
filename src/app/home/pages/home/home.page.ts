@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../../../auth.service';
+import { AuthService } from '../../../core/services/auth/auth.service';
 import { Router } from '@angular/router';
 import { AngularFirestore } from 'angularfire2/firestore';
-import { UserDataService } from '../../../user-data.service';
+import { UserDataService } from '../../../core/services/user-data/user-data.service';
 import { Angulartics2Module } from 'angulartics2';
 import { Title } from '@angular/platform-browser';
 

@@ -1,10 +1,12 @@
 import { Injectable } from '@angular/core';
-import { environment } from '../environments/environment';
+import { environment } from '../../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
-import { Verse } from './core/interfaces/verse.interface';
+import { Verse } from '../../interfaces/verse.interface';
 import { Observable } from 'rxjs';
 
-@Injectable()
+@Injectable({
+    providedIn: 'root'
+})
 export class SearchService {
     results: Verse[] = [];
     found = 'not_found';
