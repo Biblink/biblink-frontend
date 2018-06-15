@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../auth.service';
+import { AuthService } from '../../../auth.service';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
     selector: 'app-verify-email',
-    templateUrl: './verify-email.component.html',
-    styleUrls: [ './verify-email.component.css' ]
+    templateUrl: './verify-email.page.html',
+    styleUrls: [ './verify-email.page.css' ]
 })
 export class VerifyEmailComponent implements OnInit {
     isVerified = null;

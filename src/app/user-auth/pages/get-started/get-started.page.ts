@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../auth.service';
+import { AuthService } from '../../../auth.service';
 import { AbstractControl, FormBuilder, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
-import { User } from '../core/interfaces/user';
+import { User } from '../../../core/interfaces/user';
 import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-get-started',
-    templateUrl: './get-started.component.html',
-    styleUrls: [ './get-started.component.css' ]
+    templateUrl: './get-started.page.html',
+    styleUrls: [ './get-started.page.css' ]
 })
 export class GetStartedComponent implements OnInit {
     emailInUse = false;

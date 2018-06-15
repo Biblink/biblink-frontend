@@ -14,7 +14,6 @@ import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { AngularFireStorageModule } from 'angularfire2/storage';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { RecaptchaModule } from 'ng-recaptcha';
-import { RecaptchaFormsModule } from 'ng-recaptcha/forms';
 import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -26,36 +25,29 @@ import { LegalModule } from './legal/legal.module';
 import { SupportModule } from './support/support.module';
 import { HomeModule } from './home/home.module';
 import { AboutModule } from './about/about.module';
+import { SearchModule } from './search/search.module';
+import { UserAuthModule } from './user-auth/user-auth.module';
 
 
 
 // components
 import { AppComponent } from './app.component';
-
-// providers
-import { SearchService } from './search.service';
-import { SignInComponent } from './sign-in/sign-in.component';
-import { GetStartedComponent } from './get-started/get-started.component';
-import { AuthService } from './auth.service';
-import { PasswordResetComponent } from './password-reset/password-reset.component';
-import { VerifyEmailComponent } from './verify-email/verify-email.component';
-import { UserDataService } from './user-data.service';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { StudyDataService } from './study-data.service';
 import { StudyComponent } from './study/study.component';
 import { StudyNavComponent } from './study-nav/study-nav.component';
 import { NotFinishedComponent } from './not-finished/not-finished.component';
-import { SearchModule } from './search/search.module';
+
+// providers
+import { SearchService } from './search.service';
+import { AuthService } from './auth.service';
+import { UserDataService } from './user-data.service';
+import { StudyDataService } from './study-data.service';
 
 
 
 @NgModule({
     declarations: [
         AppComponent,
-        SignInComponent,
-        GetStartedComponent,
-        PasswordResetComponent,
-        VerifyEmailComponent,
         DashboardComponent,
         StudyComponent,
         StudyNavComponent,
@@ -70,7 +62,6 @@ import { SearchModule } from './search/search.module';
         ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production }),
         RecaptchaModule.forRoot(),
         Angulartics2Module.forRoot([ Angulartics2GoogleAnalytics ]),
-        RecaptchaFormsModule,
         ScrollToModule.forRoot(),
         HttpClientModule,
         HttpClientJsonpModule,
@@ -80,6 +71,7 @@ import { SearchModule } from './search/search.module';
             positionClass: 'toast-bottom-left'
         }),
         HomeModule,
+        UserAuthModule,
         AboutModule,
         SearchModule,
         SupportModule,

@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from '../auth.service';
+import { AuthService } from '../../../auth.service';
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
     selector: 'app-password-reset',
-    templateUrl: './password-reset.component.html',
-    styleUrls: [ './password-reset.component.css' ]
+    templateUrl: './password-reset.page.html',
+    styleUrls: [ './password-reset.page.css' ]
 })
 export class PasswordResetComponent implements OnInit {
     passwordSent = false;
