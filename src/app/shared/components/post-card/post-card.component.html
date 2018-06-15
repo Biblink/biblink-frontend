@@ -1,0 +1,195 @@
+<div>
+  <div class="post card" [ngStyle]="{'z-index': activateZ}">
+    <header class="card-header">
+      <ng-content select=".card-header-title"></ng-content>
+      <ng-content select=".metadata"></ng-content>
+    </header>
+    <div class="card-content" [class.annotation-card-content]="isAnnotation">
+      <div class="content">
+        <div class="card-text">
+          <ng-content select=".card-body"></ng-content>
+        </div>
+        <div class="card-links">
+          <ng-content select=".links"></ng-content>
+        </div>
+        <div class="card-verses">
+          <ng-content select=".verses"></ng-content>
+        </div>
+      </div>
+      <div class="post-actions columns" [class.annotation-actions]="isAnnotation">
+        <div class="column" [class.remove-padding]="isAnnotation">
+          <div [class.lower]="isAnnotation">
+            <a class="post-action" [class.annotation-action]="isAnnotation" (click)="activateReplyModal = true" *ngIf="replies.length === 0">Reply</a>
+            <a class="post-action" [class.annotation-action]="isAnnotation" [class.annotation-with-replies]="isAnnotation" (click)="activateReplyModal = true"
+              *ngIf="replies.length > 0">Reply ({{replies.length}})</a>
+            <a class="post-action" href="" *ngIf="!isAnnotation">Star</a>
+            <div *ngIf="isLeader || isCreator" [class.annotation-dropdown]="isAnnotation" class="dropdown is-left is-hoverable verse-dropdown"
+              (mouseenter)="activateZ = 700" (mouseleave)="activateZ = 0">
+              <div class="dropdown-trigger">
+                <a aria-haspopup="true" aria-controls="more-actions" class="post-action" id="more-action">
+                  <img src="/assets/icons/more-icon.svg" alt="more options">
+                </a>
+              </div>
+              <div class="dropdown-menu" id="more-actions" role="menu">
+                <div class="dropdown-content">
+                  <div class="dropdown-item">
+                    <a class="post-action" (click)="emitEdit()">Edit</a>
+                  </div>
+                  <hr class="dropdown-divider">
+                  <div class="dropdown-item">
+                    <a class="post-action red-link" (click)="activateDeleteModal = true; activateZ = 10">Delete</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="column is-three-fifths has-text-right" [class.annotation-contributors]="isAnnotation">
+          <div class="contributors" *ngIf="!isAnnotation">
+            <span class="contributor-text" *ngIf="contributorImages.length <= 1">Contributor: </span>
+            <span class="contributor-text" *ngIf="contributorImages.length > 1 ">Contributors: </span>
+            <ng-container *ngFor="let image of contributorImages">
+              <i *ngIf="image === null || image === ''" class="user fa fa-user"></i>
+              <img class="contributor-image" [src]="image" *ngIf="image !== null && image !== ''">
+            </ng-container>
+          </div>
+          <div class="created-by" *ngIf="isAnnotation">
+            <span class="contributor-text annotation-contributor">Created by: </span>
+            <ng-container *ngFor="let image of contributorImages.slice(0, 1)">
+              <i *ngIf="image === null || image === ''" class="user fa fa-user"></i>
+              <img class="contributor-image annotator-image" [src]="image" *ngIf="image !== null && image !== ''">
+            </ng-container>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div class="replies" *ngIf="replies.length > 0">
+      <div class="reply" *ngFor="let reply of replies" [class.annotation-reply]="isAnnotation">
+        <div class="person-container">
+          <img class="contributor-image" [class.reply-annotation-image]="isAnnotation" [src]="reply['image']" alt="">
+          <span class="name" *ngIf="!isAnnotation" [class.annotation-name]="isAnnotation">{{reply['name']}}</span>
+          <p class="reply-text" [innerHTML]="reply['htmlText'] | safeHtml" *ngIf="!isAnnotation"></p>
+          <p class="reply-text annotation-reply-text" [innerHTML]="reply['htmlText'] | safeHtml" *ngIf="isAnnotation"></p>
+        </div>
+        <div class="sub-reply" *ngFor="let subreply of reply['subreplies']">
+          <div class="person-container">
+            <svg width="27px" height="34px" viewBox="0 0 27 34" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+              <!-- Generator: Sketch 49 (51002) - http://www.bohemiancoding.com/sketch -->
+              <title>Group 5</title>
+              <desc>Created with Sketch.</desc>
+              <defs>
+                <path d="M1.5,31.5 L25.5,31.5" id="path-1"></path>
+                <filter x="-10.0%" y="-50.0%" width="120.0%" height="266.7%" filterUnits="objectBoundingBox" id="filter-2">
+                  <feMorphology radius="0.5" operator="dilate" in="SourceAlpha" result="shadowSpreadOuter1"></feMorphology>
+                  <feOffset dx="0" dy="1" in="shadowSpreadOuter1" result="shadowOffsetOuter1"></feOffset>
+                  <feMorphology radius="1" operator="erode" in="SourceAlpha" result="shadowInner"></feMorphology>
+                  <feOffset dx="0" dy="1" in="shadowInner" result="shadowInner"></feOffset>
+                  <feComposite in="shadowOffsetOuter1" in2="shadowInner" operator="out" result="shadowOffsetOuter1"></feComposite>
+                  <feGaussianBlur stdDeviation="0.5" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+                  <feColorMatrix values="0 0 0 0 0.792156863   0 0 0 0 0.733333333   0 0 0 0 0.733333333  0 0 0 0.5 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+                </filter>
+                <path d="M1.5,0.5 L1.5,31.5" id="path-3"></path>
+                <filter x="-83.3%" y="-4.7%" width="266.7%" height="115.6%" filterUnits="objectBoundingBox" id="filter-4">
+                  <feMorphology radius="0.5" operator="dilate" in="SourceAlpha" result="shadowSpreadOuter1"></feMorphology>
+                  <feOffset dx="0" dy="1" in="shadowSpreadOuter1" result="shadowOffsetOuter1"></feOffset>
+                  <feMorphology radius="1" operator="erode" in="SourceAlpha" result="shadowInner"></feMorphology>
+                  <feOffset dx="0" dy="1" in="shadowInner" result="shadowInner"></feOffset>
+                  <feComposite in="shadowOffsetOuter1" in2="shadowInner" operator="out" result="shadowOffsetOuter1"></feComposite>
+                  <feGaussianBlur stdDeviation="0.5" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+                  <feColorMatrix values="0 0 0 0 0.792156863   0 0 0 0 0.733333333   0 0 0 0 0.733333333  0 0 0 0.5 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+                </filter>
+              </defs>
+              <g id="Light-Dashboard-Designs" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="square">
+                <g id="Light-Dashboard-Desktop" transform="translate(-477.000000, -533.000000)">
+                  <g id="Post" transform="translate(420.000000, 214.000000)">
+                    <g id="Group-5" transform="translate(57.000000, 319.000000)">
+                      <g id="Line-8">
+                        <use fill="black" fill-opacity="1" filter="url(#filter-2)" xlink:href="#path-1"></use>
+                        <use stroke="#979797" stroke-width="1" xlink:href="#path-1"></use>
+                      </g>
+                      <g id="Line-7">
+                        <use fill="black" fill-opacity="1" filter="url(#filter-4)" xlink:href="#path-3"></use>
+                        <use stroke="#979797" stroke-width="1" xlink:href="#path-3"></use>
+                      </g>
+                    </g>
+                  </g>
+                </g>
+              </g>
+            </svg>
+            <div>
+              <img class="contributor-image" [class.reply-annotation-image]="isAnnotation" [src]="subreply['image']" alt="">
+              <span class="name" *ngIf="!isAnnotation">{{subreply['name']}}</span>
+            </div>
+            <p class="reply-text" *ngIf="!isAnnotation" [innerHtml]="subreply['htmlText'] | safeHtml"></p>
+            <p class="reply-text annotation-reply-text annotation-subreply" *ngIf="isAnnotation" [innerHtml]="subreply['htmlText'] | safeHtml"></p>
+          </div>
+        </div>
+        <div class="add-reply">
+          <a class="post-action" [class.annotation-action]="isAnnotation" (click)="activateSubReplyModal = true; replyID = reply['id'];"
+            *ngIf="reply['subreplies'].length === 0">Reply</a>
+          <a class="post-action" [class.annotation-action]="isAnnotation" (click)="activateSubReplyModal = true; replyID = reply['id'];"
+            *ngIf="reply['subreplies'].length > 0">Reply ({{reply['subreplies'].length}})</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal" [class.is-active]="activateDeleteModal">
+  <div class="modal-background"></div>
+  <div class="modal-card">
+    <header class="modal-card-head">
+      <p class="modal-card-title">Are you sure you want to delete this?</p>
+      <button class="delete" aria-label="close" (click)="activateDeleteModal = false"></button>
+    </header>
+    <footer class="modal-card-foot">
+      <div>
+        <button class="btn study-btn modal-btn" (click)="emitDelete(); activateDeleteModal = false;">Delete</button>
+        <a (click)="activateDeleteModal = false" class="btn-link">Cancel</a>
+      </div>
+    </footer>
+  </div>
+</div>
+<div class="modal" [class.is-active]="activateReplyModal">
+  <div class="modal-background"></div>
+  <div class="modal-card">
+    <header class="modal-card-head">
+      <p class="modal-card-title">Add a Reply</p>
+      <button class="delete" aria-label="close" (click)="activateReplyModal = false"></button>
+    </header>
+    <section class="modal-card-body">
+      <div class="field" data-aos="slide-right" data-aos-duration="1200">
+        <label class="label" for="reply-text">Reply Text:</label>
+        <input class="input" #replyInput="ngModel" [(ngModel)]="replyText" required type="text" name="reply-text">
+      </div>
+    </section>
+    <footer class="modal-card-foot">
+      <div>
+        <button [disabled]="replyInput.invalid" class="btn study-btn modal-btn" (click)="emitReply(); activateReplyModal = false;">Add Reply</button>
+        <a (click)="activateReplyModal = false" class="btn-link">Cancel</a>
+      </div>
+    </footer>
+  </div>
+</div>
+<div class="modal" [class.is-active]="activateSubReplyModal">
+  <div class="modal-background"></div>
+  <div class="modal-card">
+    <header class="modal-card-head">
+      <p class="modal-card-title">Add a Sub Reply</p>
+      <button class="delete" aria-label="close" (click)="activateSubReplyModal = false"></button>
+    </header>
+    <section class="modal-card-body">
+      <div class="field" data-aos="slide-right" data-aos-duration="1200">
+        <label class="label" for="reply-text">Sub Reply Text:</label>
+        <input class="input" #subReplyInput="ngModel" [(ngModel)]="subReplyText" required type="text" name="reply-text">
+      </div>
+    </section>
+    <footer class="modal-card-foot">
+      <div>
+        <button [disabled]="subReplyInput.invalid" class="btn study-btn modal-btn" (click)="addSubReply(); activateSubReplyModal = false;">Add Reply</button>
+        <a (click)="activateSubReplyModal = false" class="btn-link">Cancel</a>
+      </div>
+    </footer>
+  </div>
+</div>
