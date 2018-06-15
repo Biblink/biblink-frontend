@@ -269,9 +269,13 @@
         <h4 class="cta-header" data-aos="zoom-in-down" data-aos-duration="1000">Persistent, Connected, Community</h4>
         <h4 class="cta-header subheader" data-aos="zoom-out-down" data-aos-duration="1200">So what are you waiting for?</h4>
         <p class="cta-text" data-aos="zoom-out-up" data-aos-duration="1500">Get your church started now!</p>
-        <button class="get-started-cta btn" data-aos="fade-up" data-aos-duration="1000" [routerLink]="'/get-started'" angulartics2On="click"
+        <button *ngIf="!isLoggedIn" class="get-started-cta btn" data-aos="fade-up" data-aos-duration="1000" [routerLink]="'/get-started'" angulartics2On="click"
             angularticsAction="Clicked bottom Get Started button" [angularticsCategory]="'button-click'" angularticsLabel="conversion">
             Get Started
+        </button>
+        <button *ngIf="isLoggedIn" class="get-started-cta btn" [routerLink]="'/dashboard/home'" angulartics2On="click" angularticsAction="Clicked Bottom Dashboard button"
+            [angularticsCategory]="'button-click'" angularticsLabel="navigation">
+            To Dashboard
         </button>
         <p>
             <a class="to-top" [ngx-scroll-to]="'#top-of-page'" data-aos="fade-down" data-aos-duration="2500" [ngx-scroll-to-duration]="1500"
@@ -282,9 +286,13 @@
         <hr class="has-text-centered cta-divider" data-aos="zoom-in-up" data-aos-duration="800">
         <h4 class="cta-header" data-aos="zoom-out-down" data-aos-duration="1200">So what are you waiting for?</h4>
         <p class="cta-text" data-aos="zoom-out-up" data-aos-duration="1500">Get your church started now!</p>
-        <button class="get-started-cta btn" data-aos="fade-up" data-aos-duration="1000" [routerLink]="'/get-started'" angulartics2On="click"
+        <button *ngIf="!isLoggedIn" class="get-started-cta btn" data-aos="fade-up" data-aos-duration="1000" [routerLink]="'/get-started'" angulartics2On="click"
             angularticsAction="Clicked bottom Get Started button" [angularticsCategory]="'button-click'" angularticsLabel="conversion">
             Get Started
+        </button>
+        <button *ngIf="isLoggedIn" class="get-started-cta btn" [routerLink]="'/dashboard/home'" angulartics2On="click" angularticsAction="Clicked Bottom Dashboard button"
+                        [angularticsCategory]="'button-click'" angularticsLabel="navigation">
+                        To Dashboard
         </button>
         <p>
             <a class="to-top" [ngx-scroll-to]="'#top-of-page'" data-aos="fade-down" data-aos-duration="2500" [ngx-scroll-to-duration]="1500"
