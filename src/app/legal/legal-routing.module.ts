@@ -11,8 +11,8 @@ import { NotFinishedComponent } from './../not-finished/not-finished.component';
 // ]; // TODO: Uncomment when pages are implemented
 
 const routes: Routes = [
-    { path: 'legal/terms-of-use', component: NotFinishedComponent },
-    { path: 'legal/privacy-policy', component: NotFinishedComponent },
+    { path: 'terms-of-use', component: NotFinishedComponent },
+    { path: 'privacy-policy', component: NotFinishedComponent },
 ];
 @NgModule({
     imports: [ RouterModule.forChild(routes) ],

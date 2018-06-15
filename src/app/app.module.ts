@@ -41,6 +41,7 @@ import { SearchService } from './core/services/search/search.service';
 import { AuthService } from './core/services/auth/auth.service';
 import { UserDataService } from './core/services/user-data/user-data.service';
 import { StudyDataService } from './study/services/study-data.service';
+import { BrowserModule } from '@angular/platform-browser';
 
 
 
@@ -51,6 +52,7 @@ import { StudyDataService } from './study/services/study-data.service';
         NotFinishedComponent
     ],
     imports: [
+        BrowserModule,
         SharedModule,
         AngularFireModule.initializeApp(environment.firebase, 'biblya'),
         AngularFirestoreModule.enablePersistence(),
