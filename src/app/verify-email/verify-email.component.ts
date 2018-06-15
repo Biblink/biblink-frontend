@@ -1,12 +1,12 @@
-import {Component, OnInit} from '@angular/core';
-import {AuthService} from '../auth.service';
-import {Router} from '@angular/router';
-import {ToastrService} from 'ngx-toastr';
+import { Component, OnInit } from '@angular/core';
+import { AuthService } from '../auth.service';
+import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
     selector: 'app-verify-email',
     templateUrl: './verify-email.component.html',
-    styleUrls: ['./verify-email.component.css']
+    styleUrls: [ './verify-email.component.css' ]
 })
 export class VerifyEmailComponent implements OnInit {
     isVerified = null;
@@ -32,7 +32,7 @@ export class VerifyEmailComponent implements OnInit {
         this._auth.emailVerified.then((status) => {
             if (!status) {
                 this._auth.sendVerificationEmail().then(() => {
-                    this.toastr.show(`Successfully sent a verification email to ${this._auth.email}`, 'Verified Email Sent');
+                    this.toastr.show(`Successfully sent a verification email to ${ this._auth.email }`, 'Verified Email Sent');
                 });
             }
         });

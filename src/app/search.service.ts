@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../environments/environment';
 import { HttpClient } from '@angular/common/http';
-import { Verse } from './types/verse.type';
+import { Verse } from './core/interfaces/verse.interface';
 import { Observable } from 'rxjs';
 
 @Injectable()
