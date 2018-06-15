@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../auth.service';
+import { AuthService } from '../../../auth.service';
 import { Router } from '@angular/router';
 import { AngularFirestore } from 'angularfire2/firestore';
-import { UserDataService } from '../user-data.service';
+import { UserDataService } from '../../../user-data.service';
 import { Angulartics2Module } from 'angulartics2';
 import { Title } from '@angular/platform-browser';
 
@@ -11,8 +11,8 @@ declare const $: any;
 
 @Component({
     selector: 'app-home',
-    templateUrl: './home.component.html',
-    styleUrls: [ './home.component.css' ]
+    templateUrl: './home.page.html',
+    styleUrls: [ './home.page.css' ]
 })
 export class HomeComponent implements OnInit {
     enhanced = false;
