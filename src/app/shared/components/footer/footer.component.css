@@ -1,0 +1,112 @@
+@media screen and (max-width: 768px) {
+    .footer-container {
+        height: 781px;
+        width: 100%;
+        background: transparent;
+        overflow: hidden;
+        position: relative;
+    }
+    .footer-container::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 100px;
+        height: 800px;
+        background: #06292a;
+        transform: skew(0, -6deg);
+    }
+}
+
+@media screen and (min-width: 769px) {
+    .footer-container {
+        height: 600px;
+        width: 100%;
+        background: transparent;
+        overflow: hidden;
+        position: relative;
+    }
+    .footer-container::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 100px;
+        height: 650px;
+        width: 100%;
+        background: #06292a;
+        transform: skew(0, -6deg);
+    }
+}
+
+.headings h3 {
+    color: #fcfcfc;
+    font-family: 'museo-sans', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 900;
+    letter-spacing: 3px;
+    line-height: 33px;
+}
+
+.mobile .headings h3 {
+    font-size: 1.3rem;
+}
+
+.mobile .content {
+    margin-top: 32px;
+    margin-bottom: 42px;
+}
+
+.mobile .content div {
+    margin-top: 11px;
+}
+
+.content a {
+    color: #fcfcfc;
+    font-family: 'museo-sans', sans-serif;
+    font-size: 1rem;
+    font-weight: 900;
+    letter-spacing: 3px;
+    line-height: 20px;
+    text-align: center;
+}
+
+.mobile .content a {
+    font-size: 0.8rem;
+}
+
+.content a:hover {
+    color: #afacac;
+    transition: all 1s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+.footer-info {
+    margin-top: 225px;
+}
+
+.mobile.footer-info {
+    margin-top: 150px;
+}
+
+.copyright {
+    position: relative;
+    color: #fcfcfc;
+    font-family: 'museo-sans', sans-serif;
+    font-size: 10px;
+    font-weight: 900;
+    letter-spacing: 2px;
+    line-height: 14px;
+    text-align: center;
+}
+
+.version-number {
+    color: #fcfcfc;
+    font-family: 'museo-sans', sans-serif;
+    font-weight: 700;
+}
+
+.mobile.copyright {
+    position: relative;
+    width: 257px;
+    margin: 0 auto;
+}
