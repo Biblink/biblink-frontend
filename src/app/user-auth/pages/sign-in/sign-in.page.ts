@@ -1,16 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AuthService } from '../auth.service';
-import { User } from '../core/interfaces/user';
+import { AuthService } from '../../../auth.service';
+import { User } from '../../../core/interfaces/user';
 import { Router } from '@angular/router';
 
 declare const AOS: any;
 
 @Component({
     selector: 'app-sign-in',
-    templateUrl: './sign-in.component.html',
-    styleUrls: [ './sign-in.component.css' ]
+    templateUrl: './sign-in.page.html',
+    styleUrls: [ './sign-in.page.css' ]
 })
 export class SignInComponent implements OnInit {
     incorrectPassword = false;
