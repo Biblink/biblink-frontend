@@ -1,6 +1,6 @@
 import { AfterViewChecked, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
-import { SearchService } from '../search.service';
+import { SearchService } from '../../../search.service';
 import { ScrollToConfigOptions, ScrollToService } from '@nicky-lenaers/ngx-scroll-to';
 import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { Angulartics2 } from 'angulartics2';
@@ -9,8 +9,8 @@ import { Angulartics2 } from 'angulartics2';
 declare const AOS: any;
 @Component({
     selector: 'app-search',
-    templateUrl: './search.component.html',
-    styleUrls: [ './search.component.css' ]
+    templateUrl: './search.page.html',
+    styleUrls: [ './search.page.css' ]
 })
 export class SearchComponent implements OnInit, OnDestroy, AfterViewChecked {
     searchQuery = '';

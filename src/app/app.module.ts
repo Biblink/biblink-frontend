@@ -31,9 +31,6 @@ import { AboutModule } from './about/about.module';
 
 // components
 import { AppComponent } from './app.component';
-import { SearchComponent } from './search/search.component';
-import { ResultsComponent } from './results/results.component';
-import { ResultCardComponent } from './result-card/result-card.component';
 
 // providers
 import { SearchService } from './search.service';
@@ -48,15 +45,13 @@ import { StudyDataService } from './study-data.service';
 import { StudyComponent } from './study/study.component';
 import { StudyNavComponent } from './study-nav/study-nav.component';
 import { NotFinishedComponent } from './not-finished/not-finished.component';
+import { SearchModule } from './search/search.module';
 
 
 
 @NgModule({
     declarations: [
         AppComponent,
-        SearchComponent,
-        ResultsComponent,
-        ResultCardComponent,
         SignInComponent,
         GetStartedComponent,
         PasswordResetComponent,
@@ -79,7 +74,6 @@ import { NotFinishedComponent } from './not-finished/not-finished.component';
         ScrollToModule.forRoot(),
         HttpClientModule,
         HttpClientJsonpModule,
-        ClipboardModule,
         ShareModule.forRoot(),
         BrowserAnimationsModule,
         ToastrModule.forRoot({
@@ -87,6 +81,7 @@ import { NotFinishedComponent } from './not-finished/not-finished.component';
         }),
         HomeModule,
         AboutModule,
+        SearchModule,
         SupportModule,
         LegalModule,
         OrganizationModule,

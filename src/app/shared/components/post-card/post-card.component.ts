@@ -5,7 +5,7 @@ import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/fires
 import { Observable } from 'rxjs';
 import { StudyDataService } from '../../../study-data.service';
 import { UserDataService } from '../../../user-data.service';
-import { Reply } from '../../../interfaces/reply';
+import { Reply } from '../../../core/interfaces/reply';
 
 @Component({
   selector: 'app-post-card',

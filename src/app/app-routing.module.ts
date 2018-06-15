@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { SearchComponent } from './search/search.component';
 import { SignInComponent } from './sign-in/sign-in.component';
 import { StudyComponent } from './study/study.component';
 import { NotFinishedComponent } from './not-finished/not-finished.component';
@@ -12,7 +11,6 @@ import { PasswordResetComponent } from './password-reset/password-reset.componen
 
 
 const routes: Routes = [
-  { path: 'search', component: SearchComponent },
   { path: 'sign-in', component: SignInComponent },
   { path: 'verify-email', component: VerifyEmailComponent },
   { path: 'get-started', component: GetStartedComponent },

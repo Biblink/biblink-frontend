@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { SearchService } from '../search.service';
+import { SearchService } from '../../../search.service';
 
 declare const AOS: any;
 
