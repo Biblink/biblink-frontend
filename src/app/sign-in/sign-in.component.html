@@ -71,9 +71,9 @@
                         <div class="field" data-aos="fade-up-right" data-aos="fade-up-left" data-aos-duration="1200">
                             <label class="label" for="email">Email:</label>
                             <input formControlName="email" class="input" required type="text" id="email" name="email">
-                            <p *ngIf="email.invalid && email.touched && email.errors.required" class="help invalid" data-aos="fade-up-right">
+                            <p *ngIf="email.invalid && email.touched && email.errors['required']" class="help invalid" data-aos="fade-up-right">
                                 Email is required</p>
-                            <p *ngIf="email.invalid && email.touched && email.errors.pattern" class="help invalid" data-aos="fade-up-right">
+                            <p *ngIf="email.invalid && email.touched && email.errors['pattern']" class="help invalid" data-aos="fade-up-right">
                                 Please provide a valid email</p>
                             <p *ngIf="email.valid && email.touched" class="help valid" data-aos="fade-up-right">
                                 Looking good so far! Now your password!</p>
@@ -87,7 +87,7 @@
                                     <span>Forgot your password?</span>
                                     <a [routerLink]="'/password-reset'">Reset Password</a>
                                 </p>
-                                <p *ngIf="password.invalid && password.touched && password.errors.required" class="help invalid" data-aos="fade-up-right">
+                                <p *ngIf="password.invalid && password.touched && password.errors['required']" class="help invalid" data-aos="fade-up-right">
                                     Password is required</p>
                                 <p *ngIf="password.valid && password.touched && !incorrectPassword" class="help valid" data-aos="fade-up-right">
                                     Looks good! Let's try signing you in!</p>
