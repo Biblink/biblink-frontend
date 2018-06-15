@@ -49,19 +49,8 @@ import { StudyNavComponent } from './study-nav/study-nav.component';
 import { PostCardComponent } from './post-card/post-card.component';
 import { LoadingSpinnerComponent } from './loading-spinner/loading-spinner.component';
 import { NotFinishedComponent } from './not-finished/not-finished.component';
+import { AppRoutingModule } from './/app-routing.module';
 
-const appRoutes: Routes = [
-    { path: '', component: HomeComponent },
-    { path: 'search', component: SearchComponent },
-    { path: 'sign-in', component: SignInComponent },
-    { path: 'verify-email', component: VerifyEmailComponent },
-    { path: 'get-started', component: GetStartedComponent },
-    { path: 'password-reset', component: PasswordResetComponent },
-    { path: 'dashboard/home', component: DashboardComponent },
-    { path: 'dashboard', pathMatch: 'full', redirectTo: '/dashboard/home' },
-    { path: 'dashboard/studies/study/:id', component: StudyComponent },
-    { path: 'not-finished', component: NotFinishedComponent }
-];
 
 @NgModule({
     declarations: [
@@ -97,7 +86,6 @@ const appRoutes: Routes = [
         AngularFireAuthModule,
         AngularFireStorageModule,
         ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production }),
-        RouterModule.forRoot(appRoutes),
         RecaptchaModule.forRoot(),
         RecaptchaFormsModule,
         ScrollToModule.forRoot(),
@@ -107,7 +95,8 @@ const appRoutes: Routes = [
         ShareModule.forRoot(),
         ToastrModule.forRoot({
             positionClass: 'toast-bottom-left'
-        })
+        }),
+        AppRoutingModule
     ],
     providers: [ SearchService, AuthService, UserDataService, StudyDataService ],
     bootstrap: [ AppComponent ]
