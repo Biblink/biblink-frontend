@@ -18,39 +18,36 @@ import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 // custom modules
+import { CoreModule } from './core/core.module';
 import { SharedModule } from './shared/shared.module';
 import { OrganizationModule } from './organization/organization.module';
-import { AppRoutingModule } from './/app-routing.module';
+import { AppRoutingModule } from './app-routing.module';
 import { LegalModule } from './legal/legal.module';
 import { SupportModule } from './support/support.module';
 import { HomeModule } from './home/home.module';
 import { AboutModule } from './about/about.module';
 import { SearchModule } from './search/search.module';
 import { UserAuthModule } from './user-auth/user-auth.module';
-
+import { StudyModule } from './study/study.module';
+import { UserDashboardModule } from './user-dashboard/user-dashboard.module';
 
 
 // components
 import { AppComponent } from './app.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { StudyComponent } from './study/study.component';
-import { StudyNavComponent } from './study-nav/study-nav.component';
 import { NotFinishedComponent } from './not-finished/not-finished.component';
 
 // providers
-import { SearchService } from './search.service';
-import { AuthService } from './auth.service';
-import { UserDataService } from './user-data.service';
-import { StudyDataService } from './study-data.service';
+import { SearchService } from './core/services/search/search.service';
+import { AuthService } from './core/services/auth/auth.service';
+import { UserDataService } from './core/services/user-data/user-data.service';
+import { StudyDataService } from './study/services/study-data.service';
+
 
 
 
 @NgModule({
     declarations: [
         AppComponent,
-        DashboardComponent,
-        StudyComponent,
-        StudyNavComponent,
         NotFinishedComponent
     ],
     imports: [
@@ -70,7 +67,10 @@ import { StudyDataService } from './study-data.service';
         ToastrModule.forRoot({
             positionClass: 'toast-bottom-left'
         }),
+        CoreModule.forRoot(),
         HomeModule,
+        StudyModule,
+        UserDashboardModule,
         UserAuthModule,
         AboutModule,
         SearchModule,
@@ -79,7 +79,6 @@ import { StudyDataService } from './study-data.service';
         OrganizationModule,
         AppRoutingModule
     ],
-    providers: [ SearchService, AuthService, UserDataService, StudyDataService ],
     bootstrap: [ AppComponent ]
 })
 export class AppModule {

@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
-import { SearchService } from '../../../search.service';
+import { SearchService } from '../../../core/services/search/search.service';
 import {
     trigger,
     style,

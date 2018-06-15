@@ -1,24 +1,24 @@
 import { Title } from '@angular/platform-browser';
 
 import { scan, map, pluck } from 'rxjs/operators';
-import { SearchService } from './../search.service';
+import { SearchService } from '../../../core/services/search/search.service';
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
-import { StudyDataService } from '../study-data.service';
-import { UserDataService } from '../user-data.service';
+import { StudyDataService } from '../../services/study-data.service';
+import { UserDataService } from '../../../core/services/user-data/user-data.service';
 import { ToastrService } from 'ngx-toastr';
 import * as firebase from 'firebase';
 
-import { Reply } from '../core/interfaces/reply';
-import { Post } from '../core/interfaces/post';
-import { Annotation } from '../core/interfaces/annotation';
+import { Reply } from '../../../core/interfaces/reply';
+import { Post } from '../../../core/interfaces/post';
+import { Annotation } from '../../../core/interfaces/annotation';
 
 declare const $: any;
 @Component({
   selector: 'app-study',
-  templateUrl: './study.component.html',
-  styleUrls: [ './study.component.css' ]
+  templateUrl: './study.page.html',
+  styleUrls: [ './study.page.css' ]
 })
 
 export class StudyComponent implements OnInit, OnDestroy {

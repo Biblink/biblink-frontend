@@ -1,7 +1,7 @@
-import { UserDataService } from '../../../user-data.service';
+import { UserDataService } from '../../../core/services/user-data/user-data.service';
 import { Component, OnInit } from '@angular/core';
 import { AppComponent } from '../../../app.component';
-import { AuthService } from '../../../auth.service';
+import { AuthService } from '../../../core/services/auth/auth.service';
 import { Router } from '@angular/router';
 
 declare const AOS: any;

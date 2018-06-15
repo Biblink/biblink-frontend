@@ -1,6 +1,6 @@
 import { TestBed, inject } from '@angular/core/testing';
 
-import { StudyDataService } from './group-data.service';
+import { StudyDataService } from './study-data.service';
 
 describe('GroupDataService', () => {
   beforeEach(() => {
