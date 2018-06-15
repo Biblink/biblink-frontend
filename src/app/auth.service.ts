@@ -3,8 +3,8 @@ import { AngularFireAuth } from 'angularfire2/auth';
 import * as firebase from 'firebase/app';
 import 'firebase/auth';
 import { Observable } from 'rxjs';
-import { EmailUserInterface } from './interfaces/email-user.interface';
-import { User } from './interfaces/user';
+import { EmailUserInterface } from './core/interfaces/email-user.interface';
+import { User } from './core/interfaces/user';
 import { AngularFirestore } from 'angularfire2/firestore';
 
 @Injectable()

@@ -10,9 +10,9 @@ import { UserDataService } from '../user-data.service';
 import { ToastrService } from 'ngx-toastr';
 import * as firebase from 'firebase';
 
-import { Reply } from '../interfaces/reply';
-import { Post } from '../interfaces/post';
-import { Annotation } from './../interfaces/annotation';
+import { Reply } from '../core/interfaces/reply';
+import { Post } from '../core/interfaces/post';
+import { Annotation } from '../core/interfaces/annotation';
 
 declare const $: any;
 @Component({

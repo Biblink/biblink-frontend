@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../auth.service';
-import { User } from '../interfaces/user';
+import { User } from '../core/interfaces/user';
 import { Router } from '@angular/router';
 
 declare const AOS: any;
