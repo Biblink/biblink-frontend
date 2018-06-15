@@ -5,7 +5,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { UserDataService } from '../user-data.service';
 import { AuthService } from '../auth.service';
 import { AbstractControl, FormBuilder, FormGroup, ValidatorFn, Validators, FormControl } from '@angular/forms';
-import { User } from '../interfaces/user';
+import { User } from '../core/interfaces/user';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { AngularFireAuth } from 'angularfire2/auth';
 import * as firebase from 'firebase/app';
@@ -17,7 +17,7 @@ import { Title } from '@angular/platform-browser';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.css']
+  styleUrls: [ './dashboard.component.css' ]
 })
 export class DashboardComponent implements OnInit, OnDestroy {
 
@@ -84,10 +84,10 @@ export class DashboardComponent implements OnInit, OnDestroy {
       if (res !== null && (res.email !== null && res.email !== '')) {
         this.isLoading.next(false);
         this.showResults = true;
-        this.user = new User(res['firstName'], res['lastName'], res['email'], res['data']);
+        this.user = new User(res[ 'firstName' ], res[ 'lastName' ], res[ 'email' ], res[ 'data' ]);
         this.imageUrl = this.user.data.profileImage;
         this.name = this.user.firstName + ' ' + this.user.lastName;
-        this.securityForm.patchValue({ 'email': res['email'] });
+        this.securityForm.patchValue({ 'email': res[ 'email' ] });
       }
     });
     this.groupDataSubscription = this.groupData.studies.subscribe((groups) => {
@@ -134,17 +134,17 @@ export class DashboardComponent implements OnInit, OnDestroy {
       if (name) {
         this.toastr.show('Successfully Updated Your Name', 'Successful Update of Name');
       } else {
-        this.toastr.show('Successfully Updated Your Profile', 'Successful Update'); 4
+        this.toastr.show('Successfully Updated Your Profile', 'Successful Update');
       }
     });
   }
 
   createForm(): void {
     this.securityForm = this.fb.group({
-      email: ['', [Validators.pattern(this.email_regex), Validators.required]],
-      oldPassword: ['', Validators.required],
-      newPassword: [''],
-      confirmPassword: [''],
+      email: [ '', [ Validators.pattern(this.email_regex), Validators.required ] ],
+      oldPassword: [ '', Validators.required ],
+      newPassword: [ '' ],
+      confirmPassword: [ '' ],
     },
       {
         validator: CustomValidators.matchPassword
@@ -212,15 +212,15 @@ export class DashboardComponent implements OnInit, OnDestroy {
     const name = this.studyGroup.name.replace(/\s/g, '').toLowerCase();
     const joinStudy = this.groupData.joinStudy(name, parseInt(this.studyGroup.uniqueID, 10)).subscribe((res) => {
       if (res.length === 1) {
-        const groupName = res[0].payload.doc.data()['name'];
-        const groupID = res[0].payload.doc.id;
+        const groupName = res[ 0 ].payload.doc.data()[ 'name' ];
+        const groupID = res[ 0 ].payload.doc.id;
         this.groupData.addMember(groupID, this._data.userID.getValue()).then((test) => {
           this._data.addStudy(groupID, 'member').then(() => {
-            this.toastr.show(`Added You to ${groupName}`, 'Successfully Added To Group');
+            this.toastr.show(`Added You to ${ groupName }`, 'Successfully Added To Group');
           });
         }).catch((reason) => {
           if (reason === 'already added') {
-            this.toastr.show(`You are already part of ${groupName}`, 'Already Added');
+            this.toastr.show(`You are already part of ${ groupName }`, 'Already Added');
           }
         });
       }
@@ -243,7 +243,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   openStudy(id) {
-    this._router.navigateByUrl(`/dashboard/studies/study/${id}`);
+    this._router.navigateByUrl(`/dashboard/studies/study/${ id }`);
   }
 
   getDownloadUrlStudy(event, type) {

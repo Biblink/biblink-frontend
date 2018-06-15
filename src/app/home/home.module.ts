@@ -4,7 +4,6 @@ import { SharedImportsModule } from './../shared/shared-imports/shared-imports.m
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HomeComponent } from './pages/home/home.page';
-import { Angulartics2Module } from 'angulartics2';
 import { RouterModule } from '@angular/router';
 import { SharedModule } from '../shared/shared.module';
 import { HomeRoutingModule } from './home-routing.module';
@@ -13,9 +12,8 @@ import { HomeRoutingModule } from './home-routing.module';
   imports: [
     CommonModule,
     RouterModule,
-    SharedModule,
     ScrollToModule,
-    Angulartics2Module,
+    SharedModule,
     HomeRoutingModule
   ],
   declarations: [
