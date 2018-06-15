@@ -725,7 +725,7 @@ input:checked+.slider:before {
 .bible-text {
     width: 60%;
     color: #343232;
-    font-family: "Avenir Next";
+    font-family: 'museo-sans';
     font-size: 18px;
     line-height: 25px;
     margin: 0 auto;
