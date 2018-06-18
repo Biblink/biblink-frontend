@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.0.9-alpha.2"></a>
+## [1.0.9-alpha.2](https://github.com/Biblink/biblink-frontend/compare/v1.0.9-alpha.1...v1.0.9-alpha.2) (2018-06-18)
+
+
+### Bug Fixes
+
+* **study:** update css for member icon ([df9ff5a](https://github.com/Biblink/biblink-frontend/commit/df9ff5a))
+
+
+
 <a name="1.0.9-alpha.1"></a>
 ## [1.0.9-alpha.1](https://github.com/Biblink/biblink-frontend/compare/v1.0.9-alpha.0...v1.0.9-alpha.1) (2018-06-18)
 
