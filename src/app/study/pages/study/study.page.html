@@ -127,11 +127,27 @@
           </div>
         </div>
         <div class="bible-text">
-          <span class="shared-bible-verse" *ngFor="let verse of bibleData['verse_data']; let i = index;" [class.is-underlined]="underlinedVerses[i]"
-            (click)="underlinedVerses[i] = underlinedVerses[i] === true ? false: true; expandActions(); prepareAnnotation();">
-            <span class="verse-number">{{verse['verse_number']}}</span>
-            {{verse['text']}}
-          </span>
+          <ng-container *ngFor="let verse of bibleData['verse_data']; let i = index;">
+
+            <ng-container *ngIf="countVerses[i]['count'] === 0">
+              <span class="shared-bible-verse" [class.is-underlined]="underlinedVerses[i]" (click)="underlinedVerses[i] = underlinedVerses[i] === true ? false: true; expandActions(); prepareAnnotation();">
+                <span class="verse-number">{{verse['verse_number']}}</span>
+                {{verse['text']}}
+              </span>
+            </ng-container>
+
+            <ng-container *ngIf="countVerses[i]['count'] > 0">
+              <span class="shared-bible-verse" [class.is-underlined]="underlinedVerses[i]" [class.is-darkened]="darkenedVerses[i]" (click)="darkenedVerses[i] = darkenedVerses[i] === true ? false: true; expandActions(); prepareAnnotation();">
+                {{verse['text']}}
+              </span>
+              <ng-container *ngIf="darkenedVerses[i]">
+                <img class="num-annotations" *ngFor="let image of countVerses[i]['images']" [src]="image">
+              </ng-container>
+
+              <div class="num-annotations">{{countVerses[i]['count']}}</div>
+
+            </ng-container>
+          </ng-container>
         </div>
         <div class="bible-actions">
           <a class="more-link bible-navigation bible-navigation-left" (click)="previousChapter()" [class.disabled]="activeChapter === 1">
