@@ -261,7 +261,8 @@
             <ng-container *ngFor="let member of members; let i = index">
 
               <div class="member">
-                <i *ngIf="(member['image'] === null || member['image'] === '') && i < numberOfMembers" class="user fa fa-user"></i>
+                <i *ngIf="(member['image'] === null || member['image'] === '') && i < numberOfMembers" style="font-size: 42px; margin-left: 5px; margin-right: 6px;"
+                  class="user fa fa-user"></i>
                 <img *ngIf="member['image'] !== null && member['image'] !== '' && i < numberOfMembers" class="profile-image" [src]="member['image']">
                 <div class="member-name" *ngIf="i < numberOfMembers">
                   <span>{{member['name']}}</span>
