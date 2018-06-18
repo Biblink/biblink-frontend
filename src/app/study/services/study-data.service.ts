@@ -1,6 +1,6 @@
 import { Annotation } from '../../core/interfaces/annotation';
 
-import { take } from 'rxjs/operators';
+import { take, pluck } from 'rxjs/operators';
 import 'rxjs/add/operator/take';
 import { Group } from '../../core/interfaces/group';
 import { Injectable, OnInit } from '@angular/core';
@@ -167,6 +167,13 @@ export class StudyDataService {
       .doc(annotationID).update(annotation);
   }
 
+  promoteUser(uid: string, studyId: string, role: string) {
+    return this.afs.doc(`/studies/${ studyId }`)
+      .collection('members')
+      .doc(uid)
+      .update({ 'role': role });
+  }
+
   // updatePost(studyID: string) {
   //   this.afs.doc(`/studies/${ studyID }`).collection('posts').snapshotChanges().subscribe((res) => {
   //     res.forEach((post) => {
@@ -175,6 +182,19 @@ export class StudyDataService {
   //     });
   //   });
   // }
+
+  async checkAuthorized(uid: string, studyId: string, roles: string[]) {
+    const userStudyRef = this.afs.doc(`users/${ uid }`).collection('studies').doc(studyId);
+    let isAuthorized = false;
+    await userStudyRef.valueChanges().take(1).pipe(pluck('role')).subscribe((role: string) => {
+      if (roles.indexOf(role) !== -1) {
+        isAuthorized = true;
+      } else {
+        isAuthorized = false;
+      }
+    });
+    return isAuthorized;
+  }
 
   getPosts(studyID: string, startAfter = '', limit = 4) {
     if (startAfter !== '') {

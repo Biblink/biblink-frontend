@@ -80,6 +80,8 @@ export class StudyComponent implements OnInit, OnDestroy {
   isGettingMorePosts = false;
   isVisibleLinks = true;
   isVisibleVerses = true;
+  activatePromotionModal = false;
+  currentPromote: Object = { name: '', uid: '' };
   constructor(private _router: Router,
     private _title: Title,
     private _search: SearchService,
@@ -213,6 +215,22 @@ export class StudyComponent implements OnInit, OnDestroy {
     this.createAnnotation.type = type;
     this.toggleCreation(true, true);
   }
+
+  verifyPromote(name: string, uid) {
+    this.activatePromotionModal = true;
+    this.currentPromote[ 'name' ] = name;
+    this.currentPromote[ 'uid' ] = uid;
+  }
+
+  promoteToLeader() {
+    if (this.currentPromote[ 'name' ] !== '' && this.currentPromote[ 'uid' ] !== '') {
+      if (this.isLeader) {
+        this._study.promoteUser(this.currentPromote[ 'uid' ], this.groupID, 'leader').then(() => {
+          this.toastr.show(`Successfully Promoted ${ this.currentPromote[ 'name' ] } to Leader`, 'Leader Promotion');
+        });
+      }
+    }
+  }
   getAnnouncements() {
     this.isLoading.next(true);
     this.resetPosts = true;
@@ -308,15 +326,30 @@ export class StudyComponent implements OnInit, OnDestroy {
       this.members = [];
       members.forEach((member) => {
         let firstTime = false;
-        let oldImage = { 'name': '', 'image': '' };
+        let oldImage = { 'name': '', 'uid': '', 'image': '', 'role': '' };
         this._user.getDataFromID(member[ 'uid' ]).subscribe((res) => {
           if (firstTime) {
-            this.members[ this.members.indexOf(oldImage) ] = { 'name': res[ 'name' ], 'image': res[ 'data' ][ 'profileImage' ] };
+            this.members[ this.members.indexOf(oldImage) ] = {
+              'name': res[ 'name' ],
+              'image': res[ 'data' ][ 'profileImage' ],
+              'role': member[ 'role' ],
+              'uid': member[ 'uid' ],
+            };
           } else {
-            this.members.push({ 'name': res[ 'name' ], 'image': res[ 'data' ][ 'profileImage' ] });
+            this.members.push({
+              'name': res[ 'name' ],
+              'uid': member[ 'uid' ],
+              'image': res[ 'data' ][ 'profileImage' ],
+              'role': member[ 'role' ]
+            });
           }
           firstTime = true;
-          oldImage = { 'name': res[ 'name' ], 'image': res[ 'data' ][ 'profileImage' ] };
+          oldImage = {
+            'name': res[ 'name' ],
+            'uid': member[ 'uid' ],
+            'image': res[ 'data' ][ 'profileImage' ],
+            'role': member[ 'role' ]
+          };
         });
       });
     });
