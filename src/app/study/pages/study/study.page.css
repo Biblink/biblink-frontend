@@ -25,6 +25,18 @@
     overflow: auto;
 }
 
+.member-role {
+    margin-left: 62px;
+    position: relative;
+    top: -10px;
+}
+
+.promote {
+    position: relative;
+    top: -10px;
+    margin-left: 25px;
+}
+
 hr {
     box-sizing: border-box;
     width: 70%;
@@ -782,10 +794,10 @@ input:checked+.slider:before {
 }
 
 .num-annotations {
-	height: 25px;
-	width: 25px;
-	background-color: #FFFFFF;
-    box-shadow: 0 2px 4px 0 rgba(0,0,0,0.5);
+    height: 25px;
+    width: 25px;
+    background-color: #FFFFFF;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.5);
     border-radius: 100%;
     font-size: 0.8rem;
     line-height: 25px;
