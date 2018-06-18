@@ -366,7 +366,6 @@ export class StudyComponent implements OnInit, OnDestroy {
       const parentDiv = jElement.parent();
       const reference = jElement.text();
       let verseText = '';
-      console.log('here');
       const textSubscriber = this._search.getVerseText(reference).take(1).subscribe((res) => {
         verseText = res[ 'data' ][ 0 ][ 'combined_text' ];
         jElement.attr('data-tooltip', verseText.replace(/<\/?n>/g, ''));
