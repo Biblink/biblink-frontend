@@ -497,7 +497,11 @@ export class StudyComponent implements OnInit, OnDestroy {
     const date = `${ today.getMonth() + 1 }/${ today.getDate() }/${ today.getFullYear() }`;
     const time = today.toLocaleTimeString();
     const annotationType = this.capitalize(this.createAnnotation.type);
-    console.log(annotationType);
+    this.createAnnotation.verse_search = Math.min(...this.createAnnotation.passage
+      .split(':')[ 1 ]
+      .split(',')
+      .map(val => Number(val.trim()))
+    );
     this.createAnnotation.dateInfo = { date: date, time: time };
     this.createAnnotation.timestamp = Math.round((new Date()).getTime() / 1000);
     this.createAnnotation.creatorID = this._user.userID.getValue();
@@ -590,14 +594,16 @@ export class StudyComponent implements OnInit, OnDestroy {
       for (let i = 0; i < this.numOfAnnotations; i++) {
         const verse = res[ i ].passage.split(':');
         const bVerses = verse[ 1 ];
-        const bVerse = bVerses.split(',');
+        const bVerse = bVerses.split(',').map(val => Number(val.trim()));
+        const verse_search = Math.min(...bVerse);
+        if (res[ i ].verse_search === undefined) {
+          this._study.addSearchAttrToAnnotation(this.groupID, this.chapterRef, res[ i ].id, verse_search);
+          res[ i ].verse_search = verse_search;
+        }
         let profileImage = '';
         this._user.getDataFromID(res[ i ].creatorID).take(1).subscribe((userData) => {
 
           profileImage = userData[ 'data' ][ 'profileImage' ];
-
-          // console.log(bVerse);
-
           for (let j = 0; j < bVerse.length; j++) {
             const index = bVerse[ j ] - 1;
             this.underlinedVerses[ index ] = true;

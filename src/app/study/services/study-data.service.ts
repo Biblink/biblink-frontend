@@ -243,11 +243,20 @@ export class StudyDataService {
       .doc(annotationID).valueChanges();
   }
 
-  getAnnotationsByChapterReference(studyID: string, chapterReference: string) {
+  getAnnotationsByChapterReference(studyID: string, chapterReference: string, orderBy: string = 'timestamp') {
+    // TODO: @jfan1256, implement orderBy here. Similar to getPosts function
     return this.afs.doc(`/studies/${ studyID }`)
       .collection('annotations')
       .doc(chapterReference)
       .collection('chapter-annotations').valueChanges();
+  }
+
+  addSearchAttrToAnnotation(studyID: string, chapterReference: string, annotationID: string, searchValue: number) {
+    this.afs.doc(`/studies/${ studyID }`)
+      .collection('annotations')
+      .doc(chapterReference)
+      .collection('chapter-annotations')
+      .doc(annotationID).update({ verse_search: searchValue });
   }
 
   getPostRepliesByID(studyID: string, postID: string) {

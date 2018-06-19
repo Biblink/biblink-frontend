@@ -11,6 +11,7 @@ export class Annotation {
         public dateInfo = { date: '', time: '' },
         public verses = [],
         public links = [],
-        public replies = []
+        public replies = [],
+        public verse_search = 0
     ) { }
 }
