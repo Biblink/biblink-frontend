@@ -256,3 +256,17 @@ n {
 .columns {
     margin-right: auto;
 }
+
+.notif-image {
+    border-radius: 100%;
+    margin-top: -5px;
+    float: right;
+}
+
+.badge[data-badge]::after {
+    background-color: #255250 !important;
+}
+
+.badge.is-badge-small[data-badge]::after {
+    left: calc(100% - (1.25rem / 2)) !important;
+}

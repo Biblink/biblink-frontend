@@ -305,6 +305,7 @@ export class StudyComponent implements OnInit, OnDestroy {
 
   getKeyAnnouncements() {
     this.keyAnnouncementSubscription = this._study.getKeyAnnouncements(this.groupID).pipe(map(res => {
+      this.keyAnnouncements = [];
       res.map(val => {
         val = this._checkHtmlText(val);
         const contained = this.keyAnnouncements.filter(value => value[ 'id' ] === val[ 'id' ]);
