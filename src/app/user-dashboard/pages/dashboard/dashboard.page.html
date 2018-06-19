@@ -1,0 +1,395 @@
+<section id="main" [class.margin-top]="!showResults">
+    <app-loading-spinner *ngIf="isLoading | async"></app-loading-spinner>
+    <ng-container *ngIf="showResults">
+        <div class="head has-text-centered">
+            <div class="text">
+                <div data-aos="zoom-in" data-aos-duration="1200" class="profile-image profile-image-top" [class.use-icon]="imageUrl === undefined || imageUrl === null || imageUrl === ''">
+                    <img *ngIf="!(imageUrl === undefined || imageUrl === null || imageUrl === '')" src="{{imageUrl}}" alt="Image">
+                    <i style="margin-top: -50px" *ngIf="imageUrl === undefined || imageUrl === null || imageUrl === ''" class="user fa fa-user"></i>
+                </div>
+                <h1 [class.no-margin]="imageUrl === undefined || imageUrl === null || imageUrl === ''" *ngIf="name!== undefined || name !== null || name !== ' ' || name !== ''"
+                    class="title" data-aos="fade-up-small" data-aos-duration="1200">{{name}}</h1>
+                <div *ngIf="name === null || name === undefined || name === '' || name === ' '" class="container name-input">
+                    <form (ngSubmit)="updateProfile(true)">
+                        <div class="columns">
+                            <div class="field column" data-aos="slide-right" data-aos-duration="1200">
+                                <label class="label" for="first-name-top">First Name:</label>
+                                <input class="input" required type="text" [(ngModel)]="user.firstName" id="first-name-top" name="first-name-top">
+                            </div>
+                            <div class="field column" data-aos="slide-left" data-aos-duration="1200">
+                                <label class="label" for="last-name-top">Last Name:</label>
+                                <input class="input" required type="text" [(ngModel)]="user.lastName" id="last-name-top" name="last-name-top">
+                            </div>
+                        </div>
+                        <div class="has-text-centered">
+                            <button type="submit" class="update-btn btn">Update Name</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="content">
+            <div class="tabs is-centered">
+                <ul>
+                    <li [class.is-active-tab]="tab === 'studies'">
+                        <a id="studies" (click)="switchTab('studies')">Studies</a>
+                    </li>
+                    <li [class.is-active-tab]="tab === 'profile'">
+                        <a (click)="switchTab('profile')">Profile</a>
+                    </li>
+                    <!-- <li [class.is-active]="tab === 'settings'">
+                        <a (click)="switchTab('settings')">Settings</a>
+                    </li> -->
+                </ul>
+            </div>
+            <div class="content-main container">
+                <div class="studies" *ngIf="tab === 'studies'">
+                    <h1 class="title content-header" data-aos="fade-up-right" id="study-title" data-aos-duration="1200">Your Studies</h1>
+                    <div class="study-creation has-text-centered container">
+                        <p class="no-study" *ngIf="hasNoGroups" data-aos="zoom-in" data-aos-duration="1200" data-aos-anchor="#study-title">Hmmm...seems like you don't have a study</p>
+                        <div class="study-list columns is-centered">
+                            <div *ngFor="let study of studies; let i = index" class="column">
+                                <div class="card study-card" data-aos="fade-up" data-aos-duration="1200">
+                                    <div class="card-backdrop">
+                                        <img [src]="study['bannerImage']">
+                                    </div>
+                                    <div class="study-image profile-image">
+                                        <img [src]="study['profileImage']">
+                                    </div>
+                                    <div class="card-content has-text-left">
+                                        <div class="card-text">
+                                            <p class="title is-4">{{study['name']}}</p>
+                                            <p>
+                                                <b>Leader: </b>{{study['leader']}}
+                                            </p>
+                                            <p>
+                                                <b>Description: </b> {{study['description']}}
+                                            </p>
+                                            <p>
+                                                <b>Role: </b> {{capitalize(study['role'])}}
+                                            </p>
+                                        </div>
+                                        <div class="has-text-centered cta-btn">
+                                            <button (click)="openStudy(study['id'])" class="btn study-btn study-light">Open Study</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="columns btn-actions">
+                            <div class="column create-container" data-aos="fade-right" data-aos-duration="1200" data-aos-anchor="#study-title">
+                                <div class="create-study">
+                                    <svg width="141px" height="73px" viewBox="0 0 141 73" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                        <!-- Generator: Sketch 48.2 (47327) - http://www.bohemiancoding.com/sketch -->
+                                        <title>Create Icon</title>
+                                        <desc>Created with Sketch.</desc>
+                                        <defs></defs>
+                                        <g id="Light-Dashboard-Main-Dashboard" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(-459.000000, -1264.000000)">
+                                            <g id="Group" transform="translate(96.000000, 621.000000)">
+                                                <g id="Join/Create-Group" transform="translate(304.000000, 632.000000)">
+                                                    <g id="Create-Icon" transform="translate(62.000000, 13.000000)">
+                                                        <path d="M35,58 C35.7536762,43.4585812 47.7776256,31.9 62.5,31.9 C77.2223744,31.9 89.2463238,43.4585812 90,58 L35,58 Z M62.5,31.9 C53.6950595,31.9 46.557245,24.7589418 46.557245,15.95 C46.557245,7.14105824 53.6950595,0 62.5,0 C71.3049405,0 78.442755,7.14105824 78.442755,15.95 C78.442755,24.7589418 71.3049405,31.9 62.5,31.9 Z"
+                                                            id="Combined-Shape-Copy-8" stroke="#000000" stroke-width="4" fill="#FFFFFF"></path>
+                                                        <path d="M-4.47940296e-14,65 C0.753676237,50.4585812 12.7776256,38.9 27.5,38.9 C42.2223744,38.9 54.2463238,50.4585812 55,65 L-4.52415883e-14,65 Z M27.5,38.9 C18.6950595,38.9 11.557245,31.7589418 11.557245,22.95 C11.557245,14.1410582 18.6950595,7 27.5,7 C36.3049405,7 43.442755,14.1410582 43.442755,22.95 C43.442755,31.7589418 36.3049405,38.9 27.5,38.9 Z"
+                                                            id="Combined-Shape-Copy-7" stroke="#000000" stroke-width="4" fill="#FFFFFF"></path>
+                                                        <path d="M69,65 C69.7536762,50.4585812 81.7776256,38.9 96.5,38.9 C111.222374,38.9 123.246324,50.4585812 124,65 L69,65 Z M96.5,38.9 C87.6950595,38.9 80.557245,31.7589418 80.557245,22.95 C80.557245,14.1410582 87.6950595,7 96.5,7 C105.30494,7 112.442755,14.1410582 112.442755,22.95 C112.442755,31.7589418 105.30494,38.9 96.5,38.9 Z"
+                                                            id="Combined-Shape-Copy-9" stroke="#000000" stroke-width="4" fill="#FFFFFF"></path>
+                                                        <g id="Group-12" transform="translate(109.000000, 42.000000)">
+                                                            <circle id="Oval-3" fill="#000000" cx="14.5" cy="14.5" r="14.5"></circle>
+                                                            <g id="Group-13" transform="translate(8.000000, 8.000000)" fill="#D8D8D8" stroke="#FFFFFF" stroke-linecap="square" stroke-width="3">
+                                                                <path d="M6.5,0.25 L6.5,13.75" id="Line"></path>
+                                                                <path d="M12.7592593,7 L0.240740741,7" id="Line-Copy"></path>
+                                                            </g>
+                                                        </g>
+                                                    </g>
+                                                </g>
+                                            </g>
+                                        </g>
+                                    </svg>
+                                    <br>
+                                    <button (click)="activateCreateStudy = true;" class="btn study-btn">Create a Study</button>
+                                </div>
+                            </div>
+                            <div class="column" data-aos="fade-up" data-aos-duration="1200" data-aos-anchor="#study-title">
+                                <svg width="24px" height="280px" viewBox="0 0 24 378" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                    <!-- Generator: Sketch 48.2 (47327) - http://www.bohemiancoding.com/sketch -->
+                                    <title>Group 9</title>
+                                    <desc>Created with Sketch.</desc>
+                                    <defs></defs>
+                                    <g id="update-In-Desktop" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(-709.000000, -375.000000)">
+                                        <g id="Group-5" transform="translate(231.000000, 256.000000)">
+                                            <g id="Group" transform="translate(103.000000, 119.000000)">
+                                                <g id="Group-9" transform="translate(371.000000, 0.000000)">
+                                                    <text id="or" font-family="AvenirNext-Bold, Avenir Next" font-size="20" font-weight="bold" letter-spacing="3.341666" fill="#BFBFBF">
+                                                        <tspan x="3.59631601" y="195">or</tspan>
+                                                    </text>
+                                                    <path d="M16.6799201,0.5 L16.6799201,171.573084" id="Line-2" stroke="#979797" stroke-linecap="square"></path>
+                                                    <path d="M16.6799201,205.5 L16.6799201,376.573084" id="Line-2-Copy" stroke="#979797" stroke-linecap="square"></path>
+                                                </g>
+                                            </g>
+                                        </g>
+                                    </g>
+                                </svg>
+                            </div>
+                            <div class="column create-container" data-aos="fade-left" data-aos-duration="1200" data-aos-anchor="#study-title">
+                                <div>
+                                    <svg width="215px" height="69px" viewBox="0 0 215 69" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                        <!-- Generator: Sketch 48.2 (47327) - http://www.bohemiancoding.com/sketch -->
+                                        <title>Join Icon</title>
+                                        <desc>Created with Sketch.</desc>
+                                        <defs></defs>
+                                        <g id="Light-Dashboard-Main-Dashboard" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(-810.000000, -1267.000000)">
+                                            <g id="Group" transform="translate(96.000000, 621.000000)" stroke="#000000">
+                                                <g id="Join/Create-Group" transform="translate(304.000000, 632.000000)">
+                                                    <g id="Join-Icon" transform="translate(413.000000, 16.000000)">
+                                                        <path d="M118,58 C118.753676,43.4585812 130.777626,31.9 145.5,31.9 C160.222374,31.9 172.246324,43.4585812 173,58 L118,58 Z M145.5,31.9 C136.69506,31.9 129.557245,24.7589418 129.557245,15.95 C129.557245,7.14105824 136.69506,0 145.5,0 C154.30494,0 161.442755,7.14105824 161.442755,15.95 C161.442755,24.7589418 154.30494,31.9 145.5,31.9 Z"
+                                                            id="Combined-Shape-Copy-8" stroke-width="4" fill="#FFFFFF"></path>
+                                                        <path d="M83,65 C83.7536762,50.4585812 95.7776256,38.9 110.5,38.9 C125.222374,38.9 137.246324,50.4585812 138,65 L83,65 Z M110.5,38.9 C101.69506,38.9 94.557245,31.7589418 94.557245,22.95 C94.557245,14.1410582 101.69506,7 110.5,7 C119.30494,7 126.442755,14.1410582 126.442755,22.95 C126.442755,31.7589418 119.30494,38.9 110.5,38.9 Z"
+                                                            id="Combined-Shape-Copy-7" stroke-width="4" fill="#FFFFFF"></path>
+                                                        <path d="M-4.47940296e-14,65 C0.753676237,50.4585812 12.7776256,38.9 27.5,38.9 C42.2223744,38.9 54.2463238,50.4585812 55,65 L-4.52415883e-14,65 Z M27.5,38.9 C18.6950595,38.9 11.557245,31.7589418 11.557245,22.95 C11.557245,14.1410582 18.6950595,7 27.5,7 C36.3049405,7 43.442755,14.1410582 43.442755,22.95 C43.442755,31.7589418 36.3049405,38.9 27.5,38.9 Z"
+                                                            id="Combined-Shape-Copy-10" stroke-width="4" fill="#FFFFFF"></path>
+                                                        <path d="M154,65 C154.753676,50.4585812 166.777626,38.9 181.5,38.9 C196.222374,38.9 208.246324,50.4585812 209,65 L154,65 Z M181.5,38.9 C172.69506,38.9 165.557245,31.7589418 165.557245,22.95 C165.557245,14.1410582 172.69506,7 181.5,7 C190.30494,7 197.442755,14.1410582 197.442755,22.95 C197.442755,31.7589418 190.30494,38.9 181.5,38.9 Z"
+                                                            id="Combined-Shape-Copy-9" stroke-width="4" fill="#FFFFFF"></path>
+                                                        <g id="Arrow" transform="translate(55.000000, 30.000000)" stroke-linecap="square" stroke-width="3">
+                                                            <path d="M0.5,6.5 L26.5,6.5" id="Line-4"></path>
+                                                            <path d="M21.5,0.5 L27.5,6.5" id="Line-5"></path>
+                                                            <path d="M27.5,6.5 L22.5,12.5" id="Line-6"></path>
+                                                        </g>
+                                                    </g>
+                                                </g>
+                                            </g>
+                                        </g>
+                                    </svg>
+                                    <br>
+                                    <button (click)="activateJoinStudy = true" class="btn study-btn">Join a Study</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="profile" *ngIf="tab === 'profile'">
+                    <h1 class="title content-header" data-aos="fade-down-right" data-aos-duration="1200">Your Profile</h1>
+                    <div class="personal-info">
+                        <h1 class="content-subheader has-text-centered" data-aos="fade-down" data-aos-duration="1200">Personal Info</h1>
+                        <div data-aos="zoom-in" *ngIf="!(imageUrl === undefined || imageUrl === null || imageUrl === '')" class="profile-image personal-info-image has-text-centered"
+                            (click)="activateEditImage = true">
+                            <img src="{{imageUrl}}" alt="Image">
+                            <div class="middle">
+                                <svg width="28px" height="44px" viewBox="0 0 28 44" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                    <!-- Generator: Sketch 49 (51002) - http://www.bohemiancoding.com/sketch -->
+                                    <title>Group 10</title>
+                                    <desc>Created with Sketch.</desc>
+                                    <defs></defs>
+                                    <g id="Light-Dashboard-Designs" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                        <g id="Light-Dashboard-Profile" transform="translate(-707.000000, -803.000000)" fill="#FFFFFF">
+                                            <g id="Info-Card" transform="translate(503.000000, 733.000000)">
+                                                <g id="Group-9" transform="translate(171.000000, 48.000000)">
+                                                    <g id="Profile-Image-Status-Copy">
+                                                        <g id="Group-10" transform="translate(29.000000, 20.000000)">
+                                                            <path d="M20.2661287,0.502019801 L20.2661287,0.502019801 C23.3210672,0.502019801 25.7975842,2.97853675 25.7975842,6.03347523 L25.7975842,35.2711682 L14.7346733,35.2711682 L14.7346733,6.03347523 C14.7346733,2.97853675 17.2111903,0.502019801 20.2661287,0.502019801 Z"
+                                                                id="Rectangle-3" transform="translate(20.266129, 17.886594) rotate(29.000000) translate(-20.266129, -17.886594) "></path>
+                                                            <path d="M8.67086421,36.6073423 L13.276437,45.8184879 L2.27643702,45.8184879 L6.88200983,36.6073423 C7.12899908,36.1133638 7.72967212,35.9131395 8.22365062,36.1601287 C8.41717802,36.2568924 8.57410051,36.4138149 8.67086421,36.6073423 Z"
+                                                                id="Triangle" transform="translate(7.776437, 40.936412) rotate(209.000000) translate(-7.776437, -40.936412) "></path>
+                                                        </g>
+                                                    </g>
+                                                </g>
+                                            </g>
+                                        </g>
+                                    </g>
+                                </svg>
+                            </div>
+                        </div>
+                        <div *ngIf="imageUrl === undefined || imageUrl === null || imageUrl === ''" class="has-text-centered profile-icon personal-info-image"
+                            (click)="activateEditImage = true">
+                            <i class="user fa fa-user"></i>
+                            <div class="middle">
+                                <svg width="28px" height="44px" viewBox="0 0 28 44" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                    <!-- Generator: Sketch 49 (51002) - http://www.bohemiancoding.com/sketch -->
+                                    <title>Group 10</title>
+                                    <desc>Created with Sketch.</desc>
+                                    <defs></defs>
+                                    <g id="Light-Dashboard-Designs" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                        <g id="Light-Dashboard-Profile" transform="translate(-707.000000, -803.000000)" fill="#FFFFFF">
+                                            <g id="Info-Card" transform="translate(503.000000, 733.000000)">
+                                                <g id="Group-9" transform="translate(171.000000, 48.000000)">
+                                                    <g id="Profile-Image-Status-Copy">
+                                                        <g id="Group-10" transform="translate(29.000000, 20.000000)">
+                                                            <path d="M20.2661287,0.502019801 L20.2661287,0.502019801 C23.3210672,0.502019801 25.7975842,2.97853675 25.7975842,6.03347523 L25.7975842,35.2711682 L14.7346733,35.2711682 L14.7346733,6.03347523 C14.7346733,2.97853675 17.2111903,0.502019801 20.2661287,0.502019801 Z"
+                                                                id="Rectangle-3" transform="translate(20.266129, 17.886594) rotate(29.000000) translate(-20.266129, -17.886594) "></path>
+                                                            <path d="M8.67086421,36.6073423 L13.276437,45.8184879 L2.27643702,45.8184879 L6.88200983,36.6073423 C7.12899908,36.1133638 7.72967212,35.9131395 8.22365062,36.1601287 C8.41717802,36.2568924 8.57410051,36.4138149 8.67086421,36.6073423 Z"
+                                                                id="Triangle" transform="translate(7.776437, 40.936412) rotate(209.000000) translate(-7.776437, -40.936412) "></path>
+                                                        </g>
+                                                    </g>
+                                                </g>
+                                            </g>
+                                        </g>
+                                    </g>
+                                </svg>
+                            </div>
+                        </div>
+                        <br>
+                        <p class="has-text-centered" data-aos="fade-up" data-aos-duration="1200">
+                            <a class="edit-image" (click)="activateEditImage = true">Edit Image</a>
+                        </p>
+                        <form id="personal-info-form" (ngSubmit)="updateProfile()">
+                            <div class="columns">
+                                <div class="column" data-aos="slide-right" data-aos-duration="1200">
+                                    <div class="field">
+                                        <label class="label" for="first-name">First Name:</label>
+                                        <input [(ngModel)]="user.firstName" class="input" required type="text" id="first-name" name="first-name">
+                                    </div>
+                                </div>
+                                <div class="column" data-aos="slide-left" data-aos-duration="1200">
+                                    <div class="field">
+                                        <label class="label" for="last-name">Last Name:</label>
+                                        <input [(ngModel)]="user.lastName" class="input" required type="text" id="last-name" name="last-name">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="field writing-container">
+                                <label class="label" for="short-description" data-aos="fade-down" data-aos-duration="1200">Short Description:</label>
+                                <input [(ngModel)]="user.data.shortDescription" class="input" required type="text" id="short-description" name="short-description">
+                            </div>
+                            <div class="field bio-container">
+                                <label class="label" for="bio" data-aos="fade-up" data-aos-duration="1200">Bio:</label>
+                                <textarea [(ngModel)]="user.data.bio" class="textarea input" name="bio" id="bio" cols="30" rows="2"></textarea>
+                            </div>
+                            <div class="has-text-centered" data-aos="zoom-in" data-aos-duration="1200">
+                                <button type="submit" class="btn update-btn">Update Profile</button>
+                            </div>
+                        </form>
+                    </div>
+                    <hr class="divider" data-aos="zoom-in" data-aos-duration="1200">
+                    <div class="security-info">
+                        <h1 class="content-subheader has-text-centered" data-aos="fade-up" data-aos-duration="1200">Security Info</h1>
+                        <form [formGroup]="securityForm" (ngSubmit)="updateSecurityInfo()" id="security-info-form" novalidate>
+                            <div class="field" *ngIf="isVerified" data-aos="fade-up-left" data-aos-duration="1200">
+                                <label class="label" for="email">Email:</label>
+                                <input formControlName="email" class="input" required type="text" id="email" name="email">
+                            </div>
+                            <div class="passwords">
+                                <div class="field" *ngIf="!noPassword" data-aos="fade-up-right" data-aos-duration="1200">
+                                    <label class="label" for="old-password" *ngIf="isVerified">Old Password:</label>
+                                    <label class="label" for="old-password" *ngIf="!isVerified">Enter Password To Access Security Info:</label>
+                                    <input (blur)="checkPassword()" formControlName="oldPassword" class="input" required type="password" id="old-password" name="old-password"
+                                        required>
+                                    <p class="help invalid" *ngIf="oldPassword.invalid && 
+                                    oldPassword.touched && oldPassword.errors?.required">Password is Required</p>
+                                    <p class="help invalid" *ngIf="oldPassword.invalid && 
+                                    oldPassword.touched && oldPassword.errors?.incorrectPassword && !oldPassword.errors?.required">Incorrect Password</p>
+                                    <p class="help valid" *ngIf="oldPassword.valid && oldPassword.touched && !isVerified">Looks Good So Far...</p>
+                                    <p class="help valid" *ngIf="oldPassword.valid && oldPassword.touched && isVerified">Looks Good!</p>
+                                </div>
+                                <div class="field" *ngIf="isVerified" data-aos="fade-up-left" data-aos-duration="1200">
+                                    <label *ngIf="noPassword" class="label" for="new-password">Add New Password:</label>
+                                    <label class="label" for="new-password">New Password:</label>
+                                    <input formControlName="newPassword" class="input" required type="password" id="new-password" name="new-password">
+                                    <p class="help valid" *ngIf="newPassword.valid && newPassword.touched">Nice New Password!</p>
+                                </div>
+                                <div class="field" *ngIf="isVerified" data-aos="fade-up-right" data-aos-duration="1200">
+                                    <label class="label" for="confirm-password">Confirm New Password:</label>
+                                    <input formControlName="confirmPassword" class="input" required type="password" id="confirm-password" name="confirm-password">
+                                    <p class="help valid" *ngIf="newPassword.valid && newPassword.touched">Yep! The Passwords Are the Same!</p>
+                                </div>
+                                <div class="has-text-centered" data-aos="fade-up" data-aos-duration="1200">
+                                    <button class="btn update-btn" *ngIf="!isVerified" (click)="checkPassword()">Enter Security</button>
+                                    <button type="submit" *ngIf="isVerified" class="btn update-btn">Update Security</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="settings" *ngIf="tab === 'settings'">
+                    <h1 class="title content-header">Your Settings</h1>
+                </div>
+            </div>
+        </div>
+    </ng-container>
+</section>
+
+<div class="modal" [class.is-active]="activateEditImage">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+        <header class="modal-card-head">
+            <p class="modal-card-title">Upload New Profile Image</p>
+            <button class="delete" aria-label="close" (click)="activateEditImage = false && imageUrl = ''"></button>
+        </header>
+        <section class="modal-card-body">
+            <app-file-upload (url)="getDownloadUrl($event)" [height]="'300px'"></app-file-upload>
+        </section>
+        <footer class="modal-card-foot">
+            <div>
+                <button class="btn study-btn modal-btn" (click)="updateImage(); activateEditImage = false;">Save Changes</button>
+                <a (click)="activateEditImage = false && imageUrl = ''" class="btn-link">Cancel</a>
+            </div>
+        </footer>
+    </div>
+</div>
+<div class="modal with-input" [class.is-active]="activateJoinStudy">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+        <form #joinForm="ngForm" (keydown.enter)="joinStudy(); activateJoinStudy = false; joinForm.reset()" (ngSubmit)="joinStudy(); activateJoinStudy = false; joinForm.reset()">
+            <header class="modal-card-head">
+                <p class="modal-card-title">Join Study Group</p>
+                <button class="delete" aria-label="close" (click)="activateJoinStudy = false; joinForm.reset()"></button>
+            </header>
+            <section class="modal-card-body">
+                <div class="columns">
+                    <div class="field column is-three-quarters" data-aos="slide-right" data-aos-duration="1200">
+                        <label class="label" for="join-study-name">Study Group Name:</label>
+                        <input class="input" required type="text" [(ngModel)]="studyGroup.name" id="join-study-name" name="join-study-name">
+                    </div>
+                    <div class="field column" data-aos="slide-right" data-aos-duration="1200">
+                        <label class="label" for="join-study-unique-id">Unique #:</label>
+                        <input placeholder="1652" class="input" required type="text" [(ngModel)]="studyGroup.uniqueID" id="join-study-unique-id"
+                            name="join-study-unique-id" maxlength="4" pattern="[0-9]+" minlength="4" #studyID="ngModel">
+                    </div>
+                </div>
+            </section>
+            <footer class="modal-card-foot">
+                <div>
+                    <button class="btn study-btn modal-btn" type="submit">Join Group</button>
+                    <a (click)="activateJoinStudy = false; joinForm.reset()" class="btn-link">Cancel</a>
+                </div>
+            </footer>
+        </form>
+    </div>
+</div>
+
+<div class="modal" [class.is-active]="activateCreateStudy">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+        <header class="modal-card-head">
+            <p class="modal-card-title">Create a Study</p>
+            <button class="delete" aria-label="close" (click)="activateCreateStudy = false && imageUrl = ''"></button>
+        </header>
+        <section class="modal-card-body">
+            <div class="field">
+                <label>Banner Image</label>
+                <app-file-upload (url)="getDownloadUrlStudy($event, 'banner')" [height]="'100px'" [borderRadius]="'0'" [profileImageWidth]="'100%'"
+                    [profileMargin]="0"></app-file-upload>
+            </div>
+            <hr>
+            <div class="field">
+                <label>Study Profile Image</label>
+                <app-file-upload (url)="getDownloadUrlStudy($event, 'study-profile')" [height]="'100px'"></app-file-upload>
+            </div>
+            <hr>
+            <div class="field" data-aos="slide-right" data-aos-duration="1200">
+                <label class="label" for="join-study-modal-name">Study Group Name:</label>
+                <input class="input" required type="text" [(ngModel)]="newStudy.name" id="join-study-modal-name" name="join-study-modal-name">
+            </div>
+            <div class="field" data-aos="slide-right" data-aos-duration="1200">
+                <label class="label" for="join-study-modal-description">Description:</label>
+                <input class="input" required type="text" [(ngModel)]="newStudy.description" id="join-study-modal-description" name="join-study-modal-description">
+            </div>
+
+        </section>
+        <footer class="modal-card-foot">
+            <div>
+                <button class="btn study-btn modal-btn" (click)="createStudy(); activateCreateStudy = false;">Create Study</button>
+                <a (click)="activateCreateStudy = false && newStudy = defaultNewStudy;" class="btn-link">Cancel</a>
+            </div>
+        </footer>
+    </div>
+</div>

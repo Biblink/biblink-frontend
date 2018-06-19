@@ -1,13 +1,11 @@
-import { SafeHtmlPipe } from './pipes/safe-html.pipe';
-import { BrowserModule } from '@angular/platform-browser';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ServiceWorkerModule } from '@angular/service-worker';
-import { environment } from '../environments/environment';
-import { RouterModule, Routes } from '@angular/router';
-import { HttpClientJsonpModule, HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
-import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { environment } from '../environments/environment';
+
+
+import { HttpClientJsonpModule, HttpClientModule } from '@angular/common/http';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { Angulartics2Module } from 'angulartics2';
+import { Angulartics2GoogleAnalytics } from 'angulartics2/ga';
 import { ShareModule } from '@ngx-share/core';
 import { ClipboardModule } from 'ngx-clipboard';
 import { ToastrModule } from 'ngx-toastr';
@@ -16,99 +14,73 @@ import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { AngularFireStorageModule } from 'angularfire2/storage';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { RecaptchaModule } from 'ng-recaptcha';
-import { RecaptchaFormsModule } from 'ng-recaptcha/forms';
+import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-// analytics
-import { Angulartics2Module } from 'angulartics2';
-import { Angulartics2GoogleAnalytics } from 'angulartics2/ga';
+// custom modules
+import { CoreModule } from './core/core.module';
+import { SharedModule } from './shared/shared.module';
+import { OrganizationModule } from './organization/organization.module';
+import { AppRoutingModule } from './app-routing.module';
+import { LegalModule } from './legal/legal.module';
+import { SupportModule } from './support/support.module';
+import { HomeModule } from './home/home.module';
+import { AboutModule } from './about/about.module';
+import { SearchModule } from './search/search.module';
+import { UserAuthModule } from './user-auth/user-auth.module';
+import { StudyModule } from './study/study.module';
+import { UserDashboardModule } from './user-dashboard/user-dashboard.module';
 
 
 // components
 import { AppComponent } from './app.component';
-import { HomeComponent } from './home/home.component';
-import { FooterComponent } from './footer/footer.component';
-import { NavbarComponent } from './navbar/navbar.component';
-import { SearchComponent } from './search/search.component';
-import { ResultsComponent } from './results/results.component';
-import { ResultCardComponent } from './result-card/result-card.component';
+import { NotFinishedComponent } from './not-finished/not-finished.component';
 
 // providers
-import { SearchService } from './search.service';
-import { SignInComponent } from './sign-in/sign-in.component';
-import { GetStartedComponent } from './get-started/get-started.component';
-import { AuthService } from './auth.service';
-import { PasswordResetComponent } from './password-reset/password-reset.component';
-import { VerifyEmailComponent } from './verify-email/verify-email.component';
-import { UserDataService } from './user-data.service';
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { DropZoneDirective } from './drop-zone.directive';
-import { FileUploadComponent } from './file-upload/file-upload.component';
-import { StudyDataService } from './study-data.service';
-import { StudyComponent } from './study/study.component';
-import { StudyNavComponent } from './study-nav/study-nav.component';
-import { PostCardComponent } from './post-card/post-card.component';
-import { LoadingSpinnerComponent } from './loading-spinner/loading-spinner.component';
+import { SearchService } from './core/services/search/search.service';
+import { AuthService } from './core/services/auth/auth.service';
+import { UserDataService } from './core/services/user-data/user-data.service';
+import { StudyDataService } from './study/services/study-data.service';
+import { BrowserModule } from '@angular/platform-browser';
 
-const appRoutes: Routes = [
-    { path: '', component: HomeComponent },
-    { path: 'search', component: SearchComponent },
-    { path: 'sign-in', component: SignInComponent },
-    { path: 'verify-email', component: VerifyEmailComponent },
-    { path: 'get-started', component: GetStartedComponent },
-    { path: 'password-reset', component: PasswordResetComponent },
-    { path: 'dashboard/home', component: DashboardComponent },
-    { path: 'dashboard', pathMatch: 'full', redirectTo: '/dashboard/home' },
-    { path: 'dashboard/studies/study/:id', component: StudyComponent }
-];
+
+
 
 @NgModule({
     declarations: [
         AppComponent,
-        HomeComponent,
-        FooterComponent,
-        NavbarComponent,
-        SearchComponent,
-        ResultsComponent,
-        ResultCardComponent,
-        SignInComponent,
-        GetStartedComponent,
-        PasswordResetComponent,
-        VerifyEmailComponent,
-        DashboardComponent,
-        DropZoneDirective,
-        FileUploadComponent,
-        StudyComponent,
-        StudyNavComponent,
-        PostCardComponent,
-        LoadingSpinnerComponent,
-        SafeHtmlPipe
+        NotFinishedComponent
     ],
     imports: [
-        Angulartics2Module.forRoot([ Angulartics2GoogleAnalytics ]),
         BrowserModule,
-        BrowserAnimationsModule,
-        FormsModule,
-        ReactiveFormsModule,
+        SharedModule,
         AngularFireModule.initializeApp(environment.firebase, 'biblya'),
         AngularFirestoreModule.enablePersistence(),
         AngularFireAuthModule,
         AngularFireStorageModule,
-        environment.production
-            ? ServiceWorkerModule.register('/ngsw-worker.js')
-            : [],
-        RouterModule.forRoot(appRoutes),
+        ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production }),
         RecaptchaModule.forRoot(),
-        RecaptchaFormsModule,
+        Angulartics2Module.forRoot([ Angulartics2GoogleAnalytics ]),
         ScrollToModule.forRoot(),
         HttpClientModule,
         HttpClientJsonpModule,
-        ClipboardModule,
         ShareModule.forRoot(),
+        BrowserAnimationsModule,
         ToastrModule.forRoot({
             positionClass: 'toast-bottom-left'
-        })
+        }),
+        CoreModule.forRoot(),
+        HomeModule,
+        StudyModule,
+        UserDashboardModule,
+        UserAuthModule,
+        AboutModule,
+        SearchModule,
+        SupportModule,
+        LegalModule,
+        OrganizationModule,
+        AppRoutingModule
     ],
-    providers: [ SearchService, AuthService, UserDataService, StudyDataService ],
     bootstrap: [ AppComponent ]
 })
 export class AppModule {

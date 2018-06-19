@@ -3,6 +3,8 @@
 # Bible Study Frontend
 
 [![Build Status](https://travis-ci.org/bfan1256/bible-study-application-frontend.svg?branch=master)](https://travis-ci.org/bfan1256/bible-study-application-frontend)
+[![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg)](https://conventionalcommits.org)
+
 
 Authors: Brandon Fan, Jordan Seiler
 
@@ -37,7 +39,7 @@ Run `npm install` to install all third-party dependencies.
 }
 ```
 
-3. Rerun `ng serve`
+3. Rerun `ng serve --aot`
 
 #### Use in Typescript
 
@@ -49,7 +51,7 @@ declare const <corresponding-symbol-to-js-file>: any;
 
 ## Development server
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+Run `ng serve --aot` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
 ## Generating New Pages/Code Scaffolding
 
