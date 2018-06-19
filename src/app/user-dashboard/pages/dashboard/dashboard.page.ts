@@ -69,7 +69,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
     private afAuth: AngularFireAuth,
     private _router: Router,
     private groupData: StudyDataService,
-    private toastr: ToastrService) { }
+    private toastr: ToastrService
+  ) { }
   ngOnInit() {
     this.title.setTitle('Your Dashboard');
     this.isLoading.next(true);
@@ -88,6 +89,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
         this.imageUrl = this.user.data.profileImage;
         this.name = this.user.firstName + ' ' + this.user.lastName;
         this.securityForm.patchValue({ 'email': res[ 'email' ] });
+
       }
     });
     this.groupDataSubscription = this.groupData.studies.subscribe((groups) => {

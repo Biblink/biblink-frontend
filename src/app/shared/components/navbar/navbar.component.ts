@@ -3,6 +3,9 @@ import { Component, OnInit } from '@angular/core';
 import { AppComponent } from '../../../app.component';
 import { AuthService } from '../../../core/services/auth/auth.service';
 import { Router } from '@angular/router';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { tap, map } from 'rxjs/operators';
+import { ToastrService } from 'ngx-toastr';
 
 declare const AOS: any;
 declare const $: any;
@@ -14,13 +17,20 @@ declare const $: any;
 })
 export class NavbarComponent implements OnInit {
     activated = false;
+    notifications;
+    unreadCount = new BehaviorSubject(0);
+    notificationIDs = [];
     menuOpacity = 0;
     menuHeight = '0';
     menuZ = 0;
     isLoggedIn: boolean = null;
     imageUrl = '';
 
-    constructor(private _auth: AuthService, private _router: Router, private _data: UserDataService) {
+    constructor(private _auth: AuthService,
+        private _router: Router,
+        private _data: UserDataService,
+        private toastr: ToastrService
+    ) {
     }
 
     toHome() {
@@ -28,10 +38,13 @@ export class NavbarComponent implements OnInit {
     }
 
     ngOnInit() {
-
+        this.unreadCount.subscribe((length) => {
+            $('span.badge').attr('data-badge', length);
+        });
         this._data.userData.subscribe((user) => {
             if (user !== null) {
                 this.imageUrl = user.data.profileImage;
+                this.notifications = this.getNotifications();
             }
         });
         this._auth.authState.subscribe((state) => {
@@ -98,6 +111,37 @@ export class NavbarComponent implements OnInit {
             $('body').css('overflow', 'visible');
             $('html').css('overflow', 'visible');
         }
+    }
+
+    getNotifications() {
+        return this._data.getNotifications().pipe(
+            map((notifications) => {
+                this.unreadCount.next(0);
+                this.notificationIDs = [];
+                notifications.forEach((notification, index) => {
+                    this.notificationIDs.push(notification[ 'id' ]);
+                    if (notification[ 'read' ] === undefined || notification[ 'read' ] !== true) {
+                        this.unreadCount.next(this.unreadCount.getValue() + 1);
+                    }
+                    this._data.getStudyData(notification[ 'notification' ][ 'studyID' ]).take(1).subscribe((value) => {
+                        notifications[ index ][ 'notification' ][ 'body' ] =
+                            notifications[ index ][ 'notification' ][ 'body' ] + ' in ' + value[ 'name' ];
+                    });
+                });
+                return notifications;
+            })
+        );
+    }
+
+    clearNotifications() {
+        this._data.clearNotifications(this.notificationIDs).then(() => {
+            this.toastr.show('Cleared Your Notifications', 'Cleared Notifications');
+        });
+    }
+    navigateToStudy(notifID: string, studyID: string) {
+        this._router.navigateByUrl(`/dashboard/studies/study/${ studyID }`).then(() => {
+            this._data.markNotificationAsRead(notifID);
+        });
     }
 
     logout(): void {

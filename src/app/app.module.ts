@@ -52,10 +52,10 @@ import { BrowserModule } from '@angular/platform-browser';
         NotFinishedComponent
     ],
     imports: [
-        BrowserModule,
-        SharedModule,
         AngularFireModule.initializeApp(environment.firebase, 'biblya'),
         AngularFirestoreModule.enablePersistence(),
+        BrowserModule,
+        SharedModule,
         AngularFireAuthModule,
         AngularFireStorageModule,
         ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production }),

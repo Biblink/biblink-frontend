@@ -1,10 +1,13 @@
 import { Injectable, OnInit } from '@angular/core';
 import { AuthService } from '../auth/auth.service';
 import { AngularFirestore, AngularFirestoreDocument, DocumentSnapshot, Action } from 'angularfire2/firestore';
-import { Observable, BehaviorSubject, Subscription } from 'rxjs';
+import { Observable, BehaviorSubject, Subscription, of } from 'rxjs';
 import { UserDataInterface } from '../../interfaces/user-data.interface';
 import { User } from '../../interfaces/user';
 import { Utils } from '../../../utilities/utils';
+import { map, takeUntil } from 'rxjs/operators';
+import { timer } from 'rxjs/observable/timer';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -46,6 +49,9 @@ export class UserDataService {
               this.userData.next(data);
             }
           }, (error) => { console.log('There was an error: ' + error); });
+        } else {
+          this.userData.next(new User('', '', '', { profileImage: '', bio: '', shortDescription: '' }));
+          this.userID.next('');
         }
       }
     });
@@ -60,6 +66,50 @@ export class UserDataService {
   public addStudy(studyID: string, role: 'member' | 'admin' | 'leader') {
     return this.userReference.collection('studies').doc(studyID).set({ 'id': studyID, 'role': role });
   }
+
+  public getNotifications() {
+    const uid = this.userID.getValue();
+    if (uid === '') {
+      return of([]);
+    }
+    return this.afs.doc(`users/${ uid }`).collection('notifications').snapshotChanges().pipe(
+      map((val) => {
+        const converted = [];
+        val.forEach((res, index) => {
+          const data = res.payload.doc.data();
+          data[ 'id' ] = res.payload.doc.id;
+          converted.push(data);
+        });
+        return converted;
+      })
+    );
+  }
+
+  public clearNotifications(notificationIDs: string[]) {
+    const uid = this.userID.getValue();
+    if (uid === '') {
+      return;
+    }
+    const notificationsRef = this.afs.doc(`users/${ uid }`).collection('notifications');
+    const promises = [];
+    notificationIDs.forEach((id) => {
+      promises.push(notificationsRef.doc(id).delete());
+    });
+    return Promise.all(promises);
+  }
+
+  public markNotificationAsRead(notificationID: string) {
+    const uid = this.userID.getValue();
+    if (uid === '') {
+      return;
+    }
+    return this.afs.doc(`users/${ uid }`).collection('notifications').doc(notificationID).update({ read: true });
+  }
+
+  public getStudyData(groupID: string) {
+    return this.afs.doc(`/studies/${ groupID }`).valueChanges();
+  }
+
 
   public logout() {
     return this._auth.logout();
