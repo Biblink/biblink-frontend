@@ -15,6 +15,7 @@ import { Reply } from '../../../core/interfaces/reply';
 import { Post } from '../../../core/interfaces/post';
 import { Annotation } from '../../../core/interfaces/annotation';
 import { PatternValidator } from '@angular/forms';
+import { Datum, Chapter } from '../../../core/interfaces/chapter';
 
 declare const $: any;
 @Component({
@@ -42,7 +43,7 @@ export class StudyComponent implements OnInit, OnDestroy {
   groupUniqueID = '';
   chapterRef = '';
   profileImage = '';
-  bibleData = {};
+  bibleData: Datum;
   underlinedVerses = [];
   darkenedVerses = [];
   countVerses = [];
@@ -104,7 +105,7 @@ export class StudyComponent implements OnInit, OnDestroy {
   }
   ngOnInit() {
     this.searchSubscription = this._search.getBooks().subscribe((res) => {
-      this.books = res[ 'data' ];
+      this.books = res.data;
       this.books.forEach((book, index) => {
         const words = book.split(' ');
         const fixed = [];
@@ -369,7 +370,7 @@ export class StudyComponent implements OnInit, OnDestroy {
       const reference = jElement.text();
       let verseText = '';
       const textSubscriber = this._search.getVerseText(reference).take(1).subscribe((res) => {
-        verseText = res[ 'data' ][ 0 ][ 'combined_text' ];
+        verseText = res.data[ 0 ].combined_text;
         jElement.attr('data-tooltip', verseText.replace(/<\/?n>/g, ''));
         jElement.addClass('tooltip is-tooltip-bottom is-tooltip-multiline');
       });
@@ -669,14 +670,14 @@ export class StudyComponent implements OnInit, OnDestroy {
     this.chapterSubscription = this._search.getChapter(book, chapter).take(1).pipe(
       pluck('data'),
       map(val => val[ 0 ])
-    ).subscribe((res) => {
+    ).subscribe((res: Datum) => {
       this.bibleData = res;
-      this.bibleData[ 'verse_data' ].forEach(() => {
+      this.bibleData.verse_data.forEach(() => {
         this.countVerses.push({ 'images': [], 'count': 0 });
         this.underlinedVerses.push(false);
         this.darkenedVerses.push(false);
       });
-      this.numChapters = this.bibleData[ 'chapters' ].length;
+      this.numChapters = this.bibleData.chapters.length;
       this.isLoading.next(false);
       this.getAnnotationsForChapter();
     });
@@ -685,7 +686,7 @@ export class StudyComponent implements OnInit, OnDestroy {
   }
 
   nextChapter() {
-    if (this.activeChapter !== (this.bibleData[ 'chapters' ]).length) {
+    if (this.activeChapter !== this.bibleData.chapters.length) {
       this.activeChapter += 1;
       this.getChapter(this.activeBook, this.activeChapter);
     }
@@ -725,10 +726,10 @@ export class StudyComponent implements OnInit, OnDestroy {
     this.underlinedVerses.forEach((isUnderlined, index) => {
       if ((isUnderlined && this.countVerses[ index ].count === 0) || (isUnderlined && this.darkenedVerses[ index ])) {
         if (!finishedFirst) {
-          this.createAnnotation.passage += this.bibleData[ 'verse_data' ][ index ][ 'verse_number' ];
+          this.createAnnotation.passage += this.bibleData.verse_data[ index ].verse_number;
           finishedFirst = true;
         } else {
-          this.createAnnotation.passage += ',' + this.bibleData[ 'verse_data' ][ index ][ 'verse_number' ];
+          this.createAnnotation.passage += ',' + this.bibleData.verse_data[ index ].verse_number;
         }
       }
     });

@@ -7,6 +7,7 @@ import {
     transition
 } from '@angular/animations';
 import { ToastrService } from 'ngx-toastr';
+import { SimilarVerseResults, Verse } from '../../../core/interfaces/similar-verse';
 declare const AOS: any;
 @Component({
     selector: 'app-result-card',
@@ -34,7 +35,7 @@ export class ResultCardComponent implements OnInit {
     shareText = '';
     shareTitle = '';
     twitterText = '';
-    similarVerses = [];
+    similarVerses: Verse[] = [];
     metadata = { 'author': '', 'date': '' };
 
     constructor(private _search: SearchService, private toastr: ToastrService) {
@@ -46,9 +47,9 @@ export class ResultCardComponent implements OnInit {
         });
         this.reference = this.reference.replace(/<\/?em>/g, '');
         this.text = this.text.replace(/<\/?em>/g, '');
-        this.shareTitle = this.reference + ' from Biblya Search';
-        this.twitterText = this.reference + ': ' + this.text.trim() + ' from Biblya Search';
-        this.shareText = this.twitterText + ': https://biblya.co/search';
+        this.shareTitle = this.reference + ' from Biblink Search';
+        this.twitterText = this.reference + ': ' + this.text.trim() + ' from Biblink Search';
+        this.shareText = this.twitterText + ': https://biblink.io/search';
     }
 
     showMoreData() {
@@ -56,10 +57,10 @@ export class ResultCardComponent implements OnInit {
         const ref_parts = updatedReference.split(' ');
         ref_parts.pop();
         this._search.getSimilarVerses(updatedReference).subscribe(res => {
-            this.similarVerses = res[ 'similar_verses' ];
+            this.similarVerses = res.similar_verses;
         });
         this._search.getMetadata(ref_parts.join(' ')).subscribe(res => {
-            this.metadata = res[ 'metadata' ];
+            this.metadata = res.metadata;
         });
         this.isSimilar = true;
     }
