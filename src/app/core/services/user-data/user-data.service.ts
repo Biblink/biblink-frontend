@@ -5,7 +5,7 @@ import { Observable, BehaviorSubject, Subscription, of } from 'rxjs';
 import { UserDataInterface } from '../../interfaces/user-data.interface';
 import { User } from '../../interfaces/user';
 import { Utils } from '../../../utilities/utils';
-import { map, takeUntil } from 'rxjs/operators';
+import { map, takeUntil, startWith, tap } from 'rxjs/operators';
 import { timer } from 'rxjs/observable/timer';
 
 @Injectable({
@@ -35,18 +35,24 @@ export class UserDataService {
         if (res.emailVerified) {
           this.userID.next(res.uid);
           dataRef = this.userReference.snapshotChanges();
-          dataSubscription = dataRef.subscribe((response) => {
-            if (response.payload.exists === false) {
-              const data = new User('', '', res.email, { profileImage: res.photoURL, bio: '', shortDescription: '' });
-              this.userReference.set(Utils.toJson(data));
-              console.log('added to firebase collection');
-            } else {
-              const data = response.payload.data() as User;
-              if (data.email !== res.email) {
-                data.email = res.email;
-                this.userReference.update(data);
+          dataSubscription = dataRef.pipe(
+            map(response => Object.assign({ 'exists': response.payload.exists, 'data': response.payload.data() })),
+            tap(user => localStorage.setItem('user', JSON.stringify(user))),
+            startWith(JSON.parse(localStorage.getItem('user')))
+          ).subscribe((response) => {
+            if (response !== null) {
+              if (response.exists === false) {
+                const data = new User('', '', res.email, { profileImage: res.photoURL, bio: '', shortDescription: '' });
+                this.userReference.set(Utils.toJson(data));
+                console.log('added to firebase collection');
+              } else {
+                const data = response.data as User;
+                if (data.email !== res.email) {
+                  data.email = res.email;
+                  this.userReference.update(data);
+                }
+                this.userData.next(data);
               }
-              this.userData.next(data);
             }
           }, (error) => { console.log('There was an error: ' + error); });
         } else {
