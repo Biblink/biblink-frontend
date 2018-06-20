@@ -2,6 +2,30 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.1.0-alpha"></a>
+# [1.1.0-alpha](https://github.com/Biblink/biblink-frontend/compare/v1.0.9-alpha.2...v1.1.0-alpha) (2018-06-20)
+
+
+### Bug Fixes
+
+* **chore:** remove console log ([b6a8852](https://github.com/Biblink/biblink-frontend/commit/b6a8852))
+* **chore:** update footer release ([e6d5f42](https://github.com/Biblink/biblink-frontend/commit/e6d5f42))
+* **notif:** update notification date ([9b3e7ed](https://github.com/Biblink/biblink-frontend/commit/9b3e7ed))
+* **study:** fix bug with wrong variable name in html ([7f49d44](https://github.com/Biblink/biblink-frontend/commit/7f49d44))
+* **study:** update css for member icon ([55528ec](https://github.com/Biblink/biblink-frontend/commit/55528ec))
+* **theme-color:** fix theme color of app in manifest.json ([89ac171](https://github.com/Biblink/biblink-frontend/commit/89ac171))
+* **typescript:** change lets to constants and add semicolons ([fbc0e13](https://github.com/Biblink/biblink-frontend/commit/fbc0e13))
+* **version:** update version to match release ([4feda62](https://github.com/Biblink/biblink-frontend/commit/4feda62))
+
+
+### Features
+
+* **notifications:** add notifications capability. ready for testing ([28eb64d](https://github.com/Biblink/biblink-frontend/commit/28eb64d))
+* **shared-bible:** add highlighting of existing annotations ([8cdc810](https://github.com/Biblink/biblink-frontend/commit/8cdc810)), closes [#22](https://github.com/Biblink/biblink-frontend/issues/22)
+* **study:** add ability to promote leaders on the frontend ([dabc78d](https://github.com/Biblink/biblink-frontend/commit/dabc78d))
+
+
+
 <a name="1.0.9-alpha.2"></a>
 ## [1.0.9-alpha.2](https://github.com/Biblink/biblink-frontend/compare/v1.0.9-alpha.1...v1.0.9-alpha.2) (2018-06-18)
 
