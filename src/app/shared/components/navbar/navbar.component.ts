@@ -50,7 +50,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
         this.userSubscription = this._data.userData.subscribe((user) => {
             if (user !== null) {
                 this.imageUrl = user.data.profileImage;
-                \                this.notifications = this.getNotifications();
+                this.notifications = this.getNotifications();
             }
         });
         this._auth.authState.subscribe((state) => {
