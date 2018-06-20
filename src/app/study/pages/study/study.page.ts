@@ -581,21 +581,19 @@ export class StudyComponent implements OnInit, OnDestroy {
 
   getAnnotationsForChapter() {
     const chapterReference = `${this.activeBook.toLowerCase()}-${this.activeChapter}`;
-    this.chapterAnnotations = this._study.getAnnotationsByChapterReference(this.groupID, chapterReference);
+    this.chapterAnnotations = this._study.getAnnotationsByChapterReference(this.groupID, chapterReference, this.sortAnnotation);
     this.chapterAnnotationsSubscription = this.chapterAnnotations.subscribe((res) => {
       this.numOfAnnotations = res.length;
       const countForAnnotations = [];
       const indexOfVerse = [];
 
       for (let j = 0; j < this.underlinedVerses.length; j++) {
-        this.countVerses[j]['image'] = [];
+        this.countVerses[j]['images'] = [];
         this.countVerses[j]['count'] = 0;
       }
 
       for (let i = 0; i < this.numOfAnnotations; i++) {
-        const verse = res[i].passage.split(':');
-        const bVerses = verse[1];
-        const bVerse = bVerses.split(',').map(val => Number(val.trim()));
+        const bVerse = this._study.formatAnnotations(res[i].passage, true);
         const verse_search = Math.min(...bVerse);
         if (res[i].verse_search === undefined) {
           this._study.addSearchAttrToAnnotation(this.groupID, this.chapterRef, res[i].id, verse_search);
@@ -603,13 +601,12 @@ export class StudyComponent implements OnInit, OnDestroy {
         }
         let profileImage = '';
         this._user.getDataFromID(res[i].creatorID).take(1).subscribe((userData) => {
-
           profileImage = userData['data']['profileImage'];
-          for (let j = 0; j < bVerse.length; j++) {
-            const index = bVerse[j] - 1;
+          for (let z = 0; z < bVerse.length; z++) {
+            const index = bVerse[z] - 1;
             this.underlinedVerses[index] = true;
             this.countVerses[index]['count'] += 1;
-            if (this.countVerses[index]['images'].length < 2) {
+            if (this.countVerses[index]['images'].length < 2 && this.countVerses[index]['images'].indexOf(profileImage) === -1) {
               this.countVerses[index]['images'].push(profileImage);
             }
           }
@@ -710,21 +707,26 @@ export class StudyComponent implements OnInit, OnDestroy {
     allVerses.forEach((verseNumber) => {
       verseNumbers.push(Number(verseNumber));
     });
+
     this.underlinedVerses.forEach((val, index) => {
-      if (verseNumbers.indexOf(index + 1) === -1) {
+      if (verseNumbers.indexOf(index + 1) === -1 && this.countVerses[index].count === 0) {
         this.underlinedVerses[index] = false;
       } else {
         this.underlinedVerses[index] = true;
       }
     });
-    this.createAnnotation.passage = this._study.formatAnnotations(value);
+    if (this.createAnnotation.passage.split(':').pop() === '') {
+      this.createAnnotation.passage = '';
+    } else {
+      this.createAnnotation.passage = this._study.formatAnnotations(value);
+    }
   }
 
   prepareAnnotation() {
     this.createAnnotation.passage = `${this.capitalize(this.activeBook)} ${this.activeChapter}:`;
     let finishedFirst = false;
     this.underlinedVerses.forEach((isUnderlined, index) => {
-      if (isUnderlined) {
+      if ((isUnderlined && this.countVerses[index].count === 0) || (isUnderlined && this.darkenedVerses[index])) {
         if (!finishedFirst) {
           this.createAnnotation.passage += this.bibleData['verse_data'][index]['verse_number'];
           finishedFirst = true;

@@ -651,17 +651,21 @@ input:checked+.slider:before {
 }
 
 #controls {
-    float: left;
     padding: 5px;
     height: 24px;
 }
 
-#controls {
-    height: 24px;
+
+#annotation-controls li {
+    line-height: 24px;
+    float: left;
 }
 
-#controls li {
-    line-height: 24px;
+#annotation-controls {
+    width: 70%;
+    padding: 5px;
+    height: 24px;
+    margin: auto;
 }
 
 /* Custom dropdown */

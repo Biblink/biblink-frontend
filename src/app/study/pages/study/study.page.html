@@ -282,8 +282,8 @@
             <!-- <span *ngIf="keyAnnouncements.length > 1">s</span> -->
           </h1>
           <br>
-          <div class="container" id="preferences">
-            <ul id="controls">
+          <div class="is-centered" id="preferences" *ngIf="numOfAnnotations > 0">
+            <ul id="annotation-controls">
               <li id="sort-label" data-aos="fade-right" data-aos-duration="1200">
                 <label for="sort">Sort By:</label>
               </li>
@@ -297,8 +297,6 @@
               </li>
             </ul>
           </div>
-          <br>
-          <br>
           <br>
           <div class="no-annotations has-text-centered" *ngIf="numOfAnnotations === 0">
             <p>Seems like this chapter has no annotations! Be the first to add one!</p>

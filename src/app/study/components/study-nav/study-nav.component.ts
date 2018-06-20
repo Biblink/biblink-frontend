@@ -15,7 +15,7 @@ declare const $: any;
 @Component({
   selector: 'app-study-nav',
   templateUrl: './study-nav.component.html',
-  styleUrls: [ './study-nav.component.css' ]
+  styleUrls: ['./study-nav.component.css']
 })
 export class StudyNavComponent implements OnInit {
   @Input() title = '';
@@ -56,48 +56,6 @@ export class StudyNavComponent implements OnInit {
       AOS.init();
       AppComponent.navInitialized = !AppComponent.navInitialized;
     }
-    // Initial scroll position
-    let scrollState = 0;
-
-    // Store navbar classes
-    const navClasses = document.getElementById('navbar-main').classList;
-
-    // returns current scroll position
-    const scrollTop = function () {
-      return window.scrollY;
-    };
-
-    // Primary scroll event function
-    const scrollDetect = function (home, down, up) {
-      // Current scroll position
-      const currentScroll = scrollTop();
-      if (scrollTop() === 0) {
-        home();
-      } else if (currentScroll > scrollState) {
-        down();
-      } else {
-        up();
-      }
-      // Set previous scroll position
-      scrollState = scrollTop();
-    };
-
-    function homeAction() {
-    }
-
-    function downAction() {
-      navClasses.remove('open');
-      navClasses.add('collapse');
-    }
-
-    function upAction() {
-      navClasses.remove('collapse');
-      navClasses.add('open');
-    }
-
-    window.addEventListener('scroll', function () {
-      scrollDetect(homeAction, downAction, upAction);
-    });
   }
 
   toggleMobileMenu() {
@@ -120,13 +78,13 @@ export class StudyNavComponent implements OnInit {
         this.unreadCount.next(0);
         this.notificationIDs = [];
         notifications.forEach((notification, index) => {
-          this.notificationIDs.push(notification[ 'id' ]);
-          if (notification[ 'read' ] === undefined || notification[ 'read' ] !== true) {
+          this.notificationIDs.push(notification['id']);
+          if (notification['read'] === undefined || notification['read'] !== true) {
             this.unreadCount.next(this.unreadCount.getValue() + 1);
           }
-          this.study.getStudyData(notification[ 'notification' ][ 'studyID' ]).take(1).subscribe((value) => {
-            notifications[ index ][ 'notification' ][ 'body' ] =
-              notifications[ index ][ 'notification' ][ 'body' ] + ' in ' + value[ 'name' ];
+          this.study.getStudyData(notification['notification']['studyID']).take(1).subscribe((value) => {
+            notifications[index]['notification']['body'] =
+              notifications[index]['notification']['body'] + ' in ' + value['name'];
           });
         });
         return notifications;
@@ -140,7 +98,7 @@ export class StudyNavComponent implements OnInit {
     });
   }
   navigateToStudy(notifID: string, studyID: string) {
-    this._router.navigateByUrl(`/dashboard/studies/study/${ studyID }`).then(() => {
+    this._router.navigateByUrl(`/dashboard/studies/study/${studyID}`).then(() => {
       this._data.markNotificationAsRead(notifID);
     });
   }
