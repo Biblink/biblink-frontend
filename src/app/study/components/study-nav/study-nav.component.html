@@ -79,7 +79,7 @@
                 <img [src]="notification['notification']['icon']" width="45px" height="45px" class="notification-image">
                 <div>
                   <a class="nav-link" [class.is-read]="notification['read'] !== undefined || notification['read']">{{notification['notification']['body']}}</a>
-                  <span class="notif-date">3:30pm 6/19/18</span>
+                  <span class="notif-date">{{notification['notification']['timestamp'] | date: 'h:mm a M/d/yy'}}</span>
                   <span class="notif-date" *ngIf="notification['read'] !== undefined || notification['read']">Read</span>
                 </div>
                 <hr *ngIf="i % 2 == 1" class="dropdown-divider">
