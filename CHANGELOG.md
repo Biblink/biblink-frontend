@@ -2,6 +2,25 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.1.1-alpha"></a>
+## [1.1.1-alpha](https://github.com/Biblink/biblink-frontend/compare/v1.1.0-alpha...v1.1.1-alpha) (2018-06-20)
+
+
+### Bug Fixes
+
+* **chore:** update footer version ([42c16b2](https://github.com/Biblink/biblink-frontend/commit/42c16b2))
+* **messaging:** fix bug with messaging and insufficient permissions ([113b1a0](https://github.com/Biblink/biblink-frontend/commit/113b1a0))
+* **profile:** fix problems with profile images not being updated ([6b8d35b](https://github.com/Biblink/biblink-frontend/commit/6b8d35b))
+* **shared-bible:** fix bug with annotation verse_search property ([d0d7246](https://github.com/Biblink/biblink-frontend/commit/d0d7246))
+* **user:** fix problems with local storage and insufficient permissions ([eda49c9](https://github.com/Biblink/biblink-frontend/commit/eda49c9))
+
+
+### Features
+
+* **search:** create interfaces for search results ([4017b54](https://github.com/Biblink/biblink-frontend/commit/4017b54))
+
+
+
 <a name="1.1.0-alpha"></a>
 # [1.1.0-alpha](https://github.com/Biblink/biblink-frontend/compare/v1.0.9-alpha.2...v1.1.0-alpha) (2018-06-20)
 
