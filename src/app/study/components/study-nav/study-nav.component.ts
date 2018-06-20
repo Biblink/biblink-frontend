@@ -112,7 +112,6 @@ export class StudyNavComponent implements OnInit, OnDestroy {
     this._auth.logout().then(() => {
       this._router.navigateByUrl('/sign-in');
       localStorage.removeItem('user');
-      this.userSubscription.unsubscribe();
     });
   }
 }

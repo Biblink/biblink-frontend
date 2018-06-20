@@ -43,27 +43,24 @@ export class StudyDataService {
           });
         }
       } else {
-        groupsReference = this.afs.collection(`/users/${uid}/studies`);
+        groupsReference = this.afs.collection(`/users/${ uid }/studies`);
         groupSubscription = groupsReference.valueChanges().subscribe((groups) => {
           this.study_sync = [];
-          if (groups.length === 0) {
-            console.log('this person does not have any groups');
-          }
           groups.forEach((studyData) => {
             // get study data
             let isFirstTime = false;
             let metadata = {};
-            studySubscriptions.push(this.afs.doc(`/studies/${studyData['id']}`).valueChanges().subscribe((data) => {
-              data['metadata']['name'] = data['name'];
-              data['metadata']['role'] = studyData['role'];
-              data['metadata']['id'] = studyData['id'];
+            studySubscriptions.push(this.afs.doc(`/studies/${ studyData[ 'id' ] }`).valueChanges().subscribe((data) => {
+              data[ 'metadata' ][ 'name' ] = data[ 'name' ];
+              data[ 'metadata' ][ 'role' ] = studyData[ 'role' ];
+              data[ 'metadata' ][ 'id' ] = studyData[ 'id' ];
               if (!isFirstTime) {
-                this.study_sync.push(data['metadata']);
+                this.study_sync.push(data[ 'metadata' ]);
                 isFirstTime = true;
-                metadata = data['metadata'];
+                metadata = data[ 'metadata' ];
               } else {
-                this.study_sync[this.study_sync.indexOf(metadata)] = data['metadata'];
-                metadata = data['metadata'];
+                this.study_sync[ this.study_sync.indexOf(metadata) ] = data[ 'metadata' ];
+                metadata = data[ 'metadata' ];
               }
               this.studies.next(this.study_sync);
             }));
@@ -76,9 +73,9 @@ export class StudyDataService {
   createStudy(name: string, userID: string, data: GroupDataInterface) {
     const uniqueID = Math.floor(Math.random() * (9999 - 1000 + 1) + 1000);
     const firebaseData = { 'name': name, 'uniqueID': uniqueID, 'metadata': data };
-    firebaseData['search_name'] = firebaseData['name'].replace(/\s/g, '').toLowerCase();
+    firebaseData[ 'search_name' ] = firebaseData[ 'name' ].replace(/\s/g, '').toLowerCase();
     const firebaseID = this.afs.createId();
-    const studyRef = this.afs.doc(`/studies/${firebaseID}`);
+    const studyRef = this.afs.doc(`/studies/${ firebaseID }`);
     return studyRef.set(firebaseData).then(() => {
       studyRef.collection('members').doc(userID).set({ 'role': 'leader', 'uid': userID });
       return firebaseID;
@@ -92,7 +89,6 @@ export class StudyDataService {
     return new Promise((resolve, reject) => {
       const doc = this.afs.collection('studies').doc(groupID);
       doc.collection('members').doc(userID).snapshotChanges().pipe(take(1)).subscribe((res) => {
-        console.log(res.payload.exists);
         if (!res.payload.exists) {
           doc.collection('members').doc(userID).set({ 'uid': userID, 'role': 'member' });
           resolve();
@@ -105,21 +101,21 @@ export class StudyDataService {
   }
 
   getStudyData(groupID: string) {
-    return this.afs.doc(`/studies/${groupID}`).valueChanges();
+    return this.afs.doc(`/studies/${ groupID }`).valueChanges();
   }
 
 
   createPost(studyID: string, post: Post) {
     const firebaseID = this.afs.createId();
     const jsonPost = Utils.toJson(post);
-    jsonPost['id'] = firebaseID;
-    return this.afs.doc(`/studies/${studyID}`).collection('posts').doc(firebaseID).set(jsonPost);
+    jsonPost[ 'id' ] = firebaseID;
+    return this.afs.doc(`/studies/${ studyID }`).collection('posts').doc(firebaseID).set(jsonPost);
   }
   createAnnotation(studyID: string, chapterReference: string, annotation: Annotation) {
     const firebaseID = this.afs.createId();
     const jsonPost = Utils.toJson(annotation);
-    jsonPost['id'] = firebaseID;
-    return this.afs.doc(`/studies/${studyID}`)
+    jsonPost[ 'id' ] = firebaseID;
+    return this.afs.doc(`/studies/${ studyID }`)
       .collection('annotations')
       .doc(chapterReference)
       .collection('chapter-annotations')
@@ -130,24 +126,24 @@ export class StudyDataService {
   addPostReply(postID: string, studyID: string, reply: Reply) {
     const firebaseID = this.afs.createId();
     const jsonReply = Utils.toJson(reply);
-    jsonReply['id'] = firebaseID;
-    const ref = this.afs.doc(`/studies/${studyID}`).collection('posts').doc(`${postID}`);
+    jsonReply[ 'id' ] = firebaseID;
+    const ref = this.afs.doc(`/studies/${ studyID }`).collection('posts').doc(`${ postID }`);
     const updateContributor = ref.valueChanges().subscribe((val) => {
-      if (val['contributors'].indexOf(reply.creatorID) === -1) {
-        val['contributors'].push(reply.creatorID);
+      if (val[ 'contributors' ].indexOf(reply.creatorID) === -1) {
+        val[ 'contributors' ].push(reply.creatorID);
       }
       ref.update(val).then(() => {
         updateContributor.unsubscribe();
       });
     });
-    return this.afs.doc(`/studies/${studyID}`).collection('posts').doc(postID).collection('replies').doc(firebaseID).set(jsonReply);
+    return this.afs.doc(`/studies/${ studyID }`).collection('posts').doc(postID).collection('replies').doc(firebaseID).set(jsonReply);
   }
 
   addAnnotationReply(annotationID: string, studyID: string, chapterReference: string, reply: Reply) {
     const firebaseID = this.afs.createId();
     const jsonReply = Utils.toJson(reply);
-    jsonReply['id'] = firebaseID;
-    return this.afs.doc(`/studies/${studyID}`)
+    jsonReply[ 'id' ] = firebaseID;
+    return this.afs.doc(`/studies/${ studyID }`)
       .collection('annotations')
       .doc(chapterReference)
       .collection('chapter-annotations')
@@ -158,10 +154,10 @@ export class StudyDataService {
   }
 
   updatePost(studyID: string, postID: string, post: Post) {
-    return this.afs.doc(`/studies/${studyID}`).collection('posts').doc(postID).update(post);
+    return this.afs.doc(`/studies/${ studyID }`).collection('posts').doc(postID).update(post);
   }
   updateAnnotation(studyID: string, chapterReference: string, annotationID: string, annotation: Annotation) {
-    return this.afs.doc(`/studies/${studyID}`)
+    return this.afs.doc(`/studies/${ studyID }`)
       .collection('annotations')
       .doc(chapterReference)
       .collection('chapter-annotations')
@@ -169,7 +165,7 @@ export class StudyDataService {
   }
 
   promoteUser(uid: string, studyId: string, role: string) {
-    return this.afs.doc(`/studies/${studyId}`)
+    return this.afs.doc(`/studies/${ studyId }`)
       .collection('members')
       .doc(uid)
       .update({ 'role': role });
@@ -185,7 +181,7 @@ export class StudyDataService {
   // }
 
   async checkAuthorized(uid: string, studyId: string, roles: string[]) {
-    const userStudyRef = this.afs.doc(`users/${uid}`).collection('studies').doc(studyId);
+    const userStudyRef = this.afs.doc(`users/${ uid }`).collection('studies').doc(studyId);
     let isAuthorized = false;
     await userStudyRef.valueChanges().take(1).pipe(pluck('role')).subscribe((role: string) => {
       if (roles.indexOf(role) !== -1) {
@@ -199,33 +195,33 @@ export class StudyDataService {
 
   getPosts(studyID: string, startAfter = '', limit = 4) {
     if (startAfter !== '') {
-      return this.afs.doc(`/studies/${studyID}`).collection('posts',
+      return this.afs.doc(`/studies/${ studyID }`).collection('posts',
         ref => ref.orderBy('timestamp', 'desc')
           .startAfter(startAfter)
           .limit(limit))
         .valueChanges();
     }
-    return this.afs.doc(`/studies/${studyID}`).collection('posts',
+    return this.afs.doc(`/studies/${ studyID }`).collection('posts',
       ref => ref.orderBy('timestamp', 'desc')
         .limit(limit))
       .valueChanges();
   }
 
   getKeyAnnouncements(studyID: string) {
-    return this.afs.doc(`/studies/${studyID}`)
+    return this.afs.doc(`/studies/${ studyID }`)
       .collection('posts', ref => ref.where('type', '==', 'announcement').orderBy('timestamp', 'desc').limit(3)).valueChanges();
   }
 
   getPostByType(studyID: string, type: string, startAfter = '', limit = 10) {
     if (startAfter !== '') {
-      return this.afs.doc(`/studies/${studyID}`)
+      return this.afs.doc(`/studies/${ studyID }`)
         .collection('posts', ref => ref.where('type', '==', type)
           .orderBy('timestamp', 'desc')
           .startAfter(startAfter)
           .limit(limit))
         .valueChanges();
     }
-    return this.afs.doc(`/studies/${studyID}`)
+    return this.afs.doc(`/studies/${ studyID }`)
       .collection('posts', ref => ref.where('type', '==', type)
         .orderBy('timestamp', 'desc')
         .limit(limit))
@@ -233,11 +229,11 @@ export class StudyDataService {
   }
 
   getPostByID(studyID: string, postID: string) {
-    return this.afs.doc(`/studies/${studyID}`).collection('posts').doc(postID).valueChanges();
+    return this.afs.doc(`/studies/${ studyID }`).collection('posts').doc(postID).valueChanges();
   }
 
   getAnnotationByID(studyID: string, chapterReference: string, annotationID: string) {
-    return this.afs.doc(`/studies/${studyID}`)
+    return this.afs.doc(`/studies/${ studyID }`)
       .collection('annotations')
       .doc(chapterReference)
       .collection('chapter-annotations')
@@ -245,8 +241,7 @@ export class StudyDataService {
   }
 
   getAnnotationsByChapterReference(studyID: string, chapterReference: string, order: string = 'timestamp') {
-    // TODO: @jfan1256, implement orderBy here. Similar to getPosts function
-    return this.afs.doc(`/studies/${studyID}`)
+    return this.afs.doc(`/studies/${ studyID }`)
       .collection('annotations')
       .doc(chapterReference)
       .collection('chapter-annotations', ref => {
@@ -258,7 +253,7 @@ export class StudyDataService {
   }
 
   addSearchAttrToAnnotation(studyID: string, chapterReference: string, annotationID: string, searchValue: number) {
-    this.afs.doc(`/studies/${studyID}`)
+    this.afs.doc(`/studies/${ studyID }`)
       .collection('annotations')
       .doc(chapterReference)
       .collection('chapter-annotations')
@@ -266,11 +261,11 @@ export class StudyDataService {
   }
 
   getPostRepliesByID(studyID: string, postID: string) {
-    return this.afs.doc(`/studies/${studyID}`).collection('posts').doc(postID).collection('replies').valueChanges();
+    return this.afs.doc(`/studies/${ studyID }`).collection('posts').doc(postID).collection('replies').valueChanges();
   }
 
   getAnnotationRepliesByID(studyID: string, chapterReference: string, annotationID: string) {
-    return this.afs.doc(`/studies/${studyID}`)
+    return this.afs.doc(`/studies/${ studyID }`)
       .collection('annotations')
       .doc(chapterReference)
       .collection('chapter-annotations')
@@ -279,17 +274,17 @@ export class StudyDataService {
   }
 
   getMembers(studyID: string) {
-    return this.afs.doc(`/studies/${studyID}`)
+    return this.afs.doc(`/studies/${ studyID }`)
       .collection('members').valueChanges();
   }
 
   deletePost(studyID: string, postID: string) {
-    return this.afs.doc(`/studies/${studyID}`)
+    return this.afs.doc(`/studies/${ studyID }`)
       .collection('posts').doc(postID).delete();
   }
 
   deleteAnnotation(studyID: string, chapterReference: string, annotationID: string) {
-    return this.afs.doc(`/studies/${studyID}`)
+    return this.afs.doc(`/studies/${ studyID }`)
       .collection('annotations')
       .doc(chapterReference)
       .collection('chapter-annotations')
@@ -298,7 +293,7 @@ export class StudyDataService {
   }
 
   getMemberData(studyID: string, uid: string) {
-    return this.afs.doc(`/studies/${studyID}`).collection('members').doc(uid).valueChanges();
+    return this.afs.doc(`/studies/${ studyID }`).collection('members').doc(uid).valueChanges();
   }
 
   formatAnnotations(reference, returnVersesList = false) {
@@ -321,15 +316,15 @@ export class StudyDataService {
         match = match.slice(1);
       }
       const matchContainer = match.split('-');
-      let lo_early = Number(matchContainer[0]);
-      const hi_early = Number(matchContainer[1]);
+      let lo_early = Number(matchContainer[ 0 ]);
+      const hi_early = Number(matchContainer[ 1 ]);
       let strbase = '';
       let firstTime = false;
       while (lo_early <= hi_early) {
         if (firstTime) {
           strbase += ',';
         }
-        strbase += `${lo_early}`;
+        strbase += `${ lo_early }`;
         firstTime = true;
         lo_early += 1;
       }
@@ -338,45 +333,45 @@ export class StudyDataService {
     let digits = verses.split(','); // Creates array out of the verses
     // tslint:disable-next-line:forin
     for (const index in digits) {
-      digits[index] = Number(digits[index]); // Iterate through the list and turn each element into an integer
+      digits[ index ] = Number(digits[ index ]); // Iterate through the list and turn each element into an integer
     }
     digits = digits.sort(function (a, b) { return a - b; });
     digits = Array.from(new Set(digits)); // Ensures all verse numbers are in ascending order
     if (returnVersesList) {
       return digits;
     }
-    let lo = digits[0];
+    let lo = digits[ 0 ];
     let hi = -1;
     const ranges = []; // Container for formatted verse segments
     for (const index in digits) {
-      if (digits[Number(index) + 1] - digits[Number(index)] === 1) { // If elements are adjacent on the number line...
-        hi = digits[Number(index) + 1]; // Increase the variable representing the end of a continuous range (like 1-4)
-      } else if (digits[Number(index) + 1] - digits[Number(index)] !== 1) { // If two elements of the array are not adjacent...
+      if (digits[ Number(index) + 1 ] - digits[ Number(index) ] === 1) { // If elements are adjacent on the number line...
+        hi = digits[ Number(index) + 1 ]; // Increase the variable representing the end of a continuous range (like 1-4)
+      } else if (digits[ Number(index) + 1 ] - digits[ Number(index) ] !== 1) { // If two elements of the array are not adjacent...
         // The two blocks below check to see if the failiure was the end of a range or a discrete jump
         if (hi === -1) {
           const strlo = String(lo);
           ranges.push(strlo);
-          lo = digits[Number(index) + 1];
+          lo = digits[ Number(index) + 1 ];
           hi = -1;
         } else if (hi !== -1) {
           const strlo = String(lo);
           const strhi = String(hi);
           const range = strlo.concat('-', strhi);
           ranges.push(range);
-          lo = digits[Number(index) + 1];
+          lo = digits[ Number(index) + 1 ];
           hi = -1;
         }
       } else if (Number(index) === (digits.length - 1)) { // If you're at the end of the array perform a failure check
 
         if (hi === -1) {
           ranges.push(String(lo));
-          lo = digits[Number(index) + 1];
+          lo = digits[ Number(index) + 1 ];
           hi = -1;
           break; // Don't bother checking the last element because array[index + 1] is out of range
         } else if (hi !== -1) {
           const range = String(lo).concat('-', String(hi));
           ranges.push(range);
-          lo = digits[Number(index) + 1];
+          lo = digits[ Number(index) + 1 ];
           hi = -1;
           break; // Don't bother checking the last element because array[index + 1] is out of range
         }

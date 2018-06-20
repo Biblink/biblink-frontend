@@ -77,6 +77,7 @@ export class HomeComponent implements OnInit {
     logout(): void {
         this._auth.logout().then(() => {
             this._router.navigateByUrl('/sign-in');
+            localStorage.removeItem('user');
         });
     }
 }
