@@ -439,6 +439,7 @@ export class StudyComponent implements OnInit, OnDestroy {
   logout() {
     this._user.logout().then(() => {
       this.navigateTo('/sign-in');
+      localStorage.removeItem('user');
     });
   }
 

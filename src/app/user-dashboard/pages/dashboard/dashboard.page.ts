@@ -103,10 +103,9 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    console.log('unsubscribing....');
-    this.authStateSubscription.unsubscribe();
     this.userDataSubscription.unsubscribe();
     this.groupDataSubscription.unsubscribe();
+    this.authStateSubscription.unsubscribe();
   }
 
   resetJoinStudy() {

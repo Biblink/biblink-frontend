@@ -1,11 +1,12 @@
 import { UserDataService } from '../../../core/services/user-data/user-data.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { AppComponent } from '../../../app.component';
 import { AuthService } from '../../../core/services/auth/auth.service';
 import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { tap, map } from 'rxjs/operators';
 import { ToastrService } from 'ngx-toastr';
+import { Subscription } from 'rxjs';
 
 declare const AOS: any;
 declare const $: any;
@@ -15,10 +16,11 @@ declare const $: any;
     templateUrl: './navbar.component.html',
     styleUrls: [ './navbar.component.css' ]
 })
-export class NavbarComponent implements OnInit {
+export class NavbarComponent implements OnInit, OnDestroy {
     activated = false;
     notifications;
     unreadCount = new BehaviorSubject(0);
+    userSubscription: Subscription;
     notificationIDs = [];
     menuOpacity = 0;
     menuHeight = '0';
@@ -37,11 +39,15 @@ export class NavbarComponent implements OnInit {
         AppComponent.navInitialized = false;
     }
 
+    ngOnDestroy(): void {
+        this.userSubscription.unsubscribe();
+    }
+
     ngOnInit() {
         this.unreadCount.subscribe((length) => {
             $('span.badge').attr('data-badge', length);
         });
-        this._data.userData.subscribe((user) => {
+        this.userSubscription = this._data.userData.subscribe((user) => {
             if (user !== null) {
                 this.imageUrl = user.data.profileImage;
                 this.notifications = this.getNotifications();
@@ -147,6 +153,8 @@ export class NavbarComponent implements OnInit {
     logout(): void {
         this._auth.logout().then(() => {
             this._router.navigateByUrl('/sign-in');
+            localStorage.removeItem('user');
+            this.userSubscription.unsubscribe();
         });
     }
 }

@@ -24,7 +24,6 @@ export class MessagingService {
     this.messaging = firebase.messaging(this._firebaseApp);
     this.messaging.requestPermission()
       .then(() => {
-        console.log('Notification permission granted');
         return this.messaging.getToken();
       })
       .then(token => this.saveToken(user, userID, token))

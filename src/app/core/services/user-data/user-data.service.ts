@@ -23,6 +23,7 @@ export class UserDataService {
       if (res === null) {
         if (dataSubscription !== null) {
           dataSubscription.unsubscribe();
+          localStorage.removeItem('user');
         }
         if (dataRef !== null) {
           dataRef = null;
@@ -31,8 +32,8 @@ export class UserDataService {
         this.userData.next(new User('', '', '', { profileImage: '', bio: '', shortDescription: '' }));
         this.userID.next('');
       } else {
-        this.userReference = this.afs.doc(`/users/${ res.uid }`);
         if (res.emailVerified) {
+          this.userReference = this.afs.doc(`/users/${ res.uid }`);
           this.userID.next(res.uid);
           dataRef = this.userReference.snapshotChanges();
           dataSubscription = dataRef.pipe(
