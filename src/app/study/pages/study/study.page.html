@@ -282,6 +282,24 @@
             <!-- <span *ngIf="keyAnnouncements.length > 1">s</span> -->
           </h1>
           <br>
+          <div class="container" id="preferences">
+            <ul id="controls">
+              <li id="sort-label" data-aos="fade-right" data-aos-duration="1200">
+                <label for="sort">Sort By:</label>
+              </li>
+              <li id="select" data-aos="fade-left" data-aos-duration="1200">
+                <span class="custom-dropdown">
+                  <select class="sort-select" id="sort" [(ngModel)]="sortAnnotation" (ngModelChange)="getAnnotationsForChapter()">
+                    <option [ngValue]="'timestamp'">Most Recent</option>
+                    <option [ngValue]="'verse_search'">Verse Number</option>
+                  </select>
+                </span>
+              </li>
+            </ul>
+          </div>
+          <br>
+          <br>
+          <br>
           <div class="no-annotations has-text-centered" *ngIf="numOfAnnotations === 0">
             <p>Seems like this chapter has no annotations! Be the first to add one!</p>
             <br>
