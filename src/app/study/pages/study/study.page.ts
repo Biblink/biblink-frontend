@@ -20,7 +20,7 @@ declare const $: any;
 @Component({
   selector: 'app-study',
   templateUrl: './study.page.html',
-  styleUrls: ['./study.page.css']
+  styleUrls: [ './study.page.css' ]
 })
 
 export class StudyComponent implements OnInit, OnDestroy {
@@ -104,7 +104,7 @@ export class StudyComponent implements OnInit, OnDestroy {
   }
   ngOnInit() {
     this.searchSubscription = this._search.getBooks().subscribe((res) => {
-      this.books = res['data'];
+      this.books = res[ 'data' ];
       this.books.forEach((book, index) => {
         const words = book.split(' ');
         const fixed = [];
@@ -116,7 +116,7 @@ export class StudyComponent implements OnInit, OnDestroy {
           }
         });
         const fixedBook = fixed.join(' ');
-        this.books[index] = fixedBook;
+        this.books[ index ] = fixedBook;
       });
     });
     this.userDataSubscription = this._user.userData.subscribe((user) => {
@@ -127,16 +127,16 @@ export class StudyComponent implements OnInit, OnDestroy {
     });
     this.groupID = this._router.url.split('/').pop();
     this.studyDataSubscription = this._study.getStudyData(this.groupID).subscribe((data) => {
-      this.title = data['name'];
+      this.title = data[ 'name' ];
       this._title.setTitle(this.title);
-      this.groupUniqueID = data['uniqueID'];
+      this.groupUniqueID = data[ 'uniqueID' ];
       this.studyData = data;
     });
     this.userIDSubscription = this._user.userID.subscribe((res) => {
       if (res !== '') {
         this.userID = res;
         this.roleSubscription = this._study.getMemberData(this.groupID, res).subscribe((response) => {
-          if (response['role'] === 'leader') {
+          if (response[ 'role' ] === 'leader') {
             this.isLeader = true;
           } else {
             this.isLeader = false;
@@ -161,7 +161,7 @@ export class StudyComponent implements OnInit, OnDestroy {
           this.postIndices = [];
           this.isDone = false;
           val.forEach((post) => {
-            this.postIndices.push(post['id']);
+            this.postIndices.push(post[ 'id' ]);
           });
           this.isLoading.next(false);
           this.postLength = val.length;
@@ -173,15 +173,15 @@ export class StudyComponent implements OnInit, OnDestroy {
         }
         const valid = [];
         val.forEach((post) => {
-          const index = this.postIndices.indexOf(post['id']);
+          const index = this.postIndices.indexOf(post[ 'id' ]);
           if (index !== -1) {
-            this.postIndices[index] = post['id'];
-            acc[index] = post;
+            this.postIndices[ index ] = post[ 'id' ];
+            acc[ index ] = post;
           } else {
             if (this.isGettingMorePosts) {
-              this.postIndices.push(post['id']);
+              this.postIndices.push(post[ 'id' ]);
             } else {
-              this.postIndices.unshift(post['id']);
+              this.postIndices.unshift(post[ 'id' ]);
             }
             valid.push(post);
           }
@@ -219,15 +219,15 @@ export class StudyComponent implements OnInit, OnDestroy {
 
   verifyPromote(name: string, uid) {
     this.activatePromotionModal = true;
-    this.currentPromote['name'] = name;
-    this.currentPromote['uid'] = uid;
+    this.currentPromote[ 'name' ] = name;
+    this.currentPromote[ 'uid' ] = uid;
   }
 
   promoteToLeader() {
-    if (this.currentPromote['name'] !== '' && this.currentPromote['uid'] !== '') {
+    if (this.currentPromote[ 'name' ] !== '' && this.currentPromote[ 'uid' ] !== '') {
       if (this.isLeader) {
-        this._study.promoteUser(this.currentPromote['uid'], this.groupID, 'leader').then(() => {
-          this.toastr.show(`Successfully Promoted ${this.currentPromote['name']} to Leader`, 'Leader Promotion');
+        this._study.promoteUser(this.currentPromote[ 'uid' ], this.groupID, 'leader').then(() => {
+          this.toastr.show(`Successfully Promoted ${ this.currentPromote[ 'name' ] } to Leader`, 'Leader Promotion');
         });
       }
     }
@@ -300,7 +300,7 @@ export class StudyComponent implements OnInit, OnDestroy {
     }, 1000);
   }
   private _checkHtmlText(val: any) {
-    val['htmlText'] = val['htmlText'] === undefined || val['htmlText'] === '' ? val['text'] : val['htmlText'];
+    val[ 'htmlText' ] = val[ 'htmlText' ] === undefined || val[ 'htmlText' ] === '' ? val[ 'text' ] : val[ 'htmlText' ];
     return val;
   }
 
@@ -309,11 +309,11 @@ export class StudyComponent implements OnInit, OnDestroy {
       this.keyAnnouncements = [];
       res.map(val => {
         val = this._checkHtmlText(val);
-        const contained = this.keyAnnouncements.filter(value => value['id'] === val['id']);
-        this._user.getDataFromID(val['creatorID']).take(1).subscribe((response) => {
-          val['image'] = response['data']['profileImage'];
+        const contained = this.keyAnnouncements.filter(value => value[ 'id' ] === val[ 'id' ]);
+        this._user.getDataFromID(val[ 'creatorID' ]).take(1).subscribe((response) => {
+          val[ 'image' ] = response[ 'data' ][ 'profileImage' ];
           if (contained.length === 1) {
-            this.keyAnnouncements[this.keyAnnouncements.indexOf(contained[0])] = val;
+            this.keyAnnouncements[ this.keyAnnouncements.indexOf(contained[ 0 ]) ] = val;
           } else {
             this.keyAnnouncements.push(val);
           }
@@ -329,28 +329,28 @@ export class StudyComponent implements OnInit, OnDestroy {
       members.forEach((member) => {
         let firstTime = false;
         let oldImage = { 'name': '', 'uid': '', 'image': '', 'role': '' };
-        this._user.getDataFromID(member['uid']).subscribe((res) => {
+        this._user.getDataFromID(member[ 'uid' ]).subscribe((res) => {
           if (firstTime) {
-            this.members[this.members.indexOf(oldImage)] = {
-              'name': res['name'],
-              'image': res['data']['profileImage'],
-              'role': member['role'],
-              'uid': member['uid'],
+            this.members[ this.members.indexOf(oldImage) ] = {
+              'name': res[ 'name' ],
+              'image': res[ 'data' ][ 'profileImage' ],
+              'role': member[ 'role' ],
+              'uid': member[ 'uid' ],
             };
           } else {
             this.members.push({
-              'name': res['name'],
-              'uid': member['uid'],
-              'image': res['data']['profileImage'],
-              'role': member['role']
+              'name': res[ 'name' ],
+              'uid': member[ 'uid' ],
+              'image': res[ 'data' ][ 'profileImage' ],
+              'role': member[ 'role' ]
             });
           }
           firstTime = true;
           oldImage = {
-            'name': res['name'],
-            'uid': member['uid'],
-            'image': res['data']['profileImage'],
-            'role': member['role']
+            'name': res[ 'name' ],
+            'uid': member[ 'uid' ],
+            'image': res[ 'data' ][ 'profileImage' ],
+            'role': member[ 'role' ]
           };
         });
       });
@@ -369,14 +369,14 @@ export class StudyComponent implements OnInit, OnDestroy {
       const reference = jElement.text();
       let verseText = '';
       const textSubscriber = this._search.getVerseText(reference).take(1).subscribe((res) => {
-        verseText = res['data'][0]['combined_text'];
+        verseText = res[ 'data' ][ 0 ][ 'combined_text' ];
         jElement.attr('data-tooltip', verseText.replace(/<\/?n>/g, ''));
         jElement.addClass('tooltip is-tooltip-bottom is-tooltip-multiline');
       });
 
 
       jElement.click(() => {
-        this._router.navigateByUrl(`/search?query=${reference}`);
+        this._router.navigateByUrl(`/search?query=${ reference }`);
       });
     });
   }
@@ -387,7 +387,7 @@ export class StudyComponent implements OnInit, OnDestroy {
       const jElement = $(el);
       const reference = jElement.text();
       jElement.click(() => {
-        this._router.navigateByUrl(`/search?query=${reference.split(': ')[0]}`);
+        this._router.navigateByUrl(`/search?query=${ reference.split(': ')[ 0 ] }`);
       });
     });
   }
@@ -467,7 +467,7 @@ export class StudyComponent implements OnInit, OnDestroy {
       return this.updatePost();
     }
     const today = new Date();
-    const date = `${today.getMonth() + 1}/${today.getDate()}/${today.getFullYear()}`;
+    const date = `${ today.getMonth() + 1 }/${ today.getDate() }/${ today.getFullYear() }`;
     const time = today.toLocaleTimeString();
     const postType = this.capitalize(this.createPost.type);
     this.createPost.dateInfo = { date: date, time: time };
@@ -493,16 +493,13 @@ export class StudyComponent implements OnInit, OnDestroy {
       return this.updateAnnotation();
     }
 
-    this.createAnnotation.chapterReference = `${this.activeBook.toLowerCase()}-${this.activeChapter}`;
+    this.createAnnotation.chapterReference = `${ this.activeBook.toLowerCase() }-${ this.activeChapter }`;
     const today = new Date();
-    const date = `${today.getMonth() + 1}/${today.getDate()}/${today.getFullYear()}`;
+    const date = `${ today.getMonth() + 1 }/${ today.getDate() }/${ today.getFullYear() }`;
     const time = today.toLocaleTimeString();
     const annotationType = this.capitalize(this.createAnnotation.type);
-    this.createAnnotation.verse_search = Math.min(...this.createAnnotation.passage
-      .split(':')[1]
-      .split(',')
-      .map(val => Number(val.trim()))
-    );
+    const verseList = this._study.formatAnnotations(this.createAnnotation.passage, true);
+    this.createAnnotation.verse_search = Math.min(...verseList);
     this.createAnnotation.dateInfo = { date: date, time: time };
     this.createAnnotation.timestamp = Math.round((new Date()).getTime() / 1000);
     this.createAnnotation.creatorID = this._user.userID.getValue();
@@ -567,7 +564,7 @@ export class StudyComponent implements OnInit, OnDestroy {
 
 
       this.editAnnotationSubscription = this._study.getAnnotationByID(this.groupID,
-        `${this.activeBook.toLowerCase()}-${this.activeChapter}`,
+        `${ this.activeBook.toLowerCase() }-${ this.activeChapter }`,
         annotationID).subscribe((res) => {
           if (this.editing) {
             this.createAnnotation = res as Annotation;
@@ -580,7 +577,7 @@ export class StudyComponent implements OnInit, OnDestroy {
   }
 
   getAnnotationsForChapter() {
-    const chapterReference = `${this.activeBook.toLowerCase()}-${this.activeChapter}`;
+    const chapterReference = `${ this.activeBook.toLowerCase() }-${ this.activeChapter }`;
     this.chapterAnnotations = this._study.getAnnotationsByChapterReference(this.groupID, chapterReference, this.sortAnnotation);
     this.chapterAnnotationsSubscription = this.chapterAnnotations.subscribe((res) => {
       this.numOfAnnotations = res.length;
@@ -588,26 +585,26 @@ export class StudyComponent implements OnInit, OnDestroy {
       const indexOfVerse = [];
 
       for (let j = 0; j < this.underlinedVerses.length; j++) {
-        this.countVerses[j]['images'] = [];
-        this.countVerses[j]['count'] = 0;
+        this.countVerses[ j ][ 'images' ] = [];
+        this.countVerses[ j ][ 'count' ] = 0;
       }
 
       for (let i = 0; i < this.numOfAnnotations; i++) {
-        const bVerse = this._study.formatAnnotations(res[i].passage, true);
+        const bVerse = this._study.formatAnnotations(res[ i ].passage, true);
         const verse_search = Math.min(...bVerse);
-        if (res[i].verse_search === undefined) {
-          this._study.addSearchAttrToAnnotation(this.groupID, this.chapterRef, res[i].id, verse_search);
-          res[i].verse_search = verse_search;
+        if (res[ i ].verse_search === undefined) {
+          this._study.addSearchAttrToAnnotation(this.groupID, this.chapterRef, res[ i ].id, verse_search);
+          res[ i ].verse_search = verse_search;
         }
         let profileImage = '';
-        this._user.getDataFromID(res[i].creatorID).take(1).subscribe((userData) => {
-          profileImage = userData['data']['profileImage'];
+        this._user.getDataFromID(res[ i ].creatorID).take(1).subscribe((userData) => {
+          profileImage = userData[ 'data' ][ 'profileImage' ];
           for (let z = 0; z < bVerse.length; z++) {
-            const index = bVerse[z] - 1;
-            this.underlinedVerses[index] = true;
-            this.countVerses[index]['count'] += 1;
-            if (this.countVerses[index]['images'].length < 2 && this.countVerses[index]['images'].indexOf(profileImage) === -1) {
-              this.countVerses[index]['images'].push(profileImage);
+            const index = bVerse[ z ] - 1;
+            this.underlinedVerses[ index ] = true;
+            this.countVerses[ index ][ 'count' ] += 1;
+            if (this.countVerses[ index ][ 'images' ].length < 2 && this.countVerses[ index ][ 'images' ].indexOf(profileImage) === -1) {
+              this.countVerses[ index ][ 'images' ].push(profileImage);
             }
           }
         });
@@ -671,15 +668,15 @@ export class StudyComponent implements OnInit, OnDestroy {
     this.countVerses = [];
     this.chapterSubscription = this._search.getChapter(book, chapter).take(1).pipe(
       pluck('data'),
-      map(val => val[0])
+      map(val => val[ 0 ])
     ).subscribe((res) => {
       this.bibleData = res;
-      this.bibleData['verse_data'].forEach(() => {
+      this.bibleData[ 'verse_data' ].forEach(() => {
         this.countVerses.push({ 'images': [], 'count': 0 });
         this.underlinedVerses.push(false);
         this.darkenedVerses.push(false);
       });
-      this.numChapters = this.bibleData['chapters'].length;
+      this.numChapters = this.bibleData[ 'chapters' ].length;
       this.isLoading.next(false);
       this.getAnnotationsForChapter();
     });
@@ -688,7 +685,7 @@ export class StudyComponent implements OnInit, OnDestroy {
   }
 
   nextChapter() {
-    if (this.activeChapter !== (this.bibleData['chapters']).length) {
+    if (this.activeChapter !== (this.bibleData[ 'chapters' ]).length) {
       this.activeChapter += 1;
       this.getChapter(this.activeBook, this.activeChapter);
     }
@@ -702,17 +699,17 @@ export class StudyComponent implements OnInit, OnDestroy {
   }
 
   reformatPassage(value) {
-    const allVerses = value.split(':')[1].split(',');
+    const allVerses = value.split(':')[ 1 ].split(',');
     const verseNumbers = [];
     allVerses.forEach((verseNumber) => {
       verseNumbers.push(Number(verseNumber));
     });
 
     this.underlinedVerses.forEach((val, index) => {
-      if (verseNumbers.indexOf(index + 1) === -1 && this.countVerses[index].count === 0) {
-        this.underlinedVerses[index] = false;
+      if (verseNumbers.indexOf(index + 1) === -1 && this.countVerses[ index ].count === 0) {
+        this.underlinedVerses[ index ] = false;
       } else {
-        this.underlinedVerses[index] = true;
+        this.underlinedVerses[ index ] = true;
       }
     });
     if (this.createAnnotation.passage.split(':').pop() === '') {
@@ -723,15 +720,15 @@ export class StudyComponent implements OnInit, OnDestroy {
   }
 
   prepareAnnotation() {
-    this.createAnnotation.passage = `${this.capitalize(this.activeBook)} ${this.activeChapter}:`;
+    this.createAnnotation.passage = `${ this.capitalize(this.activeBook) } ${ this.activeChapter }:`;
     let finishedFirst = false;
     this.underlinedVerses.forEach((isUnderlined, index) => {
-      if ((isUnderlined && this.countVerses[index].count === 0) || (isUnderlined && this.darkenedVerses[index])) {
+      if ((isUnderlined && this.countVerses[ index ].count === 0) || (isUnderlined && this.darkenedVerses[ index ])) {
         if (!finishedFirst) {
-          this.createAnnotation.passage += this.bibleData['verse_data'][index]['verse_number'];
+          this.createAnnotation.passage += this.bibleData[ 'verse_data' ][ index ][ 'verse_number' ];
           finishedFirst = true;
         } else {
-          this.createAnnotation.passage += ',' + this.bibleData['verse_data'][index]['verse_number'];
+          this.createAnnotation.passage += ',' + this.bibleData[ 'verse_data' ][ index ][ 'verse_number' ];
         }
       }
     });
