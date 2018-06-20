@@ -36,7 +36,7 @@ export class AppComponent implements OnInit, OnDestroy {
         this.userIDSubscription = this.user.userID.subscribe((uid) => {
             if (uid !== '') {
                 this.userSubscription = this.user.userData.subscribe((user) => {
-                    if (user !== null) {
+                    if (user !== null && user.email !== '') {
                         this.msg.getPermission(user, uid);
                         this.msg.monitorRefresh(user, uid);
                         this.msg.receiveMessages();
