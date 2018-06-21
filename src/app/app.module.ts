@@ -58,7 +58,7 @@ import { BrowserModule } from '@angular/platform-browser';
         SharedModule,
         AngularFireAuthModule,
         AngularFireStorageModule,
-        ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production }),
+        ServiceWorkerModule.register('/combined-worker.js', { enabled: environment.production }),
         RecaptchaModule.forRoot(),
         Angulartics2Module.forRoot([ Angulartics2GoogleAnalytics ]),
         ScrollToModule.forRoot(),
