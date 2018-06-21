@@ -16,12 +16,12 @@
                 <h1 class="similar-verse-heading is-hidden-desktop">Book Info</h1>
                 <div>
                     <p class="metadata-info">
-                        <span class="info-header">Author:</span> {{metadata['author']}}</p>
+                        <span class="info-header">Author:</span> {{metadata?.metadata?.author}}</p>
                     <p class="metadata-info">
-                        <span class="info-header">Date Written:</span> {{metadata['date']}}</p>
+                        <span class="info-header">Date Written:</span> {{metadata?.metadata?.date}}</p>
                 </div>
                 <h1 class="similar-verse-heading">Similar Verses</h1>
-                <div class="verse" *ngFor="let verse of similarVerses">
+                <div class="verse" *ngFor="let verse of similarVerses?.similar_verses">
                     <p class="similar-verse">
                         <span class="reference">{{verse.verse}}</span>
                         <br class="is-hidden-desktop">

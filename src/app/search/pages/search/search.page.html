@@ -25,5 +25,5 @@
     data-aos="fade-up" data-aos-duration="1200">
     <p>Couldn't find any results this time...try another search term!</p>
 </div>
-<app-results (type)="reSearch($event)" *ngIf="searchService.results.length > 0"></app-results>
+<app-results (type)="reSearch($event)" *ngIf="searchService.results.length > 0" [results]="searchService.results"></app-results>
 <app-footer></app-footer>

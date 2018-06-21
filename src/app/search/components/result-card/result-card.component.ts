@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, Input, OnInit, ViewEncapsulation, EventEmitter, Output } from '@angular/core';
 import { SearchService } from '../../../core/services/search/search.service';
 import {
     trigger,
@@ -7,7 +7,8 @@ import {
     transition
 } from '@angular/animations';
 import { ToastrService } from 'ngx-toastr';
-import { SimilarVerseResults, Verse } from '../../../core/interfaces/similar-verse';
+import { SimilarVerseResults } from '../../../core/interfaces/similar-verse';
+import { Metadata } from '../../../core/interfaces/metadata';
 declare const AOS: any;
 @Component({
     selector: 'app-result-card',
@@ -29,16 +30,21 @@ declare const AOS: any;
 })
 export class ResultCardComponent implements OnInit {
     @Input() reference: string;
+    @Input() index: string;
     @Input() text: string;
+    @Input() similarVerses: SimilarVerseResults = null;
+    @Input() metadata: Metadata = null;
+
+    @Output() copy = new EventEmitter<string>();
+    @Output() getMore = new EventEmitter<any>();
     isSimilar = false;
     activateZ = 10;
     shareText = '';
     shareTitle = '';
     twitterText = '';
-    similarVerses: Verse[] = [];
-    metadata = { 'author': '', 'date': '' };
 
-    constructor(private _search: SearchService, private toastr: ToastrService) {
+
+    constructor() {
     }
 
     ngOnInit() {
@@ -54,18 +60,13 @@ export class ResultCardComponent implements OnInit {
 
     showMoreData() {
         const updatedReference = this.reference.replace(/<\/?em>/g, '');
-        const ref_parts = updatedReference.split(' ');
-        ref_parts.pop();
-        this._search.getSimilarVerses(updatedReference).subscribe(res => {
-            this.similarVerses = res.similar_verses;
-        });
-        this._search.getMetadata(ref_parts.join(' ')).subscribe(res => {
-            this.metadata = res.metadata;
-        });
+        if (this.similarVerses === null && this.metadata === null) {
+            this.getMore.emit({ 'ref': updatedReference, 'request': true, 'index': this.index });
+        }
         this.isSimilar = true;
     }
 
     showCopyToClipboard() {
-        this.toastr.show('Successfully copied ' + this.reference + ' to your clipboard', 'Successful Copy');
+        this.copy.emit(this.reference.replace(/<\/?em>/g, ''));
     }
 }
