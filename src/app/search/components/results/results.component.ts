@@ -1,7 +1,7 @@
 import { SimilarVerseResults } from './../../../core/interfaces/similar-verse';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { SearchService } from '../../../core/services/search/search.service';
-import { Result } from './../../interfaces/search-results';
+import { Result } from '../../../core/interfaces/search-results';
 import { takeUntil } from 'rxjs/operators';
 import { Metadata } from '../../../core/interfaces/metadata';
 import { ToastrService } from 'ngx-toastr';
