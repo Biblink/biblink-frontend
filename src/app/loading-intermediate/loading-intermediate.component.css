@@ -1,0 +1,12 @@
+#main-text {
+    margin-top: 20%;
+}
+
+#main-text>h2 {
+    font-family: "museo-sans", sans-serif;
+    font-weight: 700;
+    font-size: 3em;
+    letter-spacing: 8px;
+    color: black;
+    margin-bottom: 65px;
+}

@@ -42,13 +42,15 @@ import { SearchService } from './core/services/search/search.service';
 import { AuthService } from './core/services/auth/auth.service';
 import { UserDataService } from './core/services/user-data/user-data.service';
 import { StudyDataService } from './study/services/study-data.service';
+import { LoadingIntermediateComponent } from './loading-intermediate/loading-intermediate.component';
 
 
 
 @NgModule({
     declarations: [
         AppComponent,
-        NotFinishedComponent
+        NotFinishedComponent,
+        LoadingIntermediateComponent
     ],
     imports: [
         AngularFireModule.initializeApp(environment.firebase, 'biblink'),

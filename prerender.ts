@@ -19,6 +19,7 @@ const ROUTES = [
     '/',
     '/search',
     '/get-started',
+    '/loading',
     '/sign-in',
     '/about',
     '/legal/privacy-policy',
