@@ -1,34 +1,59 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { AuthService } from '../../../core/services/auth/auth.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { UserDataService } from '../../../core/services/user-data/user-data.service';
 import { Angulartics2Module } from 'angulartics2';
+import { PLATFORM_ID, Inject } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { Title } from '@angular/platform-browser';
-
-declare const AOS: any;
+import { Subscription } from 'rxjs';
 declare const $: any;
+declare const AOS: any;
 
 @Component({
     selector: 'app-home',
     templateUrl: './home.page.html',
     styleUrls: [ './home.page.css' ]
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, OnDestroy {
     enhanced = false;
     imageUrl = '';
+    isBrowser = false;
     isLoggedIn = false;
     isCurrent = true;
     activated = false;
     menuOpacity = 0;
     menuHeight = '0';
     menuZ = 0;
+    init = [];
+
+    routeSubscription: Subscription = new Subscription();
 
     constructor(private title: Title, private _auth: AuthService,
-        private _router: Router, private _data: UserDataService, private afs: AngularFirestore) {
+        @Inject(PLATFORM_ID) platformId: string,
+        private _router: Router, private activatedRoute: ActivatedRoute, private _data: UserDataService, private afs: AngularFirestore) {
+        this.isBrowser = isPlatformBrowser(platformId);
     }
 
     ngOnInit() {
+        this.init = [];
+        this.routeSubscription = this.activatedRoute.queryParams.take(1).subscribe(params => {
+            const path = params[ 'path' ];
+            if (path) {
+                this._router.navigateByUrl(path);
+            }
+        });
+        if (this.isBrowser) {
+            const x = setInterval(() => {
+                this.init.push(AOS.init({
+                    disable: 'mobile'
+                }));
+                if (this.init.length >= 2) {
+                    clearInterval(x);
+                }
+            }, 1500);
+        }
         this.title.setTitle('Biblink | Home');
         this._data.userData.subscribe((user) => {
             if (user !== null) {
@@ -38,26 +63,9 @@ export class HomeComponent implements OnInit {
         this._auth.authState.subscribe((state) => {
             this.isLoggedIn = !(state === null);
         });
-        const init = [];
-        const x = setInterval(() => {
-            init.push(AOS.init({
-                disable: 'mobile'
-            }));
-            if (init.length >= 2) {
-                clearInterval(x);
-            }
-        }, 1500);
         setTimeout(() => {
             this.enhanced = true;
         }, 1000);
-        $(window).scroll(function () {
-            const scroll = $(window).scrollTop();
-            if (scroll >= 300 && scroll <= 3900) {
-                $('.dotstyle').addClass('darkDot');
-            } else {
-                $('.dotstyle').removeClass('darkDot');
-            }
-        });
     }
 
     toggleMobileMenu() {
@@ -65,12 +73,14 @@ export class HomeComponent implements OnInit {
         this.menuOpacity = this.activated ? 1 : 0;
         this.menuZ = this.activated ? 800 : 0;
         this.menuHeight = this.activated ? '100%' : '0';
-        if (this.activated) {
-            $('body').css('overflow', 'hidden');
-            $('html').css('overflow', 'hidden');
-        } else {
-            $('body').css('overflow', 'visible');
-            $('html').css('overflow', 'visible');
+        if (this.isBrowser) {
+            if (this.activated) {
+                $('body').css('overflow', 'hidden');
+                $('html').css('overflow', 'hidden');
+            } else {
+                $('body').css('overflow', 'visible');
+                $('html').css('overflow', 'visible');
+            }
         }
     }
 
@@ -79,5 +89,10 @@ export class HomeComponent implements OnInit {
             this._router.navigateByUrl('/sign-in');
             localStorage.removeItem('user');
         });
+    }
+
+    ngOnDestroy() {
+        delete this.init;
+        this.routeSubscription.unsubscribe();
     }
 }

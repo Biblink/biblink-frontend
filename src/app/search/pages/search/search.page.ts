@@ -1,10 +1,10 @@
-import { AfterViewChecked, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
+import { AfterViewChecked, ChangeDetectorRef, Component, OnDestroy, OnInit, PLATFORM_ID, Inject } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { SearchService } from '../../../core/services/search/search.service';
 import { ScrollToConfigOptions, ScrollToService } from '@nicky-lenaers/ngx-scroll-to';
 import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { Angulartics2 } from 'angulartics2';
-
+import { isPlatformBrowser } from '@angular/common';
 
 declare const AOS: any;
 @Component({
@@ -13,6 +13,7 @@ declare const AOS: any;
     styleUrls: [ './search.page.css' ]
 })
 export class SearchComponent implements OnInit, OnDestroy, AfterViewChecked {
+    isBrowser: boolean;
     searchQuery = '';
     isSearching = false;
     searchType = 'relevant';
@@ -22,11 +23,18 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewChecked {
         private _scrollToService: ScrollToService,
         private _route: ActivatedRoute,
         private cdr: ChangeDetectorRef,
-        private angulartics2: Angulartics2) {
-
+        private angulartics2: Angulartics2,
+        @Inject(PLATFORM_ID) platformId
+    ) {
+        this.isBrowser = isPlatformBrowser(platformId);
     }
 
     ngOnInit() {
+        if (this.isBrowser) {
+            AOS.init({
+                disable: 'mobile'
+            });
+        }
         this._router.events.subscribe((event) => {
             if (!(event instanceof NavigationEnd)) {
                 return;
@@ -40,9 +48,6 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewChecked {
                 this.reSearch('relevant');
                 this.isSearching = true;
             }
-        });
-        AOS.init({
-            disable: 'mobile'
         });
     }
 

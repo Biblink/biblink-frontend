@@ -10,9 +10,8 @@ import { tap, map } from 'rxjs/operators';
 import { DocumentSnapshot } from 'angularfire2/firestore';
 import { ToastrService } from 'ngx-toastr';
 import { Subscription } from 'rxjs';
-declare const AOS: any;
 declare const $: any;
-
+declare const AOS: any;
 @Component({
   selector: 'app-study-nav',
   templateUrl: './study-nav.component.html',
@@ -53,7 +52,6 @@ export class StudyNavComponent implements OnInit, OnDestroy {
     this._auth.authState.subscribe((state) => {
       this.isLoggedIn = !(state === null);
     });
-
     if (!AppComponent.navInitialized) {
       AOS.init();
       AppComponent.navInitialized = !AppComponent.navInitialized;

@@ -1,5 +1,6 @@
+import { isPlatformBrowser } from '@angular/common';
 import { UserDataService } from '../../../core/services/user-data/user-data.service';
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, Inject, PLATFORM_ID } from '@angular/core';
 import { AppComponent } from '../../../app.component';
 import { AuthService } from '../../../core/services/auth/auth.service';
 import { Router } from '@angular/router';
@@ -8,8 +9,8 @@ import { tap, map } from 'rxjs/operators';
 import { ToastrService } from 'ngx-toastr';
 import { Subscription } from 'rxjs';
 
-declare const AOS: any;
 declare const $: any;
+declare const AOS: any;
 
 @Component({
     selector: 'app-navbar',
@@ -27,12 +28,15 @@ export class NavbarComponent implements OnInit, OnDestroy {
     menuZ = 0;
     isLoggedIn: boolean = null;
     imageUrl = '';
+    isBrowser = false;
 
     constructor(private _auth: AuthService,
         private _router: Router,
         private _data: UserDataService,
-        private toastr: ToastrService
+        private toastr: ToastrService,
+        @Inject(PLATFORM_ID) platformId: string,
     ) {
+        this.isBrowser = isPlatformBrowser(platformId);
     }
 
     toHome() {
@@ -43,10 +47,9 @@ export class NavbarComponent implements OnInit, OnDestroy {
         this.userSubscription.unsubscribe();
     }
 
+
     ngOnInit() {
-        this.unreadCount.subscribe((length) => {
-            $('span.badge').attr('data-badge', length);
-        });
+
         this.userSubscription = this._data.userData.subscribe((user) => {
             if (user !== null) {
                 this.imageUrl = user.data.profileImage;
@@ -57,52 +60,56 @@ export class NavbarComponent implements OnInit, OnDestroy {
             this.isLoggedIn = !(state === null);
         });
 
-        if (!AppComponent.navInitialized) {
-            AOS.init();
-            AppComponent.navInitialized = !AppComponent.navInitialized;
-        }
         // Initial scroll position
         let scrollState = 0;
+        function homeAction(val) {
+        }
 
-        // Store navbar classes
-        const navClasses = document.getElementById('navbar-main').classList;
+        function downAction(val: DOMTokenList) {
+            val.remove('open');
+            val.add('collapse');
+        }
 
-        // returns current scroll position
-        const scrollTop = function () {
-            return window.scrollY;
-        };
-
-        // Primary scroll event function
-        const scrollDetect = function (home, down, up) {
-            // Current scroll position
-            const currentScroll = scrollTop();
-            if (scrollTop() === 0) {
-                home();
-            } else if (currentScroll > scrollState) {
-                down();
-            } else {
-                up();
+        function upAction(val: DOMTokenList) {
+            val.remove('collapse');
+            val.add('open');
+        }
+        if (this.isBrowser) {
+            if (!AppComponent.navInitialized) {
+                AOS.init();
+                AppComponent.navInitialized = !AppComponent.navInitialized;
             }
-            // Set previous scroll position
-            scrollState = scrollTop();
-        };
+            this.unreadCount.subscribe((length) => {
+                $('span.badge').attr('data-badge', length);
+            });
+            // Store navbar classes
+            const navClasses = document.getElementById('navbar-main').classList;
+            // returns current scroll position
+            const scrollTop = function () {
+                return window.scrollY;
+            };
 
-        function homeAction() {
+            // Primary scroll event function
+            const scrollDetect = function (home, down, up) {
+                // Current scroll position
+                const currentScroll = scrollTop();
+                if (scrollTop() === 0) {
+                    home(navClasses);
+                } else if (currentScroll > scrollState) {
+                    down(navClasses);
+                } else {
+                    up(navClasses);
+                }
+                // Set previous scroll position
+                scrollState = scrollTop();
+            };
+
+
+
+            window.addEventListener('scroll', function () {
+                scrollDetect(homeAction, downAction, upAction);
+            });
         }
-
-        function downAction() {
-            navClasses.remove('open');
-            navClasses.add('collapse');
-        }
-
-        function upAction() {
-            navClasses.remove('collapse');
-            navClasses.add('open');
-        }
-
-        window.addEventListener('scroll', function () {
-            scrollDetect(homeAction, downAction, upAction);
-        });
     }
 
     toggleMobileMenu() {
@@ -110,12 +117,14 @@ export class NavbarComponent implements OnInit, OnDestroy {
         this.menuOpacity = this.activated ? 1 : 0;
         this.menuZ = this.activated ? 800 : 0;
         this.menuHeight = this.activated ? '100%' : '0';
-        if (this.activated) {
-            $('body').css('overflow', 'hidden');
-            $('html').css('overflow', 'hidden');
-        } else {
-            $('body').css('overflow', 'visible');
-            $('html').css('overflow', 'visible');
+        if (this.isBrowser) {
+            if (this.activated) {
+                $('body').css('overflow', 'hidden');
+                $('html').css('overflow', 'hidden');
+            } else {
+                $('body').css('overflow', 'visible');
+                $('html').css('overflow', 'visible');
+            }
         }
     }
 

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ViewEncapsulation, EventEmitter, Output } from '@angular/core';
+import { Component, Input, OnInit, ViewEncapsulation, EventEmitter, Output, PLATFORM_ID, Inject } from '@angular/core';
 import { SearchService } from '../../../core/services/search/search.service';
 import {
     trigger,
@@ -9,6 +9,7 @@ import {
 import { ToastrService } from 'ngx-toastr';
 import { SimilarVerseResults } from '../../../core/interfaces/similar-verse';
 import { Metadata } from '../../../core/interfaces/metadata';
+import { isPlatformBrowser } from '@angular/common';
 declare const AOS: any;
 @Component({
     selector: 'app-result-card',
@@ -29,6 +30,7 @@ declare const AOS: any;
     ]
 })
 export class ResultCardComponent implements OnInit {
+    isBrowser: boolean;
     @Input() reference: string;
     @Input() index: string;
     @Input() text: string;
@@ -44,13 +46,16 @@ export class ResultCardComponent implements OnInit {
     twitterText = '';
 
 
-    constructor() {
+    constructor(@Inject(PLATFORM_ID) platformId) {
+        this.isBrowser = isPlatformBrowser(platformId)
     }
 
     ngOnInit() {
-        AOS.init({
-            disable: 'mobile'
-        });
+        if (this.isBrowser) {
+            AOS.init({
+                disable: 'mobile'
+            });
+        }
         this.reference = this.reference.replace(/<\/?em>/g, '');
         this.text = this.text.replace(/<\/?em>/g, '');
         this.shareTitle = this.reference + ' from Biblink Search';

@@ -39,7 +39,7 @@ export class UserDataService {
           this.userID.next(res.uid);
           dataRef = this.userReference.snapshotChanges();
           dataSubscription = dataRef.pipe(
-            map(response => Object.assign({ 'exists': response.payload.exists, 'data': response.payload.data() })),
+            map(response => Object.assign({ 'uid': res.uid, 'exists': response.payload.exists, 'data': response.payload.data() })),
             tap(user => localStorage.setItem('user', JSON.stringify(user))),
             startWith(JSON.parse(localStorage.getItem('user')))
           ).subscribe((response) => {
