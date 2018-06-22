@@ -38,13 +38,13 @@ export class HomeComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.init = [];
-        this.routeSubscription = this.activatedRoute.queryParams.take(1).subscribe(params => {
-            const path = params[ 'path' ];
-            if (path) {
-                this._router.navigateByUrl(path);
-            }
-        });
         if (this.isBrowser) {
+            this.routeSubscription = this.activatedRoute.queryParams.take(1).subscribe(params => {
+                const path = params[ 'path' ];
+                if (path) {
+                    this._router.navigateByUrl(path);
+                }
+            });
             const x = setInterval(() => {
                 this.init.push(AOS.init({
                     disable: 'mobile'
@@ -92,7 +92,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
 
     ngOnDestroy() {
-        delete this.init;
+        this.init = [];
         this.routeSubscription.unsubscribe();
     }
 }
