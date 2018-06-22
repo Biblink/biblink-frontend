@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
+import { Component, OnInit, Inject, PLATFORM_ID } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../../core/services/auth/auth.service';
@@ -13,6 +14,7 @@ declare const AOS: any;
     styleUrls: [ './sign-in.page.css' ]
 })
 export class SignInComponent implements OnInit {
+    isBrowser: boolean;
     incorrectPassword = false;
     differentCredential = false;
     emailSignInForm: FormGroup;
@@ -23,14 +25,19 @@ export class SignInComponent implements OnInit {
         '|1[0-9][0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]' +
         '|\\\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\\])');
 
-    constructor(public title: Title, private _auth: AuthService, private fb: FormBuilder, private router: Router) {
+    constructor(public title: Title, private _auth: AuthService,
+        private fb: FormBuilder, private router: Router,
+        @Inject(PLATFORM_ID) platformId) {
         this.title.setTitle('Biblya | Sign In');
+        this.isBrowser = isPlatformBrowser(platformId);
     }
 
     ngOnInit() {
-        AOS.init({
-            disable: 'mobile'
-        });
+        if (this.isBrowser) {
+            AOS.init({
+                disable: 'mobile'
+            });
+        }
         this.createForm();
         this._auth.authState.subscribe((state) => {
             if (state !== null) {

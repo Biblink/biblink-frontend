@@ -10,7 +10,7 @@
     "predeploy": "npm --prefix functions run build"
   },
   "hosting": {
-    "public": "dist",
+    "public": "dist/biblink",
     "ignore": [
       "firebase.json",
       "**/.*",
@@ -25,7 +25,7 @@
     }],
     "rewrites": [{
       "source": "**",
-      "destination": "/index.html"
+      "function": "app"
     }]
   },
   "storage": {

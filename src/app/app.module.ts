@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, PLATFORM_ID } from '@angular/core';
 import { environment } from '../environments/environment';
 
 
@@ -16,6 +16,7 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
 import { RecaptchaModule } from 'ng-recaptcha';
 import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { BrowserModule, BrowserTransferStateModule } from '@angular/platform-browser';
 
 // custom modules
 import { CoreModule } from './core/core.module';
@@ -41,8 +42,6 @@ import { SearchService } from './core/services/search/search.service';
 import { AuthService } from './core/services/auth/auth.service';
 import { UserDataService } from './core/services/user-data/user-data.service';
 import { StudyDataService } from './study/services/study-data.service';
-import { BrowserModule } from '@angular/platform-browser';
-
 
 
 
@@ -52,9 +51,10 @@ import { BrowserModule } from '@angular/platform-browser';
         NotFinishedComponent
     ],
     imports: [
-        AngularFireModule.initializeApp(environment.firebase, 'biblya'),
-        AngularFirestoreModule.enablePersistence(),
-        BrowserModule,
+        AngularFireModule.initializeApp(environment.firebase, 'biblink'),
+        AngularFirestoreModule,
+        BrowserModule.withServerTransition({ appId: 'serverApp' }),
+        BrowserTransferStateModule,
         SharedModule,
         AngularFireAuthModule,
         AngularFireStorageModule,
