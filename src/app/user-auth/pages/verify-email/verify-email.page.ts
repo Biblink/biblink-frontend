@@ -22,7 +22,7 @@ export class VerifyEmailComponent implements OnInit {
             this.isVerified = res;
             if (this.isVerified) {
                 setTimeout(() => {
-                    this.router.navigateByUrl('/'); // TODO: change this to dashboard later.
+                    this.router.navigateByUrl('/dashboard/home');
                 }, 2000);
             }
         });
