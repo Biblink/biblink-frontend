@@ -44,6 +44,7 @@ export class HomeComponent implements OnInit, OnDestroy {
                     disable: 'mobile'
                 }));
                 if (this.init.length >= 2) {
+                    console.log('clearing interval...');
                     clearInterval(x);
                 }
             }, 1500);
