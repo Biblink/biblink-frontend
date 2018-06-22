@@ -123,7 +123,9 @@ export class UserDataService {
 
 
   public logout() {
-    return this._auth.logout();
+    return this._auth.logout().then(() => {
+      localStorage.removeItem('user');
+    });
   }
 
   public get user() {
