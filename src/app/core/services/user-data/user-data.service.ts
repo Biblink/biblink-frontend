@@ -47,12 +47,16 @@ export class UserDataService {
                 this.userReference.set(Utils.toJson(data));
                 console.log('added to firebase collection');
               } else {
-                const data = response.data as User;
-                if (data.email !== res.email) {
-                  data.email = res.email;
-                  this.userReference.update(data);
+                if (response.data === undefined) {
+                  this.logout();
+                } else {
+                  const data = response.data as User;
+                  if (data.email !== res.email) {
+                    data.email = res.email;
+                    this.userReference.update(data);
+                  }
+                  this.userData.next(data);
                 }
-                this.userData.next(data);
               }
             }
           }, (error) => { console.log('There was an error: ' + error); });

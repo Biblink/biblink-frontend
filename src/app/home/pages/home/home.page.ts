@@ -39,12 +39,6 @@ export class HomeComponent implements OnInit, OnDestroy {
     ngOnInit() {
         this.init = [];
         if (this.isBrowser) {
-            this.routeSubscription = this.activatedRoute.queryParams.take(1).subscribe(params => {
-                const path = params[ 'path' ];
-                if (path) {
-                    this._router.navigateByUrl(path);
-                }
-            });
             const x = setInterval(() => {
                 this.init.push(AOS.init({
                     disable: 'mobile'
