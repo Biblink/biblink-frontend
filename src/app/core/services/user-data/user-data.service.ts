@@ -42,7 +42,7 @@ export class UserDataService {
             startWith(JSON.parse(localStorage.getItem('user')))
           ).subscribe((response) => {
             if (response !== null) {
-              if (response.exists === false && response.uid !== res.uid) {
+              if (response.exists === false && response.uid === res.uid) {
                 const data = new User('', '', res.email, { profileImage: res.photoURL, bio: '', shortDescription: '' });
                 this.userReference.set(Utils.toJson(data));
                 console.log('added to firebase collection');
