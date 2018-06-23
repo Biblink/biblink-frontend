@@ -221,6 +221,10 @@ li.is-active-tab a {
     align-items: center;
 }
 
+.create-container div {
+    margin: 0 auto;
+}
+
 .study {
     font-size: 3.0rem;
 }
@@ -448,4 +452,45 @@ li.is-active-tab a {
 
 .float-left {
     float: left;
+}
+
+@media screen and (max-width: 768px) {
+    .head {
+        padding-top: 140px;
+    }
+    .title.content-header {
+        text-align: center !important;
+    }
+    .study-list {
+        width: 90%;
+    }
+    .study-image {
+        margin-right: 0;
+    }
+    .study-image img {
+        width: 80px;
+        height: 80px;
+    }
+    .card-backdrop {
+        height: 100px;
+    }
+    .card-text {
+        margin-left: 10px !important;
+    }
+    .btn-actions {
+        width: 80%;
+    }
+    .create-container {
+        width: 80%;
+    }
+    #main {
+        margin-bottom: 100px;
+    }
+    .no-study {
+        padding: 10px;
+    }
+    .personal-info,
+    .security-info {
+        width: 80%;
+    }
 }

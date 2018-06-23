@@ -27,6 +27,7 @@
               "src/styles.scss",
               "src/assets/external-code/css/aos.css",
               "node_modules/ngx-toastr/toastr.css",
+              "node_modules/bulma-extensions/dist/bulma-extensions.min.css",
               "node_modules/bulma-extensions/bulma-tooltip/dist/bulma-tooltip.min.css",
               "node_modules/bulma-extensions/bulma-badge/dist/bulma-badge.min.css"
             ],

@@ -99,6 +99,12 @@
     width: 100%;
 }
 
+@media screen and (max-width: 768px) {
+    .navvy {
+        margin-top: 15px;
+    }
+}
+
 .navTrigger {
     cursor: pointer;
     width: 30px;
@@ -309,7 +315,7 @@
 }
 
 .menu-links {
-    margin-top: 300px;
+    margin-top: 50%;
 }
 
 .mobile #sign-in-mobile,

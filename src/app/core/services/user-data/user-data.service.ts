@@ -14,6 +14,7 @@ import { timer } from 'rxjs/observable/timer';
 export class UserDataService {
   userData: BehaviorSubject<User> = new BehaviorSubject(null);
   userID: BehaviorSubject<string> = new BehaviorSubject('');
+  localUserData: User;
   userReference: AngularFirestoreDocument<any> = null;
 
   constructor(private _auth: AuthService, public afs: AngularFirestore) {
@@ -32,6 +33,7 @@ export class UserDataService {
         this.userData.next(new User('', '', '', { profileImage: '', bio: '', shortDescription: '' }));
         this.userID.next('');
       } else {
+        let receivedLocalData = false;
         if (res.emailVerified) {
           this.userReference = this.afs.doc(`/users/${ res.uid }`);
           this.userID.next(res.uid);
@@ -41,11 +43,17 @@ export class UserDataService {
             tap(user => localStorage.setItem('user', JSON.stringify(user))),
             startWith(JSON.parse(localStorage.getItem('user')))
           ).subscribe((response) => {
+            if (!receivedLocalData) {
+              this.localUserData = response;
+              receivedLocalData = true;
+            }
             if (response !== null) {
-              if (response.exists === false) {
-                const data = new User('', '', res.email, { profileImage: res.photoURL, bio: '', shortDescription: '' });
-                this.userReference.set(Utils.toJson(data));
-                console.log('added to firebase collection');
+              if (response.exists === false && response.uid === res.uid) {
+                if (this.localUserData.firstName === '') {
+                  const data = new User('', '', res.email, { profileImage: res.photoURL, bio: '', shortDescription: '' });
+                  this.userReference.set(Utils.toJson(data));
+                  console.log('added to firebase collection');
+                }
               } else {
                 const data = response.data as User;
                 if (data.email !== res.email) {

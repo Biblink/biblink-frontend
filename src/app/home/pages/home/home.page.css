@@ -237,7 +237,7 @@
 }
 
 .menu-links {
-    margin-top: 300px;
+    margin-top: 50%;
 }
 
 .navbar {
@@ -316,6 +316,9 @@
         background-size: cover;
         transition: background 0.2s;
         transition-timing-function: ease-in-out, linear, step-start, cubic-bezier(0.215, 0.61, 0.355, 1);
+    }
+    .navvy {
+        margin-top: 20px;
     }
 }
 

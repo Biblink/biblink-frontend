@@ -129,7 +129,10 @@
             <div id="log-out-mobile" *ngIf="isLoggedIn" class="dropdown is-right is-hoverable">
                 <div class="dropdown-trigger">
                     <a aria-haspopup="true" aria-controls="user-actions" class="nav-link">
-                        <i class="user fa fa-user"></i>
+                        <a aria-haspopup="true" aria-controls="user-actions" class="nav-link">
+                            <i *ngIf="imageUrl === null || imageUrl === ''" class="user fa fa-user"></i>
+                            <img *ngIf="imageUrl !== null && imageUrl !== ''" width="50px" height="50px" class="user user-image" [src]="imageUrl">
+                        </a>
                     </a>
                 </div>
                 <div class="dropdown-menu" id="user-actions" role="menu">
@@ -147,18 +150,22 @@
 </nav>
 
 <div class="is-hidden-tablet" id="menu-overlay" [ngStyle]="{'opacity': menuOpacity, 'height': menuHeight, 'z-index': menuZ}">
-    <div class="container has-text-centered menu-links">
+    <div [hidden]="menuOpacity === 0" class="container has-text-centered menu-links">
         <div>
-            <a class="nav-link" [routerLink]="'/'" (click)="toggleMobileMenu()">Home</a>
+            <a (click)="toggleMobileMenu()" class="nav-link" [routerLink]="'/'">Home</a>
         </div>
         <div>
-            <a class="nav-link" (click)="toggleMobileMenu()" [routerLink]="'/about'">About</a>
+            <a (click)="toggleMobileMenu()" class="nav-link" (click)="toggleMobileMenu()" [routerLink]="'/about'">About</a>
         </div>
         <div>
-            <a class="nav-link" [routerLink]="'/search'" (click)="toggleMobileMenu()">Search</a>
+            <a (click)="toggleMobileMenu()"class="nav-link" [routerLink]="'/search'">Search</a>
         </div>
         <div>
-            <a class="nav-link" *ngIf="!isLoggedIn" [routerLink]="'/sign-in'" (click)="toggleMobileMenu()">Sign In</a>
+            <a (click)="toggleMobileMenu()" class="nav-link" *ngIf="isLoggedIn" [routerLink]="'/dashboard/home'" angulartics2On="click" angularticsAction="Clicked Dashboard link in mobile nav"
+                [angularticsCategory]="'link-click'" angularticsLabel="navigation">Dashboard</a>
+        </div>
+        <div>
+            <a (click)="toggleMobileMenu()" class="nav-link" *ngIf="!isLoggedIn" [routerLink]="'/sign-in'">Sign In</a>
             <a class="nav-link" *ngIf="isLoggedIn" (click)="logout(); toggleMobileMenu()">Logout</a>
         </div>
     </div>
