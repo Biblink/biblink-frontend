@@ -40,7 +40,7 @@ export class GetStartedComponent implements OnInit {
         // this._auth.logout();
         this._auth.authState.subscribe((state) => {
             if (state !== null) {
-                this._auth.emailVerified.then((res) => {
+                this._auth.emailVerified().then((res) => {
                     if (res) {
                         this.router.navigateByUrl('/dashboard/home');
                     } else {

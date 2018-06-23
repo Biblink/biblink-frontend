@@ -18,7 +18,7 @@ export class VerifyEmailComponent implements OnInit {
     }
 
     checkVerification() {
-        this._auth.emailVerified.then((res) => {
+        this._auth.emailVerified(true).then((res) => {
             this.isVerified = res;
             if (this.isVerified) {
                 setTimeout(() => {
@@ -29,7 +29,7 @@ export class VerifyEmailComponent implements OnInit {
     }
 
     resendVerificationEmail() {
-        this._auth.emailVerified.then((status) => {
+        this._auth.emailVerified().then((status) => {
             if (!status) {
                 this._auth.sendVerificationEmail().then(() => {
                     this.toastr.show(`Successfully sent a verification email to ${ this._auth.email }`, 'Verified Email Sent');
