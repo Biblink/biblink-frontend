@@ -34,7 +34,7 @@ export class PostCardComponent implements OnInit {
   replyText = '';
   subReplyText = '';
   replyID = '';
-  activateZ = -10;
+  activateZ = 0;
   contributorImages = [];
   constructor(
     private afs: AngularFirestore,
