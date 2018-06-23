@@ -1,9 +1,11 @@
+import { LoadingIntermediateComponent } from './loading-intermediate/loading-intermediate.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 
 
 const routes: Routes = [
+  { path: 'loading', component: LoadingIntermediateComponent },
   { path: 'about', loadChildren: 'app/about/about.module#AboutModule' },
   { path: 'search', loadChildren: 'app/search/search.module#SearchModule' },
   { path: 'dashboard', loadChildren: 'app/user-dashboard/user-dashboard.module#UserDashboardModule' },

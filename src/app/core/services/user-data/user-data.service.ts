@@ -7,6 +7,7 @@ import { User } from '../../interfaces/user';
 import { Utils } from '../../../utilities/utils';
 import { map, takeUntil, startWith, tap } from 'rxjs/operators';
 import { timer } from 'rxjs/observable/timer';
+import { ActivatedRoute } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -21,7 +22,7 @@ export class UserDataService {
     let dataRef: Observable<Action<DocumentSnapshot<any>>> = null;
     let dataSubscription: Subscription = null;
     this._auth.authState.subscribe((res) => {
-      if (res === null) {
+      if (res === null || res === undefined) {
         if (dataSubscription !== null) {
           dataSubscription.unsubscribe();
           localStorage.removeItem('user');
@@ -39,7 +40,7 @@ export class UserDataService {
           this.userID.next(res.uid);
           dataRef = this.userReference.snapshotChanges();
           dataSubscription = dataRef.pipe(
-            map(response => Object.assign({ 'exists': response.payload.exists, 'data': response.payload.data() })),
+            map(response => Object.assign({ 'uid': res.uid, 'exists': response.payload.exists, 'data': response.payload.data() })),
             tap(user => localStorage.setItem('user', JSON.stringify(user))),
             startWith(JSON.parse(localStorage.getItem('user')))
           ).subscribe((response) => {
@@ -55,12 +56,16 @@ export class UserDataService {
                   console.log('added to firebase collection');
                 }
               } else {
-                const data = response.data as User;
-                if (data.email !== res.email) {
-                  data.email = res.email;
-                  this.userReference.update(data);
+                if (response.data === undefined) {
+                  this.logout();
+                } else {
+                  const data = response.data as User;
+                  if (data.email !== res.email) {
+                    data.email = res.email;
+                    this.userReference.update(data);
+                  }
+                  this.userData.next(data);
                 }
-                this.userData.next(data);
               }
             }
           }, (error) => { console.log('There was an error: ' + error); });
@@ -127,7 +132,9 @@ export class UserDataService {
 
 
   public logout() {
-    return this._auth.logout();
+    return this._auth.logout().then(() => {
+      localStorage.removeItem('user');
+    });
   }
 
   public get user() {

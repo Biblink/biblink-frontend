@@ -1,10 +1,11 @@
 import { SimilarVerseResults } from './../../../core/interfaces/similar-verse';
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, Inject, PLATFORM_ID } from '@angular/core';
 import { SearchService } from '../../../core/services/search/search.service';
 import { Result } from '../../../core/interfaces/search-results';
 import { takeUntil } from 'rxjs/operators';
 import { Metadata } from '../../../core/interfaces/metadata';
 import { ToastrService } from 'ngx-toastr';
+import { isPlatformBrowser } from '@angular/common';
 
 declare const AOS: any;
 
@@ -18,14 +19,18 @@ export class ResultsComponent implements OnInit {
     @Output() type: EventEmitter<string> = new EventEmitter();
     metadatas: Metadata[] = [];
     similarVerses: SimilarVerseResults[] = [];
+    isBrowser = false;
     sortType = 'relevant';
-    constructor(private _search: SearchService, private toastr: ToastrService) {
+    constructor(private _search: SearchService, @Inject(PLATFORM_ID) platformId: string, private toastr: ToastrService) {
+        this.isBrowser = isPlatformBrowser(platformId);
     }
 
     ngOnInit() {
-        AOS.init({
-            disable: 'mobile'
-        });
+        if (this.isBrowser) {
+            AOS.init({
+                disable: 'mobile'
+            });
+        }
         this.results.forEach(() => {
             this.metadatas = [ ...this.metadatas, null ];
             this.similarVerses = [ ...this.similarVerses, null ];

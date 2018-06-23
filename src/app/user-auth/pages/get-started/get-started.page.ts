@@ -4,7 +4,6 @@ import { AbstractControl, FormBuilder, FormGroup, ValidatorFn, Validators } from
 import { Title } from '@angular/platform-browser';
 import { User } from '../../../core/interfaces/user';
 import { Router } from '@angular/router';
-
 @Component({
     selector: 'app-get-started',
     templateUrl: './get-started.page.html',
@@ -41,7 +40,7 @@ export class GetStartedComponent implements OnInit {
         // this._auth.logout();
         this._auth.authState.subscribe((state) => {
             if (state !== null) {
-                this._auth.emailVerified.then((res) => {
+                this._auth.emailVerified().then((res) => {
                     if (res) {
                         this.router.navigateByUrl('/dashboard/home');
                     } else {
