@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.1.3-alpha"></a>
+## [1.1.3-alpha](https://github.com/Biblink/biblink-frontend/compare/v1.2.0...v1.1.3-alpha) (2018-06-23)
+
+
+
 <a name="1.2.0"></a>
 # [1.2.0](https://github.com/Biblink/biblink-frontend/compare/v1.1.1-alpha...v1.2.0) (2018-06-23)
 
