@@ -7,6 +7,7 @@ import { User } from '../../interfaces/user';
 import { Utils } from '../../../utilities/utils';
 import { map, takeUntil, startWith, tap } from 'rxjs/operators';
 import { timer } from 'rxjs/observable/timer';
+import { ActivatedRoute } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -21,7 +22,7 @@ export class UserDataService {
     let dataRef: Observable<Action<DocumentSnapshot<any>>> = null;
     let dataSubscription: Subscription = null;
     this._auth.authState.subscribe((res) => {
-      if (res === null) {
+      if (res === null || res === undefined) {
         if (dataSubscription !== null) {
           dataSubscription.unsubscribe();
           localStorage.removeItem('user');

@@ -77,7 +77,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.authStateSubscription = this._auth.authState.subscribe((res) => {
       if (res === null) {
         console.log('redirecting back to sign in');
-        setTimeout(() => this._router.navigateByUrl('/sign-in'), 200);
+        setTimeout(() => this._router.navigateByUrl('/sign-in'), 1000);
       }
     });
     this.createForm();

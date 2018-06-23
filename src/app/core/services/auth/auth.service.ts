@@ -2,21 +2,25 @@ import { Injectable } from '@angular/core';
 import { AngularFireAuth } from 'angularfire2/auth';
 import * as firebase from 'firebase/app';
 import 'firebase/auth';
-import { Observable } from 'rxjs';
+import { Observable, merge, from, ReplaySubject } from 'rxjs';
 import { EmailUserInterface } from '../../interfaces/email-user.interface';
 import { User } from '../../interfaces/user';
 import { AngularFirestore } from 'angularfire2/firestore';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 @Injectable({
     providedIn: 'root'
 })
 export class AuthService {
     userData: User;
+    authUser = new BehaviorSubject<firebase.User>(undefined);
     actionCodeSettings = {
         url: 'https://biblya-ed2ec.firebaseapp.com//sign-in' // TODO: change with new domain
     };
 
-    constructor(private _afAuth: AngularFireAuth) { }
+    constructor(private _afAuth: AngularFireAuth) {
+        this._afAuth.authState.subscribe(this.authUser);
+    }
 
     userLogin(provider: 'google' | 'facebook' | 'twitter' | 'email', data: EmailUserInterface = null): Promise<any> {
         switch (provider) {
@@ -155,12 +159,15 @@ export class AuthService {
     }
 
 
-    get authState(): Observable<firebase.User> {
-        return this._afAuth.authState;
+    get authState(): BehaviorSubject<firebase.User> {
+        return this.authUser;
     }
 
-    get emailVerified(): Promise<boolean> {
-        return this._afAuth.auth.currentUser.reload().then((res) => {
+    emailVerified(updateAuthState = false): Promise<boolean> {
+        return this._afAuth.auth.currentUser.reload().then(() => {
+            if (updateAuthState && this._afAuth.auth.currentUser.emailVerified) {
+                this.authUser.next(this._afAuth.auth.currentUser);
+            }
             return this._afAuth.auth.currentUser.emailVerified;
         });
     }

@@ -41,15 +41,16 @@ export class SignInComponent implements OnInit {
         this.createForm();
         this._auth.authState.subscribe((state) => {
             if (state !== null) {
-                if (this._auth.emailVerified) {
-                    this._auth.emailVerified.then((res) => {
+                setTimeout(() => {
+
+                    this._auth.emailVerified().then((res) => {
                         if (res) {
                             this.router.navigateByUrl('/dashboard/home');
                         } else {
                             this.router.navigateByUrl('/verify-email');
                         }
                     });
-                }
+                }, 500)
             }
         });
     }
