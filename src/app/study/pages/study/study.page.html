@@ -112,7 +112,7 @@
             <li class="shared-select">
               <span class="custom-dropdown">
                 <select class="sort-select" id="chapter" [(ngModel)]="activeChapter" (ngModelChange)="getChapter(activeBook, activeChapter)">
-                  <option [ngValue]="number" *ngFor="let number of bibleData['chapters']">{{number}}</option>
+                  <option [ngValue]="number" *ngFor="let number of bibleData?.chapters">{{number}}</option>
                 </select>
               </span>
             </li>
@@ -120,23 +120,23 @@
         </div>
         <div class="bible-header">
           <h1 class="reference">{{activeBook}} {{activeChapter}}</h1>
-          <div class="bible-actions">
+          <div class="bible-actions" *ngIf="!(isLoading | async)">
             <a class="more-link bible-navigation bible-navigation-left" (click)="previousChapter()" [class.disabled]="activeChapter === 1">
               < Previous Chapter</a>
                 <a class="more-link bible-navigation bible-navigation-right" (click)="nextChapter()" [class.disabled]="activeChapter === numChapters">Next Chapter ></a>
           </div>
         </div>
         <div class="bible-text">
-          <ng-container *ngFor="let verse of bibleData['verse_data']; let i = index;">
+          <ng-container *ngFor="let verse of bibleData?.verse_data; let i = index;">
 
-            <ng-container *ngIf="countVerses[i]['count'] === 0">
+            <ng-container *ngIf="countVerses[i].count === 0">
               <span class="shared-bible-verse" [class.is-underlined]="underlinedVerses[i]" (click)="underlinedVerses[i] = underlinedVerses[i] === true ? false: true; expandActions(); prepareAnnotation();">
                 <span class="verse-number">{{verse['verse_number']}}</span>
                 {{verse['text']}}
               </span>
             </ng-container>
 
-            <ng-container *ngIf="countVerses[i]['count'] > 0">
+            <ng-container *ngIf="countVerses[i].count > 0">
               <span class="shared-bible-verse" [class.is-underlined]="underlinedVerses[i]" [class.is-darkened]="darkenedVerses[i]" (click)="darkenedVerses[i] = darkenedVerses[i] === true ? false: true; expandActions(); prepareAnnotation();">
                 {{verse['text']}}
               </span>
@@ -149,7 +149,7 @@
             </ng-container>
           </ng-container>
         </div>
-        <div class="bible-actions">
+        <div class="bible-actions" *ngIf="!(isLoading | async)">
           <a class="more-link bible-navigation bible-navigation-left" (click)="previousChapter()" [class.disabled]="activeChapter === 1">
             < Previous Chapter</a>
               <a class="more-link bible-navigation bible-navigation-right" (click)="nextChapter()" [class.disabled]="activeChapter === numChapters">Next Chapter ></a>
@@ -284,10 +284,10 @@
           <br>
           <div class="is-centered" id="preferences" *ngIf="numOfAnnotations > 0">
             <ul id="annotation-controls">
-              <li id="sort-label" data-aos="fade-right" data-aos-duration="1200">
+              <li id="sort-label">
                 <label for="sort">Sort By:</label>
               </li>
-              <li id="select" data-aos="fade-left" data-aos-duration="1200">
+              <li id="select">
                 <span class="custom-dropdown">
                   <select class="sort-select" id="sort" [(ngModel)]="sortAnnotation" (ngModelChange)="getAnnotationsForChapter()">
                     <option [ngValue]="'timestamp'">Most Recent</option>
@@ -322,9 +322,7 @@
               <!-- <div class="card-body" [innerHtml]="annotation['htmlText'] | safeHtml" (mouseenter)="getVerse($event)" [id]="'post-text-' + i">
                 {{annotation['text']}}
               </div> TODO: add route for htmlText -->
-              <div class="card-body annotation-body" [id]="'annotation-text-' + i">
-                {{annotation['text']}}
-              </div>
+              <div class="card-body annotation-body" [id]="'annotation-text-' + i">{{annotation['text']}}</div>
             </app-post-card>
           </div>
         </ng-container>

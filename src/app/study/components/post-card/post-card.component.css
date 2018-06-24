@@ -31,6 +31,7 @@
 
 .post .card-header {
     box-shadow: none;
+    width: 100%;
 }
 
 .post .card-content .content {
