@@ -264,13 +264,13 @@
                 <i *ngIf="(member['image'] === null || member['image'] === '') && i < numberOfMembers" style="font-size: 42px; margin-left: 5px; margin-right: 6px;"
                   class="user fa fa-user"></i>
                 <img *ngIf="member['image'] !== null && member['image'] !== '' && i < numberOfMembers" class="profile-image" [src]="member['image']">
-                <div class="member-name" *ngIf="i < numberOfMembers">
+                <div class="member-name" *ngIf="i < numberOfMembers ">
                   <span>{{member['name']}}</span>
                 </div>
               </div>
-              <span class="member-role">{{capitalize(member['role'])}} </span>
+              <span class="member-role" *ngIf="i < numberOfMembers">{{capitalize(member['role'])}} </span>
               <br>
-              <a class="promote more-link" (click)="verifyPromote(member['name'], member['uid'])" *ngIf="member['role'] !== 'leader' && isLeader">(Promote to Leader?)</a>
+              <a class="promote more-link" (click)="verifyPromote(member['name'], member['uid'])" *ngIf="i < numberOfMembers && member['role'] !== 'leader' && isLeader">(Promote to Leader?)</a>
             </ng-container>
           </div>
           <div class="bottom has-text-centered">
