@@ -49,7 +49,7 @@ export class UserDataService {
               console.log('Received Local Data: ', response);
               this.localUserData = response;
               receivedLocalData = true;
-              if (this.localUserData.data === undefined) {
+              if (this.localUserData !== null && this.localUserData.data === undefined) {
                 this.localUserData.firstName = '';
               }
             }
