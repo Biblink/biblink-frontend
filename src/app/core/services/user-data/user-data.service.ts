@@ -15,7 +15,7 @@ import { ActivatedRoute } from '@angular/router';
 export class UserDataService {
   userData: BehaviorSubject<User> = new BehaviorSubject(null);
   userID: BehaviorSubject<string> = new BehaviorSubject('');
-  localUserData: User;
+  localUserData: any;
   userReference: AngularFirestoreDocument<any> = null;
 
   constructor(private _auth: AuthService, public afs: AngularFirestore) {
@@ -45,8 +45,13 @@ export class UserDataService {
             startWith(JSON.parse(localStorage.getItem('user')))
           ).subscribe((response) => {
             if (!receivedLocalData) {
+              // get existing local storage
+              console.log('Received Local Data: ', response);
               this.localUserData = response;
               receivedLocalData = true;
+              if (this.localUserData.data === undefined) {
+                this.localUserData.firstName = '';
+              }
             }
             if (response !== null) {
               if (response.exists === false && response.uid === res.uid) {
