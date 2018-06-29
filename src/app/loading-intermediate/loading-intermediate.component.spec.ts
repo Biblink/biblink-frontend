@@ -1,6 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { LoadingIntermediateComponent } from './loading-intermediate.component';
+import { LoadingSpinnerComponent } from '../shared/components/loading-spinner/loading-spinner.component';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('LoadingIntermediateComponent', () => {
   let component: LoadingIntermediateComponent;
@@ -8,9 +10,9 @@ describe('LoadingIntermediateComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ LoadingIntermediateComponent ]
-    })
-    .compileComponents();
+      imports: [RouterTestingModule],
+      declarations: [LoadingIntermediateComponent, LoadingSpinnerComponent]
+    }).compileComponents();
   }));
 
   beforeEach(() => {

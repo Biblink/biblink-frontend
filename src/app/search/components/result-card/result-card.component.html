@@ -23,10 +23,10 @@
                 <h1 class="similar-verse-heading">Similar Verses</h1>
                 <div class="verse" *ngFor="let verse of similarVerses?.similar_verses">
                     <p class="similar-verse">
-                        <span class="reference">{{verse.verse}}</span>
+                        <span class="reference">{{verse?.verse}}</span>
                         <br class="is-hidden-desktop">
                         <br class="is-hidden-desktop">
-                        <span class="text">{{verse.text}}</span>
+                        <span class="text">{{verse?.text}}</span>
                     </p>
                 </div>
             </div>

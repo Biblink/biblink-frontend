@@ -20,16 +20,15 @@ import { Datum, Chapter } from '../../../core/interfaces/chapter';
 /**
  * access to jquery instance
  */
-declare const $: any;
+declare let $: any;
 /**
  * Study component to handle displaying of study page
  */
 @Component({
   selector: 'app-study',
   templateUrl: './study.page.html',
-  styleUrls: [ './study.page.css' ]
+  styleUrls: ['./study.page.css']
 })
-
 export class StudyComponent implements OnInit, OnDestroy {
   /**
    * @ignore
@@ -86,19 +85,19 @@ export class StudyComponent implements OnInit, OnDestroy {
   /**
    * Title of page
    */
-  title = '';
+  title = 'default';
   /**
    * Unique ID of group
    */
-  groupUniqueID = '';
+  groupUniqueID = 'default';
   /**
    * Current chapter reference
    */
-  chapterRef = '';
+  chapterRef = 'default';
   /**
    * Current user's profile image URL
    */
-  profileImage = '';
+  profileImage = 'default';
   /**
    * Current Bible chapter data
    */
@@ -182,15 +181,15 @@ export class StudyComponent implements OnInit, OnDestroy {
   /**
    * Current editing post ID
    */
-  editingPostID = '';
+  editingPostID = 'default';
   /**
    * Current editing annotation ID
    */
-  editingAnnotationID = '';
+  editingAnnotationID = 'default';
   /**
    * Name of study
    */
-  name = '';
+  name = 'default';
   /**
    * Observable of posts to be displayed
    */
@@ -238,11 +237,11 @@ export class StudyComponent implements OnInit, OnDestroy {
   /**
    * User ID
    */
-  userID = '';
+  userID = 'default';
   /**
    * Group ID
    */
-  groupID = '';
+  groupID = 'default';
   /**
    * Value to see if user is currently getting more posts
    */
@@ -265,14 +264,14 @@ export class StudyComponent implements OnInit, OnDestroy {
    * @param {UserDataService} _data UserData service dependency to get user data
    * @param {ToastrService} toastr Toastr service to display notifications
    */
-  constructor(private _router: Router,
+  constructor(
+    private _router: Router,
     private _title: Title,
     private _search: SearchService,
     private _study: StudyDataService,
     private _user: UserDataService,
-    private toastr: ToastrService) {
-
-  }
+    private toastr: ToastrService
+  ) {}
 
   /**
    * Destroys component and unsubscribes from all subscriptions
@@ -292,12 +291,12 @@ export class StudyComponent implements OnInit, OnDestroy {
    * Initializes component
    */
   ngOnInit() {
-    this.searchSubscription = this._search.getBooks().subscribe((res) => {
+    this.searchSubscription = this._search.getBooks().subscribe(res => {
       this.books = res.data;
       this.books.forEach((book, index) => {
         const words = book.split(' ');
         const fixed = [];
-        words.forEach((word) => {
+        words.forEach(word => {
           if (word === 'of') {
             fixed.push(word);
           } else {
@@ -305,32 +304,39 @@ export class StudyComponent implements OnInit, OnDestroy {
           }
         });
         const fixedBook = fixed.join(' ');
-        this.books[ index ] = fixedBook;
+        this.books[index] = fixedBook;
       });
     });
-    this.userDataSubscription = this._user.userData.subscribe((user) => {
+    this.userDataSubscription = this._user.userData.subscribe(user => {
       if (user !== null) {
         this.profileImage = user.data.profileImage;
         this.name = user.name;
       }
     });
     this.groupID = this._router.url.split('/').pop();
-    this.studyDataSubscription = this._study.getStudyData(this.groupID).subscribe((data) => {
-      this.title = data[ 'name' ];
-      this._title.setTitle(this.title);
-      this.groupUniqueID = data[ 'uniqueID' ];
-      this.studyData = data;
-    });
-    this.userIDSubscription = this._user.userID.subscribe((res) => {
+    if (this.groupID === '') {
+      this.groupID = 'default';
+    }
+    this.studyDataSubscription = this._study
+      .getStudyData(this.groupID)
+      .subscribe(data => {
+        this.title = data['name'];
+        this._title.setTitle(this.title);
+        this.groupUniqueID = data['uniqueID'];
+        this.studyData = data;
+      });
+    this.userIDSubscription = this._user.userID.subscribe(res => {
       if (res !== '') {
         this.userID = res;
-        this.roleSubscription = this._study.getMemberData(this.groupID, res).subscribe((response) => {
-          if (response[ 'role' ] === 'leader') {
-            this.isLeader = true;
-          } else {
-            this.isLeader = false;
-          }
-        });
+        this.roleSubscription = this._study
+          .getMemberData(this.groupID, res)
+          .subscribe(response => {
+            if (response['role'] === 'leader') {
+              this.isLeader = true;
+            } else {
+              this.isLeader = false;
+            }
+          });
       }
     });
     this.getPosts();
@@ -349,28 +355,28 @@ export class StudyComponent implements OnInit, OnDestroy {
           this.resetPosts = false;
           this.postIndices = [];
           this.isDone = false;
-          val.forEach((post) => {
-            this.postIndices.push(post[ 'id' ]);
+          val.forEach(post => {
+            this.postIndices.push(post['id']);
           });
           this.isLoading.next(false);
           this.postLength = val.length;
-          return acc = val;
+          return (acc = val);
         }
         if (this.isDone) {
           this.isLoading.next(false);
           return acc;
         }
         const valid = [];
-        val.forEach((post) => {
-          const index = this.postIndices.indexOf(post[ 'id' ]);
+        val.forEach(post => {
+          const index = this.postIndices.indexOf(post['id']);
           if (index !== -1) {
-            this.postIndices[ index ] = post[ 'id' ];
-            acc[ index ] = post;
+            this.postIndices[index] = post['id'];
+            acc[index] = post;
           } else {
             if (this.isGettingMorePosts) {
-              this.postIndices.push(post[ 'id' ]);
+              this.postIndices.push(post['id']);
             } else {
-              this.postIndices.unshift(post[ 'id' ]);
+              this.postIndices.unshift(post['id']);
             }
             valid.push(post);
           }
@@ -384,7 +390,8 @@ export class StudyComponent implements OnInit, OnDestroy {
         }
         this.isGettingMorePosts = false;
         return acc;
-      }));
+      })
+    );
     // this._study.updatePost(this.groupID);
   }
   /**
@@ -422,18 +429,26 @@ export class StudyComponent implements OnInit, OnDestroy {
    */
   verifyPromote(name: string, uid) {
     this.activatePromotionModal = true;
-    this.currentPromote[ 'name' ] = name;
-    this.currentPromote[ 'uid' ] = uid;
+    this.currentPromote['name'] = name;
+    this.currentPromote['uid'] = uid;
   }
   /**
    * Promote a user to leader
    */
   promoteToLeader() {
-    if (this.currentPromote[ 'name' ] !== '' && this.currentPromote[ 'uid' ] !== '') {
+    if (
+      this.currentPromote['name'] !== '' &&
+      this.currentPromote['uid'] !== ''
+    ) {
       if (this.isLeader) {
-        this._study.promoteUser(this.currentPromote[ 'uid' ], this.groupID, 'leader').then(() => {
-          this.toastr.show(`Successfully Promoted ${ this.currentPromote[ 'name' ] } to Leader`, 'Leader Promotion');
-        });
+        this._study
+          .promoteUser(this.currentPromote['uid'], this.groupID, 'leader')
+          .then(() => {
+            this.toastr.show(
+              `Successfully Promoted ${this.currentPromote['name']} to Leader`,
+              'Leader Promotion'
+            );
+          });
       }
     }
   }
@@ -468,12 +483,17 @@ export class StudyComponent implements OnInit, OnDestroy {
    * Get posts by a specific type
    */
   private _getFeedByType(type: string): void {
-    this.postSubscription = this._study.getPostByType(this.groupID, type).pipe(map(res => {
-      res.map(val => this._checkHtmlText(val));
-      return res;
-    })).subscribe((res) => {
-      this._posts.next(res);
-    });
+    this.postSubscription = this._study
+      .getPostByType(this.groupID, type)
+      .pipe(
+        map(res => {
+          res.map(val => this._checkHtmlText(val));
+          return res;
+        })
+      )
+      .subscribe(res => {
+        this._posts.next(res);
+      });
   }
   /**
    * Get all posts
@@ -482,12 +502,17 @@ export class StudyComponent implements OnInit, OnDestroy {
   getPosts(limit = 10) {
     this.resetPosts = true;
     this.isLoading.next(true);
-    this.postSubscription = this._study.getPosts(this.groupID, '', limit).pipe(map(res => {
-      res.map(val => this._checkHtmlText(val));
-      return res;
-    })).subscribe((res) => {
-      this._posts.next(res);
-    });
+    this.postSubscription = this._study
+      .getPosts(this.groupID, '', limit)
+      .pipe(
+        map(res => {
+          res.map(val => this._checkHtmlText(val));
+          return res;
+        })
+      )
+      .subscribe(res => {
+        this._posts.next(res);
+      });
     this.type = 'all';
   }
   /**
@@ -503,19 +528,27 @@ export class StudyComponent implements OnInit, OnDestroy {
     this.isLoading.next(true);
     setTimeout(() => {
       if (this.type === 'all') {
-
-        this.getMorePostSubscription = this._study.getPosts(this.groupID, timestamp, limit).pipe(map(res => {
-          res.map(val => this._checkHtmlText(val));
-          return res;
-        })).subscribe((res) => {
-          this._posts.next(res);
-        });
+        this.getMorePostSubscription = this._study
+          .getPosts(this.groupID, timestamp, limit)
+          .pipe(
+            map(res => {
+              res.map(val => this._checkHtmlText(val));
+              return res;
+            })
+          )
+          .subscribe(res => {
+            this._posts.next(res);
+          });
       } else {
-        this.getMorePostSubscription =
-          this._study.getPostByType(this.groupID, this.type, timestamp, limit).pipe(map(res => {
-            res.map(val => this._checkHtmlText(val));
-            return res;
-          })).subscribe((res) => {
+        this.getMorePostSubscription = this._study
+          .getPostByType(this.groupID, this.type, timestamp, limit)
+          .pipe(
+            map(res => {
+              res.map(val => this._checkHtmlText(val));
+              return res;
+            })
+          )
+          .subscribe(res => {
             this._posts.next(res);
           });
       }
@@ -525,65 +558,82 @@ export class StudyComponent implements OnInit, OnDestroy {
    * Checks if htmlText property is present
    */
   private _checkHtmlText(val: any) {
-    val[ 'htmlText' ] = val[ 'htmlText' ] === undefined || val[ 'htmlText' ] === '' ? val[ 'text' ] : val[ 'htmlText' ];
+    val['htmlText'] =
+      val['htmlText'] === undefined || val['htmlText'] === ''
+        ? val['text']
+        : val['htmlText'];
     return val;
   }
   /**
    * Gets key announcements (three most recent announcements)
    */
   getKeyAnnouncements() {
-    this.keyAnnouncementSubscription = this._study.getKeyAnnouncements(this.groupID).pipe(map(res => {
-      this.keyAnnouncements = [];
-      res.map(val => {
-        val = this._checkHtmlText(val);
-        const contained = this.keyAnnouncements.filter(value => value[ 'id' ] === val[ 'id' ]);
-        this._user.getDataFromID(val[ 'creatorID' ]).take(1).subscribe((response) => {
-          val[ 'image' ] = response[ 'data' ][ 'profileImage' ];
-          if (contained.length === 1) {
-            this.keyAnnouncements[ this.keyAnnouncements.indexOf(contained[ 0 ]) ] = val;
-          } else {
-            this.keyAnnouncements.push(val);
-          }
-        });
-      });
-      return res;
-    })).subscribe();
+    this.keyAnnouncementSubscription = this._study
+      .getKeyAnnouncements(this.groupID)
+      .pipe(
+        map(res => {
+          this.keyAnnouncements = [];
+          res.map(val => {
+            val = this._checkHtmlText(val);
+            const contained = this.keyAnnouncements.filter(
+              value => value['id'] === val['id']
+            );
+            this._user
+              .getDataFromID(val['creatorID'])
+              .take(1)
+              .subscribe(response => {
+                val['image'] = response['data']['profileImage'];
+                if (contained.length === 1) {
+                  this.keyAnnouncements[
+                    this.keyAnnouncements.indexOf(contained[0])
+                  ] = val;
+                } else {
+                  this.keyAnnouncements.push(val);
+                }
+              });
+          });
+          return res;
+        })
+      )
+      .subscribe();
   }
   /**
    * Gets all members of a study
    */
   getMembers() {
-    this.membersSubscription = this._study.getMembers(this.groupID).subscribe((members) => {
-      this.members = [];
-      members.forEach((member) => {
-        let firstTime = false;
-        let oldImage = { 'name': '', 'uid': '', 'image': '', 'role': '' };
-        this._user.getDataFromID(member[ 'uid' ]).subscribe((res) => {
-          if (firstTime) {
-            this.members[ this.members.indexOf(oldImage) ] = {
-              'name': res[ 'name' ],
-              'image': res[ 'data' ][ 'profileImage' ],
-              'role': member[ 'role' ],
-              'uid': member[ 'uid' ],
+    this.membersSubscription = this._study
+      .getMembers(this.groupID)
+      .subscribe(members => {
+        this.members = [];
+        members.forEach(member => {
+          let firstTime = false;
+          let oldImage = { name: '', uid: '', image: '', role: '' };
+          this._user.getDataFromID(member['uid']).subscribe(res => {
+            if (firstTime) {
+              this.members[this.members.indexOf(oldImage)] = {
+                name: res['name'],
+                image: res['data']['profileImage'],
+                role: member['role'],
+                uid: member['uid']
+              };
+            } else {
+              this.members.push({
+                name: res['name'],
+                uid: member['uid'],
+                image: res['data']['profileImage'],
+                role: member['role']
+              });
+            }
+            firstTime = true;
+            oldImage = {
+              name: res['name'],
+              uid: member['uid'],
+              image: res['data']['profileImage'],
+              role: member['role']
             };
-          } else {
-            this.members.push({
-              'name': res[ 'name' ],
-              'uid': member[ 'uid' ],
-              'image': res[ 'data' ][ 'profileImage' ],
-              'role': member[ 'role' ]
-            });
-          }
-          firstTime = true;
-          oldImage = {
-            'name': res[ 'name' ],
-            'uid': member[ 'uid' ],
-            'image': res[ 'data' ][ 'profileImage' ],
-            'role': member[ 'role' ]
-          };
+          });
         });
       });
-    });
   }
   /**
    * Navigates to a particular URL
@@ -603,15 +653,17 @@ export class StudyComponent implements OnInit, OnDestroy {
       const parentDiv = jElement.parent();
       const reference = jElement.text();
       let verseText = '';
-      const textSubscriber = this._search.getVerseText(reference).take(1).subscribe((res) => {
-        verseText = res.data[ 0 ].combined_text;
-        jElement.attr('data-tooltip', verseText.replace(/<\/?n>/g, ''));
-        jElement.addClass('tooltip is-tooltip-bottom is-tooltip-multiline');
-      });
-
+      const textSubscriber = this._search
+        .getVerseText(reference)
+        .take(1)
+        .subscribe(res => {
+          verseText = res.data[0].combined_text;
+          jElement.attr('data-tooltip', verseText.replace(/<\/?n>/g, ''));
+          jElement.addClass('tooltip is-tooltip-bottom is-tooltip-multiline');
+        });
 
       jElement.click(() => {
-        this._router.navigateByUrl(`/search?query=${ reference }`);
+        this._router.navigateByUrl(`/search?query=${reference}`);
       });
     });
   }
@@ -625,7 +677,7 @@ export class StudyComponent implements OnInit, OnDestroy {
       const jElement = $(el);
       const reference = jElement.text();
       jElement.click(() => {
-        this._router.navigateByUrl(`/search?query=${ reference.split(': ')[ 0 ] }`);
+        this._router.navigateByUrl(`/search?query=${reference.split(': ')[0]}`);
       });
     });
   }
@@ -674,7 +726,6 @@ export class StudyComponent implements OnInit, OnDestroy {
         this.isLoading.next(true);
         this.getChapter('Genesis', 1);
       }
-
     }
   }
   /**
@@ -699,7 +750,10 @@ export class StudyComponent implements OnInit, OnDestroy {
    */
   toggleCreation(value: boolean, annotation = false) {
     if (annotation) {
-      if (this.createAnnotation.type === '' && this.creationExpanded === false) {
+      if (
+        this.createAnnotation.type === '' &&
+        this.creationExpanded === false
+      ) {
         this.createAnnotation.type = 'note';
       }
     } else {
@@ -721,16 +775,19 @@ export class StudyComponent implements OnInit, OnDestroy {
       return this.updatePost();
     }
     const today = new Date();
-    const date = `${ today.getMonth() + 1 }/${ today.getDate() }/${ today.getFullYear() }`;
+    const date = `${today.getMonth() +
+      1}/${today.getDate()}/${today.getFullYear()}`;
     const time = today.toLocaleTimeString();
     const postType = this.capitalize(this.createPost.type);
     this.createPost.dateInfo = { date: date, time: time };
-    this.createPost.timestamp = Math.round((new Date()).getTime() / 1000);
+    this.createPost.timestamp = Math.round(new Date().getTime() / 1000);
     this.createPost.creatorID = this._user.userID.getValue();
     this.createPost.contributors.push(this.createPost.creatorID);
     this._study.createPost(this.groupID, this.createPost).then(() => {
-      this.toastr.show('Successfully Created Your ' + postType,
-        'Successful Creation of ' + postType);
+      this.toastr.show(
+        'Successfully Created Your ' + postType,
+        'Successful Creation of ' + postType
+      );
       this.resetPost();
       this.toggleCreation(false);
       this.resetPosts = true;
@@ -749,37 +806,58 @@ export class StudyComponent implements OnInit, OnDestroy {
       return this.updateAnnotation();
     }
 
-    this.createAnnotation.chapterReference = `${ this.activeBook.toLowerCase() }-${ this.activeChapter }`;
+    this.createAnnotation.chapterReference = `${this.activeBook.toLowerCase()}-${
+      this.activeChapter
+    }`;
     const today = new Date();
-    const date = `${ today.getMonth() + 1 }/${ today.getDate() }/${ today.getFullYear() }`;
+    const date = `${today.getMonth() +
+      1}/${today.getDate()}/${today.getFullYear()}`;
     const time = today.toLocaleTimeString();
     const annotationType = this.capitalize(this.createAnnotation.type);
-    const verseList = this._study.formatAnnotations(this.createAnnotation.passage, true);
+    const verseList = this._study.formatAnnotations(
+      this.createAnnotation.passage,
+      true
+    );
     this.createAnnotation.verse_search = Math.min(...verseList);
     this.createAnnotation.dateInfo = { date: date, time: time };
-    this.createAnnotation.timestamp = Math.round((new Date()).getTime() / 1000);
+    this.createAnnotation.timestamp = Math.round(new Date().getTime() / 1000);
     this.createAnnotation.creatorID = this._user.userID.getValue();
-    this._study.createAnnotation(this.groupID, this.createAnnotation.chapterReference, this.createAnnotation).then(() => {
-      this.toastr.show('Successfully Created Your ' + annotationType,
-        'Successful Creation of ' + annotationType);
-      this.resetAnnotation();
-      this.toggleCreation(false);
-    });
+    this._study
+      .createAnnotation(
+        this.groupID,
+        this.createAnnotation.chapterReference,
+        this.createAnnotation
+      )
+      .then(() => {
+        this.toastr.show(
+          'Successfully Created Your ' + annotationType,
+          'Successful Creation of ' + annotationType
+        );
+        this.resetAnnotation();
+        this.toggleCreation(false);
+      });
   }
   /**
    * Updates an annotation
    */
   updateAnnotation() {
     this.createAnnotation.htmlText = this.createAnnotation.text;
-    this._study.updateAnnotation(this.groupID, this.chapterRef, this.editingAnnotationID, this.createAnnotation).then(() => {
-      this.resetAnnotation();
-      this.editingAnnotationID = '';
-      this.editingAnnotation = false;
-      this.editing = false;
-      this.toastr.show('Successfully Edited Annotation');
-      this.toggleCreation(false);
-      this.actionsExpanded = false;
-    });
+    this._study
+      .updateAnnotation(
+        this.groupID,
+        this.chapterRef,
+        this.editingAnnotationID,
+        this.createAnnotation
+      )
+      .then(() => {
+        this.resetAnnotation();
+        this.editingAnnotationID = '';
+        this.editingAnnotation = false;
+        this.editing = false;
+        this.toastr.show('Successfully Edited Annotation');
+        this.toggleCreation(false);
+        this.actionsExpanded = false;
+      });
   }
   /**
    * Capitalizes a string
@@ -793,7 +871,13 @@ export class StudyComponent implements OnInit, OnDestroy {
    * @param {any} value Value to check
    */
   checkIfExists(value) {
-    return value === undefined || value === null || value === [] || value === {} || Object.keys(value).length === 0;
+    return (
+      value === undefined ||
+      value === null ||
+      value === [] ||
+      value === {} ||
+      Object.keys(value).length === 0
+    );
   }
 
   /**
@@ -803,8 +887,12 @@ export class StudyComponent implements OnInit, OnDestroy {
    * @param {string} creatorID Creator ID
    * @param {boolean} isLeader Whether or not user is a leader
    */
-  deletePost(value: boolean, postID: string,
-    creatorID: string, isLeader: boolean) {
+  deletePost(
+    value: boolean,
+    postID: string,
+    creatorID: string,
+    isLeader: boolean
+  ) {
     this.resetPosts = true;
 
     if (value && (creatorID === this._user.userID.getValue() || isLeader)) {
@@ -820,17 +908,24 @@ export class StudyComponent implements OnInit, OnDestroy {
    * @param {string} creatorID Creator ID
    * @param {boolean} isLeader Whether or not user is a leader
    */
-  editPost(value: boolean, postID: string, creatorID: string, isLeader: boolean) {
+  editPost(
+    value: boolean,
+    postID: string,
+    creatorID: string,
+    isLeader: boolean
+  ) {
     if (value && (creatorID === this._user.userID.getValue() || isLeader)) {
       this.editing = true;
-      this.editPostSubscription = this._study.getPostByID(this.groupID, postID).subscribe((res) => {
-        if (this.editing) {
-          this.createPost = res as Post;
-          this.editingPostID = postID;
-          this.expandActions();
-          this.toggleCreation(true);
-        }
-      });
+      this.editPostSubscription = this._study
+        .getPostByID(this.groupID, postID)
+        .subscribe(res => {
+          if (this.editing) {
+            this.createPost = res as Post;
+            this.editingPostID = postID;
+            this.expandActions();
+            this.toggleCreation(true);
+          }
+        });
     }
   }
   /**
@@ -840,15 +935,23 @@ export class StudyComponent implements OnInit, OnDestroy {
    * @param {string} creatorID Creator ID
    * @param {boolean} isLeader Whether or not user is a leader
    */
-  editAnnotation(value: boolean, annotationID: string, creatorID: string, isLeader: boolean) {
+  editAnnotation(
+    value: boolean,
+    annotationID: string,
+    creatorID: string,
+    isLeader: boolean
+  ) {
     if (value && (creatorID === this._user.userID.getValue() || isLeader)) {
       this.editing = true;
       this.editingAnnotation = true;
 
-
-      this.editAnnotationSubscription = this._study.getAnnotationByID(this.groupID,
-        `${ this.activeBook.toLowerCase() }-${ this.activeChapter }`,
-        annotationID).subscribe((res) => {
+      this.editAnnotationSubscription = this._study
+        .getAnnotationByID(
+          this.groupID,
+          `${this.activeBook.toLowerCase()}-${this.activeChapter}`,
+          annotationID
+        )
+        .subscribe(res => {
           if (this.editing) {
             this.createAnnotation = res as Annotation;
             this.editingAnnotationID = annotationID;
@@ -862,60 +965,80 @@ export class StudyComponent implements OnInit, OnDestroy {
    * Gets all annotation for current (active book){@link StudyComponent#activeBook} and (active chapter){@link StudyComponent#activeChapter}
    */
   getAnnotationsForChapter() {
-    const chapterReference = `${ this.activeBook.toLowerCase() }-${ this.activeChapter }`;
-    this.chapterAnnotations = this._study.getAnnotationsByChapterReference(this.groupID, chapterReference, this.sortAnnotation);
-    this.chapterAnnotationsSubscription = this.chapterAnnotations.subscribe((res) => {
-      this.numOfAnnotations = res.length;
-      const countForAnnotations = [];
-      const indexOfVerse = [];
+    const chapterReference = `${this.activeBook.toLowerCase()}-${
+      this.activeChapter
+    }`;
+    this.chapterAnnotations = this._study.getAnnotationsByChapterReference(
+      this.groupID,
+      chapterReference,
+      this.sortAnnotation
+    );
+    this.chapterAnnotationsSubscription = this.chapterAnnotations.subscribe(
+      res => {
+        this.numOfAnnotations = res.length;
+        const countForAnnotations = [];
+        const indexOfVerse = [];
 
-      for (let j = 0; j < this.underlinedVerses.length; j++) {
-        this.countVerses[ j ][ 'images' ] = [];
-        this.countVerses[ j ][ 'count' ] = 0;
-      }
-
-      for (let i = 0; i < this.numOfAnnotations; i++) {
-        const bVerse = this._study.formatAnnotations(res[ i ].passage, true);
-        const verse_search = Math.min(...bVerse);
-        if (res[ i ].verse_search === undefined) {
-          this._study.addSearchAttrToAnnotation(this.groupID, this.chapterRef, res[ i ].id, verse_search);
-          res[ i ].verse_search = verse_search;
+        for (let j = 0; j < this.underlinedVerses.length; j++) {
+          this.countVerses[j]['images'] = [];
+          this.countVerses[j]['count'] = 0;
         }
-        let profileImage = '';
-        this._user.getDataFromID(res[ i ].creatorID).take(1).subscribe((userData) => {
-          profileImage = userData[ 'data' ][ 'profileImage' ];
-          for (let z = 0; z < bVerse.length; z++) {
-            const index = bVerse[ z ] - 1;
-            this.underlinedVerses[ index ] = true;
-            this.countVerses[ index ][ 'count' ] += 1;
-            if (this.countVerses[ index ][ 'images' ].length < 2 && this.countVerses[ index ][ 'images' ].indexOf(profileImage) === -1) {
-              this.countVerses[ index ][ 'images' ].push(profileImage);
-            }
-          }
-        });
-      }
-    });
 
+        for (let i = 0; i < this.numOfAnnotations; i++) {
+          const bVerse = this._study.formatAnnotations(res[i].passage, true);
+          const verse_search = Math.min(...bVerse);
+          if (res[i].verse_search === undefined) {
+            this._study.addSearchAttrToAnnotation(
+              this.groupID,
+              this.chapterRef,
+              res[i].id,
+              verse_search
+            );
+            res[i].verse_search = verse_search;
+          }
+          let profileImage = '';
+          this._user
+            .getDataFromID(res[i].creatorID)
+            .take(1)
+            .subscribe(userData => {
+              profileImage = userData['data']['profileImage'];
+              for (let z = 0; z < bVerse.length; z++) {
+                const index = bVerse[z] - 1;
+                this.underlinedVerses[index] = true;
+                this.countVerses[index]['count'] += 1;
+                if (
+                  this.countVerses[index]['images'].length < 2 &&
+                  this.countVerses[index]['images'].indexOf(profileImage) === -1
+                ) {
+                  this.countVerses[index]['images'].push(profileImage);
+                }
+              }
+            });
+        }
+      }
+    );
   }
   /**
    * Updates a post with current form data
    */
   updatePost() {
     this.createPost.htmlText = this.createPost.text;
-    this._study.updatePost(this.groupID, this.editingPostID, this.createPost).then(() => {
-      this.resetPost();
-      this.resetPosts = true;
-      if (this.type === 'all') {
-        this.getPosts();
-      } else {
-        this.switchTab(this.type + 's', true);
-      }
-      this.editingPostID = '';
-      this.editing = false;
-      this.toastr.show('Successfully Edited Post');
-      this.toggleCreation(false);
-      this.actionsExpanded = false;
-    });
+    this._study
+      .updatePost(this.groupID, this.editingPostID, this.createPost)
+      .then(() => {
+        this.resetPost();
+        this.resetPosts = true;
+        if (this.type === 'all') {
+          this.getPosts();
+        } else {
+          this.switchTab(this.type + 's', true);
+        }
+        this.editingPostID = '';
+        this.editing = false;
+        this.toastr.show('Successfully Edited Post');
+        this.toggleCreation(false);
+        this.actionsExpanded = false;
+      });
   }
   /**
    * Replies to a post
@@ -923,11 +1046,13 @@ export class StudyComponent implements OnInit, OnDestroy {
    * @param {string} postID Post ID
    */
   replyToPost(text: string, postID: string) {
-    const reply = new Reply(text,
+    const reply = new Reply(
+      text,
       this._user.userID.getValue(),
-      Math.round((new Date()).getTime() / 1000),
+      Math.round(new Date().getTime() / 1000),
       [],
-      []);
+      []
+    );
     this._study.addPostReply(postID, this.groupID, reply).then(() => {
       this.toastr.show('Successfully Created Reply', 'Created Reply');
     });
@@ -938,14 +1063,18 @@ export class StudyComponent implements OnInit, OnDestroy {
    * @param {string} annotationID Annotation ID
    */
   replyToAnnotation(text: string, annotationID: string) {
-    const reply = new Reply(text,
+    const reply = new Reply(
+      text,
       this._user.userID.getValue(),
-      Math.round((new Date()).getTime() / 1000),
+      Math.round(new Date().getTime() / 1000),
       [],
-      []);
-    this._study.addAnnotationReply(annotationID, this.groupID, this.chapterRef, reply).then(() => {
-      this.toastr.show('Successfully Created Reply', 'Created Reply');
-    });
+      []
+    );
+    this._study
+      .addAnnotationReply(annotationID, this.groupID, this.chapterRef, reply)
+      .then(() => {
+        this.toastr.show('Successfully Created Reply', 'Created Reply');
+      });
   }
   /**
    * Deletes annotation if user is leader or is creator
@@ -954,12 +1083,21 @@ export class StudyComponent implements OnInit, OnDestroy {
    * @param {string} creatorID Creator ID
    * @param {boolean} isLeader Whether or not user is leader
    */
-  deleteAnnotation(value: boolean, annotationID: string,
-    creatorID: string, isLeader: boolean) {
+  deleteAnnotation(
+    value: boolean,
+    annotationID: string,
+    creatorID: string,
+    isLeader: boolean
+  ) {
     if (value && (creatorID === this._user.userID.getValue() || isLeader)) {
-      this._study.deleteAnnotation(this.groupID, this.chapterRef, annotationID).then(() => {
-        this.toastr.show('Successfully Deleted Annotation', 'Deleted Annotation');
-      });
+      this._study
+        .deleteAnnotation(this.groupID, this.chapterRef, annotationID)
+        .then(() => {
+          this.toastr.show(
+            'Successfully Deleted Annotation',
+            'Deleted Annotation'
+          );
+        });
     }
   }
   /**
@@ -971,22 +1109,25 @@ export class StudyComponent implements OnInit, OnDestroy {
     this.isLoading.next(true);
     this.underlinedVerses = [];
     this.countVerses = [];
-    this.chapterSubscription = this._search.getChapter(book, chapter).take(1).pipe(
-      pluck('data'),
-      map(val => val[ 0 ])
-    ).subscribe((res: Datum) => {
-      this.bibleData = res;
-      this.bibleData.verse_data.forEach(() => {
-        this.countVerses.push({ 'images': [], 'count': 0 });
-        this.underlinedVerses.push(false);
-        this.darkenedVerses.push(false);
+    this.chapterSubscription = this._search
+      .getChapter(book, chapter)
+      .take(1)
+      .pipe(
+        pluck('data'),
+        map(val => val[0])
+      )
+      .subscribe((res: Datum) => {
+        this.bibleData = res;
+        this.bibleData.verse_data.forEach(() => {
+          this.countVerses.push({ images: [], count: 0 });
+          this.underlinedVerses.push(false);
+          this.darkenedVerses.push(false);
+        });
+        this.numChapters = this.bibleData.chapters.length;
+        this.isLoading.next(false);
+        this.getAnnotationsForChapter();
       });
-      this.numChapters = this.bibleData.chapters.length;
-      this.isLoading.next(false);
-      this.getAnnotationsForChapter();
-    });
     this.chapterRef = this.activeBook.toLowerCase() + '-' + this.activeChapter;
-
   }
   /**
    * Gets next chapter
@@ -1013,15 +1154,18 @@ export class StudyComponent implements OnInit, OnDestroy {
   reformatPassage(value: string) {
     const allVerses = this._study.formatAnnotations(value, true);
     const verseNumbers = [];
-    allVerses.forEach((verseNumber) => {
+    allVerses.forEach(verseNumber => {
       verseNumbers.push(Number(verseNumber));
     });
 
     this.underlinedVerses.forEach((val, index) => {
-      if (verseNumbers.indexOf(index + 1) === -1 && this.countVerses[ index ].count === 0) {
-        this.underlinedVerses[ index ] = false;
+      if (
+        verseNumbers.indexOf(index + 1) === -1 &&
+        this.countVerses[index].count === 0
+      ) {
+        this.underlinedVerses[index] = false;
       } else {
-        this.underlinedVerses[ index ] = true;
+        this.underlinedVerses[index] = true;
       }
     });
     if (this.createAnnotation.passage.split(':').pop() === '') {
@@ -1034,21 +1178,26 @@ export class StudyComponent implements OnInit, OnDestroy {
    * Prepares an annotation to be published
    */
   prepareAnnotation() {
-    this.createAnnotation.passage = `${ this.capitalize(this.activeBook) } ${ this.activeChapter }:`;
+    this.createAnnotation.passage = `${this.capitalize(this.activeBook)} ${
+      this.activeChapter
+    }:`;
     let finishedFirst = false;
     this.underlinedVerses.forEach((isUnderlined, index) => {
-      if ((isUnderlined && this.countVerses[ index ].count === 0) || (isUnderlined && this.darkenedVerses[ index ])) {
+      if (
+        (isUnderlined && this.countVerses[index].count === 0) ||
+        (isUnderlined && this.darkenedVerses[index])
+      ) {
         if (!finishedFirst) {
-          this.createAnnotation.passage += this.bibleData.verse_data[ index ].verse_number;
+          this.createAnnotation.passage += this.bibleData.verse_data[
+            index
+          ].verse_number;
           finishedFirst = true;
         } else {
-          this.createAnnotation.passage += ',' + this.bibleData.verse_data[ index ].verse_number;
+          this.createAnnotation.passage +=
+            ',' + this.bibleData.verse_data[index].verse_number;
         }
       }
     });
     this.reformatPassage(this.createAnnotation.passage);
   }
 }
-
-
-

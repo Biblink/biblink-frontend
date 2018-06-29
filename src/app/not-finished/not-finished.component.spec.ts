@@ -1,6 +1,10 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 
 import { NotFinishedComponent } from './not-finished.component';
+import { FooterComponent } from '../shared/components/footer/footer.component';
+import { Angulartics2Module } from 'angulartics2';
+import { Angulartics2GoogleAnalytics } from 'angulartics2/ga';
 
 describe('NotFinishedComponent', () => {
   let component: NotFinishedComponent;
@@ -8,9 +12,12 @@ describe('NotFinishedComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ NotFinishedComponent ]
-    })
-    .compileComponents();
+      imports: [
+        RouterTestingModule,
+        Angulartics2Module.forRoot([Angulartics2GoogleAnalytics])
+      ],
+      declarations: [NotFinishedComponent, FooterComponent]
+    }).compileComponents();
   }));
 
   beforeEach(() => {
