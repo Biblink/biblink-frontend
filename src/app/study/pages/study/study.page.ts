@@ -17,7 +17,13 @@ import { Annotation } from '../../../core/interfaces/annotation';
 import { PatternValidator } from '@angular/forms';
 import { Datum, Chapter } from '../../../core/interfaces/chapter';
 
+/**
+ * access to jquery instance
+ */
 declare const $: any;
+/**
+ * Study component to handle displaying of study page
+ */
 @Component({
   selector: 'app-study',
   templateUrl: './study.page.html',
@@ -25,65 +31,240 @@ declare const $: any;
 })
 
 export class StudyComponent implements OnInit, OnDestroy {
+  /**
+   * @ignore
+   */
   editPostSubscription: Subscription = new Subscription();
+  /**
+   * @ignore
+   */
   chapterAnnotationsSubscription: Subscription = new Subscription();
+  /**
+   * @ignore
+   */
   editAnnotationSubscription: Subscription = new Subscription();
+  /**
+   * @ignore
+   */
   getMorePostSubscription: Subscription = new Subscription();
+  /**
+   * @ignore
+   */
   chapterSubscription: Subscription = new Subscription();
+  /**
+   * @ignore
+   */
   membersSubscription: Subscription = new Subscription();
+  /**
+   * @ignore
+   */
   keyAnnouncementSubscription: Subscription = new Subscription();
-
+  /**
+   * @ignore
+   */
   postSubscription: Subscription = new Subscription();
+  /**
+   * @ignore
+   */
   roleSubscription: Subscription = new Subscription();
+  /**
+   * @ignore
+   */
   userIDSubscription: Subscription = new Subscription();
+  /**
+   * @ignore
+   */
   studyDataSubscription: Subscription = new Subscription();
+  /**
+   * @ignore
+   */
   userDataSubscription: Subscription = new Subscription();
+  /**
+   * @ignore
+   */
   searchSubscription: Subscription = new Subscription();
+  /**
+   * Title of page
+   */
   title = '';
+  /**
+   * Unique ID of group
+   */
   groupUniqueID = '';
+  /**
+   * Current chapter reference
+   */
   chapterRef = '';
+  /**
+   * Current user's profile image URL
+   */
   profileImage = '';
+  /**
+   * Current Bible chapter data
+   */
   bibleData: Datum;
+  /**
+   * List of underlined verses for a chapter
+   */
   underlinedVerses = [];
+  /**
+   * List of darkened verses for a chapter
+   */
   darkenedVerses = [];
+  /**
+   * Counts of annotations for all verses of a chapter
+   */
   countVerses = [];
+  /**
+   * Number of chapters
+   */
   numChapters = 50;
+  /**
+   * list of books of the Bible
+   */
   books = [];
+  /**
+   * Current active book in shared Bible
+   */
   activeBook = 'Genesis';
+  /**
+   * Current active chapter in shared Bible
+   */
   activeChapter = 1;
+  /**
+   * Number of members to display in sidebar
+   */
   numberOfMembers = 3;
+  /**
+   * Current tab to display
+   */
   currentTab = 'feed';
+  /**
+   * Value to see whether or not action bar is expanded
+   */
   actionsExpanded = false;
+  /**
+   * Value to see whether or not creation form is expanded
+   */
   creationExpanded = false;
+  /**
+   * Variable to hold create post form values
+   */
   createPost = new Post();
+  /**
+   * Variable to hold create annotation form values
+   */
   createAnnotation = new Annotation();
+  /**
+   * Annotation sorting method
+   */
   sortAnnotation = 'timestamp';
+  /**
+   * Number of posts
+   */
   postLength = 1;
+  /**
+   * Post type to filter by
+   */
   type = 'all';
+  /**
+   * Value to see if a user is editing a post
+   */
   editing = false;
+  /**
+   * Value to see if a user is editing an annotation
+   */
   editingAnnotation = false;
+  /**
+   * Value to see if posts should be reset
+   */
   resetPosts = false;
+  /**
+   * Current editing post ID
+   */
   editingPostID = '';
+  /**
+   * Current editing annotation ID
+   */
   editingAnnotationID = '';
+  /**
+   * Name of study
+   */
   name = '';
+  /**
+   * Observable of posts to be displayed
+   */
   posts: Observable<any>;
+  /**
+   * Observable of annotations to be displayed
+   */
   chapterAnnotations: Observable<any>;
+  /**
+   * The number of annotations for a chapter
+   */
   numOfAnnotations = 1;
+  /**
+   * List of post indices for scrolling
+   */
   postIndices = [];
+  /**
+   * List of members
+   */
   members = [];
+  /**
+   * Study metadata
+   */
   studyData;
+  /**
+   * List of key announcements
+   */
   keyAnnouncements = [];
+  /**
+   * Value to see if user is a leader
+   */
   isLeader = false;
+  /**
+   * List of posts to be checked
+   */
   private _posts = new BehaviorSubject([]);
+  /**
+   * Behavior Subject to handle loading state
+   */
   isLoading = new BehaviorSubject<boolean>(true);
+  /**
+   * Whether or not loading is finished
+   */
   isDone = false;
+  /**
+   * User ID
+   */
   userID = '';
+  /**
+   * Group ID
+   */
   groupID = '';
+  /**
+   * Value to see if user is currently getting more posts
+   */
   isGettingMorePosts = false;
-  isVisibleLinks = true;
-  isVisibleVerses = true;
+
+  /**
+   * Value to see if promotion modal is activated
+   */
   activatePromotionModal = false;
+  /**
+   * Current promote user
+   */
   currentPromote: Object = { name: '', uid: '' };
+  /**
+   * Initializes necessary dependency and does dependency injection
+   * @param {Router} _router Router dependency to access router for navigations
+   * @param {Title} title Title dependency to change title of pages
+   * @param {SearchService} searchService Search service dependency to get verse data
+   * @param {StudyDataService} groupData Study data service dependency to get study data
+   * @param {UserDataService} _data UserData service dependency to get user data
+   * @param {ToastrService} toastr Toastr service to display notifications
+   */
   constructor(private _router: Router,
     private _title: Title,
     private _search: SearchService,
@@ -92,6 +273,10 @@ export class StudyComponent implements OnInit, OnDestroy {
     private toastr: ToastrService) {
 
   }
+
+  /**
+   * Destroys component and unsubscribes from all subscriptions
+   */
   ngOnDestroy() {
     this.searchSubscription.unsubscribe();
     this.roleSubscription.unsubscribe();
@@ -103,6 +288,9 @@ export class StudyComponent implements OnInit, OnDestroy {
     this.editPostSubscription.unsubscribe();
     this.keyAnnouncementSubscription.unsubscribe();
   }
+  /**
+   * Initializes component
+   */
   ngOnInit() {
     this.searchSubscription = this._search.getBooks().subscribe((res) => {
       this.books = res.data;
@@ -199,31 +387,47 @@ export class StudyComponent implements OnInit, OnDestroy {
       }));
     // this._study.updatePost(this.groupID);
   }
-
+  /**
+   * Resets post form
+   */
   resetPost() {
     this.createPost = new Post();
   }
-
+  /**
+   * Resets annotation form
+   */
   resetAnnotation() {
     this.createAnnotation = new Annotation();
   }
-
+  /**
+   * Sets post type for post form
+   * @param {string} type Post Type
+   */
   setPostType(type: string) {
     this.createPost.type = type;
     this.toggleCreation(true);
   }
-
+  /**
+   * Sets annotation type for annotation form
+   * @param {string} type Annotation Type
+   */
   setAnnotationType(type: string) {
     this.createAnnotation.type = type;
     this.toggleCreation(true, true);
   }
-
+  /**
+   * Set data for promotion form
+   * @param name Name of current promote
+   * @param uid UID of current promote
+   */
   verifyPromote(name: string, uid) {
     this.activatePromotionModal = true;
     this.currentPromote[ 'name' ] = name;
     this.currentPromote[ 'uid' ] = uid;
   }
-
+  /**
+   * Promote a user to leader
+   */
   promoteToLeader() {
     if (this.currentPromote[ 'name' ] !== '' && this.currentPromote[ 'uid' ] !== '') {
       if (this.isLeader) {
@@ -233,26 +437,36 @@ export class StudyComponent implements OnInit, OnDestroy {
       }
     }
   }
+  /**
+   * Get study announcements
+   */
   getAnnouncements() {
     this.isLoading.next(true);
     this.resetPosts = true;
     this._getFeedByType('announcement');
     this.type = 'announcement';
   }
-
+  /**
+   * Get study questions
+   */
   getQuestions() {
     this.isLoading.next(true);
     this.resetPosts = true;
     this._getFeedByType('question');
     this.type = 'question';
   }
+  /**
+   * Get study discussions
+   */
   getDiscussions() {
     this.isLoading.next(true);
     this.resetPosts = true;
     this._getFeedByType('discussion');
     this.type = 'discussion';
   }
-
+  /**
+   * Get posts by a specific type
+   */
   private _getFeedByType(type: string): void {
     this.postSubscription = this._study.getPostByType(this.groupID, type).pipe(map(res => {
       res.map(val => this._checkHtmlText(val));
@@ -261,7 +475,10 @@ export class StudyComponent implements OnInit, OnDestroy {
       this._posts.next(res);
     });
   }
-
+  /**
+   * Get all posts
+   * @param limit Max amount of posts to return
+   */
   getPosts(limit = 10) {
     this.resetPosts = true;
     this.isLoading.next(true);
@@ -273,7 +490,11 @@ export class StudyComponent implements OnInit, OnDestroy {
     });
     this.type = 'all';
   }
-
+  /**
+   * Get more posts of a specific type
+   * @param timestamp Timestamp start point
+   * @param limit Max amount of posts to return
+   */
   getMorePosts(timestamp: string, limit = 10) {
     this.isGettingMorePosts = true;
     if (this.isDone) {
@@ -300,11 +521,16 @@ export class StudyComponent implements OnInit, OnDestroy {
       }
     }, 1000);
   }
+  /**
+   * Checks if htmlText property is present
+   */
   private _checkHtmlText(val: any) {
     val[ 'htmlText' ] = val[ 'htmlText' ] === undefined || val[ 'htmlText' ] === '' ? val[ 'text' ] : val[ 'htmlText' ];
     return val;
   }
-
+  /**
+   * Gets key announcements (three most recent announcements)
+   */
   getKeyAnnouncements() {
     this.keyAnnouncementSubscription = this._study.getKeyAnnouncements(this.groupID).pipe(map(res => {
       this.keyAnnouncements = [];
@@ -323,7 +549,9 @@ export class StudyComponent implements OnInit, OnDestroy {
       return res;
     })).subscribe();
   }
-
+  /**
+   * Gets all members of a study
+   */
   getMembers() {
     this.membersSubscription = this._study.getMembers(this.groupID).subscribe((members) => {
       this.members = [];
@@ -357,11 +585,17 @@ export class StudyComponent implements OnInit, OnDestroy {
       });
     });
   }
-
+  /**
+   * Navigates to a particular URL
+   * @param {string} url Url to navigate to
+   */
   navigateTo(url) {
     this._router.navigateByUrl(url);
   }
-
+  /**
+   * Gets a verse based on a fired event
+   * @param {any} event Element source (Source of the fired event)
+   */
   getVerse(event) {
     const spans = $('div#' + event.srcElement.id + '.card-body span');
     spans.each((index, el) => {
@@ -381,7 +615,10 @@ export class StudyComponent implements OnInit, OnDestroy {
       });
     });
   }
-
+  /**
+   * Sets verse links to search page
+   * @param {any} event Element source (Source of fired event)
+   */
   getVerseLinks(event) {
     const spans = $('div#' + event.srcElement.id + ' .verse-container span');
     spans.each((index, el) => {
@@ -392,6 +629,11 @@ export class StudyComponent implements OnInit, OnDestroy {
       });
     });
   }
+  /**
+   * Switch to a certain tab
+   * @param {string} val Tab to switch to
+   * @param {boolean} override Whether or not to override current tab check
+   */
   switchTab(val, override = false) {
     if (this.currentTab === val && !override) {
       return;
@@ -430,23 +672,31 @@ export class StudyComponent implements OnInit, OnDestroy {
       }
       case 'shared-bible': {
         this.isLoading.next(true);
-        this.getChapter('Genesis', '1');
+        this.getChapter('Genesis', 1);
       }
 
     }
   }
-
+  /**
+   * Logs user out
+   */
   logout() {
     this._user.logout().then(() => {
       this.navigateTo('/sign-in');
       localStorage.removeItem('user');
     });
   }
-
+  /**
+   * Expands action bar
+   */
   expandActions() {
     this.actionsExpanded = true;
   }
-
+  /**
+   * Toggles creation form
+   * @param {bboolean} whether or not to expand creation
+   * @param {annotation} whether or not user is creating an annotation
+   */
   toggleCreation(value: boolean, annotation = false) {
     if (annotation) {
       if (this.createAnnotation.type === '' && this.creationExpanded === false) {
@@ -459,7 +709,9 @@ export class StudyComponent implements OnInit, OnDestroy {
     }
     this.creationExpanded = value;
   }
-
+  /**
+   * Publishes a post
+   */
   publishPost() {
     if (this.currentTab === 'shared-bible') {
       this.publishAnnotation();
@@ -489,7 +741,9 @@ export class StudyComponent implements OnInit, OnDestroy {
       }
     });
   }
-
+  /**
+   * Publishes an annotation
+   */
   publishAnnotation() {
     if (this.editing) {
       return this.updateAnnotation();
@@ -512,7 +766,9 @@ export class StudyComponent implements OnInit, OnDestroy {
       this.toggleCreation(false);
     });
   }
-
+  /**
+   * Updates an annotation
+   */
   updateAnnotation() {
     this.createAnnotation.htmlText = this.createAnnotation.text;
     this._study.updateAnnotation(this.groupID, this.chapterRef, this.editingAnnotationID, this.createAnnotation).then(() => {
@@ -525,16 +781,28 @@ export class StudyComponent implements OnInit, OnDestroy {
       this.actionsExpanded = false;
     });
   }
-
+  /**
+   * Capitalizes a string
+   * @param {string} str String to capitalize
+   */
   capitalize(str) {
     return str.charAt(0).toUpperCase() + str.substr(1);
   }
-
+  /**
+   * Check if a value exists
+   * @param {any} value Value to check
+   */
   checkIfExists(value) {
     return value === undefined || value === null || value === [] || value === {} || Object.keys(value).length === 0;
   }
 
-
+  /**
+   * Deletes post if user is a leader or is creator of post
+   * @param {boolean} value Whether or not to delete
+   * @param {string} postID Post ID
+   * @param {string} creatorID Creator ID
+   * @param {boolean} isLeader Whether or not user is a leader
+   */
   deletePost(value: boolean, postID: string,
     creatorID: string, isLeader: boolean) {
     this.resetPosts = true;
@@ -545,7 +813,13 @@ export class StudyComponent implements OnInit, OnDestroy {
       });
     }
   }
-
+  /**
+   * Edits post if user is a leader or is creator of post
+   * @param {boolean} value Whether or not to delete
+   * @param {string} postID Post ID
+   * @param {string} creatorID Creator ID
+   * @param {boolean} isLeader Whether or not user is a leader
+   */
   editPost(value: boolean, postID: string, creatorID: string, isLeader: boolean) {
     if (value && (creatorID === this._user.userID.getValue() || isLeader)) {
       this.editing = true;
@@ -559,6 +833,13 @@ export class StudyComponent implements OnInit, OnDestroy {
       });
     }
   }
+  /**
+   * Edits annotation if user is a leader or is creator of annotation
+   * @param {boolean} value Whether or not to delete
+   * @param {string} annotationID Annotation ID
+   * @param {string} creatorID Creator ID
+   * @param {boolean} isLeader Whether or not user is a leader
+   */
   editAnnotation(value: boolean, annotationID: string, creatorID: string, isLeader: boolean) {
     if (value && (creatorID === this._user.userID.getValue() || isLeader)) {
       this.editing = true;
@@ -577,7 +858,9 @@ export class StudyComponent implements OnInit, OnDestroy {
         });
     }
   }
-
+  /**
+   * Gets all annotation for current (active book){@link StudyComponent#activeBook} and (active chapter){@link StudyComponent#activeChapter}
+   */
   getAnnotationsForChapter() {
     const chapterReference = `${ this.activeBook.toLowerCase() }-${ this.activeChapter }`;
     this.chapterAnnotations = this._study.getAnnotationsByChapterReference(this.groupID, chapterReference, this.sortAnnotation);
@@ -614,7 +897,9 @@ export class StudyComponent implements OnInit, OnDestroy {
     });
 
   }
-
+  /**
+   * Updates a post with current form data
+   */
   updatePost() {
     this.createPost.htmlText = this.createPost.text;
     this._study.updatePost(this.groupID, this.editingPostID, this.createPost).then(() => {
@@ -632,7 +917,11 @@ export class StudyComponent implements OnInit, OnDestroy {
       this.actionsExpanded = false;
     });
   }
-
+  /**
+   * Replies to a post
+   * @param {string} text Reply Text
+   * @param {string} postID Post ID
+   */
   replyToPost(text: string, postID: string) {
     const reply = new Reply(text,
       this._user.userID.getValue(),
@@ -643,7 +932,11 @@ export class StudyComponent implements OnInit, OnDestroy {
       this.toastr.show('Successfully Created Reply', 'Created Reply');
     });
   }
-
+  /**
+   * Replies to an annotation
+   * @param {string} text Reply Text
+   * @param {string} annotationID Annotation ID
+   */
   replyToAnnotation(text: string, annotationID: string) {
     const reply = new Reply(text,
       this._user.userID.getValue(),
@@ -654,7 +947,13 @@ export class StudyComponent implements OnInit, OnDestroy {
       this.toastr.show('Successfully Created Reply', 'Created Reply');
     });
   }
-
+  /**
+   * Deletes annotation if user is leader or is creator
+   * @param {boolean} value Whether or not to delete annotation
+   * @param {string} annotationID Annotation ID
+   * @param {string} creatorID Creator ID
+   * @param {boolean} isLeader Whether or not user is leader
+   */
   deleteAnnotation(value: boolean, annotationID: string,
     creatorID: string, isLeader: boolean) {
     if (value && (creatorID === this._user.userID.getValue() || isLeader)) {
@@ -663,8 +962,12 @@ export class StudyComponent implements OnInit, OnDestroy {
       });
     }
   }
-
-  getChapter(book, chapter) {
+  /**
+   * Gets verses of a chapter
+   * @param {string} book Book name
+   * @param {number} chapter Chapter number
+   */
+  getChapter(book, chapter: number) {
     this.isLoading.next(true);
     this.underlinedVerses = [];
     this.countVerses = [];
@@ -685,23 +988,30 @@ export class StudyComponent implements OnInit, OnDestroy {
     this.chapterRef = this.activeBook.toLowerCase() + '-' + this.activeChapter;
 
   }
-
+  /**
+   * Gets next chapter
+   */
   nextChapter() {
     if (this.activeChapter !== this.bibleData.chapters.length) {
       this.activeChapter += 1;
       this.getChapter(this.activeBook, this.activeChapter);
     }
   }
-
+  /**
+   * Gets previous chapter
+   */
   previousChapter() {
     if (this.activeChapter !== 1) {
       this.activeChapter -= 1;
       this.getChapter(this.activeBook, this.activeChapter);
     }
   }
-
-  reformatPassage(value) {
-    const allVerses = value.split(':')[ 1 ].split(',');
+  /**
+   * Reformats a passage given a verse reference
+   * @param {string} value Verse REference
+   */
+  reformatPassage(value: string) {
+    const allVerses = this._study.formatAnnotations(value, true);
     const verseNumbers = [];
     allVerses.forEach((verseNumber) => {
       verseNumbers.push(Number(verseNumber));
@@ -720,7 +1030,9 @@ export class StudyComponent implements OnInit, OnDestroy {
       this.createAnnotation.passage = this._study.formatAnnotations(value);
     }
   }
-
+  /**
+   * Prepares an annotation to be published
+   */
   prepareAnnotation() {
     this.createAnnotation.passage = `${ this.capitalize(this.activeBook) } ${ this.activeChapter }:`;
     let finishedFirst = false;
@@ -735,14 +1047,6 @@ export class StudyComponent implements OnInit, OnDestroy {
       }
     });
     this.reformatPassage(this.createAnnotation.passage);
-  }
-
-  toggleVisibleLinks() {
-    this.isVisibleLinks = !this.isVisibleLinks;
-  }
-
-  toggleVisibleVerses() {
-    this.isVisibleVerses = !this.isVisibleVerses;
   }
 }
 

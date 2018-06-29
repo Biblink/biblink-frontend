@@ -8,16 +8,34 @@ import { Utils } from '../../../utilities/utils';
 import { map, takeUntil, startWith, tap } from 'rxjs/operators';
 import { timer } from 'rxjs/observable/timer';
 import { ActivatedRoute } from '@angular/router';
-
+/**
+ * User data service to handle getting all user-related data
+ */
 @Injectable({
   providedIn: 'root'
 })
 export class UserDataService {
+  /**
+   * BehaviorSubject to hold current user data
+   */
   userData: BehaviorSubject<User> = new BehaviorSubject(null);
+  /**
+   * BehaviorSuject to hold current user ID
+   */
   userID: BehaviorSubject<string> = new BehaviorSubject('');
+  /**
+   * Local user data from local storage
+   */
   localUserData: any;
+  /**
+   * User reference document
+   */
   userReference: AngularFirestoreDocument<any> = null;
-
+  /**
+   * Initializes dependencies and does dependency injection
+   * @param _auth Auth service to verify authentication
+   * @param afs AngularFirestore to access firestore backend
+   */
   constructor(private _auth: AuthService, public afs: AngularFirestore) {
     let dataRef: Observable<Action<DocumentSnapshot<any>>> = null;
     let dataSubscription: Subscription = null;
@@ -81,17 +99,27 @@ export class UserDataService {
       }
     });
   }
+  /**
+   * Updates user profile data
+   * @param {Object} data User data
+   */
   public updateProfile(data: Object) {
     if (data instanceof User) {
       return this.userReference.update(Utils.toJson(data));
     }
     return this.userReference.update(data);
   }
-
+  /**
+   * Add study to a user's study collection in database
+   * @param {string} studyID Study ID
+   * @param {'member' | 'admin' | 'leader'} role Role of user
+   */
   public addStudy(studyID: string, role: 'member' | 'admin' | 'leader') {
     return this.userReference.collection('studies').doc(studyID).set({ 'id': studyID, 'role': role });
   }
-
+  /**
+   * Gets user's notifications from database collection
+   */
   public getNotifications() {
     const uid = this.userID.getValue();
     if (uid === '') {
@@ -109,7 +137,11 @@ export class UserDataService {
       })
     );
   }
-
+  /**
+   * Clears all notifications given by the notificationIDs
+   * @param {string[]} notificationIDs Notification IDs to clear
+   * @returns {Promise} Delete actions of all notifications
+   */
   public clearNotifications(notificationIDs: string[]) {
     const uid = this.userID.getValue();
     if (uid === '') {
@@ -122,7 +154,10 @@ export class UserDataService {
     });
     return Promise.all(promises);
   }
-
+  /**
+   * Marks a notification as read given a notification ID
+   * @param notificationID Notification ID to mark as read
+   */
   public markNotificationAsRead(notificationID: string) {
     const uid = this.userID.getValue();
     if (uid === '') {
@@ -130,22 +165,32 @@ export class UserDataService {
     }
     return this.afs.doc(`users/${ uid }`).collection('notifications').doc(notificationID).update({ read: true });
   }
-
+  /**
+   * Gets study data based on group ID
+   * @param groupID Group ID
+   */
   public getStudyData(groupID: string) {
     return this.afs.doc(`/studies/${ groupID }`).valueChanges();
   }
 
-
+  /**
+   * Logs user out and removes 'user' item from local storage
+   */
   public logout() {
     return this._auth.logout().then(() => {
       localStorage.removeItem('user');
     });
   }
-
+  /**
+   * Gets user data
+   */
   public get user() {
     return this.userData;
   }
-
+  /**
+   * Gets user data from a user ID
+   * @param uid User ID
+   */
   getDataFromID(uid) {
     return this.afs.collection('users').doc(uid).valueChanges();
   }

@@ -14,46 +14,113 @@ import { StudyDataService } from '../../../study/services/study-data.service';
 import { Router } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 
+/**
+ * Dashboard component to display dashboard page
+ */
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.page.html',
   styleUrls: [ './dashboard.page.css' ]
 })
 export class DashboardComponent implements OnInit, OnDestroy {
-
+  /**
+   * Suscription to hold auth state
+   */
   authStateSubscription: Subscription;
+  /**
+   * Suscription to hold user data
+   */
   userDataSubscription: Subscription;
+  /**
+   * Suscription to hold group data
+   */
   groupDataSubscription: Subscription;
   // modal activations
+  /**
+   * value to hold edit image modal activation
+   */
   activateEditImage = false;
+  /**
+   * value to hold join study modal activation
+   */
   activateJoinStudy = false;
+  /**
+   * value to hold create study modal activation
+   */
   activateCreateStudy = false;
 
   // group variables
-
+  /**
+   * value to see whether or not use has groups
+   */
   hasNoGroups = false;
+  /**
+   * BehaviorSubject to keep current loading status
+   */
   isLoading: BehaviorSubject<boolean> = new BehaviorSubject(true);
+  /**
+   * value to see whether or not to display user data
+   */
   showResults = false;
+  /**
+   * default study group data, used to initialize join study group inputs
+   * See [resetJoinStudy]{@link DashboardComponent#resetJoinStudy}
+   */
   studyGroup = { name: '', uniqueID: '' };
+  /**
+   * creates default new study group data, used to initialze create new study group inputs
+   * See [createStudy]{@link DashbaordComponent#createStudy}
+   */
   defaultNewStudy = { name: '', leader: '', description: '', bannerImage: '', profileImage: '' };
+  /**
+   * value to hold data from form of createstudy group
+   * See [createStudy]{@link DashbaordComponent#createStudy}
+   */
   newStudy = { name: '', leader: '', description: '', bannerImage: '', profileImage: '' };
 
 
   // user profile variables
+  /**
+   * value to see whether or not user has a password
+   */
   noPassword = false;
+  /**
+   * value to see whether or not user is verified
+   */
   isVerified = false;
+  /**
+   * array listing user's studies
+   */
   studies = [];
+  /**
+   * value to hold user's data
+   */
   data = null;
+  /**
+   * value to hold current tab (either studies or profile)
+   */
   tab = 'studies';
+  /**
+   * value to hold user's profile image URL
+   */
   imageUrl = '';
+  /**
+   * value to get user data as a User object
+   */
   user: User = new User('', '', '', { profileImage: '', bio: '', shortDescription: '' });
+  /**
+   * value to hold user's name
+   */
   name = '';
 
-  // form variables
-
-  emailInUse = false;
-  differentCredential = false;
+  // form variabless
+  /**
+   * variable to hold security form data
+   */
   securityForm: FormGroup;
+  /**
+   * regular expression for email check
+   */
   email_regex = new RegExp('(?:[a-z0-9!#$%&\'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&\'*+/=?^_`{|}~-]+)*|"' +
     '(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")' +
     '@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?' +
@@ -61,6 +128,18 @@ export class DashboardComponent implements OnInit, OnDestroy {
     '|1[0-9][0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]' +
     '|\\\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\\])');
 
+
+  /**
+   * Initializes necessary dependency and does dependency injection
+   * @param {Title} title Title dependency to change title of pages
+   * @param {AuthService} _auth Auth service dependency to track auth state
+   * @param {FormBuilder} fb FormBuilder dependency to create reactive forms
+   * @param {UserDataService} _data UserData service dependency to get user data
+   * @param {AngularFireAuth} afAuth AngularFireAuth dependency to access authentication
+   * @param {Router} _router Router dependency to access router for navigations
+   * @param {StudyDataService} groupData Study data service dependency to get study data
+   * @param {ToastrService} toastr Toastr service to display notifications
+   */
   constructor(
     private title: Title,
     private _auth: AuthService,
@@ -71,6 +150,9 @@ export class DashboardComponent implements OnInit, OnDestroy {
     private groupData: StudyDataService,
     private toastr: ToastrService
   ) { }
+  /**
+   * Initializes component
+   */
   ngOnInit() {
     this.title.setTitle('Your Dashboard');
     this.isLoading.next(true);
@@ -102,19 +184,30 @@ export class DashboardComponent implements OnInit, OnDestroy {
       }
     });
   }
-
+  /**
+   * Destroys component when not used. Removes all current subscriptions
+   */
   ngOnDestroy() {
     this.userDataSubscription.unsubscribe();
     this.groupDataSubscription.unsubscribe();
     this.authStateSubscription.unsubscribe();
   }
-
+  /**
+   * Resetscurrent join study form data
+   */
   resetJoinStudy() {
     this.studyGroup = { name: '', uniqueID: '' };
   }
+  /**
+   * Updates user data
+   * @param {User} user User data to update
+   */
   updateUser(user: User) {
     return this._data.updateProfile(user);
   }
+  /**
+   * Updates user's profile image
+   */
 
   updateImage() {
     this.user.data.profileImage = this.imageUrl;
@@ -122,15 +215,25 @@ export class DashboardComponent implements OnInit, OnDestroy {
       this.toastr.show('Successfully Updated Your Profile Image', 'Successful Update of Profile Image');
     });
   }
+  /**
+   * Changes current tab
+   * @param {string} tabName Name of tab
+   */
   switchTab(tabName: string) {
     this.tab = tabName;
   }
-
+  /**
+   * Gets current download url and saves it to (imageUrl){@link DashboardComponent#imageUrl}
+   * @param event current download url
+   */
   getDownloadUrl(event) {
     this.imageUrl = event;
   }
 
-
+  /**
+   * Updates a user's proifle and displays a notification
+   * @param name whether or not user is updating a name
+   */
   updateProfile(name = false) {
     this.updateUser(this.user).then(() => {
       if (name) {
@@ -140,7 +243,9 @@ export class DashboardComponent implements OnInit, OnDestroy {
       }
     });
   }
-
+  /**
+   * Creates security form
+   */
   createForm(): void {
     this.securityForm = this.fb.group({
       email: [ '', [ Validators.pattern(this.email_regex), Validators.required ] ],
@@ -153,20 +258,33 @@ export class DashboardComponent implements OnInit, OnDestroy {
       });
 
   }
-
+  /**
+   * Gets email from form
+   */
   get email() {
     return this.securityForm.get('email');
   }
+  /**
+   * Gets password from form
+   */
   get oldPassword() {
     return this.securityForm.get('oldPassword');
   }
+  /**
+   * Gets new password from form
+   */
   get newPassword() {
     return this.securityForm.get('newPassword');
   }
+  /**
+   * Gets confirm password from form
+   */
   get confirmPassword() {
     return this.securityForm.get('confirmPassword');
   }
-
+  /**
+   * Checks password to access security form
+   */
   checkPassword() {
     if (this.afAuth.auth.currentUser.providerId !== 'firebase') {
       this.isVerified = true;
@@ -186,6 +304,9 @@ export class DashboardComponent implements OnInit, OnDestroy {
     });
   }
 
+  /**
+   * Updates security info based on user input
+   */
   updateSecurityInfo() {
     if (this.email.value !== this.afAuth.auth.currentUser.email) {
       this._auth.updateEmail(this.email.value).then((res) => {
@@ -209,7 +330,9 @@ export class DashboardComponent implements OnInit, OnDestroy {
       });
     }
   }
-
+  /**
+   * Joins study based on form data in (joinStudy){@link DashboardComponent#joinStudy}
+   */
   joinStudy() {
     const name = this.studyGroup.name.replace(/\s/g, '').toLowerCase();
     const joinStudy = this.groupData.joinStudy(name, parseInt(this.studyGroup.uniqueID, 10)).subscribe((res) => {
@@ -228,7 +351,9 @@ export class DashboardComponent implements OnInit, OnDestroy {
       }
     });
   }
-
+  /**
+   * Creates study based on form data provided in (newStudy){@link DashbaordComponent#newStudy}
+   */
   createStudy() {
     this.groupData.createStudy(this.newStudy.name, this.afAuth.auth.currentUser.uid,
       {
@@ -244,10 +369,18 @@ export class DashboardComponent implements OnInit, OnDestroy {
       });
   }
 
+  /**
+   * opens study based on id
+   * @param id study id
+   */
   openStudy(id) {
     this._router.navigateByUrl(`/dashboard/studies/study/${ id }`);
   }
-
+  /**
+   * Gets download url during creation of study
+   * @param event image (banner or profile)
+   * @param type type of image
+   */
   getDownloadUrlStudy(event, type) {
     if (type === 'banner') {
       this.newStudy.bannerImage = event;
@@ -256,16 +389,24 @@ export class DashboardComponent implements OnInit, OnDestroy {
     }
   }
 
-
+  /**
+   * Capitalizes string
+   * @param str string to capitalize
+   */
   capitalize(str) {
     return str.charAt(0).toUpperCase() + str.substr(1);
   }
 
 }
 
-
+/**
+ * Custom validators for security form
+ */
 export class CustomValidators {
-
+  /**
+   * Checks if passwords match
+   * @param {AbstractControl} AC control to check for matched password
+   */
   static matchPassword(AC: AbstractControl) {
     const password = AC.get('newPassword').value; // to get value in input tag
     const confirmPassword = AC.get('confirmPassword').value; // to get value in input tag
@@ -275,10 +416,5 @@ export class CustomValidators {
     } else {
       return null;
     }
-  }
-  static oldPassword(afAuth: AngularFireAuth) {
-    return (control: AbstractControl) => {
-      const password = control.get('oldPassword').value;
-    };
   }
 }

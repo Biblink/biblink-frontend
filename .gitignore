@@ -7,3 +7,4 @@ src/environments/*.ts
 src/environments/environment.ts
 src/environments/environment.prod.ts
 *.log
+documentation/

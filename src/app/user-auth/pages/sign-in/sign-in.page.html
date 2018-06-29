@@ -70,7 +70,7 @@
                     <form [formGroup]="emailSignInForm" (ngSubmit)="signInWithEmail()">
                         <div class="field" data-aos="fade-up-right" data-aos="fade-up-left" data-aos-duration="1200">
                             <label class="label" for="email">Email:</label>
-                            <input formControlName="email" class="input" required type="text" id="email" name="email">
+                            <input formControlName="email" class="input" required type="text" id="email" name="email" (keyup)="resetErrors()">
                             <p *ngIf="email.invalid && email.touched && email.errors['required']" class="help invalid" data-aos="fade-up-right">
                                 Email is required</p>
                             <p *ngIf="email.invalid && email.touched && email.errors['pattern']" class="help invalid" data-aos="fade-up-right">
