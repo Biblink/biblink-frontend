@@ -45,7 +45,9 @@ import { StudyDataService } from './study/services/study-data.service';
 import { LoadingIntermediateComponent } from './loading-intermediate/loading-intermediate.component';
 
 
-
+/**
+ * App module that creates root of angular application
+ */
 @NgModule({
     declarations: [
         AppComponent,

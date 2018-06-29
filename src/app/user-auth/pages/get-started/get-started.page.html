@@ -69,10 +69,10 @@
                     <form [formGroup]="emailSignupForm" novalidate (ngSubmit)="signUpWithEmail()">
                         <div class="field" data-aos="fade-up-right" data-aos="fade-up-left" data-aos-duration="1200">
                             <label class="label" for="email">Email:</label>
-                            <input class="input" required type="email" formControlName="email" id="email" name="email" [class.error]="emailInUse">
-                            <p *ngIf="email.invalid && email.touched && email.errors.required" class="help invalid" data-aos="fade-up-right">
+                            <input class="input" (keyup)="resetErrors()" required type="email" formControlName="email" id="email" name="email" [class.error]="emailInUse">
+                            <p *ngIf="email.invalid && email.touched && email.errors['required']" class="help invalid" data-aos="fade-up-right">
                                 Email is required</p>
-                            <p *ngIf="email.invalid && email.touched && email.errors.pattern" class="help invalid" data-aos="fade-up-right">
+                            <p *ngIf="email.invalid && email.touched && email.errors['pattern']" class="help invalid" data-aos="fade-up-right">
                                 Please provide a valid email</p>
                             <p *ngIf="email.touched && emailInUse" class="help invalid email-invalid" data-aos="fade-up-right">
                                 Hmmm...email is in use, try logging in or resetting your password.</p>
@@ -82,8 +82,8 @@
                         <div class="field" data-aos="fade-up-left" data-aos="fade-up-left" data-aos-duration="1400">
                             <label class="label" for="password">Password:</label>
                             <div class="control">
-                                <input class="input" type="password" formControlName="password" id="password" name="password">
-                                <p *ngIf="password.invalid && password.touched && password.errors.required" class="help invalid" data-aos="fade-up-right">
+                                <input (keyup)="resetErrors()" class="input" type="password" formControlName="password" id="password" name="password">
+                                <p *ngIf="password.invalid && password.touched && password.errors['required']" class="help invalid" data-aos="fade-up-right">
                                     Password is required</p>
                                 <p *ngIf="password.valid && password.touched" class="help valid" data-aos="fade-up-right">
                                     Awesome! Almost done!</p>
@@ -92,10 +92,11 @@
                         <div class="field" id="confirm-password-field" data-aos="fade-up-right" data-aos="fade-up-left" data-aos-duration="1400">
                             <label class="label" for="confirm-password">Confirm Password:</label>
                             <div class="control">
-                                <input class="input" type="password" formControlName="confirmPassword" id="confirm-password" name="confirmPassword">
-                                <p *ngIf="confirmPassword.invalid && confirmPassword.touched && confirmPassword.errors.required" class="help invalid" data-aos="fade-up-right">
+                                <input (keyup)="resetErrors()" class="input" type="password" formControlName="confirmPassword" id="confirm-password" name="confirmPassword">
+                                <p *ngIf="confirmPassword.invalid && confirmPassword.touched && confirmPassword.errors['required']" class="help invalid"
+                                    data-aos="fade-up-right">
                                     Confirm Password is required</p>
-                                <p *ngIf="confirmPassword.invalid && confirmPassword.touched && !confirmPassword.errors.required && confirmPassword.errors.MatchPassword"
+                                <p *ngIf="confirmPassword.invalid && confirmPassword.touched && !confirmPassword.errors.required && confirmPassword.errors['MatchPassword']"
                                     class="help invalid" data-aos="fade-up-right">
                                     Hmm...Passwords don't match</p>
                                 <p *ngIf="confirmPassword.valid && confirmPassword.touched" class="help valid" data-aos="fade-up-right">

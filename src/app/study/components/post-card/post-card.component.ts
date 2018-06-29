@@ -6,7 +6,9 @@ import { Observable } from 'rxjs';
 import { StudyDataService } from '../../services/study-data.service';
 import { UserDataService } from '../../../core/services/user-data/user-data.service';
 import { Reply } from '../../../core/interfaces/reply';
-
+/**
+ * Post card component for all study posts
+ */
 @Component({
   selector: 'app-post-card',
   templateUrl: './post-card.component.html',
@@ -14,36 +16,115 @@ import { Reply } from '../../../core/interfaces/reply';
   encapsulation: ViewEncapsulation.None
 })
 export class PostCardComponent implements OnInit {
+  /**
+   * Input that holds list of contributors
+   */
   @Input() contributors = [];
+  /**
+   * Input that checks if card is to display annotations
+   */
   @Input() isAnnotation = false;
+  /**
+   * Input for a chapter reference for annotation card
+   */
   @Input() chapterRef = '';
+  /**
+   * Input to see person viewing is a leader
+   */
   @Input() isLeader = false;
+  /**
+   * Input value of user ID
+   */
   @Input() userID = '';
+  /**
+   * Input value of post ID
+   */
   @Input() id = '';
+  /**
+   * Input value to see if current post is the current last loaded post
+   * Used in (onMouseOver){@link PostCardComponent#onMouseOver}
+   */
   @Input() isLast = false;
+  /**
+   * Input value to see if current user is the creator of post
+   */
   @Input() isCreator = false;
+  /**
+   * Input value of studyID
+   */
   @Input() studyID = '';
+  /**
+   * Output emitter for delete event
+   */
   @Output() delete = new EventEmitter<boolean>(false);
+  /**
+   * Output emitter for edit event
+   */
   @Output() edit = new EventEmitter<boolean>(false);
+  /**
+   * Output emitter for reply event, emits reply text
+   */
   @Output() reply = new EventEmitter<string>();
+  /**
+   * Output emitter for more event
+   */
   @Output() more = new EventEmitter<boolean>(false);
+  /**
+   * List to hold replies
+   */
   replies = [];
+
+  // modal activations
+  /**
+   * Value to determine whether or not to show delete modal
+   */
   activateDeleteModal = false;
+  /**
+   * Value to determine whether or not to show reply modal
+   */
   activateReplyModal = false;
+  /**
+   * Value to determine whether or not to show subreply modal
+   */
   activateSubReplyModal = false;
+
+  // default form values
+  /**
+   * Default reply text for reply modal
+   */
   replyText = '';
+  /**
+   * Default subreply text for subreply modal
+   */
   subReplyText = '';
+  /**
+   * Current replyID for adding a subreply
+   */
   replyID = '';
+  /**
+   * Value to hold current z-index
+   */
   activateZ = 0;
+  /**
+   * List of contributor images
+   */
   contributorImages = [];
+  /**
+   * Initializes dependencies and does dependency injection
+   * @param afs AngularFirestore dependency to acess firestore
+   * @param _user UserData service dependency to get user data
+   * @param _study StudyData service to get post replies
+   * @param toastr Toastr service to show notifications
+   */
   constructor(
     private afs: AngularFirestore,
     private _user: UserDataService,
     private _study: StudyDataService,
     private toastr: ToastrService,
-    private el: ElementRef,
   ) { }
-
+  /**
+   * Initializes component
+   */
   ngOnInit() {
     this.contributors.forEach(contributor => {
       let firstTime = false;
@@ -61,7 +142,9 @@ export class PostCardComponent implements OnInit {
     this.getReplies();
 
   }
-
+  /**
+   * Gets replies of post
+   */
   getReplies() {
     let repliesSubscriber = this._study.getPostRepliesByID(this.studyID, this.id);
     if (this.isAnnotation) {
@@ -114,17 +197,23 @@ export class PostCardComponent implements OnInit {
     });
   }
 
-
-  getSubReplies(postID) {
+  /**
+   * Gets subreplies of post given a reply ID
+   * @param replyID Reply ID
+   */
+  getSubReplies(replyID) {
     if (this.isAnnotation) {
       return this.afs.doc(`/studies/${ this.studyID }`)
-        .collection('annotations').doc(this.chapterRef).collection('chapter-annotations').doc(this.id).collection('replies').doc(postID)
+        .collection('annotations').doc(this.chapterRef).collection('chapter-annotations').doc(this.id).collection('replies').doc(replyID)
         .collection('subreplies', ref => ref.orderBy('timestamp', 'asc')).valueChanges();
     }
     return this.afs.doc(`/studies/${ this.studyID }`)
-      .collection('posts').doc(this.id).collection('replies').doc(postID)
+      .collection('posts').doc(this.id).collection('replies').doc(replyID)
       .collection('subreplies', ref => ref.orderBy('timestamp', 'asc')).valueChanges();
   }
+  /**
+   * Adds a subreply to post
+   */
   addSubReply() {
     const firebaseID = this.afs.createId();
     const reply = new Reply(this.subReplyText, this.userID, Math.round((new Date()).getTime() / 1000), [], []);
@@ -153,18 +242,29 @@ export class PostCardComponent implements OnInit {
         this.subReplyText = '';
       });
   }
+  /**
+   * Emits delete events
+   */
   emitDelete() {
     this.delete.emit(true);
   }
+  /**
+   * Emits edit event
+   */
   emitEdit() {
     this.edit.emit(true);
   }
-
+  /**
+   * Emits reply data for post
+   */
   emitReply() {
     this.reply.emit(this.replyText);
     this.replyText = '';
   }
 
+  /**
+   * Listens to mouseover to emit the more event to get more posts
+   */
   @HostListener('mouseover') onMouseOver() {
     if (this.isLast) {
       this.more.emit(true);

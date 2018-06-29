@@ -4,7 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 
 
-const routes: Routes = [
+const APP_ROUTES: Routes = [
   { path: 'loading', component: LoadingIntermediateComponent },
   { path: 'about', loadChildren: 'app/about/about.module#AboutModule' },
   { path: 'search', loadChildren: 'app/search/search.module#SearchModule' },
@@ -16,7 +16,7 @@ const routes: Routes = [
   { path: '**', redirectTo: '', pathMatch: 'full' },
 ];
 @NgModule({
-  imports: [ RouterModule.forRoot(routes) ],
+  imports: [ RouterModule.forRoot(APP_ROUTES) ],
   exports: [ RouterModule ]
 
 })
