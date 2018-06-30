@@ -1,0 +1,43 @@
+version: 2
+jobs:
+  test-job:
+    docker:
+      - image: circleci/node:8-browsers
+    steps:
+      - checkout
+
+      # Cache to enable faster future jobs
+      - restore_cache:
+          name: Restore Yarn Package Cache
+          keys:
+            - yarn-packages-{{ checksum "yarn.lock" }}
+      - run:
+          name: Install Dependencies
+          command: yarn install
+      - save_cache:
+          name: Save Yarn Package Cache
+          key: yarn-packages-{{ checksum "yarn.lock" }}
+          paths:
+            - ~/.cache/yarn
+
+      # Run tests
+      - run: yarn run test
+  deploy-job:
+    docker:
+      - image: circleci/node:8-browsers
+    steps:
+      - checkout
+      - run: yarn
+      - run: yarn run ci-deploy
+workflows:
+  version: 2
+
+  -test_and_deploy:
+    jobs:
+      - test-job
+      - deploy-job:
+          requires:
+            - test-job
+          filters:
+            branches:
+              only: master

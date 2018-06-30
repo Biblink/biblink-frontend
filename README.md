@@ -2,17 +2,15 @@
 
 # Biblink Frontend
 
-[![Build Status](https://travis-ci.org/bfan1256/bible-study-application-frontend.svg?branch=master)](https://travis-ci.org/bfan1256/bible-study-application-frontend)
-[![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg)](https://conventionalcommits.org)
-
+[![CircleCI](https://circleci.com/gh/Biblink/biblink-frontend/tree/master.svg?style=svg)](https://circleci.com/gh/Biblink/biblink-frontend/tree/master) [![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg)](https://conventionalcommits.org)
 
 Authors: Brandon Fan, Jordan Seiler, Jonathan Fan
 
 ## TODO List
 
-* Implement user types: Administrator & Study Leaders
-* Continue implementing dashboard features
-* Implement highlighting in the shared Bible
+- Implement user types: Administrator & Study Leaders
+- Continue implementing dashboard features
+- Implement highlighting in the shared Bible
 
 ## Resources
 
@@ -26,8 +24,8 @@ Run `npm install` to install all third-party dependencies.
 
 ### Using External JavaScript Code
 
-1. Add script to `./src/assets/external-code/js/`
-2. Add `/assets/external-code/js/<name-of-file>.js` to .angular-cli.json in the `scripts` array:
+1.  Add script to `./src/assets/external-code/js/`
+2.  Add `/assets/external-code/js/<name-of-file>.js` to .angular-cli.json in the `scripts` array:
 
 ```json
 {
@@ -39,11 +37,11 @@ Run `npm install` to install all third-party dependencies.
 }
 ```
 
-3. Rerun `ng serve --aot`
+3.  Rerun `ng serve --aot`
 
 #### Use in Typescript
 
-1. Go into associated `.ts` file and add after imports:
+1.  Go into associated `.ts` file and add after imports:
 
 ```typescript
 declare const <corresponding-symbol-to-js-file>: any;
