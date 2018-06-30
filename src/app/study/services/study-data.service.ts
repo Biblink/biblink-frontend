@@ -5,7 +5,11 @@ import 'rxjs/add/operator/take';
 import { Group } from '../../core/interfaces/group';
 import { Injectable, OnInit } from '@angular/core';
 import { AuthService } from '../../core/services/auth/auth.service';
-import { AngularFirestore, AngularFirestoreDocument, AngularFirestoreCollection } from 'angularfire2/firestore';
+import {
+  AngularFirestore,
+  AngularFirestoreDocument,
+  AngularFirestoreCollection
+} from 'angularfire2/firestore';
 import { Observable, BehaviorSubject, Subscription } from 'rxjs';
 import { UserDataInterface } from '../../core/interfaces/user-data.interface';
 import { User } from '../../core/interfaces/user';
@@ -15,7 +19,6 @@ import { GroupDataInterface } from '../../core/interfaces/group-data.interface';
 import { Post } from '../../core/interfaces/post';
 import { Reply } from '../../core/interfaces/reply';
 import { StudyModule } from '../study.module';
-
 
 /**
  * Study data service to handle all study-related database calls
@@ -41,7 +44,7 @@ export class StudyDataService {
     let groupSubscription: Subscription = null;
     const studySubscriptions: Subscription[] = [];
     let isLoggedOut = false;
-    this.user.userID.subscribe((uid) => {
+    this.user.userID.subscribe(uid => {
       if (uid === '') {
         this.studies.next([]);
         isLoggedOut = true;
@@ -56,27 +59,33 @@ export class StudyDataService {
           });
         }
       } else {
-        groupsReference = this.afs.collection(`/users/${ uid }/studies`);
-        groupSubscription = groupsReference.valueChanges().subscribe((groups) => {
+        groupsReference = this.afs.collection(`/users/${uid}/studies`);
+        groupSubscription = groupsReference.valueChanges().subscribe(groups => {
           this.study_sync = [];
-          groups.forEach((studyData) => {
+          groups.forEach(studyData => {
             // get study data
             let isFirstTime = false;
             let metadata = {};
-            studySubscriptions.push(this.afs.doc(`/studies/${ studyData[ 'id' ] }`).valueChanges().subscribe((data) => {
-              data[ 'metadata' ][ 'name' ] = data[ 'name' ];
-              data[ 'metadata' ][ 'role' ] = studyData[ 'role' ];
-              data[ 'metadata' ][ 'id' ] = studyData[ 'id' ];
-              if (!isFirstTime) {
-                this.study_sync.push(data[ 'metadata' ]);
-                isFirstTime = true;
-                metadata = data[ 'metadata' ];
-              } else {
-                this.study_sync[ this.study_sync.indexOf(metadata) ] = data[ 'metadata' ];
-                metadata = data[ 'metadata' ];
-              }
-              this.studies.next(this.study_sync);
-            }));
+            studySubscriptions.push(
+              this.afs
+                .doc(`/studies/${studyData['id']}`)
+                .valueChanges()
+                .subscribe(data => {
+                  data['metadata']['name'] = data['name'];
+                  data['metadata']['role'] = studyData['role'];
+                  data['metadata']['id'] = studyData['id'];
+                  if (!isFirstTime) {
+                    this.study_sync.push(data['metadata']);
+                    isFirstTime = true;
+                    metadata = data['metadata'];
+                  } else {
+                    this.study_sync[this.study_sync.indexOf(metadata)] =
+                      data['metadata'];
+                    metadata = data['metadata'];
+                  }
+                  this.studies.next(this.study_sync);
+                })
+            );
           });
         });
       }
@@ -90,12 +99,17 @@ export class StudyDataService {
    */
   createStudy(name: string, userID: string, data: GroupDataInterface) {
     const uniqueID = Math.floor(Math.random() * (9999 - 1000 + 1) + 1000);
-    const firebaseData = { 'name': name, 'uniqueID': uniqueID, 'metadata': data };
-    firebaseData[ 'search_name' ] = firebaseData[ 'name' ].replace(/\s/g, '').toLowerCase();
+    const firebaseData = { name: name, uniqueID: uniqueID, metadata: data };
+    firebaseData['search_name'] = firebaseData['name']
+      .replace(/\s/g, '')
+      .toLowerCase();
     const firebaseID = this.afs.createId();
-    const studyRef = this.afs.doc(`/studies/${ firebaseID }`);
+    const studyRef = this.afs.doc(`/studies/${firebaseID}`);
     return studyRef.set(firebaseData).then(() => {
-      studyRef.collection('members').doc(userID).set({ 'role': 'leader', 'uid': userID });
+      studyRef
+        .collection('members')
+        .doc(userID)
+        .set({ role: 'leader', uid: userID });
       return firebaseID;
     });
   }
@@ -105,7 +119,11 @@ export class StudyDataService {
    * @param {number} studyID Study ID
    */
   joinStudy(name: string, studyID: number) {
-    return this.afs.collection(`/studies/`, ref => ref.where('search_name', '==', name).where('uniqueID', '==', studyID)).snapshotChanges();
+    return this.afs
+      .collection(`/studies/`, ref =>
+        ref.where('search_name', '==', name).where('uniqueID', '==', studyID)
+      )
+      .snapshotChanges();
   }
   /**
    * Adds a user to a study
@@ -115,23 +133,33 @@ export class StudyDataService {
   addMember(studyID, userID) {
     return new Promise((resolve, reject) => {
       const doc = this.afs.collection('studies').doc(studyID);
-      doc.collection('members').doc(userID).snapshotChanges().pipe(take(1)).subscribe((res) => {
-        if (!res.payload.exists) {
-          doc.collection('members').doc(userID).set({ 'uid': userID, 'role': 'member' });
-          resolve();
-        } else {
-          reject('already added');
-        }
-      });
+      doc
+        .collection('members')
+        .doc(userID)
+        .snapshotChanges()
+        .pipe(take(1))
+        .subscribe(res => {
+          if (!res.payload.exists) {
+            doc
+              .collection('members')
+              .doc(userID)
+              .set({ uid: userID, role: 'member' });
+            resolve();
+          } else {
+            reject('already added');
+          }
+        });
     });
-
   }
   /**
    * Gets study data based on ID
    * @param studyID Study ID
    */
   getStudyData(studyID: string) {
-    return this.afs.doc(`/studies/${ studyID }`).valueChanges();
+    return this.afs
+      .collection('studies')
+      .doc(studyID)
+      .valueChanges();
   }
 
   /**
@@ -142,8 +170,13 @@ export class StudyDataService {
   createPost(studyID: string, post: Post) {
     const firebaseID = this.afs.createId();
     const jsonPost = Utils.toJson(post);
-    jsonPost[ 'id' ] = firebaseID;
-    return this.afs.doc(`/studies/${ studyID }`).collection('posts').doc(firebaseID).set(jsonPost);
+    jsonPost['id'] = firebaseID;
+    return this.afs
+      .collection('studies')
+      .doc(studyID)
+      .collection('posts')
+      .doc(firebaseID)
+      .set(jsonPost);
   }
 
   /**
@@ -152,11 +185,17 @@ export class StudyDataService {
    * @param {string} chapterReference Chapter Reference
    * @param {Annotation} annotation Annotation data
    */
-  createAnnotation(studyID: string, chapterReference: string, annotation: Annotation) {
+  createAnnotation(
+    studyID: string,
+    chapterReference: string,
+    annotation: Annotation
+  ) {
     const firebaseID = this.afs.createId();
     const jsonPost = Utils.toJson(annotation);
-    jsonPost[ 'id' ] = firebaseID;
-    return this.afs.doc(`/studies/${ studyID }`)
+    jsonPost['id'] = firebaseID;
+    return this.afs
+      .collection('studies')
+      .doc(studyID)
       .collection('annotations')
       .doc(chapterReference)
       .collection('chapter-annotations')
@@ -172,17 +211,28 @@ export class StudyDataService {
   addPostReply(postID: string, studyID: string, reply: Reply) {
     const firebaseID = this.afs.createId();
     const jsonReply = Utils.toJson(reply);
-    jsonReply[ 'id' ] = firebaseID;
-    const ref = this.afs.doc(`/studies/${ studyID }`).collection('posts').doc(`${ postID }`);
-    const updateContributor = ref.valueChanges().subscribe((val) => {
-      if (val[ 'contributors' ].indexOf(reply.creatorID) === -1) {
-        val[ 'contributors' ].push(reply.creatorID);
+    jsonReply['id'] = firebaseID;
+    const ref = this.afs
+      .collection('studies')
+      .doc(studyID)
+      .collection('posts')
+      .doc(`${postID}`);
+    const updateContributor = ref.valueChanges().subscribe(val => {
+      if (val['contributors'].indexOf(reply.creatorID) === -1) {
+        val['contributors'].push(reply.creatorID);
       }
       ref.update(val).then(() => {
         updateContributor.unsubscribe();
       });
     });
-    return this.afs.doc(`/studies/${ studyID }`).collection('posts').doc(postID).collection('replies').doc(firebaseID).set(jsonReply);
+    return this.afs
+      .collection('studies')
+      .doc(studyID)
+      .collection('posts')
+      .doc(postID)
+      .collection('replies')
+      .doc(firebaseID)
+      .set(jsonReply);
   }
   /**
    * Adds an annotation reply to a given annotation ID
@@ -191,11 +241,18 @@ export class StudyDataService {
    * @param {string} chapterReference Chapter Reference
    * @param {Reply} reply Reply Data
    */
-  addAnnotationReply(annotationID: string, studyID: string, chapterReference: string, reply: Reply) {
+  addAnnotationReply(
+    annotationID: string,
+    studyID: string,
+    chapterReference: string,
+    reply: Reply
+  ) {
     const firebaseID = this.afs.createId();
     const jsonReply = Utils.toJson(reply);
-    jsonReply[ 'id' ] = firebaseID;
-    return this.afs.doc(`/studies/${ studyID }`)
+    jsonReply['id'] = firebaseID;
+    return this.afs
+      .collection('studies')
+      .doc(studyID)
       .collection('annotations')
       .doc(chapterReference)
       .collection('chapter-annotations')
@@ -211,7 +268,12 @@ export class StudyDataService {
    * @param {Post} post New Post Data
    */
   updatePost(studyID: string, postID: string, post: Post) {
-    return this.afs.doc(`/studies/${ studyID }`).collection('posts').doc(postID).update(post);
+    return this.afs
+      .collection('studies')
+      .doc(studyID)
+      .collection('posts')
+      .doc(postID)
+      .update(post);
   }
   /**
    * Updates a certain annotation
@@ -220,12 +282,20 @@ export class StudyDataService {
    * @param {string} annotationID Annotation ID
    * @param {Annotation} annotation New Annotation Data
    */
-  updateAnnotation(studyID: string, chapterReference: string, annotationID: string, annotation: Annotation) {
-    return this.afs.doc(`/studies/${ studyID }`)
+  updateAnnotation(
+    studyID: string,
+    chapterReference: string,
+    annotationID: string,
+    annotation: Annotation
+  ) {
+    return this.afs
+      .collection('studies')
+      .doc(studyID)
       .collection('annotations')
       .doc(chapterReference)
       .collection('chapter-annotations')
-      .doc(annotationID).update(annotation);
+      .doc(annotationID)
+      .update(annotation);
   }
   /**
    * Updates a user's role in a particular study
@@ -234,10 +304,12 @@ export class StudyDataService {
    * @param {string} role Role to promote to
    */
   promoteUser(uid: string, studyID: string, role: string) {
-    return this.afs.doc(`/studies/${ studyID }`)
+    return this.afs
+      .collection('studies')
+      .doc(studyID)
       .collection('members')
       .doc(uid)
-      .update({ 'role': role });
+      .update({ role: role });
   }
 
   /**
@@ -248,15 +320,21 @@ export class StudyDataService {
    */
   getPosts(studyID: string, startAfter: string = '', limit: number = 4) {
     if (startAfter !== '') {
-      return this.afs.doc(`/studies/${ studyID }`).collection('posts',
-        ref => ref.orderBy('timestamp', 'desc')
-          .startAfter(startAfter)
-          .limit(limit))
+      return this.afs
+        .collection('studies')
+        .doc(studyID)
+        .collection('posts', ref =>
+          ref
+            .orderBy('timestamp', 'desc')
+            .startAfter(startAfter)
+            .limit(limit)
+        )
         .valueChanges();
     }
-    return this.afs.doc(`/studies/${ studyID }`).collection('posts',
-      ref => ref.orderBy('timestamp', 'desc')
-        .limit(limit))
+    return this.afs
+      .collection('studies')
+      .doc(studyID)
+      .collection('posts', ref => ref.orderBy('timestamp', 'desc').limit(limit))
       .valueChanges();
   }
   /**
@@ -264,8 +342,16 @@ export class StudyDataService {
    * @param {string} studyID Study ID
    */
   getKeyAnnouncements(studyID: string) {
-    return this.afs.doc(`/studies/${ studyID }`)
-      .collection('posts', ref => ref.where('type', '==', 'announcement').orderBy('timestamp', 'desc').limit(3)).valueChanges();
+    return this.afs
+      .collection('studies')
+      .doc(studyID)
+      .collection('posts', ref =>
+        ref
+          .where('type', '==', 'announcement')
+          .orderBy('timestamp', 'desc')
+          .limit(3)
+      )
+      .valueChanges();
   }
   /**
    * Gets all posts based on a certain type
@@ -276,17 +362,27 @@ export class StudyDataService {
    */
   getPostByType(studyID: string, type: string, startAfter = '', limit = 10) {
     if (startAfter !== '') {
-      return this.afs.doc(`/studies/${ studyID }`)
-        .collection('posts', ref => ref.where('type', '==', type)
-          .orderBy('timestamp', 'desc')
-          .startAfter(startAfter)
-          .limit(limit))
+      return this.afs
+        .collection('studies')
+        .doc(studyID)
+        .collection('posts', ref =>
+          ref
+            .where('type', '==', type)
+            .orderBy('timestamp', 'desc')
+            .startAfter(startAfter)
+            .limit(limit)
+        )
         .valueChanges();
     }
-    return this.afs.doc(`/studies/${ studyID }`)
-      .collection('posts', ref => ref.where('type', '==', type)
-        .orderBy('timestamp', 'desc')
-        .limit(limit))
+    return this.afs
+      .collection('studies')
+      .doc(studyID)
+      .collection('posts', ref =>
+        ref
+          .where('type', '==', type)
+          .orderBy('timestamp', 'desc')
+          .limit(limit)
+      )
       .valueChanges();
   }
   /**
@@ -295,7 +391,12 @@ export class StudyDataService {
    * @param {string} postID Post ID
    */
   getPostByID(studyID: string, postID: string) {
-    return this.afs.doc(`/studies/${ studyID }`).collection('posts').doc(postID).valueChanges();
+    return this.afs
+      .collection('studies')
+      .doc(studyID)
+      .collection('posts')
+      .doc(postID)
+      .valueChanges();
   }
   /**
    * Gets annotation data based on an ID
@@ -303,12 +404,19 @@ export class StudyDataService {
    * @param {string} chapterReference Chapter reference
    * @param {string} annotationID Annotation ID
    */
-  getAnnotationByID(studyID: string, chapterReference: string, annotationID: string) {
-    return this.afs.doc(`/studies/${ studyID }`)
+  getAnnotationByID(
+    studyID: string,
+    chapterReference: string,
+    annotationID: string
+  ) {
+    return this.afs
+      .collection('studies')
+      .doc(studyID)
       .collection('annotations')
       .doc(chapterReference)
       .collection('chapter-annotations')
-      .doc(annotationID).valueChanges();
+      .doc(annotationID)
+      .valueChanges();
   }
   /**
    * Gets all annotations for a chapter
@@ -316,8 +424,14 @@ export class StudyDataService {
    * @param {string} chapterReference Chapter Reference
    * @param {string} order Sort type
    */
-  getAnnotationsByChapterReference(studyID: string, chapterReference: string, order: string = 'timestamp') {
-    return this.afs.doc(`/studies/${ studyID }`)
+  getAnnotationsByChapterReference(
+    studyID: string,
+    chapterReference: string,
+    order: string = 'timestamp'
+  ) {
+    return this.afs
+      .collection('studies')
+      .doc(studyID)
       .collection('annotations')
       .doc(chapterReference)
       .collection('chapter-annotations', ref => {
@@ -325,7 +439,8 @@ export class StudyDataService {
           return ref.orderBy(order, 'desc');
         }
         return ref.orderBy(order, 'asc');
-      }).valueChanges();
+      })
+      .valueChanges();
   }
   /**
    * Adds a search attribute to an annotation for proper annotation sorting
@@ -334,12 +449,20 @@ export class StudyDataService {
    * @param {string} annotationID Annotation ID
    * @param {number} searchValue Search Value
    */
-  addSearchAttrToAnnotation(studyID: string, chapterReference: string, annotationID: string, searchValue: number) {
-    this.afs.doc(`/studies/${ studyID }`)
+  addSearchAttrToAnnotation(
+    studyID: string,
+    chapterReference: string,
+    annotationID: string,
+    searchValue: number
+  ) {
+    this.afs
+      .collection('studies')
+      .doc(studyID)
       .collection('annotations')
       .doc(chapterReference)
       .collection('chapter-annotations')
-      .doc(annotationID).update({ verse_search: searchValue });
+      .doc(annotationID)
+      .update({ verse_search: searchValue });
   }
   /**
    * Gets all replies of a certain post
@@ -347,7 +470,13 @@ export class StudyDataService {
    * @param {string} postID Post ID
    */
   getPostRepliesByID(studyID: string, postID: string) {
-    return this.afs.doc(`/studies/${ studyID }`).collection('posts').doc(postID).collection('replies').valueChanges();
+    return this.afs
+      .collection('studies')
+      .doc(studyID)
+      .collection('posts')
+      .doc(postID)
+      .collection('replies')
+      .valueChanges();
   }
   /**
    * Gets all replies of a certain annotation
@@ -355,21 +484,31 @@ export class StudyDataService {
    * @param {string} chapterReference Chapter Reference
    * @param {string} annotationID Annotation ID
    */
-  getAnnotationRepliesByID(studyID: string, chapterReference: string, annotationID: string) {
-    return this.afs.doc(`/studies/${ studyID }`)
+  getAnnotationRepliesByID(
+    studyID: string,
+    chapterReference: string,
+    annotationID: string
+  ) {
+    return this.afs
+      .collection('studies')
+      .doc(studyID)
       .collection('annotations')
       .doc(chapterReference)
       .collection('chapter-annotations')
       .doc(annotationID)
-      .collection('replies').valueChanges();
+      .collection('replies')
+      .valueChanges();
   }
   /**
    * Gets all members of a study
    * @param {string} studyID Study ID
    */
   getMembers(studyID: string) {
-    return this.afs.doc(`/studies/${ studyID }`)
-      .collection('members').valueChanges();
+    return this.afs
+      .collection('studies')
+      .doc(studyID)
+      .collection('members')
+      .valueChanges();
   }
   /**
    * Deletes a post
@@ -377,8 +516,12 @@ export class StudyDataService {
    * @param {string} postID Post ID
    */
   deletePost(studyID: string, postID: string) {
-    return this.afs.doc(`/studies/${ studyID }`)
-      .collection('posts').doc(postID).delete();
+    return this.afs
+      .collection('studies')
+      .doc(studyID)
+      .collection('posts')
+      .doc(postID)
+      .delete();
   }
   /**
    * Deletes an annotation
@@ -386,8 +529,14 @@ export class StudyDataService {
    * @param {string} chapterReference Chapter Reference
    * @param {string} annotationID Annotation ID
    */
-  deleteAnnotation(studyID: string, chapterReference: string, annotationID: string) {
-    return this.afs.doc(`/studies/${ studyID }`)
+  deleteAnnotation(
+    studyID: string,
+    chapterReference: string,
+    annotationID: string
+  ) {
+    return this.afs
+      .collection('studies')
+      .doc(studyID)
       .collection('annotations')
       .doc(chapterReference)
       .collection('chapter-annotations')
@@ -400,7 +549,12 @@ export class StudyDataService {
    * @param {string} uid User ID
    */
   getMemberData(studyID: string, uid: string) {
-    return this.afs.doc(`/studies/${ studyID }`).collection('members').doc(uid).valueChanges();
+    return this.afs
+      .collection('studies')
+      .doc(studyID)
+      .collection('members')
+      .doc(uid)
+      .valueChanges();
   }
 
   /**
@@ -425,7 +579,7 @@ export class StudyDataService {
     }
     let matches = verses.match(/(,){0,1}(\d){1,2}(-)(\d){1,2}(,){0,1}/g);
     matches = matches === null ? [] : matches;
-    matches.forEach((match) => {
+    matches.forEach(match => {
       if (match.endsWith(',')) {
         match = match.slice(0, -1);
       }
@@ -433,15 +587,15 @@ export class StudyDataService {
         match = match.slice(1);
       }
       const matchContainer = match.split('-');
-      let lo_early = Number(matchContainer[ 0 ]);
-      const hi_early = Number(matchContainer[ 1 ]);
+      let lo_early = Number(matchContainer[0]);
+      const hi_early = Number(matchContainer[1]);
       let strbase = '';
       let firstTime = false;
       while (lo_early <= hi_early) {
         if (firstTime) {
           strbase += ',';
         }
-        strbase += `${ lo_early }`;
+        strbase += `${lo_early}`;
         firstTime = true;
         lo_early += 1;
       }
@@ -451,47 +605,50 @@ export class StudyDataService {
     let digits: number[] = [];
     // tslint:disable-next-line:forin
     for (const index in temp) {
-      digits.push(Number(temp[ index ])); // Iterate through the list and turn each element into an integer
+      digits.push(Number(temp[index])); // Iterate through the list and turn each element into an integer
     }
     digits = digits.sort((a: number, b: number) => a - b);
     digits = Array.from(new Set(digits)); // Ensures all verse numbers are in ascending order
     if (returnVersesList) {
       return digits;
     }
-    let lo = digits[ 0 ];
+    let lo = digits[0];
     let hi = -1;
     const ranges = []; // Container for formatted verse segments
     // tslint:disable-next-line:forin
     for (const index in digits) {
       const i = Number(index);
-      if (digits[ i + 1 ] - digits[ i ] === 1) { // If elements are adjacent on the number line...
-        hi = digits[ i + 1 ]; // Increase the variable representing the end of a continuous range (like 1-4)
-      } else if (digits[ i + 1 ] - digits[ i ] !== 1) { // If two elements of the array are not adjacent...
+      if (digits[i + 1] - digits[i] === 1) {
+        // If elements are adjacent on the number line...
+        hi = digits[i + 1]; // Increase the variable representing the end of a continuous range (like 1-4)
+      } else if (digits[i + 1] - digits[i] !== 1) {
+        // If two elements of the array are not adjacent...
         // The two blocks below check to see if the failiure was the end of a range or a discrete jump
         if (hi === -1) {
           const strlo = String(lo);
           ranges.push(strlo);
-          lo = digits[ i + 1 ];
+          lo = digits[i + 1];
           hi = -1;
         } else if (hi !== -1) {
           const strlo = String(lo);
           const strhi = String(hi);
           const range = strlo.concat('-', strhi);
           ranges.push(range);
-          lo = digits[ i + 1 ];
+          lo = digits[i + 1];
           hi = -1;
         }
-      } else if (i === (digits.length - 1)) { // If you're at the end of the array perform a failure check
+      } else if (i === digits.length - 1) {
+        // If you're at the end of the array perform a failure check
 
         if (hi === -1) {
           ranges.push(String(lo));
-          lo = digits[ i + 1 ];
+          lo = digits[i + 1];
           hi = -1;
           break; // Don't bother checking the last element because array[index + 1] is out of range
         } else if (hi !== -1) {
           const range = String(lo).concat('-', String(hi));
           ranges.push(range);
-          lo = digits[ i + 1 ];
+          lo = digits[i + 1];
           hi = -1;
           break; // Don't bother checking the last element because array[index + 1] is out of range
         }

@@ -1,6 +1,11 @@
 import { Injectable, OnInit } from '@angular/core';
 import { AuthService } from '../auth/auth.service';
-import { AngularFirestore, AngularFirestoreDocument, DocumentSnapshot, Action } from 'angularfire2/firestore';
+import {
+  AngularFirestore,
+  AngularFirestoreDocument,
+  DocumentSnapshot,
+  Action
+} from 'angularfire2/firestore';
 import { Observable, BehaviorSubject, Subscription, of } from 'rxjs';
 import { UserDataInterface } from '../../interfaces/user-data.interface';
 import { User } from '../../interfaces/user';
@@ -39,7 +44,7 @@ export class UserDataService {
   constructor(private _auth: AuthService, public afs: AngularFirestore) {
     let dataRef: Observable<Action<DocumentSnapshot<any>>> = null;
     let dataSubscription: Subscription = null;
-    this._auth.authState.subscribe((res) => {
+    this._auth.authState.subscribe(res => {
       if (res === null || res === undefined) {
         if (dataSubscription !== null) {
           dataSubscription.unsubscribe();
@@ -49,51 +54,83 @@ export class UserDataService {
           dataRef = null;
         }
         this.userReference = null;
-        this.userData.next(new User('', '', '', { profileImage: '', bio: '', shortDescription: '' }));
+        this.userData.next(
+          new User('', '', '', {
+            profileImage: '',
+            bio: '',
+            shortDescription: ''
+          })
+        );
         this.userID.next('');
       } else {
         let receivedLocalData = false;
         if (res.emailVerified) {
-          this.userReference = this.afs.doc(`/users/${ res.uid }`);
+          this.userReference = this.afs.doc(`/users/${res.uid}`);
           this.userID.next(res.uid);
           dataRef = this.userReference.snapshotChanges();
-          dataSubscription = dataRef.pipe(
-            map(response => Object.assign({ 'uid': res.uid, 'exists': response.payload.exists, 'data': response.payload.data() })),
-            tap(user => localStorage.setItem('user', JSON.stringify(user))),
-            startWith(JSON.parse(localStorage.getItem('user')))
-          ).subscribe((response) => {
-            if (!receivedLocalData) {
-              // get existing local storage
-              console.log('Received Local Data: ', response);
-              this.localUserData = response;
-              receivedLocalData = true;
-              if (this.localUserData !== null && this.localUserData.data === undefined) {
-                this.localUserData.firstName = '';
-              }
-            }
-            if (response !== null) {
-              if (response.exists === false && response.uid === res.uid) {
-                if (this.localUserData.firstName === '') {
-                  const data = new User('', '', res.email, { profileImage: res.photoURL, bio: '', shortDescription: '' });
-                  this.userReference.set(Utils.toJson(data));
-                  console.log('added to firebase collection');
-                }
-              } else {
-                if (response.data === undefined) {
-                  this.logout();
-                } else {
-                  const data = response.data as User;
-                  if (data.email !== res.email) {
-                    data.email = res.email;
-                    this.userReference.update(data);
+          dataSubscription = dataRef
+            .pipe(
+              map(response =>
+                Object.assign({
+                  uid: res.uid,
+                  exists: response.payload.exists,
+                  data: response.payload.data()
+                })
+              ),
+              tap(user => localStorage.setItem('user', JSON.stringify(user))),
+              startWith(JSON.parse(localStorage.getItem('user')))
+            )
+            .subscribe(
+              response => {
+                if (!receivedLocalData) {
+                  // get existing local storage
+                  console.log('Received Local Data: ', response);
+                  this.localUserData = response;
+                  receivedLocalData = true;
+                  if (
+                    this.localUserData !== null &&
+                    this.localUserData.data === undefined
+                  ) {
+                    this.localUserData.firstName = '';
                   }
-                  this.userData.next(data);
                 }
+                if (response !== null) {
+                  if (response.exists === false && response.uid === res.uid) {
+                    if (this.localUserData.firstName === '') {
+                      const data = new User('', '', res.email, {
+                        profileImage: res.photoURL,
+                        bio: '',
+                        shortDescription: ''
+                      });
+                      this.userReference.set(Utils.toJson(data));
+                      console.log('added to firebase collection');
+                    }
+                  } else {
+                    if (response.data === undefined) {
+                      this.logout();
+                    } else {
+                      const data = response.data as User;
+                      if (data.email !== res.email) {
+                        data.email = res.email;
+                        this.userReference.update(data);
+                      }
+                      this.userData.next(data);
+                    }
+                  }
+                }
+              },
+              error => {
+                console.log('There was an error: ' + error);
               }
-            }
-          }, (error) => { console.log('There was an error: ' + error); });
+            );
         } else {
-          this.userData.next(new User('', '', '', { profileImage: '', bio: '', shortDescription: '' }));
+          this.userData.next(
+            new User('', '', '', {
+              profileImage: '',
+              bio: '',
+              shortDescription: ''
+            })
+          );
           this.userID.next('');
         }
       }
@@ -115,7 +152,10 @@ export class UserDataService {
    * @param {'member' | 'admin' | 'leader'} role Role of user
    */
   public addStudy(studyID: string, role: 'member' | 'admin' | 'leader') {
-    return this.userReference.collection('studies').doc(studyID).set({ 'id': studyID, 'role': role });
+    return this.userReference
+      .collection('studies')
+      .doc(studyID)
+      .set({ id: studyID, role: role });
   }
   /**
    * Gets user's notifications from database collection
@@ -125,17 +165,21 @@ export class UserDataService {
     if (uid === '') {
       return of([]);
     }
-    return this.afs.doc(`users/${ uid }`).collection('notifications').snapshotChanges().pipe(
-      map((val) => {
-        const converted = [];
-        val.forEach((res, index) => {
-          const data = res.payload.doc.data();
-          data[ 'id' ] = res.payload.doc.id;
-          converted.push(data);
-        });
-        return converted;
-      })
-    );
+    return this.afs
+      .doc(`users/${uid}`)
+      .collection('notifications')
+      .snapshotChanges()
+      .pipe(
+        map(val => {
+          const converted = [];
+          val.forEach((res, index) => {
+            const data = res.payload.doc.data();
+            data['id'] = res.payload.doc.id;
+            converted.push(data);
+          });
+          return converted;
+        })
+      );
   }
   /**
    * Clears all notifications given by the notificationIDs
@@ -147,9 +191,11 @@ export class UserDataService {
     if (uid === '') {
       return;
     }
-    const notificationsRef = this.afs.doc(`users/${ uid }`).collection('notifications');
+    const notificationsRef = this.afs
+      .doc(`users/${uid}`)
+      .collection('notifications');
     const promises = [];
-    notificationIDs.forEach((id) => {
+    notificationIDs.forEach(id => {
       promises.push(notificationsRef.doc(id).delete());
     });
     return Promise.all(promises);
@@ -163,14 +209,18 @@ export class UserDataService {
     if (uid === '') {
       return;
     }
-    return this.afs.doc(`users/${ uid }`).collection('notifications').doc(notificationID).update({ read: true });
+    return this.afs
+      .doc(`users/${uid}`)
+      .collection('notifications')
+      .doc(notificationID)
+      .update({ read: true });
   }
   /**
    * Gets study data based on group ID
    * @param groupID Group ID
    */
   public getStudyData(groupID: string) {
-    return this.afs.doc(`/studies/${ groupID }`).valueChanges();
+    return this.afs.doc(`/studies/${groupID}`).valueChanges();
   }
 
   /**
@@ -192,6 +242,9 @@ export class UserDataService {
    * @param uid User ID
    */
   getDataFromID(uid) {
-    return this.afs.collection('users').doc(uid).valueChanges();
+    return this.afs
+      .collection('users')
+      .doc(uid)
+      .valueChanges();
   }
 }

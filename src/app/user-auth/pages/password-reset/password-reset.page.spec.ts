@@ -1,6 +1,13 @@
+import { CoreModule } from './../../../core/core.module';
+import { SharedModule } from './../../../shared/shared.module';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { PasswordResetComponent } from './password-reset.page';
+import { AngularFireModule } from 'angularfire2';
+import { environment } from '../../../../environments/environment';
+import { AngularFireAuthModule } from 'angularfire2/auth';
+import { ToastrModule } from 'ngx-toastr';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('PasswordResetComponent', () => {
   let component: PasswordResetComponent;
@@ -8,9 +15,18 @@ describe('PasswordResetComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PasswordResetComponent ]
-    })
-      .compileComponents();
+      imports: [
+        SharedModule,
+        RouterTestingModule,
+        CoreModule,
+        AngularFireModule.initializeApp(environment.firebase, 'biblink'),
+        AngularFireAuthModule,
+        ToastrModule.forRoot({
+          positionClass: 'toast-bottom-left'
+        })
+      ],
+      declarations: [PasswordResetComponent]
+    }).compileComponents();
   }));
 
   beforeEach(() => {

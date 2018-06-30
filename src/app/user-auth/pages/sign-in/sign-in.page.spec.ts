@@ -1,6 +1,12 @@
+import { CoreModule } from './../../../core/core.module';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SignInComponent } from './sign-in.page';
+import { RouterTestingModule } from '@angular/router/testing';
+import { environment } from '../../../../environments/environment';
+import { AngularFireModule } from 'angularfire2';
+import { AngularFireAuthModule } from 'angularfire2/auth';
+import { SharedModule } from '../../../shared/shared.module';
 
 describe('SignInComponent', () => {
   let component: SignInComponent;
@@ -8,9 +14,15 @@ describe('SignInComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SignInComponent ]
-    })
-      .compileComponents();
+      imports: [
+        CoreModule,
+        SharedModule,
+        RouterTestingModule,
+        AngularFireModule.initializeApp(environment.firebase, 'biblink'),
+        AngularFireAuthModule
+      ],
+      declarations: [SignInComponent]
+    }).compileComponents();
   }));
 
   beforeEach(() => {
