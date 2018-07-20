@@ -294,6 +294,68 @@ hr {
     align-items: center;
 }
 
+.header {
+    height: 49px;
+    color: #343232;
+    font-family: 'museo-sans';
+    font-size: 2.5rem;
+    font-weight: 900;
+    letter-spacing: 3px;
+    line-height: 49px;
+    margin-left: 100px;
+    margin-bottom: 30px;
+}
+
+.settings-tabs {
+    width: 80%;
+    margin: 0 auto;
+}
+
+.settings-title {
+    color: #343232;
+    font-family: 'museo-sans';
+    font-size: 2.0rem;
+    font-weight: 900;
+    margin-top: 25px;
+    margin-bottom: 40px;
+    letter-spacing: 3.61px;
+    line-height: 36px;
+    text-align: center;
+}
+
+.promote-btn {
+    width: 240px !important;
+    height: 50px !important;
+    display: inline-block;
+    float: right;
+}
+
+.red-link {
+    font-size: 1.0rem;
+    color: #F23B2C;
+    background: transparent;
+    border: none;
+    font-family: 'museo-sans';
+    float: right;
+    display: inline-block;
+    margin: 0 auto;
+    transition: all 0.3s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+.red-link:hover {
+    text-decoration: underline;
+}
+.roles {
+    width: 60%;
+    margin: 0 auto;
+}
+
+li.is-active-tab a {
+    color: #255250;
+    border-bottom: #255250 5px solid;
+    margin-bottom: -5px;
+    font-weight: 900;
+}
+
 .time {
     margin-left: 16px;
 }
@@ -820,4 +882,29 @@ input:checked+.slider:before {
 
 .nowrap {
     white-space: nowrap;
+}
+
+.roles .member {
+    display: flex;
+    align-items: center;
+}
+
+.roles .member:not(:first-child) {
+    margin-top: 15px;
+}
+
+.roles .member-name {
+    color: #000000;
+    font-family: 'museo-sans', sans-serif;
+    font-size: 1.2rem;
+    font-weight: 600;
+    letter-spacing: 2px;
+    line-height: 19px;
+    text-align: center;
+    margin-left: 20px;
+}
+
+.roles .profile-image {
+    height: 60px;
+    width: 60px;
 }

@@ -45,8 +45,8 @@
           <li (click)="navigateTo('/dashboard/home')">
             <a>My Dashboard</a>
           </li>
-          <li>
-            <a>Settings</a>
+          <li [class.active]="currentTab === 'settings'" (click)="switchTab('settings')">
+            <a (click)="switchTab('settings')">Settings</a>
           </li>
           <li (click)="logout()">
             <a>Logout</a>
@@ -55,7 +55,7 @@
       </div>
     </div>
     <div class="main-info column is-three-fifths is-centered">
-      <div class="posts" *ngIf="currentTab !== 'shared-bible' && currentTab !== 'shared-calendar'">
+      <div class="posts" *ngIf="currentTab !== 'shared-bible' && currentTab !== 'shared-calendar' && currentTab !== 'settings' ">
         <app-post-card *ngFor="let post of posts | async; let i = index;" [studyID]="groupID" [isLeader]="isLeader" [isLast]="(i + 1) === postLength"
           [id]="post['id']" [userID]="userID" [isCreator]="userID === post['creatorID']" [contributors]="post['contributors']"
           (delete)="deletePost($event, post['id'], post['creatorID'], isLeader)" (edit)="editPost($event, post['id'], post['creatorID'], isLeader)"
@@ -153,6 +153,41 @@
           <a class="more-link bible-navigation bible-navigation-left" (click)="previousChapter()" [class.disabled]="activeChapter === 1">
             < Previous Chapter</a>
               <a class="more-link bible-navigation bible-navigation-right" (click)="nextChapter()" [class.disabled]="activeChapter === numChapters">Next Chapter ></a>
+        </div>
+      </div>
+      <div class="settings" *ngIf="currentTab === 'settings'">
+        <h1 class="header">Study Settings</h1>
+        <div class="settings-tabs tabs is-centered">
+          <ul>
+            <li [class.is-active-tab]="settingsTab === 'info'">
+              <a id="studies" (click)="switchSettingsTab('info')">Info</a>
+            </li>
+            <li [class.is-active-tab]="settingsTab === 'roles'">
+              <a (click)="switchSettingsTab('roles')">Roles</a>
+            </li>
+          </ul>
+        </div>
+        <div class="settings-content">
+          <div *ngIf="settingsTab === 'info'">
+            <h1 class="settings-title">Study Info</h1>
+          </div>
+          <div *ngIf="settingsTab === 'roles'">
+            <h1 class="settings-title">Member Roles</h1>
+            <div class="roles">
+              <ng-container *ngFor="let member of members">
+                <div class="member">
+                  <i *ngIf="(member['image'] === null || member['image'] === '')" style="font-size: 42px; margin-left: 5px; margin-right: 6px;"
+                    class="user fa fa-user"></i>
+                  <img *ngIf="member['image'] !== null && member['image'] !== ''" class="profile-image" [src]="member['image']">
+                  <div class="member-name">
+                    <span>{{member['name']}}</span>
+                  </div>
+                  <button class="btn create-btn promote-btn" (click)="verifyPromote(member['name'], member['uid'])" *ngIf="member['role'] !== 'leader' && isLeader">Promote to Leader</button>
+                  <a class="red-link" *ngIf="userID === member['uid'] && isLeader" (click)="verifyDemote(member['name'], member['uid'])">Step Down as Leader</a>
+                </div>
+              </ng-container>
+            </div>
+          </div>
         </div>
       </div>
       <app-loading-spinner *ngIf="isLoading | async"></app-loading-spinner>
