@@ -256,6 +256,12 @@ export class StudyComponent implements OnInit, OnDestroy {
    */
   activatePromotionModal = false;
   /**
+   * Value to see if demote modal is activated
+   */
+  activateDemoteModal = false;
+  /**
+
+  /**'
    * Current promote user
    */
   currentPromote: Object = { name: '', uid: '' };
@@ -1210,5 +1216,21 @@ export class StudyComponent implements OnInit, OnDestroy {
    */
   switchSettingsTab(value: 'info' | 'roles') {
     this.settingsTab = value;
+  }
+
+  /**
+   * Demotes the current signed in user to member status
+   */
+  demoteSelf() {
+    if (this.isLeader) {
+        this._study
+          .promoteUser(this.userID, this.groupID, 'member')
+          .then(() => {
+            this.toastr.show(
+              `Successfully Demoted Yourself to Member`,
+              'Member Demotion'
+            );
+          });
+      }
   }
 }

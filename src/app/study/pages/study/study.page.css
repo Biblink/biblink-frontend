@@ -341,9 +341,11 @@ hr {
     margin: 0 auto;
     transition: all 0.3s cubic-bezier(0.075, 0.82, 0.165, 1);
 }
+
 .red-link:hover {
     text-decoration: underline;
 }
+
 .roles {
     width: 60%;
     margin: 0 auto;

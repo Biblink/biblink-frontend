@@ -45,7 +45,7 @@
           <li (click)="navigateTo('/dashboard/home')">
             <a>My Dashboard</a>
           </li>
-          <li [class.active]="currentTab === 'settings'" (click)="switchTab('settings')">
+          <li *ngIf="isLeader" [class.active]="currentTab === 'settings'" (click)="switchTab('settings')">
             <a (click)="switchTab('settings')">Settings</a>
           </li>
           <li (click)="logout()">
@@ -176,14 +176,14 @@
             <div class="roles">
               <ng-container *ngFor="let member of members">
                 <div class="member">
-                  <i *ngIf="(member['image'] === null || member['image'] === '')" style="font-size: 42px; margin-left: 5px; margin-right: 6px;"
+                  <i *ngIf="(member['image'] === null || member['image'] === '')" style="font-size: 42px; margin-left: 13px; margin-right: 6px;"
                     class="user fa fa-user"></i>
                   <img *ngIf="member['image'] !== null && member['image'] !== ''" class="profile-image" [src]="member['image']">
                   <div class="member-name">
                     <span>{{member['name']}}</span>
                   </div>
                   <button class="btn create-btn promote-btn" (click)="verifyPromote(member['name'], member['uid'])" *ngIf="member['role'] !== 'leader' && isLeader">Promote to Leader</button>
-                  <a class="red-link" *ngIf="userID === member['uid'] && isLeader" (click)="verifyDemote(member['name'], member['uid'])">Step Down as Leader</a>
+                  <a class="red-link" *ngIf="userID === member['uid'] && isLeader" (click)="activateDemoteModal = true">Step Down as Leader</a>
                 </div>
               </ng-container>
             </div>
@@ -381,6 +381,24 @@
       <div>
         <button class="btn study-btn modal-btn" (click)="promoteToLeader(); activatePromotionModal = false;">Promote</button>
         <a (click)="activatePromotionModal = false" class="btn-link">Cancel</a>
+      </div>
+    </footer>
+  </div>
+</div>
+<div class="modal" [class.is-active]="activateDemoteModal">
+  <div class="modal-background"></div>
+  <div class="modal-card">
+    <header class="modal-card-head">
+      <p class="modal-card-title">Verify Demotion</p>
+      <button class="delete" aria-label="close" (click)="activateDemoteModal = false"></button>
+    </header>
+    <section class="modal-card-body">
+      <p>Are you sure you want to demote yourself? You will lose all your leader privileges</p>
+    </section>
+    <footer class="modal-card-foot">
+      <div>
+        <button class="btn study-btn modal-btn" (click)="demoteSelf(); activateDemoteModal = false;">Demote</button>
+        <a (click)="activateDemoteModal = false" class="btn-link">Cancel</a>
       </div>
     </footer>
   </div>
