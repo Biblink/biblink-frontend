@@ -141,7 +141,7 @@
                 {{verse['text']}}
               </span>
               <ng-container *ngIf="darkenedVerses[i]">
-                <img class="num-annotations" *ngFor="let image of countVerses[i]['images']" [src]="image">
+                <img class="num-annotations-animation" *ngFor="let image of countVerses[i]['images']" [src]="image">
               </ng-container>
 
               <div class="num-annotations">{{countVerses[i]['count']}}</div>
