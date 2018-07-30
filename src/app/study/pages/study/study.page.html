@@ -168,8 +168,148 @@
           </ul>
         </div>
         <div class="settings-content">
-          <div *ngIf="settingsTab === 'info'">
+          <div *ngIf="settingsTab === 'info'" class="study-info">
             <h1 class="settings-title">Study Info</h1>
+            <div>
+              <div data-aos="zoom-in" *ngIf="!(imageUrl === undefined || imageUrl === null || imageUrl === '')" class="profile-image personal-info-image has-text-centered"
+                (click)="editingImage = 'studyImage'">
+                <img src="{{imageUrl}}" alt="Image">
+                <div class="middle">
+                  <svg width="28px" height="44px" viewBox="0 0 28 44" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <!-- Generator: Sketch 49 (51002) - http://www.bohemiancoding.com/sketch -->
+                    <title>Group 10</title>
+                    <desc>Created with Sketch.</desc>
+                    <defs></defs>
+                    <g id="Light-Dashboard-Designs" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                      <g id="Light-Dashboard-Profile" transform="translate(-707.000000, -803.000000)" fill="#FFFFFF">
+                        <g id="Info-Card" transform="translate(503.000000, 733.000000)">
+                          <g id="Group-9" transform="translate(171.000000, 48.000000)">
+                            <g id="Profile-Image-Status-Copy">
+                              <g id="Group-10" transform="translate(29.000000, 20.000000)">
+                                <path d="M20.2661287,0.502019801 L20.2661287,0.502019801 C23.3210672,0.502019801 25.7975842,2.97853675 25.7975842,6.03347523 L25.7975842,35.2711682 L14.7346733,35.2711682 L14.7346733,6.03347523 C14.7346733,2.97853675 17.2111903,0.502019801 20.2661287,0.502019801 Z"
+                                  id="Rectangle-3" transform="translate(20.266129, 17.886594) rotate(29.000000) translate(-20.266129, -17.886594) "></path>
+                                <path d="M8.67086421,36.6073423 L13.276437,45.8184879 L2.27643702,45.8184879 L6.88200983,36.6073423 C7.12899908,36.1133638 7.72967212,35.9131395 8.22365062,36.1601287 C8.41717802,36.2568924 8.57410051,36.4138149 8.67086421,36.6073423 Z"
+                                  id="Triangle" transform="translate(7.776437, 40.936412) rotate(209.000000) translate(-7.776437, -40.936412) "></path>
+                              </g>
+                            </g>
+                          </g>
+                        </g>
+                      </g>
+                    </g>
+                  </svg>
+                </div>
+              </div>
+              <div *ngIf="imageUrl === undefined || imageUrl === null || imageUrl === ''" class="has-text-centered profile-icon personal-info-image"
+                (click)="editingImage = 'studyImage'">
+                <i class="user fa fa-user"></i>
+                <div class="middle" (click)="editingImage = 'studyImage'">
+                  <svg width="28px" height="44px" viewBox="0 0 28 44" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <!-- Generator: Sketch 49 (51002) - http://www.bohemiancoding.com/sketch -->
+                    <title>Group 10</title>
+                    <desc>Created with Sketch.</desc>
+                    <defs></defs>
+                    <g id="Light-Dashboard-Designs" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                      <g id="Light-Dashboard-Profile" transform="translate(-707.000000, -803.000000)" fill="#FFFFFF">
+                        <g id="Info-Card" transform="translate(503.000000, 733.000000)">
+                          <g id="Group-9" transform="translate(171.000000, 48.000000)">
+                            <g id="Profile-Image-Status-Copy">
+                              <g id="Group-10" transform="translate(29.000000, 20.000000)">
+                                <path d="M20.2661287,0.502019801 L20.2661287,0.502019801 C23.3210672,0.502019801 25.7975842,2.97853675 25.7975842,6.03347523 L25.7975842,35.2711682 L14.7346733,35.2711682 L14.7346733,6.03347523 C14.7346733,2.97853675 17.2111903,0.502019801 20.2661287,0.502019801 Z"
+                                  id="Rectangle-3" transform="translate(20.266129, 17.886594) rotate(29.000000) translate(-20.266129, -17.886594) "></path>
+                                <path d="M8.67086421,36.6073423 L13.276437,45.8184879 L2.27643702,45.8184879 L6.88200983,36.6073423 C7.12899908,36.1133638 7.72967212,35.9131395 8.22365062,36.1601287 C8.41717802,36.2568924 8.57410051,36.4138149 8.67086421,36.6073423 Z"
+                                  id="Triangle" transform="translate(7.776437, 40.936412) rotate(209.000000) translate(-7.776437, -40.936412) "></path>
+                              </g>
+                            </g>
+                          </g>
+                        </g>
+                      </g>
+                    </g>
+                  </svg>
+                </div>
+              </div>
+              <br>
+              <p class="has-text-centered" data-aos="fade-up" data-aos-duration="1200">
+                <a class="edit-image" (click)="editingImage = 'studyImage'">Edit Image</a>
+              </p>
+            </div>
+            <div class="banner-image">
+              <div data-aos="zoom-in" *ngIf="!(bannerImage === undefined || bannerImage === null || bannerImage === '')" class="profile-image personal-info-image has-text-centered"
+                (click)="editingImage = 'bannerImage'">
+                <img src="{{bannerImage}}" alt="Image">
+                <div class="middle" (click)="editingImage = 'bannerImage'">
+                  <svg width="28px" height="44px" viewBox="0 0 28 44" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <!-- Generator: Sketch 49 (51002) - http://www.bohemiancoding.com/sketch -->
+                    <title>Group 10</title>
+                    <desc>Created with Sketch.</desc>
+                    <defs></defs>
+                    <g id="Light-Dashboard-Designs" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                      <g id="Light-Dashboard-Profile" transform="translate(-707.000000, -803.000000)" fill="#FFFFFF">
+                        <g id="Info-Card" transform="translate(503.000000, 733.000000)">
+                          <g id="Group-9" transform="translate(171.000000, 48.000000)">
+                            <g id="Profile-Image-Status-Copy">
+                              <g id="Group-10" transform="translate(29.000000, 20.000000)">
+                                <path d="M20.2661287,0.502019801 L20.2661287,0.502019801 C23.3210672,0.502019801 25.7975842,2.97853675 25.7975842,6.03347523 L25.7975842,35.2711682 L14.7346733,35.2711682 L14.7346733,6.03347523 C14.7346733,2.97853675 17.2111903,0.502019801 20.2661287,0.502019801 Z"
+                                  id="Rectangle-3" transform="translate(20.266129, 17.886594) rotate(29.000000) translate(-20.266129, -17.886594) "></path>
+                                <path d="M8.67086421,36.6073423 L13.276437,45.8184879 L2.27643702,45.8184879 L6.88200983,36.6073423 C7.12899908,36.1133638 7.72967212,35.9131395 8.22365062,36.1601287 C8.41717802,36.2568924 8.57410051,36.4138149 8.67086421,36.6073423 Z"
+                                  id="Triangle" transform="translate(7.776437, 40.936412) rotate(209.000000) translate(-7.776437, -40.936412) "></path>
+                              </g>
+                            </g>
+                          </g>
+                        </g>
+                      </g>
+                    </g>
+                  </svg>
+                </div>
+              </div>
+              <div *ngIf="bannerImage === undefined || bannerImage === null || bannerImage === ''" class="has-text-centered profile-icon personal-info-image"
+                (click)="editingImage = 'bannerImage'">
+                <i class="user fa fa-user"></i>
+                <div class="middle">
+                  <svg width="28px" height="44px" viewBox="0 0 28 44" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <!-- Generator: Sketch 49 (51002) - http://www.bohemiancoding.com/sketch -->
+                    <title>Group 10</title>
+                    <desc>Created with Sketch.</desc>
+                    <defs></defs>
+                    <g id="Light-Dashboard-Designs" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                      <g id="Light-Dashboard-Profile" transform="translate(-707.000000, -803.000000)" fill="#FFFFFF">
+                        <g id="Info-Card" transform="translate(503.000000, 733.000000)">
+                          <g id="Group-9" transform="translate(171.000000, 48.000000)">
+                            <g id="Profile-Image-Status-Copy">
+                              <g id="Group-10" transform="translate(29.000000, 20.000000)">
+                                <path d="M20.2661287,0.502019801 L20.2661287,0.502019801 C23.3210672,0.502019801 25.7975842,2.97853675 25.7975842,6.03347523 L25.7975842,35.2711682 L14.7346733,35.2711682 L14.7346733,6.03347523 C14.7346733,2.97853675 17.2111903,0.502019801 20.2661287,0.502019801 Z"
+                                  id="Rectangle-3" transform="translate(20.266129, 17.886594) rotate(29.000000) translate(-20.266129, -17.886594) "></path>
+                                <path d="M8.67086421,36.6073423 L13.276437,45.8184879 L2.27643702,45.8184879 L6.88200983,36.6073423 C7.12899908,36.1133638 7.72967212,35.9131395 8.22365062,36.1601287 C8.41717802,36.2568924 8.57410051,36.4138149 8.67086421,36.6073423 Z"
+                                  id="Triangle" transform="translate(7.776437, 40.936412) rotate(209.000000) translate(-7.776437, -40.936412) "></path>
+                              </g>
+                            </g>
+                          </g>
+                        </g>
+                      </g>
+                    </g>
+                  </svg>
+                </div>
+              </div>
+              <br>
+              <p class="has-text-centered" data-aos="fade-up" data-aos-duration="1200">
+                <a class="edit-image" (click)="editingImage = 'bannerImage'">Edit Banner Image</a>
+              </p>
+            </div>
+
+            <form id="study-info-form" (ngSubmit)="updateStudyInfo()">
+              <div>
+                <div class="field">
+                  <label class="label" for="first-name">Study Name:</label>
+                  <input [(ngModel)]="studyName" class="input" required type="text" id="first-name" name="first-name">
+                </div>
+              </div>
+              <div class="field writing-container">
+                <label class="label" for="short-description">Study Description:</label>
+                <input [(ngModel)]="description" class="input" required type="text" id="short-description" name="short-description">
+              </div>
+              <div class="has-text-centered">
+                <button type="submit" class="btn update-btn">Update</button>
+              </div>
+            </form>
           </div>
           <div *ngIf="settingsTab === 'roles'">
             <h1 class="settings-title">Member Roles</h1>
@@ -399,6 +539,25 @@
       <div>
         <button class="btn study-btn modal-btn" (click)="demoteSelf(); activateDemoteModal = false;">Demote</button>
         <a (click)="activateDemoteModal = false" class="btn-link">Cancel</a>
+      </div>
+    </footer>
+  </div>
+</div>
+
+<div class="modal" [class.is-active]="editingImage !== ''">
+  <div class="modal-background"></div>
+  <div class="modal-card">
+    <header class="modal-card-head">
+      <p class="modal-card-title">Upload New Profile Image</p>
+      <button class="delete" aria-label="close" (click)="editingImage = '' && newImageUrl = ''"></button>
+    </header>
+    <section class="modal-card-body">
+      <app-file-upload (url)="getDownloadUrl($event, editingImage === 'studyImage')" [height]="'300px'"></app-file-upload>
+    </section>
+    <footer class="modal-card-foot">
+      <div>
+        <button class="btn study-btn modal-btn" (click)="updateImage(editingImage === 'studyImage'); editingImage = '';">Save Changes</button>
+        <a (click)="editingImage = '' && newImageUrl = ''" class="btn-link">Cancel</a>
       </div>
     </footer>
   </div>

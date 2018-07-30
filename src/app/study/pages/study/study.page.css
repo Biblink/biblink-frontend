@@ -929,3 +929,163 @@ input:checked+.slider:before {
     height: 60px;
     width: 60px;
 }
+
+.study-info .profile-image {
+    border: none;
+    box-shadow: none;
+    background-color: white;
+    height: 100px;
+    border: none;
+    margin-top: 100px;
+    border-radius: 100%;
+    width: 100px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    transition: all 1s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+.study-info .profile-image i {
+    height: 100px;
+    width: 100px;
+    border-radius: 100%;
+    background: white;
+}
+
+.study-info .profile-image img {
+    height: 100px;
+    width: 100px;
+    border-radius: 100%;
+    background: white;
+}
+
+.study-info .profile-image i {
+    font-size: 5.0rem;
+}
+
+.profile-icon.personal-info-image:hover,
+.profile-image.personal-info-image:hover {
+    background-color: #696666;
+    opacity: 0.9;
+    cursor: pointer;
+    transition: all 1s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+.profile-image.personal-info-image:hover img {
+    transition: all 1s cubic-bezier(0.075, 0.82, 0.165, 1);
+    filter: brightness(0.5);
+}
+
+.profile-icon.personal-info-image:hover .middle,
+.profile-image.personal-info-image:hover .middle {
+    opacity: 1;
+    transition: all 1s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+.middle {
+    position: absolute;
+    top: 50%;
+    opacity: 0;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+.edit-image {
+    margin-top: 7px;
+    color: #255250;
+    letter-spacing: 2px;
+    line-height: 14px;
+    text-align: center;
+}
+
+.edit-image:hover {
+    text-decoration: underline;
+}
+
+.banner-image {
+    margin-top: 25px;
+}
+
+#study-info-form {
+    padding-top: 50px;
+    width: 50%;
+    margin: 0 auto;
+}
+
+#study-info-form .input {
+    margin-top: 10px;
+}
+
+.help {
+    margin-top: 10px;
+}
+
+.help.invalid {
+    color: red;
+    width: 50%;
+}
+
+.study-info .input.ng-invalid.ng-touched,
+.study-info .input.error {
+    border-bottom: 1px solid red !important;
+}
+
+.study-info .input.ng-touched.ng-valid:not(.error) {
+    border-bottom: 1px solid lightgreen !important;
+}
+
+.study-info .input {
+    border: none;
+    border-bottom: 1px solid #979797;
+    box-shadow: none;
+    border-radius: 0;
+    font-family: 'museo-sans', sans-serif;
+    letter-spacing: 1px;
+}
+
+.study-info .input:focus {
+    border-bottom: 2px solid #979797;
+}
+
+.update-btn {
+    margin-top: 39px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    border: #f23b2c;
+    background-color: #f23b2c;
+    box-shadow: 0 8px 18px 0 rgba(90, 89, 89, 0.5);
+    color: #ffffff;
+    font-family: 'museo-sans', sans-serif;
+    font-weight: 900;
+    letter-spacing: 1px;
+    line-height: 19px;
+    text-align: center;
+    transition: all 1s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+.update-btn:hover {
+    cursor: pointer;
+    background-color: #d13527;
+    box-shadow: none;
+    transition: all 1s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+.update-btn[disabled] {
+    box-shadow: none;
+    background-color: #cb5032;
+    cursor: not-allowed !important;
+}
+
+.study-info .label,
+.study-info .input {
+    color: black
+}
+
+.study-info .label {
+    width: auto !important;
+    font-weight: 700 !important;
+}

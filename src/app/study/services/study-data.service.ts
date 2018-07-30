@@ -59,7 +59,7 @@ export class StudyDataService {
           });
         }
       } else {
-        groupsReference = this.afs.collection(`/users/${uid}/studies`);
+        groupsReference = this.afs.collection(`/users/${ uid }/studies`);
         groupSubscription = groupsReference.valueChanges().subscribe(groups => {
           this.study_sync = [];
           groups.forEach(studyData => {
@@ -68,20 +68,20 @@ export class StudyDataService {
             let metadata = {};
             studySubscriptions.push(
               this.afs
-                .doc(`/studies/${studyData['id']}`)
+                .doc(`/studies/${ studyData[ 'id' ] }`)
                 .valueChanges()
                 .subscribe(data => {
-                  data['metadata']['name'] = data['name'];
-                  data['metadata']['role'] = studyData['role'];
-                  data['metadata']['id'] = studyData['id'];
+                  data[ 'metadata' ][ 'name' ] = data[ 'name' ];
+                  data[ 'metadata' ][ 'role' ] = studyData[ 'role' ];
+                  data[ 'metadata' ][ 'id' ] = studyData[ 'id' ];
                   if (!isFirstTime) {
-                    this.study_sync.push(data['metadata']);
+                    this.study_sync.push(data[ 'metadata' ]);
                     isFirstTime = true;
-                    metadata = data['metadata'];
+                    metadata = data[ 'metadata' ];
                   } else {
-                    this.study_sync[this.study_sync.indexOf(metadata)] =
-                      data['metadata'];
-                    metadata = data['metadata'];
+                    this.study_sync[ this.study_sync.indexOf(metadata) ] =
+                      data[ 'metadata' ];
+                    metadata = data[ 'metadata' ];
                   }
                   this.studies.next(this.study_sync);
                 })
@@ -100,11 +100,11 @@ export class StudyDataService {
   createStudy(name: string, userID: string, data: GroupDataInterface) {
     const uniqueID = Math.floor(Math.random() * (9999 - 1000 + 1) + 1000);
     const firebaseData = { name: name, uniqueID: uniqueID, metadata: data };
-    firebaseData['search_name'] = firebaseData['name']
+    firebaseData[ 'search_name' ] = firebaseData[ 'name' ]
       .replace(/\s/g, '')
       .toLowerCase();
     const firebaseID = this.afs.createId();
-    const studyRef = this.afs.doc(`/studies/${firebaseID}`);
+    const studyRef = this.afs.doc(`/studies/${ firebaseID }`);
     return studyRef.set(firebaseData).then(() => {
       studyRef
         .collection('members')
@@ -170,7 +170,7 @@ export class StudyDataService {
   createPost(studyID: string, post: Post) {
     const firebaseID = this.afs.createId();
     const jsonPost = Utils.toJson(post);
-    jsonPost['id'] = firebaseID;
+    jsonPost[ 'id' ] = firebaseID;
     return this.afs
       .collection('studies')
       .doc(studyID)
@@ -192,7 +192,7 @@ export class StudyDataService {
   ) {
     const firebaseID = this.afs.createId();
     const jsonPost = Utils.toJson(annotation);
-    jsonPost['id'] = firebaseID;
+    jsonPost[ 'id' ] = firebaseID;
     return this.afs
       .collection('studies')
       .doc(studyID)
@@ -211,15 +211,15 @@ export class StudyDataService {
   addPostReply(postID: string, studyID: string, reply: Reply) {
     const firebaseID = this.afs.createId();
     const jsonReply = Utils.toJson(reply);
-    jsonReply['id'] = firebaseID;
+    jsonReply[ 'id' ] = firebaseID;
     const ref = this.afs
       .collection('studies')
       .doc(studyID)
       .collection('posts')
-      .doc(`${postID}`);
+      .doc(`${ postID }`);
     const updateContributor = ref.valueChanges().subscribe(val => {
-      if (val['contributors'].indexOf(reply.creatorID) === -1) {
-        val['contributors'].push(reply.creatorID);
+      if (val[ 'contributors' ].indexOf(reply.creatorID) === -1) {
+        val[ 'contributors' ].push(reply.creatorID);
       }
       ref.update(val).then(() => {
         updateContributor.unsubscribe();
@@ -249,7 +249,7 @@ export class StudyDataService {
   ) {
     const firebaseID = this.afs.createId();
     const jsonReply = Utils.toJson(reply);
-    jsonReply['id'] = firebaseID;
+    jsonReply[ 'id' ] = firebaseID;
     return this.afs
       .collection('studies')
       .doc(studyID)
@@ -587,15 +587,15 @@ export class StudyDataService {
         match = match.slice(1);
       }
       const matchContainer = match.split('-');
-      let lo_early = Number(matchContainer[0]);
-      const hi_early = Number(matchContainer[1]);
+      let lo_early = Number(matchContainer[ 0 ]);
+      const hi_early = Number(matchContainer[ 1 ]);
       let strbase = '';
       let firstTime = false;
       while (lo_early <= hi_early) {
         if (firstTime) {
           strbase += ',';
         }
-        strbase += `${lo_early}`;
+        strbase += `${ lo_early }`;
         firstTime = true;
         lo_early += 1;
       }
@@ -605,36 +605,36 @@ export class StudyDataService {
     let digits: number[] = [];
     // tslint:disable-next-line:forin
     for (const index in temp) {
-      digits.push(Number(temp[index])); // Iterate through the list and turn each element into an integer
+      digits.push(Number(temp[ index ])); // Iterate through the list and turn each element into an integer
     }
     digits = digits.sort((a: number, b: number) => a - b);
     digits = Array.from(new Set(digits)); // Ensures all verse numbers are in ascending order
     if (returnVersesList) {
       return digits;
     }
-    let lo = digits[0];
+    let lo = digits[ 0 ];
     let hi = -1;
     const ranges = []; // Container for formatted verse segments
     // tslint:disable-next-line:forin
     for (const index in digits) {
       const i = Number(index);
-      if (digits[i + 1] - digits[i] === 1) {
+      if (digits[ i + 1 ] - digits[ i ] === 1) {
         // If elements are adjacent on the number line...
-        hi = digits[i + 1]; // Increase the variable representing the end of a continuous range (like 1-4)
-      } else if (digits[i + 1] - digits[i] !== 1) {
+        hi = digits[ i + 1 ]; // Increase the variable representing the end of a continuous range (like 1-4)
+      } else if (digits[ i + 1 ] - digits[ i ] !== 1) {
         // If two elements of the array are not adjacent...
         // The two blocks below check to see if the failiure was the end of a range or a discrete jump
         if (hi === -1) {
           const strlo = String(lo);
           ranges.push(strlo);
-          lo = digits[i + 1];
+          lo = digits[ i + 1 ];
           hi = -1;
         } else if (hi !== -1) {
           const strlo = String(lo);
           const strhi = String(hi);
           const range = strlo.concat('-', strhi);
           ranges.push(range);
-          lo = digits[i + 1];
+          lo = digits[ i + 1 ];
           hi = -1;
         }
       } else if (i === digits.length - 1) {
@@ -642,13 +642,13 @@ export class StudyDataService {
 
         if (hi === -1) {
           ranges.push(String(lo));
-          lo = digits[i + 1];
+          lo = digits[ i + 1 ];
           hi = -1;
           break; // Don't bother checking the last element because array[index + 1] is out of range
         } else if (hi !== -1) {
           const range = String(lo).concat('-', String(hi));
           ranges.push(range);
-          lo = digits[i + 1];
+          lo = digits[ i + 1 ];
           hi = -1;
           break; // Don't bother checking the last element because array[index + 1] is out of range
         }
@@ -657,5 +657,10 @@ export class StudyDataService {
     const formattedDigits = ranges.join(',');
     const completeReference = bookChapter.concat(':', formattedDigits);
     return completeReference;
+  }
+
+
+  updateInfo(name, metadata, groupID: string) {
+    return this.afs.collection('studies').doc(groupID).update({ name: name, metadata: metadata });
   }
 }
