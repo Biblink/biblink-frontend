@@ -13,6 +13,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { SharedModule } from '../../../shared/shared.module';
 import { PostCardComponent } from '../../components/post-card/post-card.component';
+import { AngularFireStorageModule } from 'angularfire2/storage';
 
 describe('StudyComponent', () => {
   let component: StudyComponent;
@@ -26,14 +27,15 @@ describe('StudyComponent', () => {
         AngularFireModule.initializeApp(environment.firebase, 'biblink'),
         AngularFireAuthModule,
         AngularFirestoreModule,
+        AngularFireStorageModule,
         ToastrModule.forRoot({
           positionClass: 'toast-bottom-left'
         }),
         SharedModule,
         CoreModule
       ],
-      declarations: [StudyComponent, StudyNavComponent, PostCardComponent],
-      providers: [StudyDataService]
+      declarations: [ StudyComponent, StudyNavComponent, PostCardComponent ],
+      providers: [ StudyDataService ]
     }).compileComponents();
   }));
 
