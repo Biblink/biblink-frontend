@@ -478,8 +478,8 @@
             <br>
             <button class="btn study-btn" (click)="expandActions(); setPostType('announcement')">Add Annotation</button>
           </div>
-          <div class="annotations">
-            <app-post-card *ngFor="let annotation of chapterAnnotations | async; let i = index;" [studyID]="groupID" [isLeader]="isLeader"
+          <div *ngFor="let annotation of chapterAnnotations | async; let i = index;" class="annotations">
+            <app-post-card *ngIf="showAnnotation(annotation['passage'])" [studyID]="groupID" [isLeader]="isLeader"
               [isLast]="false" [isAnnotation]="true" [id]="annotation['id']" [contributors]="[annotation['creatorID']]" [userID]="userID"
               [isCreator]="userID === annotation['creatorID']" (delete)="deleteAnnotation($event, annotation['id'], annotation['creatorID'], isLeader)"
               (edit)="editAnnotation($event, annotation['id'], annotation['creatorID'], isLeader)" [chapterRef]="chapterRef"
