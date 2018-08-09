@@ -1,5 +1,5 @@
 <div>
-  <div class="post card" [ngStyle]="{'z-index': activateZ}">
+  <div class="post card" [ngStyle]="{'z-index': activateZ}" (mouseenter)="activateZ = 15">
     <header class="card-header">
       <ng-content select=".card-header-title"></ng-content>
       <ng-content select=".metadata"></ng-content>

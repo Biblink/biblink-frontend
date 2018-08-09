@@ -1,13 +1,13 @@
 {
-  "name": "frontend",
-  "short_name": "frontend",
-  "theme_color": "#1976d2",
+  "name": "Biblink",
+  "short_name": "Biblink",
+  "theme_color": "#06292A",
   "background_color": "#fafafa",
   "display": "standalone",
   "scope": "/",
   "start_url": "/",
-  "icons": [
-    {
+  "gcm_sender_id": "103953800507",
+  "icons": [{
       "src": "assets/icons/icon-72x72.png",
       "sizes": "72x72",
       "type": "image/png"

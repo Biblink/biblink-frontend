@@ -18,7 +18,8 @@
 </div>
 
 <div class="container has-text-centered" id="result-container">
-    <app-result-card *ngFor="let result of _search.results" [reference]="result.verse" [text]="result.text">
+    <app-result-card *ngFor="let result of results; let i = index;" [metadata]="metadatas[i]" [similarVerses]="similarVerses[i]" (getMore)="getMoreData($event)" (copy)="showCopy($event)" [index]="i" [reference]="result.verse"
+        [text]="result.text">
         <div class="card-header-text" [innerHtml]="result.verse"></div>
         <div class="card-body" [innerHtml]="result.text"></div>
     </app-result-card>

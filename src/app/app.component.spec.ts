@@ -1,27 +1,56 @@
-import { TestBed, async } from '@angular/core/testing';
+import { Angulartics2GoogleAnalytics } from 'angulartics2/ga';
+import { SharedModule } from './shared/shared.module';
+import { LoadingIntermediateComponent } from './loading-intermediate/loading-intermediate.component';
+import { Location } from '@angular/common';
+import { TestBed, async, ComponentFixture } from '@angular/core/testing';
 import { AppComponent } from './app.component';
+import { DebugElement } from '@angular/core';
+import { RouterTestingModule } from '@angular/router/testing';
+import { APP_ROUTES } from './app-routing.module';
+import { Router } from '@angular/router';
+import { CoreModule } from './core/core.module';
+import { Angulartics2, Angulartics2Module } from 'angulartics2';
+import { AngularFirestoreModule } from 'angularfire2/firestore';
+import { AngularFireModule } from 'angularfire2';
+import { environment } from '../environments/environment';
+import { ToastrModule } from 'ngx-toastr';
+import { AngularFireAuthModule } from 'angularfire2/auth';
+
 describe('AppComponent', () => {
+  let component: AppComponent;
+  let de: DebugElement;
+  let fixture: ComponentFixture<AppComponent>;
+  let router: Router;
+  let location: Location;
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [
-        AppComponent
+      imports: [
+        RouterTestingModule.withRoutes(APP_ROUTES),
+        SharedModule,
+        AngularFireModule.initializeApp(environment.firebase, 'biblink'),
+        AngularFireAuthModule,
+        AngularFirestoreModule,
+        ToastrModule.forRoot({
+          positionClass: 'toast-bottom-left'
+        }),
+        CoreModule,
+        Angulartics2Module.forRoot([Angulartics2GoogleAnalytics])
       ],
+      declarations: [AppComponent, LoadingIntermediateComponent]
+      // providers: [Angulartics2GoogleAnalytics]
     }).compileComponents();
   }));
+
+  beforeEach(() => {
+    fixture = TestBed.createComponent(AppComponent);
+    component = fixture.componentInstance;
+    de = fixture.debugElement;
+    router = TestBed.get(Router);
+    location = TestBed.get(Location);
+    router.initialNavigation();
+  });
+
   it('should create the app', async(() => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.debugElement.componentInstance;
-    expect(app).toBeTruthy();
-  }));
-  it(`should have as title 'app'`, async(() => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.debugElement.componentInstance;
-    expect(app.title).toEqual('app');
-  }));
-  it('should render title in a h1 tag', async(() => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('h1').textContent).toContain('Welcome to app!');
+    expect(component).toBeTruthy();
   }));
 });

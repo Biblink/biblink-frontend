@@ -99,6 +99,12 @@
     width: 100%;
 }
 
+@media screen and (max-width: 768px) {
+    .navvy {
+        margin-top: 15px;
+    }
+}
+
 .navTrigger {
     cursor: pointer;
     width: 30px;
@@ -309,7 +315,7 @@
 }
 
 .menu-links {
-    margin-top: 300px;
+    margin-top: 50%;
 }
 
 .mobile #sign-in-mobile,
@@ -375,8 +381,69 @@
     color: black;
 }
 
-#user-actions .nav-link:hover,
-#notifications .nav-link:hover {
+#notifications .dropdown-content {
+    padding: 0;
+}
+
+#notifications {
+    width: 300px;
+    z-index: 9999;
+}
+
+#notifications .dropdown-item {
+    text-align: left;
+    padding-top: 15px;
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-bottom: 0;
+    display: flex;
+}
+
+.notif-date {
+    display: block;
+    text-align: right;
+    padding-bottom: 7px;
+}
+
+.clear-notifs-link {
+    line-height: 5px;
+    float: right;
+    text-decoration: none !important;
+}
+
+.dropdown-item.notif-container:hover {
+    background-color: lightgrey;
+    transition: all 0.2s;
+    cursor: pointer;
+}
+
+.dropdown-item.notif-container .flex-container {
+    display: flex;
+}
+
+.clear-notifs-container {
+    padding-bottom: 15px !important;
+}
+
+.is-read {
+    color: grey !important;
+}
+
+.check-back-later {
+    padding-bottom: 15px !important;
+    font-weight: 700;
+    font-family: 'museo-sans';
+}
+
+.notification-image {
+    border-radius: 100%;
+    float: left;
+    margin-top: -5px;
+    margin-right: 15px;
+    height: 45px;
+}
+
+#user-actions .nav-link:hover {
     color: grey;
 }
 
