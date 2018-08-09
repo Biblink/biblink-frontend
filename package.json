@@ -8,7 +8,7 @@
         "ngsw-config": "node_modules/.bin/ngsw-config dist src/ngsw-config.json",
         "ngsw-copy": "cp node_modules/@angular/service-worker/ngsw-worker.js dist/",
         "deploy": "npm run build:all && firebase deploy --only hosting && npm run compodoc && surge -p ./documentation -d biblink-documentation.surge.sh",
-        "ci-deploy": "npm run build:all && firebase deploy --only hosting --token '1/R2n2Virennq01so_OK-1s99OOw0rO7DnNrOXUWHxHQI' && npm run compodoc && surge -p ./documentation -d biblink-documentation.surge.sh",
+        "ci-deploy": "npm run build:all && ./node_modules/.bin/firebase deploy --only hosting --token '1/R2n2Virennq01so_OK-1s99OOw0rO7DnNrOXUWHxHQI' && npm run compodoc && s./node_modules/.bin/surge -p ./documentation -d biblink-documentation.surge.sh",
         "build": "ng build",
         "build:prod": "ng build --prod --build-optimizer --vendor-chunk=true",
         "test": "ng test --watch false",
