@@ -2,6 +2,39 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.2.0-alpha"></a>
+# [1.2.0-alpha](https://github.com/Biblink/biblink-frontend/compare/v1.1.3-alpha...v1.2.0-alpha) (2018-08-11)
+
+
+### Bug Fixes
+
+* **ci:** remove travis yml file ([03e938d](https://github.com/Biblink/biblink-frontend/commit/03e938d))
+* **circle-ci:** add environment files ([d56f6c3](https://github.com/Biblink/biblink-frontend/commit/d56f6c3))
+* **circle-ci:** add firebase tools to dev dependencies ([41f09dd](https://github.com/Biblink/biblink-frontend/commit/41f09dd))
+* **circle-ci:** fix name problems ([5d0dabb](https://github.com/Biblink/biblink-frontend/commit/5d0dabb))
+* **circle-ci:** update deployment script ([0429f12](https://github.com/Biblink/biblink-frontend/commit/0429f12))
+* **dependency:** add surge dependency ([9f743b4](https://github.com/Biblink/biblink-frontend/commit/9f743b4))
+* **member-list:** fix problem with listing members ([d0bef22](https://github.com/Biblink/biblink-frontend/commit/d0bef22))
+* **post-cards:** update post cards z-index for tooltip ([7b90969](https://github.com/Biblink/biblink-frontend/commit/7b90969))
+* **shared-bible:** fix errors with safe navigation. fix css error with first annotation ([2768ebd](https://github.com/Biblink/biblink-frontend/commit/2768ebd))
+* **sign-in:** add null catch for local storage ([327b932](https://github.com/Biblink/biblink-frontend/commit/327b932))
+* **study:** fix problems with study ([8cd73f7](https://github.com/Biblink/biblink-frontend/commit/8cd73f7))
+* **study-tests:** fix problems with study tests ([c0d62dc](https://github.com/Biblink/biblink-frontend/commit/c0d62dc))
+* **tooltip:** fix problem with tooltip not being fully displayed ([dd34d20](https://github.com/Biblink/biblink-frontend/commit/dd34d20))
+* **types:** fix bug with node types ([f875983](https://github.com/Biblink/biblink-frontend/commit/f875983))
+* **user-creation:** fix bug during user creation and local data storage ([136662e](https://github.com/Biblink/biblink-frontend/commit/136662e))
+
+
+### Features
+
+* **circle-ci:** add parallelism to test ([bfc5fed](https://github.com/Biblink/biblink-frontend/commit/bfc5fed))
+* **documentation:** add documentation to all files ([240c147](https://github.com/Biblink/biblink-frontend/commit/240c147))
+* **roles:** add roles page under settings ([71b5181](https://github.com/Biblink/biblink-frontend/commit/71b5181))
+* **settings:** add settings page ([6e4e9af](https://github.com/Biblink/biblink-frontend/commit/6e4e9af))
+* **tests:** creat initial tests ([a2fdf95](https://github.com/Biblink/biblink-frontend/commit/a2fdf95))
+
+
+
 <a name="1.1.3-alpha"></a>
 ## [1.1.3-alpha](https://github.com/Biblink/biblink-frontend/compare/v1.2.0...v1.1.3-alpha) (2018-06-23)
 
