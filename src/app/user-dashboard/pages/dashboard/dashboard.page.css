@@ -399,15 +399,15 @@ li.is-active-tab a {
 
 .study-list {
     margin-top: 36px;
-    /* margin-left: 50px    ; */
     margin-bottom: 103px;
     width: 75%;
+    max-width: 75%;
     margin: 0 auto;
 }
 
 .card {
-    height: 475px;
-    width: 489px;
+    height: 487px;
+    width: 100%;
     background-color: #FFFFFF;
     box-shadow: 0 4px 8px 2px rgba(202, 187, 187, 0.5);
     padding: 0;
@@ -452,6 +452,10 @@ li.is-active-tab a {
 
 .float-left {
     float: left;
+}
+
+.title.is-4 {
+    display: inline-block;
 }
 
 @media screen and (max-width: 768px) {
