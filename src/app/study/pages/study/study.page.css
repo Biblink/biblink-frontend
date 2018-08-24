@@ -31,6 +31,16 @@
     top: -10px;
 }
 
+.discussions .column {
+    padding: 0;
+    padding-bottom: 40px;
+}
+
+.discussions .columns {
+    width: 67%;
+    margin: 0 auto;
+}
+
 .promote {
     position: relative;
     top: -10px;
@@ -131,6 +141,19 @@ hr {
 
 .nav-links li:first-child {
     margin-top: 16px;
+}
+
+.discussion-card.card {
+    max-width: 313px;
+    max-height: 279px;
+    margin: 0 auto;
+    background-color: #FFFFFF;
+    box-shadow: 0 4px 8px 2px rgba(202, 187, 187, 0.5);
+    padding: 0;
+}
+
+.discussion-description {
+    margin-bottom: 6px;
 }
 
 .create-actions,
@@ -1088,4 +1111,16 @@ input:checked+.slider:before {
 .study-info .label {
     width: auto !important;
     font-weight: 700 !important;
+}
+
+.discussion-light {
+    background-color: #255250;
+    margin-bottom: 23px;
+    margin-top: 25px;
+}
+
+.discussion-card .title {
+    letter-spacing: 2.44px;
+    font-weight: 900;
+    margin-top: 5px;
 }

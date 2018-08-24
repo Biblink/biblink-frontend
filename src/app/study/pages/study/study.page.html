@@ -21,9 +21,9 @@
           <li [class.active]="currentTab === 'shared-bible'" (click)="switchTab('shared-bible')">
             <a (click)="switchTab('shared-bible')">Shared Bible</a>
           </li>
-          <li [class.active]="currentTab === 'shared-calendar'" (click)="switchTab('shared-calendar')">
+          <!-- <li [class.active]="currentTab === 'shared-calendar'" (click)="switchTab('shared-calendar')">
             <a (click)="switchTab('shared-calendar')">Shared Calendar</a>
-          </li>
+          </li> -->
         </ul>
       </div>
       <hr>
@@ -32,9 +32,6 @@
         <ul class="nav-links">
           <li [class.active]="currentTab === 'discussions'" (click)="switchTab('discussions')">
             <a (click)="switchTab('discussions')">Discussions</a>
-          </li>
-          <li [class.active]="currentTab === 'questions'" (click)="switchTab('questions')">
-            <a (click)="switchTab('questions')">Questions</a>
           </li>
         </ul>
       </div>
@@ -55,7 +52,7 @@
       </div>
     </div>
     <div class="main-info column is-three-fifths is-centered">
-      <div class="posts" *ngIf="currentTab !== 'shared-bible' && currentTab !== 'shared-calendar' && currentTab !== 'settings' ">
+      <div class="posts" *ngIf="currentTab !== 'shared-bible' && currentTab !== 'discussions' &&  currentTab !== 'shared-calendar' && currentTab !== 'settings' ">
         <app-post-card *ngFor="let post of posts | async; let i = index;" [studyID]="groupID" [isLeader]="isLeader" [isLast]="(i + 1) === postLength"
           [id]="post['id']" [userID]="userID" [isCreator]="userID === post['creatorID']" [contributors]="post['contributors']"
           (delete)="deletePost($event, post['id'], post['creatorID'], isLeader)" (edit)="editPost($event, post['id'], post['creatorID'], isLeader)"
@@ -153,6 +150,57 @@
           <a class="more-link bible-navigation bible-navigation-left" (click)="previousChapter()" [class.disabled]="activeChapter === 1">
             < Previous Chapter</a>
               <a class="more-link bible-navigation bible-navigation-right" (click)="nextChapter()" [class.disabled]="activeChapter === numChapters">Next Chapter ></a>
+        </div>
+      </div>
+      <div class="discussions" *ngIf="currentTab === 'discussions'">
+
+        <div class="columns is-centered is-multiline">
+          <div class="column is-half">
+            <div class="card discussion-card" data-aos="fade-up" data-aos-duration="1200">
+              <div class="card-content">
+                <div class="card-text">
+                  <p class="title is-4 has-text-centered">Bible</p>
+                  <div class="has-text-left">
+                    <p class="discussion-description">
+                      <b>Description: </b> Discussion topic to discuss all things related to the Bible
+                    </p>
+                    <p>
+                      <b>Created By: </b>Brandon
+                    </p>
+                    <p>
+                      <b># of Discussions: </b> 7
+                    </p>
+                  </div>
+                </div>
+                <div class="has-text-centered cta-btn open-discussion-btn">
+                  <button class="btn study-btn discussion-light">Open Topic</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="column is-half">
+            <div class="card discussion-card" data-aos="fade-up" data-aos-duration="1200">
+              <div class="card-content">
+                <div class="card-text">
+                  <p class="title is-4 has-text-centered">Bible</p>
+                  <div class="has-text-left">
+                    <p class="discussion-description">
+                      <b>Description: </b> Discussion topic to discuss all things related to the Bible
+                    </p>
+                    <p>
+                      <b>Created By: </b>Brandon
+                    </p>
+                    <p>
+                      <b># of Discussions: </b> 7
+                    </p>
+                  </div>
+                </div>
+                <div class="has-text-centered cta-btn open-discussion-btn">
+                  <button class="btn study-btn discussion-light">Open Topic</button>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
       <div class="settings" *ngIf="currentTab === 'settings'">
@@ -479,11 +527,10 @@
             <button class="btn study-btn" (click)="expandActions(); setPostType('announcement')">Add Annotation</button>
           </div>
           <div *ngFor="let annotation of chapterAnnotations | async; let i = index;" class="annotations">
-            <app-post-card *ngIf="showAnnotation(annotation['passage'])" [studyID]="groupID" [isLeader]="isLeader"
-              [isLast]="false" [isAnnotation]="true" [id]="annotation['id']" [contributors]="[annotation['creatorID']]" [userID]="userID"
-              [isCreator]="userID === annotation['creatorID']" (delete)="deleteAnnotation($event, annotation['id'], annotation['creatorID'], isLeader)"
-              (edit)="editAnnotation($event, annotation['id'], annotation['creatorID'], isLeader)" [chapterRef]="chapterRef"
-              (reply)="replyToAnnotation($event, annotation['id'])">
+            <app-post-card *ngIf="showAnnotation(annotation['passage'])" [studyID]="groupID" [isLeader]="isLeader" [isLast]="false" [isAnnotation]="true"
+              [id]="annotation['id']" [contributors]="[annotation['creatorID']]" [userID]="userID" [isCreator]="userID === annotation['creatorID']"
+              (delete)="deleteAnnotation($event, annotation['id'], annotation['creatorID'], isLeader)" (edit)="editAnnotation($event, annotation['id'], annotation['creatorID'], isLeader)"
+              [chapterRef]="chapterRef" (reply)="replyToAnnotation($event, annotation['id'])">
               <p class="card-header-title annotation-title">{{annotation['passage']}}</p>
               <div class="metadata annotation-metadata">
                 <div class="type annotation-type">

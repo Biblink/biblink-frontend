@@ -749,20 +749,13 @@ export class StudyComponent implements OnInit, OnDestroy {
         }, 500);
         break;
       }
-      case 'questions': {
-        this.isLoading.next(true);
-        setTimeout(() => {
-          this.getQuestions();
-        }, 500);
-        break;
-      }
-      case 'discussions': {
-        this.isLoading.next(true);
-        setTimeout(() => {
-          this.getDiscussions();
-        }, 500);
-        break;
-      }
+      // case 'discussions': {
+      //   this.isLoading.next(true);
+      //   setTimeout(() => {
+      //     this.getDiscussions();
+      //   }, 500);
+      //   break;
+      // }
       case 'shared-bible': {
         this.isLoading.next(true);
         this.getChapter('Genesis', 1);
@@ -1219,23 +1212,22 @@ export class StudyComponent implements OnInit, OnDestroy {
    * Shows if the annotation number is equal to the verse number
    */
   showAnnotation(passage) {
-    
     let displayAnnotation = false;
-    const verseStrings = passage.split(':')[1].split(',');
+    const verseStrings = passage.split(':')[ 1 ].split(',');
     const verses = verseStrings.map((number) => {
-        return Number(number);
+      return Number(number);
     });
     if (this.darkenedVerses.every((val) => val === false)) {
       return true;
-  } else {
-    verses.forEach((verse) => {
-      if (this.darkenedVerses[verse - 1]) {
+    } else {
+      verses.forEach((verse) => {
+        if (this.darkenedVerses[ verse - 1 ]) {
           displayAnnotation = true;
-      }
-  });
-  return displayAnnotation;
+        }
+      });
+      return displayAnnotation;
+    }
   }
-}
   /**
    * Prepares an annotation to be published
    */
