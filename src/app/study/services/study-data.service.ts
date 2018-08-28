@@ -19,6 +19,7 @@ import { GroupDataInterface } from '../../core/interfaces/group-data.interface';
 import { Post } from '../../core/interfaces/post';
 import { Reply } from '../../core/interfaces/reply';
 import { StudyModule } from '../study.module';
+import { Topic } from '../../core/interfaces/topic';
 
 /**
  * Study data service to handle all study-related database calls
@@ -554,6 +555,100 @@ export class StudyDataService {
       .doc(studyID)
       .collection('members')
       .doc(uid)
+      .valueChanges();
+  }
+
+  /**
+   * Creates a discussion topic in a study
+   * @param {string} studyID Study ID
+   * @param {Topic} topic Topic data
+   */
+  createDiscussionTopic(
+    studyID: string,
+    topic: Topic
+  ) {
+    const firebaseID = this.afs.createId();
+    const jsonTopic = Utils.toJson(topic);
+    jsonTopic[ 'id' ] = firebaseID;
+    return this.afs
+      .collection('studies')
+      .doc(studyID)
+      .collection('topics')
+      .add(jsonTopic);
+  }
+
+  /**
+   * Gets discussion topic based on ID
+   * @param {string} studyID Study ID
+   * @param {string} postID Post ID
+   */
+  getDiscussionTopicById(studyID: string, topicID: string) {
+    return this.afs
+      .collection('studies')
+      .doc(studyID)
+      .collection('topics')
+      .doc(topicID)
+      .valueChanges();
+  }
+
+  /**
+   * Gets discussion by on ID
+   * @param {string} studyID Study ID
+   * @param {string} topicID Topic ID
+   * @param {string} discussionID Discussion ID
+   */
+  getDiscussionByID(studyID: string, topicID: string, discussionID: string) {
+    return this.afs
+      .collection('studies')
+      .doc(studyID)
+      .collection('topics')
+      .doc(topicID)
+      .collection('discussions')
+      .doc(discussionID)
+      .valueChanges();
+  }
+
+  /**
+   * Deletes a discussion
+   * @param {string} studyID Study ID
+   * @param {string} topic Topic ID
+   * @param {string} discussionID Discussion ID
+   */
+  deleteDiscussion(studyID: string, topicID: string, discussionID: string) {
+    return this.afs
+      .collection('studies')
+      .doc(studyID)
+      .collection('topics')
+      .doc(topicID)
+      .collection('discusssions')
+      .doc(discussionID)
+      .delete();
+  }
+
+  /**
+   * Gets all topics from a study
+   * @param {string} studyID Study ID
+   */
+  getTopics(studyID: string) {
+    return this.afs
+      .collection('studies')
+      .doc(studyID)
+      .collection('topics')
+      .valueChanges();
+  }
+  /**
+   * Gets all discussions for a specific topic
+   * @param {string} studyID Study ID
+   */
+  getDiscussionsByTopic(studyID: string, topicID: string, order = 'timestamp') {
+    return this.afs
+      .collection('studies')
+      .doc(studyID)
+      .collection('topics')
+      .doc(topicID)
+      .collection('discussions', ref => {
+        return ref.orderBy(order, 'desc');
+      })
       .valueChanges();
   }
 

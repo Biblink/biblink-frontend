@@ -53,10 +53,11 @@
     </div>
     <div class="main-info column is-three-fifths is-centered">
       <div class="posts" *ngIf="currentTab !== 'shared-bible' && currentTab !== 'discussions' &&  currentTab !== 'shared-calendar' && currentTab !== 'settings' ">
-        <app-post-card *ngFor="let post of posts | async; let i = index;" [studyID]="groupID" [isLeader]="isLeader" [isLast]="(i + 1) === postLength"
-          [id]="post['id']" [userID]="userID" [isCreator]="userID === post['creatorID']" [contributors]="post['contributors']"
-          (delete)="deletePost($event, post['id'], post['creatorID'], isLeader)" (edit)="editPost($event, post['id'], post['creatorID'], isLeader)"
-          (reply)="replyToPost($event, post['id'])" (more)="getMorePosts(post['timestamp'])">
+        <app-post-card *ngFor="let post of posts | async; let i = index;" [studyID]="groupID" [isLeader]="isLeader"
+          [isLast]="(i + 1) === postLength" [id]="post['id']" [userID]="userID" [isCreator]="userID === post['creatorID']"
+          [contributors]="post['contributors']" (delete)="deletePost($event, post['id'], post['creatorID'], isLeader)"
+          (edit)="editPost($event, post['id'], post['creatorID'], isLeader)" (reply)="replyToPost($event, post['id'])"
+          (more)="getMorePosts(post['timestamp'])">
           <p class="card-header-title">{{post['title']}}</p>
           <div class="metadata">
             <div class="type">
@@ -84,10 +85,12 @@
           </div>
         </app-post-card>
         <div class="has-text-centered" *ngIf="!(isLoading | async) && (postLength === 0 && (currentTab !== 'shared-bible' && currentTab !== 'shared-calendar'))">
-          <h1 class="title is-4">Be the first to add a{{currentTab === 'announcements' ? 'n announcement' : (currentTab === 'feed' ? ' post' : '
+          <h1 class="title is-4">Be the first to add a{{currentTab === 'announcements' ? 'n announcement' : (currentTab
+            === 'feed' ? ' post' : '
             ' + currentTab.slice(0, -1))}}!
           </h1>
-          <button class="btn study-btn" (click)="expandActions(); setPostType((currentTab === 'feed' ? 'post' : currentTab.slice(0, -1)));">Add One</button>
+          <button class="btn study-btn" (click)="expandActions(); setPostType((currentTab === 'feed' ? 'post' : currentTab.slice(0, -1)));">Add
+            One</button>
         </div>
       </div>
       <div class="shared-bible" *ngIf="currentTab === 'shared-bible'">
@@ -119,8 +122,9 @@
           <h1 class="reference">{{activeBook}} {{activeChapter}}</h1>
           <div class="bible-actions" *ngIf="!(isLoading | async)">
             <a class="more-link bible-navigation bible-navigation-left" (click)="previousChapter()" [class.disabled]="activeChapter === 1">
-              < Previous Chapter</a>
-                <a class="more-link bible-navigation bible-navigation-right" (click)="nextChapter()" [class.disabled]="activeChapter === numChapters">Next Chapter ></a>
+              < Previous Chapter</a> <a class="more-link bible-navigation bible-navigation-right" (click)="nextChapter()"
+                [class.disabled]="activeChapter === numChapters">Next Chapter >
+            </a>
           </div>
         </div>
         <div class="bible-text">
@@ -134,7 +138,8 @@
             </ng-container>
 
             <ng-container *ngIf="countVerses[i].count > 0">
-              <span class="shared-bible-verse" [class.is-underlined]="underlinedVerses[i]" [class.is-darkened]="darkenedVerses[i]" (click)="darkenedVerses[i] = darkenedVerses[i] === true ? false: true; expandActions(); prepareAnnotation();">
+              <span class="shared-bible-verse" [class.is-underlined]="underlinedVerses[i]" [class.is-darkened]="darkenedVerses[i]"
+                (click)="darkenedVerses[i] = darkenedVerses[i] === true ? false: true; expandActions(); prepareAnnotation();">
                 {{verse['text']}}
               </span>
               <ng-container *ngIf="darkenedVerses[i]">
@@ -148,27 +153,29 @@
         </div>
         <div class="bible-actions" *ngIf="!(isLoading | async)">
           <a class="more-link bible-navigation bible-navigation-left" (click)="previousChapter()" [class.disabled]="activeChapter === 1">
-            < Previous Chapter</a>
-              <a class="more-link bible-navigation bible-navigation-right" (click)="nextChapter()" [class.disabled]="activeChapter === numChapters">Next Chapter ></a>
+            < Previous Chapter</a> <a class="more-link bible-navigation bible-navigation-right" (click)="nextChapter()"
+              [class.disabled]="activeChapter === numChapters">Next Chapter >
+          </a>
         </div>
       </div>
       <div class="discussions" *ngIf="currentTab === 'discussions'">
 
         <div class="columns is-centered is-multiline">
-          <div class="column is-half">
+          <div *ngIf="topicsLength === 0">Looks like you don't have any discussions!</div>
+          <div class="column is-half" *ngFor="let topic of topics | async">
             <div class="card discussion-card" data-aos="fade-up" data-aos-duration="1200">
               <div class="card-content">
                 <div class="card-text">
-                  <p class="title is-4 has-text-centered">Bible</p>
+                  <p class="title is-4 has-text-centered">{{topic.title}}</p>
                   <div class="has-text-left">
                     <p class="discussion-description">
-                      <b>Description: </b> Discussion topic to discuss all things related to the Bible
+                      <b>Description: </b> {{topic.description}}
                     </p>
                     <p>
-                      <b>Created By: </b>Brandon
+                      <b>Created By: </b> {{topic.creatorName}}
                     </p>
                     <p>
-                      <b># of Discussions: </b> 7
+                      <b># of Discussions: </b> {{topic.discussionNumber}}
                     </p>
                   </div>
                 </div>
@@ -178,29 +185,10 @@
               </div>
             </div>
           </div>
-          <div class="column is-half">
-            <div class="card discussion-card" data-aos="fade-up" data-aos-duration="1200">
-              <div class="card-content">
-                <div class="card-text">
-                  <p class="title is-4 has-text-centered">Bible</p>
-                  <div class="has-text-left">
-                    <p class="discussion-description">
-                      <b>Description: </b> Discussion topic to discuss all things related to the Bible
-                    </p>
-                    <p>
-                      <b>Created By: </b>Brandon
-                    </p>
-                    <p>
-                      <b># of Discussions: </b> 7
-                    </p>
-                  </div>
-                </div>
-                <div class="has-text-centered cta-btn open-discussion-btn">
-                  <button class="btn study-btn discussion-light">Open Topic</button>
-                </div>
-              </div>
-            </div>
-          </div>
+        </div>
+        <div class="is-centered create-topic-container">
+          <button data-aos="fade-up" class="btn study-btn" data-aos-duration="1200" (click)="showTopicModal()">Add
+            New Topic</button>
         </div>
       </div>
       <div class="settings" *ngIf="currentTab === 'settings'">
@@ -223,7 +211,8 @@
                 (click)="editingImage = 'studyImage'">
                 <img src="{{imageUrl}}" alt="Image">
                 <div class="middle">
-                  <svg width="28px" height="44px" viewBox="0 0 28 44" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                  <svg width="28px" height="44px" viewBox="0 0 28 44" version="1.1" xmlns="http://www.w3.org/2000/svg"
+                    xmlns:xlink="http://www.w3.org/1999/xlink">
                     <!-- Generator: Sketch 49 (51002) - http://www.bohemiancoding.com/sketch -->
                     <title>Group 10</title>
                     <desc>Created with Sketch.</desc>
@@ -251,7 +240,8 @@
                 (click)="editingImage = 'studyImage'">
                 <i class="user fa fa-user"></i>
                 <div class="middle" (click)="editingImage = 'studyImage'">
-                  <svg width="28px" height="44px" viewBox="0 0 28 44" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                  <svg width="28px" height="44px" viewBox="0 0 28 44" version="1.1" xmlns="http://www.w3.org/2000/svg"
+                    xmlns:xlink="http://www.w3.org/1999/xlink">
                     <!-- Generator: Sketch 49 (51002) - http://www.bohemiancoding.com/sketch -->
                     <title>Group 10</title>
                     <desc>Created with Sketch.</desc>
@@ -281,11 +271,12 @@
               </p>
             </div>
             <div class="banner-image">
-              <div data-aos="zoom-in" *ngIf="!(bannerImage === undefined || bannerImage === null || bannerImage === '')" class="profile-image personal-info-image has-text-centered"
-                (click)="editingImage = 'bannerImage'">
+              <div data-aos="zoom-in" *ngIf="!(bannerImage === undefined || bannerImage === null || bannerImage === '')"
+                class="profile-image personal-info-image has-text-centered" (click)="editingImage = 'bannerImage'">
                 <img src="{{bannerImage}}" alt="Image">
                 <div class="middle" (click)="editingImage = 'bannerImage'">
-                  <svg width="28px" height="44px" viewBox="0 0 28 44" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                  <svg width="28px" height="44px" viewBox="0 0 28 44" version="1.1" xmlns="http://www.w3.org/2000/svg"
+                    xmlns:xlink="http://www.w3.org/1999/xlink">
                     <!-- Generator: Sketch 49 (51002) - http://www.bohemiancoding.com/sketch -->
                     <title>Group 10</title>
                     <desc>Created with Sketch.</desc>
@@ -313,7 +304,8 @@
                 (click)="editingImage = 'bannerImage'">
                 <i class="user fa fa-user"></i>
                 <div class="middle">
-                  <svg width="28px" height="44px" viewBox="0 0 28 44" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                  <svg width="28px" height="44px" viewBox="0 0 28 44" version="1.1" xmlns="http://www.w3.org/2000/svg"
+                    xmlns:xlink="http://www.w3.org/1999/xlink">
                     <!-- Generator: Sketch 49 (51002) - http://www.bohemiancoding.com/sketch -->
                     <title>Group 10</title>
                     <desc>Created with Sketch.</desc>
@@ -370,8 +362,10 @@
                   <div class="member-name">
                     <span>{{member['name']}}</span>
                   </div>
-                  <button class="btn create-btn promote-btn" (click)="verifyPromote(member['name'], member['uid'])" *ngIf="member['role'] !== 'leader' && isLeader">Promote to Leader</button>
-                  <a class="red-link" *ngIf="userID === member['uid'] && isLeader" (click)="activateDemoteModal = true">Step Down as Leader</a>
+                  <button class="btn create-btn promote-btn" (click)="verifyPromote(member['name'], member['uid'])"
+                    *ngIf="member['role'] !== 'leader' && isLeader">Promote to Leader</button>
+                  <a class="red-link" *ngIf="userID === member['uid'] && isLeader" (click)="activateDemoteModal = true">Step
+                    Down as Leader</a>
                 </div>
               </ng-container>
             </div>
@@ -393,15 +387,22 @@
         </div>
         <h1 class="action-label" *ngIf="creationExpanded">Type</h1>
         <div class="actions" *ngIf="currentTab !== 'shared-bible' && currentTab !== 'shared-calendar'">
-          <a class="create-cta first" [class.create-active]="createPost.type == 'announcement'" (click)="setPostType('announcement')">An Announcement</a>
-          <a class="create-cta" [class.create-active]="createPost.type == 'post'" (click)="setPostType('post')">A Post</a>
-          <a class="create-cta" [class.create-active]="createPost.type == 'question'" (click)="setPostType('question')">A Question</a>
-          <a class="create-cta" [class.create-active]="createPost.type == 'discussion'" (click)="setPostType('discussion')">A Discussion</a>
+          <a class="create-cta first" [class.create-active]="createPost.type == 'announcement'" (click)="setPostType('announcement')">An
+            Announcement</a>
+          <a class="create-cta" [class.create-active]="createPost.type == 'post'" (click)="setPostType('post')">A
+            Post</a>
+          <a class="create-cta" [class.create-active]="createPost.type == 'question'" (click)="setPostType('question')">A
+            Question</a>
+          <a class="create-cta" [class.create-active]="createPost.type == 'discussion'" (click)="setPostType('discussion')">A
+            Discussion</a>
         </div>
         <div class="actions" *ngIf="currentTab == 'shared-bible'">
-          <a class="create-cta" [class.create-active]="createAnnotation.type == 'note'" (click)="setAnnotationType('note')">A Note</a>
-          <a class="create-cta" [class.create-active]="createAnnotation.type == 'question'" (click)="setAnnotationType('question')">A Question</a>
-          <a class="create-cta" [class.create-active]="createAnnotation.type == 'discussion'" (click)="setAnnotationType('discussion')">A Discussion</a>
+          <a class="create-cta" [class.create-active]="createAnnotation.type == 'note'" (click)="setAnnotationType('note')">A
+            Note</a>
+          <a class="create-cta" [class.create-active]="createAnnotation.type == 'question'" (click)="setAnnotationType('question')">A
+            Question</a>
+          <a class="create-cta" [class.create-active]="createAnnotation.type == 'discussion'" (click)="setAnnotationType('discussion')">A
+            Discussion</a>
         </div>
         <form #postCreator="ngForm" (ngSubmit)="publishPost()">
           <h1 class="action-label" *ngIf="creationExpanded">Information</h1>
@@ -411,13 +412,13 @@
               <label class="label" for="title" *ngIf="currentTab === 'shared-bible'">Verses:</label>
               <input class="input" #title="ngModel" *ngIf="currentTab === 'shared-bible'" (blur)="reformatPassage(createAnnotation.passage)"
                 [(ngModel)]="createAnnotation.passage" name="title" type="text" id="annotation-title" required>
-              <input class="input" #title="ngModel" *ngIf="currentTab !== 'shared-bible' && currentTab !== 'shared-calendar'" [(ngModel)]="createPost.title"
-                name="title" type="text" id="title" required>
+              <input class="input" #title="ngModel" *ngIf="currentTab !== 'shared-bible' && currentTab !== 'shared-calendar'"
+                [(ngModel)]="createPost.title" name="title" type="text" id="title" required>
             </div>
             <div class="field" *ngIf="creationExpanded">
               <label class="label" for="body">Body:</label>
-              <textarea [(ngModel)]="createAnnotation.text" *ngIf="currentTab === 'shared-bible'" name="body" class="textarea input" id="annotation-body"
-                cols="30" rows="2"></textarea>
+              <textarea [(ngModel)]="createAnnotation.text" *ngIf="currentTab === 'shared-bible'" name="body" class="textarea input"
+                id="annotation-body" cols="30" rows="2"></textarea>
               <textarea [(ngModel)]="createPost.text" name="body" *ngIf="currentTab !== 'shared-bible' && currentTab !== 'shared-calendar'"
                 class="textarea input" id="body" cols="30" rows="2"></textarea>
             </div>
@@ -430,8 +431,10 @@
             </div> -->
             <div class="has-text-centered btn-container">
               <button type="submit" *ngIf="creationExpanded && !editing" class="btn create-btn" [disabled]="postCreator.invalid">Post</button>
-              <button type="submit" *ngIf="creationExpanded && editing && !editingAnnotation" class="btn create-btn" [disabled]="postCreator.invalid">Update Post</button>
-              <button type="submit" *ngIf="creationExpanded && editing && editingAnnotation" class="btn create-btn" [disabled]="postCreator.invalid">Update</button>
+              <button type="submit" *ngIf="creationExpanded && editing && !editingAnnotation" class="btn create-btn"
+                [disabled]="postCreator.invalid">Update Post</button>
+              <button type="submit" *ngIf="creationExpanded && editing && editingAnnotation" class="btn create-btn"
+                [disabled]="postCreator.invalid">Update</button>
             </div>
           </div>
         </form>
@@ -486,14 +489,16 @@
               <div class="member">
                 <i *ngIf="(member['image'] === null || member['image'] === '') && i < numberOfMembers" style="font-size: 42px; margin-left: 5px; margin-right: 6px;"
                   class="user fa fa-user"></i>
-                <img *ngIf="member['image'] !== null && member['image'] !== '' && i < numberOfMembers" class="profile-image" [src]="member['image']">
+                <img *ngIf="member['image'] !== null && member['image'] !== '' && i < numberOfMembers" class="profile-image"
+                  [src]="member['image']">
                 <div class="member-name" *ngIf="i < numberOfMembers ">
                   <span>{{member['name']}}</span>
                 </div>
               </div>
               <span class="member-role" *ngIf="i < numberOfMembers">{{capitalize(member['role'])}} </span>
               <br>
-              <a class="promote more-link" (click)="verifyPromote(member['name'], member['uid'])" *ngIf="i < numberOfMembers && member['role'] !== 'leader' && isLeader">(Promote to Leader?)</a>
+              <a class="promote more-link" (click)="verifyPromote(member['name'], member['uid'])" *ngIf="i < numberOfMembers && member['role'] !== 'leader' && isLeader">(Promote
+                to Leader?)</a>
             </ng-container>
           </div>
           <div class="bottom has-text-centered">
@@ -527,10 +532,11 @@
             <button class="btn study-btn" (click)="expandActions(); setPostType('announcement')">Add Annotation</button>
           </div>
           <div *ngFor="let annotation of chapterAnnotations | async; let i = index;" class="annotations">
-            <app-post-card *ngIf="showAnnotation(annotation['passage'])" [studyID]="groupID" [isLeader]="isLeader" [isLast]="false" [isAnnotation]="true"
-              [id]="annotation['id']" [contributors]="[annotation['creatorID']]" [userID]="userID" [isCreator]="userID === annotation['creatorID']"
-              (delete)="deleteAnnotation($event, annotation['id'], annotation['creatorID'], isLeader)" (edit)="editAnnotation($event, annotation['id'], annotation['creatorID'], isLeader)"
-              [chapterRef]="chapterRef" (reply)="replyToAnnotation($event, annotation['id'])">
+            <app-post-card *ngIf="showAnnotation(annotation['passage'])" [studyID]="groupID" [isLeader]="isLeader"
+              [isLast]="false" [isAnnotation]="true" [id]="annotation['id']" [contributors]="[annotation['creatorID']]"
+              [userID]="userID" [isCreator]="userID === annotation['creatorID']" (delete)="deleteAnnotation($event, annotation['id'], annotation['creatorID'], isLeader)"
+              (edit)="editAnnotation($event, annotation['id'], annotation['creatorID'], isLeader)" [chapterRef]="chapterRef"
+              (reply)="replyToAnnotation($event, annotation['id'])">
               <p class="card-header-title annotation-title">{{annotation['passage']}}</p>
               <div class="metadata annotation-metadata">
                 <div class="type annotation-type">
@@ -603,8 +609,41 @@
     </section>
     <footer class="modal-card-foot">
       <div>
-        <button class="btn study-btn modal-btn" (click)="updateImage(editingImage === 'studyImage'); editingImage = '';">Save Changes</button>
+        <button class="btn study-btn modal-btn" (click)="updateImage(editingImage === 'studyImage'); editingImage = '';">Save
+          Changes</button>
         <a (click)="editingImage = '' && newImageUrl = ''" class="btn-link">Cancel</a>
+      </div>
+    </footer>
+  </div>
+</div>
+
+<div class="modal" [class.is-active]="activateNewTopicModal">
+  <div class="modal-background"></div>
+  <div class="modal-card">
+    <header class="modal-card-head">
+      <p class="modal-card-title">Create New Topic</p>
+      <button class="delete" aria-label="close" (click)="activateNewTopicModal = false"></button>
+    </header>
+    <section class="modal-card-body">
+      <form id="create-topic-form">
+        <div>
+          <div class="field">
+            <label class="modal-label" for="first-name">Title:</label>
+            <input [(ngModel)]="currentTopic.title" class="modal-input input" required type="text" id="first-name" name="topic-title">
+          </div>
+        </div>
+        <div class="field writing-container">
+          <label class="modal-label" for="short-description">Description:</label>
+          <input [(ngModel)]="currentTopic.description" class="modal-input input" required type="text" id="short-topic-description"
+            name="short-topic-description">
+        </div>
+      </form>
+    </section>
+    <footer class="modal-card-foot">
+      <div>
+        <button class="btn study-btn modal-btn" (click)="createTopic(currentTopic); activateNewTopicModal = false;">Create
+          Topic</button>
+        <a (click)="activateNewTopicModal = false" class="btn-link">Cancel</a>
       </div>
     </footer>
   </div>

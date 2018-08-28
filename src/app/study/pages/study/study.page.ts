@@ -17,6 +17,7 @@ import { Post } from '../../../core/interfaces/post';
 import { Annotation } from '../../../core/interfaces/annotation';
 import { PatternValidator } from '@angular/forms';
 import { Datum, Chapter } from '../../../core/interfaces/chapter';
+import { Topic } from '../../../core/interfaces/topic';
 
 /**
  * access to jquery instance
@@ -31,6 +32,10 @@ declare let $: any;
   styleUrls: [ './study.page.css' ]
 })
 export class StudyComponent implements OnInit, OnDestroy {
+  /**
+  * Length of topics
+  */
+  topicsLength: number = 0;
   leader: any;
   /**
    * banner image of study
@@ -206,7 +211,7 @@ export class StudyComponent implements OnInit, OnDestroy {
    */
   editingAnnotationID = 'default';
   /**
-   * Name of study
+   * Name of user
    */
   name = 'default';
   /**
@@ -217,6 +222,10 @@ export class StudyComponent implements OnInit, OnDestroy {
    * Observable of annotations to be displayed
    */
   chapterAnnotations: Observable<any>;
+  /**
+   * Observable of topics to be displayed
+   */
+  topics: Observable<any>;
   /**
    * The number of annotations for a chapter
    */
@@ -229,6 +238,8 @@ export class StudyComponent implements OnInit, OnDestroy {
    * List of members
    */
   members = [];
+
+
   /**
    * Study metadata
    */
@@ -284,6 +295,20 @@ export class StudyComponent implements OnInit, OnDestroy {
    * Current promote user
    */
   currentPromote: Object = { name: '', uid: '' };
+
+  /**
+   * Value to see if new topic modal is activated
+   */
+  activateNewTopicModal = false;
+
+  /**
+   * Value to hold current topic being created
+   */
+  currentTopic: Topic = new Topic();
+  /**
+   * Value to see if new discussion modal is activated
+   */
+  activateNewDiscussionModal = false;
 
   /**
    * Current image being edited
@@ -512,13 +537,18 @@ export class StudyComponent implements OnInit, OnDestroy {
     this.type = 'question';
   }
   /**
-   * Get study discussions
+   * Get study discussion topics
    */
-  getDiscussions() {
+  getDiscussionTopics() {
     this.isLoading.next(true);
-    this.resetPosts = true;
-    this._getFeedByType('discussion');
-    this.type = 'discussion';
+    this.topics = this._study.getTopics(this.groupID).pipe(
+      map(val => {
+        console.log(this.topicsLength);
+        this.topicsLength = val.length;
+        this.isLoading.next(false);
+        return val;
+      })
+    );
   }
   /**
    * Get posts by a specific type
@@ -749,13 +779,13 @@ export class StudyComponent implements OnInit, OnDestroy {
         }, 500);
         break;
       }
-      // case 'discussions': {
-      //   this.isLoading.next(true);
-      //   setTimeout(() => {
-      //     this.getDiscussions();
-      //   }, 500);
-      //   break;
-      // }
+      case 'discussions': {
+        this.isLoading.next(true);
+        setTimeout(() => {
+          this.getDiscussionTopics();
+        }, 500);
+        break;
+      }
       case 'shared-bible': {
         this.isLoading.next(true);
         this.getChapter('Genesis', 1);
@@ -1329,6 +1359,22 @@ export class StudyComponent implements OnInit, OnDestroy {
         );
       });
     }
+  }
+
+
+  showTopicModal() {
+    this.currentTopic = new Topic();
+    this.activateNewTopicModal = true;
+  }
+  createTopic(topic: Topic) {
+    topic.creatorID = this.userID;
+    topic.creatorName = this.name;
+    this._study.createDiscussionTopic(this.groupID, topic).then(() => {
+      this.toastr.show(
+        `Successfully Created ${ topic.title }`,
+        'New Topic'
+      );
+    });
   }
 
 }

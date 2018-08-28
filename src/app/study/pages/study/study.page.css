@@ -25,6 +25,10 @@
     overflow: auto;
 }
 
+.create-topic-container {
+    text-align: center;
+}
+
 .member-role {
     margin-left: 62px;
     position: relative;
@@ -559,7 +563,6 @@ li.is-active-tab a {
 }
 
 /* The switch - the box around the slider */
-
 .switch {
     position: relative;
     display: inline-block;
@@ -568,13 +571,11 @@ li.is-active-tab a {
 }
 
 /* Hide default HTML checkbox */
-
 .switch input {
     display: none;
 }
 
 /* The slider */
-
 .slider {
     position: absolute;
     cursor: pointer;
@@ -612,7 +613,6 @@ li.is-active-tab a {
 input:focus+.slider {
     box-shadow: 0 0 1px #2196F3;
 } */
-
 input:checked+.slider:before {
     -webkit-transform: translateX(28px);
     -ms-transform: translateX(28px);
@@ -620,7 +620,6 @@ input:checked+.slider:before {
 }
 
 /* Rounded sliders */
-
 .slider.round {
     border-radius: 34px;
 }
@@ -759,7 +758,6 @@ input:checked+.slider:before {
 }
 
 /* Custom dropdown */
-
 .custom-dropdown {
     position: relative;
     display: inline-block;
@@ -792,7 +790,6 @@ input:checked+.slider:before {
 }
 
 /*Hiding the select arrow for IE10*/
-
 .custom-dropdown select::-ms-expand {
     display: none;
 }
@@ -1123,4 +1120,24 @@ input:checked+.slider:before {
     letter-spacing: 2.44px;
     font-weight: 900;
     margin-top: 5px;
+}
+
+.modal-input {
+    border-bottom: 1px solid #979797;
+    color: black;
+}
+
+.modal-label {
+    color: black;
+    font-weight: 700;
+    letter-spacing: auto;
+}
+
+.modal-input:focus {
+    border-bottom: 1px solid black;
+    caret-color: black;
+}
+
+#create-topic-form {
+    margin-bottom: 20px;
 }
