@@ -18,6 +18,7 @@ import { Annotation } from '../../../core/interfaces/annotation';
 import { PatternValidator } from '@angular/forms';
 import { Datum, Chapter } from '../../../core/interfaces/chapter';
 import { Topic } from '../../../core/interfaces/topic';
+import { Discussion } from '../../../core/interfaces/discussion';
 
 /**
  * access to jquery instance
@@ -33,9 +34,17 @@ declare let $: any;
 })
 export class StudyComponent implements OnInit, OnDestroy {
   /**
+   * Observable to hold list of discussions
+   */
+  discussions: Observable<any[]>;
+  /**
+   * Length of Discussion for a certain topic
+   */
+  discussionLength = 1;
+  /**
   * Length of topics
   */
-  topicsLength: number = 0;
+  topicsLength = 1;
   leader: any;
   /**
    * banner image of study
@@ -305,6 +314,16 @@ export class StudyComponent implements OnInit, OnDestroy {
    * Value to hold current topic being created
    */
   currentTopic: Topic = new Topic();
+
+  /**
+   * Value to hold current discussion being created
+   */
+  currentDiscussion: Discussion = new Discussion();
+
+  /**
+   * Value to hold current display topic
+   */
+  displayTopic = new Topic();
   /**
    * Value to see if new discussion modal is activated
    */
@@ -316,6 +335,7 @@ export class StudyComponent implements OnInit, OnDestroy {
   editingImage = '';
 
   newImageUrl = '';
+
   /**
    * Initializes necessary dependency and does dependency injection
    * @param {Router} _router Router dependency to access router for navigations
@@ -541,14 +561,17 @@ export class StudyComponent implements OnInit, OnDestroy {
    */
   getDiscussionTopics() {
     this.isLoading.next(true);
-    this.topics = this._study.getTopics(this.groupID).pipe(
-      map(val => {
-        console.log(this.topicsLength);
-        this.topicsLength = val.length;
-        this.isLoading.next(false);
-        return val;
-      })
-    );
+    if (!this.topics) {
+      this.topics = this._study.getTopics(this.groupID).pipe(
+        map(val => {
+          this.topicsLength = val.length;
+          this.isLoading.next(false);
+          return val;
+        })
+      );
+    } else {
+      this.isLoading.next(false);
+    }
   }
   /**
    * Get posts by a specific type
@@ -761,6 +784,9 @@ export class StudyComponent implements OnInit, OnDestroy {
     if (this.currentTab === val && !override) {
       return;
     }
+    if (this.currentTab === 'discussions') {
+      this.closeDiscussions();
+    }
     this.currentTab = val;
     this.resetPosts = true;
     this._posts.next([]);
@@ -942,6 +968,10 @@ export class StudyComponent implements OnInit, OnDestroy {
       value === {} ||
       Object.keys(value).length === 0
     );
+  }
+
+  closeDiscussions() {
+    this.displayTopic = new Topic();
   }
 
   /**
@@ -1366,6 +1396,10 @@ export class StudyComponent implements OnInit, OnDestroy {
     this.currentTopic = new Topic();
     this.activateNewTopicModal = true;
   }
+  showDiscussionModal() {
+    this.currentDiscussion = new Discussion();
+    this.activateNewDiscussionModal = true;
+  }
   createTopic(topic: Topic) {
     topic.creatorID = this.userID;
     topic.creatorName = this.name;
@@ -1375,6 +1409,34 @@ export class StudyComponent implements OnInit, OnDestroy {
         'New Topic'
       );
     });
+  }
+  createDiscussion(discussion: Discussion) {
+    const today = new Date();
+    const date = `${ today.getMonth() +
+      1 }/${ today.getDate() }/${ today.getFullYear() }`;
+    const time = today.toLocaleTimeString();
+
+    discussion.creatorID = this.userID;
+    discussion.creatorName = this.name;
+    discussion.dateInfo = { date: date, time: time };
+    discussion.timestamp = Math.round(new Date().getTime() / 1000);
+    this._study.createDiscussion(this.groupID, this.displayTopic.id, discussion).then(() => {
+      this.toastr.show(
+        `Successfully Created ${ discussion.title }`,
+        'New Discussion'
+      );
+    });
+  }
+
+  openTopic(topic: Topic) {
+    this.displayTopic = topic;
+    this.discussions = this._study.getDiscussionsByTopic(this.groupID, topic.id).pipe(
+      map(val => {
+        this.discussionLength = val.length;
+        this.isLoading.next(false);
+        return val;
+      })
+    );
   }
 
 }

@@ -130,14 +130,14 @@
         <div class="bible-text">
           <ng-container *ngFor="let verse of bibleData?.verse_data; let i = index;">
 
-            <ng-container *ngIf="countVerses[i].count === 0">
+            <ng-container *ngIf="countVerses[i]?.count === 0">
               <span class="shared-bible-verse" [class.is-underlined]="underlinedVerses[i]" (click)="underlinedVerses[i] = underlinedVerses[i] === true ? false: true; expandActions(); prepareAnnotation();">
                 <span class="verse-number">{{verse['verse_number']}}</span>
                 {{verse['text']}}
               </span>
             </ng-container>
 
-            <ng-container *ngIf="countVerses[i].count > 0">
+            <ng-container *ngIf="countVerses[i]?.count > 0">
               <span class="shared-bible-verse" [class.is-underlined]="underlinedVerses[i]" [class.is-darkened]="darkenedVerses[i]"
                 (click)="darkenedVerses[i] = darkenedVerses[i] === true ? false: true; expandActions(); prepareAnnotation();">
                 {{verse['text']}}
@@ -159,11 +159,56 @@
         </div>
       </div>
       <div class="discussions" *ngIf="currentTab === 'discussions'">
+        <div class="discussion" *ngIf="displayTopic.title !== ''">
+          <div class="discussion-header">
+            <h1 class="topic-title">Topic: {{displayTopic.title}}</h1>
+            <h4 class="topic-descriptors"><span class="topic-descriptor-bold">Description:</span>
+              {{displayTopic.description}}</h4>
+            <h4 class="topic-descriptors"><span class="topic-descriptor-bold">Created By:</span>
+              {{displayTopic.creatorName}}</h4>
+          </div>
+          <div class="is-centered">
+            <div class="no-discussions" *ngIf="discussionLength === 0">Looks like you don't have any discussions!</div>
+          </div>
+          <div class="questions">
+            <div class="question" *ngFor="let discussion of discussions | async">
+              <a class="question-header">{{discussion['title']}}</a>
+              <p class="question-text">{{discussion['text']}}</p>
+              <div>
+                <p class="question-creator">Created By: {{discussion['creatorName']}}</p>
+                <div class="dropdown is-hoverable question-dropdown">
+                  <div class="question-more dropdown-trigger">
+                    <a aria-haspopup="true" aria-controls="more-actions" class="post-action" id="more-action">
+                      <img src="/assets/icons/more-icon.svg" alt="more options">
+                    </a>
 
-        <div class="columns is-centered is-multiline">
-          <div *ngIf="topicsLength === 0">Looks like you don't have any discussions!</div>
+                  </div>
+                  <div class="dropdown-menu" id="question-actions" role="menu">
+                    <div class="dropdown-content">
+                      <div class="dropdown-item">
+                        <a class="post-action" (click)="emitEdit()">Edit</a>
+                      </div>
+                      <hr class="dropdown-divider">
+                      <div class="dropdown-item">
+                        <!-- TODO: Add Delete Functionality -->
+                        <a class="red-link" (click)="activateZ = 10">Delete</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="is-centered create-discussion-container">
+            <button class="btn discussion-btn" (click)="showDiscussionModal()">Add
+              New Discussion</button>
+          </div>
+        </div>
+        <div class="columns is-centered is-multiline" *ngIf="displayTopic.title === ''">
+          <div *ngIf="topicsLength === 0">Looks like you don't have any topics!</div>
           <div class="column is-half" *ngFor="let topic of topics | async">
-            <div class="card discussion-card" data-aos="fade-up" data-aos-duration="1200">
+            <div class="card discussion-card">
               <div class="card-content">
                 <div class="card-text">
                   <p class="title is-4 has-text-centered">{{topic.title}}</p>
@@ -180,14 +225,14 @@
                   </div>
                 </div>
                 <div class="has-text-centered cta-btn open-discussion-btn">
-                  <button class="btn study-btn discussion-light">Open Topic</button>
+                  <button class="btn study-btn discussion-light" (click)="openTopic(topic)">Open Topic</button>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <div class="is-centered create-topic-container">
-          <button data-aos="fade-up" class="btn study-btn" data-aos-duration="1200" (click)="showTopicModal()">Add
+        <div class="is-centered create-topic-container" *ngIf="displayTopic.title === '' && isLoading.value === false">
+          <button class="btn study-btn" (click)="showTopicModal()">Add
             New Topic</button>
         </div>
       </div>
@@ -644,6 +689,40 @@
         <button class="btn study-btn modal-btn" (click)="createTopic(currentTopic); activateNewTopicModal = false;">Create
           Topic</button>
         <a (click)="activateNewTopicModal = false" class="btn-link">Cancel</a>
+      </div>
+    </footer>
+  </div>
+</div>
+
+<div class="modal" [class.is-active]="activateNewDiscussionModal">
+  <div class="modal-background"></div>
+  <div class="modal-card">
+    <header class="modal-card-head">
+      <p class="modal-card-title">Create New Discussion</p>
+      <button class="delete" aria-label="close" (click)="activateNewDiscussionModal = false"></button>
+    </header>
+    <section class="modal-card-body">
+      <form id="create-discussion-form">
+        <div>
+          <div class="field">
+            <label class="modal-label" for="first-name">Discussion Title:</label>
+            <input [(ngModel)]="currentDiscussion.title" class="modal-input input" required type="text" id="discussion-title"
+              name="discussion-title">
+          </div>
+        </div>
+        <div class="field writing-container">
+          <label class="modal-label" for="short-description">Discussion:</label>
+          <input [(ngModel)]="currentDiscussion.text" class="modal-input input" required type="text" id="discussion-text"
+            name="discussion-text">
+        </div>
+      </form>
+    </section>
+    <footer class="modal-card-foot">
+      <div>
+        <button class="btn study-btn modal-btn" style="width: 200px;" (click)="createDiscussion(currentDiscussion); activateNewDiscussionModal = false;">Create
+          Discussion
+        </button>
+        <a (click)="activateNewDiscussionModal = false" class="btn-link">Cancel</a>
       </div>
     </footer>
   </div>

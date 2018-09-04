@@ -1,11 +1,12 @@
 
-export class Topic {
+export class Discussion {
     constructor(
         public id = '',
         public title = '',
-        public description = '',
+        public text = '',
         public creatorID = '',
         public creatorName = '',
-        public discussionNumber = 0
+        public timestamp = {},
+        public dateInfo = { date: '', time: '' }
     ) { }
 }

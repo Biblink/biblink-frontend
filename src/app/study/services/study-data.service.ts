@@ -20,6 +20,7 @@ import { Post } from '../../core/interfaces/post';
 import { Reply } from '../../core/interfaces/reply';
 import { StudyModule } from '../study.module';
 import { Topic } from '../../core/interfaces/topic';
+import { Discussion } from '../../core/interfaces/discussion';
 
 /**
  * Study data service to handle all study-related database calls
@@ -574,7 +575,31 @@ export class StudyDataService {
       .collection('studies')
       .doc(studyID)
       .collection('topics')
-      .add(jsonTopic);
+      .doc(firebaseID)
+      .set(jsonTopic);
+  }
+
+  /**
+   * Creates a discussion topic in a study
+   * @param {string} studyID Study ID
+   * @param {Topic} topic Topic data
+   */
+  createDiscussion(
+    studyID: string,
+    topicID: string,
+    discussion: Discussion
+  ) {
+    const firebaseID = this.afs.createId();
+    const jsonDiscussion = Utils.toJson(discussion);
+    jsonDiscussion[ 'id' ] = firebaseID;
+    return this.afs
+      .collection('studies')
+      .doc(studyID)
+      .collection('topics')
+      .doc(topicID)
+      .collection('discussions')
+      .doc(firebaseID)
+      .set(jsonDiscussion);
   }
 
   /**

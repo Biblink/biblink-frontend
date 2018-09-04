@@ -1141,3 +1141,150 @@ input:checked+.slider:before {
 #create-topic-form {
     margin-bottom: 20px;
 }
+
+.topic-title {
+    height: 49px;
+    color: #343232;
+    font-family: 'museo-sans';
+    font-size: 2.5rem;
+    font-weight: 900;
+    letter-spacing: 3px;
+    line-height: 49px;
+    margin-left: 100px;
+    padding-top: 0;
+    margin-bottom: 30px;
+}
+
+.no-discussions {
+    text-align: center;
+}
+
+.discussion-btn {
+    height: 60px;
+    width: 285px;
+    border-radius: 5px;
+    background-color: #255250;
+    box-shadow: 0 5px 9px 0 rgba(90, 89, 89, 0.5);
+    color: white;
+}
+
+.create-discussion-container {
+    position: fixed;
+    bottom: 58px;
+    left: 0;
+    right: 0;
+    text-align: center;
+}
+
+.discussion-btn:hover {
+    cursor: pointer;
+    background-color: rgb(3, 33, 34);
+    box-shadow: none;
+    transition: all 1s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+.topic-descriptors {
+    color: #343232;
+    font-size: 1.3rem;
+    letter-spacing: 1px;
+    line-height: 27px;
+    margin-left: 100px;
+    margin-bottom: 10px;
+    padding-top: 0;
+}
+
+.topic-descriptors:last-child {
+    margin-bottom: 30px;
+}
+
+.questions {
+    margin-left: 100px;
+}
+
+.question {
+    margin-bottom: 30px;
+}
+
+.question-header {
+    color: #343232;
+    font-size: 1.5rem;
+    font-weight: 900;
+    letter-spacing: 3px;
+    line-height: 33px;
+    transition: all 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
+    margin-bottom: 15px;
+}
+
+.question-header:hover {
+    text-decoration: underline;
+}
+
+.question-text {
+    height: 84px;
+    width: 635px;
+    color: #343232;
+    font-size: 1.2rem;
+    line-height: 27px;
+}
+
+.question-creator {
+    color: #6B6868;
+    font-size: 0.8rem;
+    line-height: 14px;
+    margin-bottom: 5px;
+    float: left;
+    position: relative;
+    bottom: 20px;
+}
+
+.question-more {
+    text-align: right;
+    position: relative;
+    bottom: 5px;
+}
+
+.question {
+    border-bottom: 1px solid #979797;
+    width: 90%;
+}
+
+.topic-descriptor-bold {
+    font-weight: 700;
+}
+
+.question-dropdown {
+    float: right;
+    position: relative;
+    bottom: 20px;
+}
+
+#question-actions {
+    box-shadow: 0 4px 8px 2px rgba(202, 187, 187, 0.5);
+    border: none;
+    min-width: auto;
+    width: 120px;
+}
+
+#question-actions .dropdown-content {
+    border-radius: 0;
+    box-shadow: none;
+}
+
+.dropdown-divider {
+    width: 100% !important;
+    margin: .5rem 0 !important;
+    background-color: #dbdbdb !important;
+}
+
+#question-actions .red-link {
+    color: black;
+    float: none;
+    font-weight: 700;
+    letter-spacing: 2px;
+    line-height: 25px;
+    font-size: 0.9rem;
+}
+
+#question-actions .red-link:hover {
+    color: red;
+}
