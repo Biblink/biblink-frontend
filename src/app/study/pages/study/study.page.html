@@ -3,56 +3,7 @@
 <div class="main-content">
   <div class="columns">
     <div class="left-nav column is-one-fifth">
-      <div class="nav-section" id="main">
-        <h1 class="nav-header">Main</h1>
-        <ul class="nav-links">
-          <li [class.active]="currentTab === 'feed'" (click)="switchTab('feed')">
-            <a (click)="switchTab('feed')">Main Feed</a>
-          </li>
-          <li [class.active]="currentTab === 'announcements'" (click)="switchTab('announcements')">
-            <a (click)="switchTab('announcements')">Announcements</a>
-          </li>
-        </ul>
-      </div>
-      <hr>
-      <div class="nav-section" id="shared">
-        <h1 class="nav-header">Shared</h1>
-        <ul class="nav-links">
-          <li [class.active]="currentTab === 'shared-bible'" (click)="switchTab('shared-bible')">
-            <a (click)="switchTab('shared-bible')">Shared Bible</a>
-          </li>
-          <li [class.active]="currentTab === 'shared-calendar'" (click)="switchTab('shared-calendar')">
-            <a (click)="switchTab('shared-calendar')">Shared Calendar</a>
-          </li>
-        </ul>
-      </div>
-      <hr>
-      <div class="nav-section" id="inquiry">
-        <h1 class="nav-header">Inquiry</h1>
-        <ul class="nav-links">
-          <li [class.active]="currentTab === 'discussions'" (click)="switchTab('discussions')">
-            <a (click)="switchTab('discussions')">Discussions</a>
-          </li>
-          <li [class.active]="currentTab === 'questions'" (click)="switchTab('questions')">
-            <a (click)="switchTab('questions')">Questions</a>
-          </li>
-        </ul>
-      </div>
-      <hr>
-      <div class="nav-section" id="personal">
-        <h1 class="nav-header">Personal</h1>
-        <ul class="nav-links">
-          <li (click)="navigateTo('/dashboard/home')">
-            <a>My Dashboard</a>
-          </li>
-          <li *ngIf="isLeader" [class.active]="currentTab === 'settings'" (click)="switchTab('settings')">
-            <a (click)="switchTab('settings')">Settings</a>
-          </li>
-          <li (click)="logout()">
-            <a>Logout</a>
-          </li>
-        </ul>
-      </div>
+     <switch-tab [isLeader]="isLeader" (tab)="switchTab($event)"></switch-tab>
     </div>
     <div class="main-info column is-three-fifths is-centered">
       <div class="posts" *ngIf="currentTab !== 'shared-bible' && currentTab !== 'shared-calendar' && currentTab !== 'settings' ">

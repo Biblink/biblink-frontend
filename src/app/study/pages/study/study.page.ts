@@ -766,6 +766,15 @@ export class StudyComponent implements OnInit, OnDestroy {
       case 'shared-bible': {
         this.isLoading.next(true);
         this.getChapter('Genesis', 1);
+        break;
+      }
+      case 'dashboard': {
+        this.navigateTo('/dashboard/home');
+        break;
+      }
+      case 'logout': {
+        this.logout();
+        break;
       }
     }
   }
