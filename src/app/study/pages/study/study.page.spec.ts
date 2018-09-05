@@ -14,6 +14,7 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
 import { SharedModule } from '../../../shared/shared.module';
 import { PostCardComponent } from '../../components/post-card/post-card.component';
 import { AngularFireStorageModule } from 'angularfire2/storage';
+import { SwitchTabComponent } from '../../components/switch-tab/switch-tab.component';
 
 describe('StudyComponent', () => {
   let component: StudyComponent;
@@ -34,7 +35,7 @@ describe('StudyComponent', () => {
         SharedModule,
         CoreModule
       ],
-      declarations: [ StudyComponent, StudyNavComponent, PostCardComponent ],
+      declarations: [ StudyComponent, StudyNavComponent, PostCardComponent, SwitchTabComponent ],
       providers: [ StudyDataService ]
     }).compileComponents();
   }));
