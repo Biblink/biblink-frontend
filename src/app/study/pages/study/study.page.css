@@ -1038,6 +1038,7 @@ input:checked+.slider:before {
 
 #study-info-form .input {
     margin-top: 10px;
+    caret-color: black;
 }
 
 .help {
