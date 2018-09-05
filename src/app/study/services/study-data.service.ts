@@ -581,7 +581,7 @@ export class StudyDataService {
   }
 
   /**
-   * Creates a discussion topic in a study
+   * Creates a discussion for a specific topic
    * @param {string} studyID Study ID
    * @param {string} topicID Topic ID
    * @param {Discussion} discussion Discussion to be saved
@@ -604,7 +604,7 @@ export class StudyDataService {
       .set(jsonDiscussion);
   }
   /**
-   * Creates a discussion topic in a study
+   * Creates a response for a specific discussion
    * @param {string} studyID Study ID
    * @param {string} topicID Topic ID
    * @param {string} discussionID Discussion ID
@@ -630,7 +630,42 @@ export class StudyDataService {
       .doc(firebaseID)
       .set(jsonDiscussion);
   }
-
+  /**
+   * Creates a subresponse for a specific response
+   * @param {string} studyID Study ID
+   * @param {string} topicID Topic ID
+   * @param {string} discussionID Discussion ID
+   * @param {QuestionResponse} response Response to be save
+   */
+  createSubResponse(
+    studyID: string,
+    topicID: string,
+    discussionID: string,
+    responseID: string,
+    subresponse: QuestionResponse
+  ) {
+    const firebaseID = this.afs.createId();
+    const jsonDiscussion = Utils.toJson(subresponse);
+    jsonDiscussion[ 'id' ] = firebaseID;
+    return this.afs
+      .collection('studies')
+      .doc(studyID)
+      .collection('topics')
+      .doc(topicID)
+      .collection('discussions')
+      .doc(discussionID)
+      .collection('responses')
+      .doc(responseID)
+      .collection('subresponses')
+      .doc(firebaseID)
+      .set(jsonDiscussion);
+  }
+  /**
+   * Gets responses for a specific discussion
+   * @param {string} studyID Study ID
+   * @param {string} topicID Topic ID
+   * @param {string} discussionID Discussion ID
+   */
   getResponsesForDiscussion(studyID: string, topicID: string, discussionID: string) {
     return this.afs
       .collection('studies')
@@ -649,6 +684,61 @@ export class StudyDataService {
             });
           });
           return val;
+        })
+      );
+  }
+
+  /**
+   * Gets subresponses by a response ID
+   * @param {string} studyID Study ID
+   * @param {string} topicID Topic ID
+   * @param {string} discussionID Discussion ID
+   * @param {string} responseID Response ID
+   */
+  getSubResponsesForResponse(studyID: string, topicID: string, discussionID: string, responseID: string) {
+    return this.afs
+      .collection('studies')
+      .doc(studyID)
+      .collection('topics')
+      .doc(topicID)
+      .collection('discussions')
+      .doc(discussionID)
+      .collection('responses')
+      .doc(responseID)
+      .collection('subresponses')
+      .valueChanges().pipe(
+        map((val: QuestionResponse[]) => {
+          val.forEach((response) => {
+            this.user.getDataFromID(response.creatorID).subscribe((data) => {
+              response[ 'image' ] = data[ 'data' ][ 'profileImage' ];
+              response[ 'name' ] = data[ 'name' ];
+            });
+          });
+          return val;
+        })
+      );
+  }
+  /**
+   * Gets subresponse length by a response ID
+   * @param {string} studyID Study ID
+   * @param {string} topicID Topic ID
+   * @param {string} discussionID Discussion ID
+   * @param {string} responseID Response ID
+   */
+  getSubResponseLengthForResponse(studyID: string, topicID: string, discussionID: string, responseID: string) {
+    return this.afs
+      .collection('studies')
+      .doc(studyID)
+      .collection('topics')
+      .doc(topicID)
+      .collection('discussions')
+      .doc(discussionID)
+      .collection('responses')
+      .doc(responseID)
+      .collection('subresponses')
+      .valueChanges().pipe(
+        map((val: QuestionResponse[]) => {
+          return val.length;
         })
       );
   }

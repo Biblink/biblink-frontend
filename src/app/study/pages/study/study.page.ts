@@ -1,3 +1,4 @@
+import { QuestionResponse } from './../../../core/interfaces/question-response';
 import { trigger } from '@angular/animations';
 import { LegalRoutingModule } from './../../../legal/legal-routing.module';
 import { Title } from '@angular/platform-browser';
@@ -19,7 +20,6 @@ import { PatternValidator } from '@angular/forms';
 import { Datum, Chapter } from '../../../core/interfaces/chapter';
 import { Topic } from '../../../core/interfaces/topic';
 import { Discussion } from '../../../core/interfaces/discussion';
-import { QuestionResponse } from '../../../core/interfaces/question-response';
 
 /**
  * access to jquery instance
@@ -34,6 +34,8 @@ declare let $: any;
   styleUrls: [ './study.page.css' ]
 })
 export class StudyComponent implements OnInit, OnDestroy {
+  responseID: any;
+  currentSubResponse: QuestionResponse;
   numOfResponses: number;
   /**
    * Observable to hold list of discussions
@@ -343,6 +345,10 @@ export class StudyComponent implements OnInit, OnDestroy {
    * Value to see if new response modal is activated
    */
   activateQuestionReplyModal = false;
+  /**
+   * Value to see if new response modal is activated
+   */
+  activateSubQuestionReplyModal = false;
 
   /**
    * responses for a discussion
@@ -1424,6 +1430,10 @@ export class StudyComponent implements OnInit, OnDestroy {
     this.currentResponse = new QuestionResponse();
     this.activateQuestionReplyModal = true;
   }
+  showSubQuestionReplyModal() {
+    this.currentSubResponse = new QuestionResponse();
+    this.activateSubQuestionReplyModal = true;
+  }
   createTopic(topic: Topic) {
     topic.creatorID = this.userID;
     topic.creatorName = this.name;
@@ -1451,17 +1461,27 @@ export class StudyComponent implements OnInit, OnDestroy {
       );
     });
   }
-  createResponse(response: QuestionResponse) {
+  createResponse(response: QuestionResponse, isSubReply = false) {
     const today = new Date();
 
     response.creatorID = this.userID;
     response.timestamp = Math.round(new Date().getTime() / 1000);
-    this._study.createResponse(this.groupID, this.displayTopic.id, this.displayDiscussion.id, response).then(() => {
-      this.toastr.show(
-        `Successfully Created Response`,
-        'New Response'
-      );
-    });
+    if (isSubReply) {
+      this._study.createSubResponse(this.groupID, this.displayTopic.id,
+        this.displayDiscussion.id, this.responseID, response).then(() => {
+          this.toastr.show(
+            `Successfully Created Subresponse`,
+            'New Subresponse'
+          );
+        });
+    } else {
+      this._study.createResponse(this.groupID, this.displayTopic.id, this.displayDiscussion.id, response).then(() => {
+        this.toastr.show(
+          `Successfully Created Response`,
+          'New Response'
+        );
+      });
+    }
   }
 
   getResponses(discussion: Discussion) {
@@ -1469,8 +1489,20 @@ export class StudyComponent implements OnInit, OnDestroy {
       .pipe(map(val => {
         this.numOfResponses = val.length;
         this.isLoading.next(false);
+        val.forEach(response => {
+          this.getSubResponseLength(response).subscribe((length) => {
+            response[ 'subreply-length' ] = length;
+          });
+          this.getSubResponses(response).subscribe((subreplies) => {
+            response[ 'subreplies' ] = subreplies;
+          });
+        });
         return val;
       }));
+  }
+  getSubResponses(response: QuestionResponse) {
+    return this._study.getSubResponsesForResponse(this.groupID, this.displayTopic.id,
+      this.displayDiscussion.id, response.id);
   }
 
   openTopic(topic: Topic) {
@@ -1487,6 +1519,16 @@ export class StudyComponent implements OnInit, OnDestroy {
   openDiscussion(discussion: Discussion) {
     this.displayDiscussion = discussion;
     this.responses = this.getResponses(discussion);
+  }
+
+  openSubResponse(id: string) {
+    this.responseID = id;
+    this.activateSubQuestionReplyModal = true;
+  }
+
+  getSubResponseLength(response: QuestionResponse) {
+    return this._study.getSubResponseLengthForResponse(this.groupID, this.displayTopic.id,
+      this.displayDiscussion.id, response.id);
   }
 
   closeQuestion() {

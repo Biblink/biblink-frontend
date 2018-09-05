@@ -185,6 +185,46 @@
                   <p class="response-text">
                     {{response['text']}}
                   </p>
+                  <div class="subresponses" *ngIf="response['subreply-length'] > 0">
+                    <p class="reply-number" *ngIf="response['subreply-length'] > 1">{{response['subreply-length']}}
+                      Replies</p>
+                    <p class="reply-number" *ngIf="response['subreply-length'] === 1">{{response['subreply-length']}}
+                      Reply</p>
+                    <div class="subresponse" *ngFor="let subresponse of response['subreplies']">
+                      <div class="member">
+                        <img *ngIf="subresponse['image'] !== null && subresponse['image'] !== ''" class="profile-image"
+                          [src]="subresponse['image']">
+                        <div class="member-name">
+                          <span>{{subresponse['name']}}</span>
+                        </div>
+                      </div>
+                      <p class="response-text">
+                        {{subresponse['text']}}
+                      </p>
+                    </div>
+                  </div>
+                  <div class="response-footer">
+                    <a class="reply-link" (click)="openSubResponse(response['id'])">Reply</a>
+                    <div class="dropdown is-hoverable reply-dropdown">
+                      <div class="question-more dropdown-trigger">
+                        <a aria-haspopup="true" aria-controls="more-actions" class="post-action" id="more-action">
+                          <img src="/assets/icons/more-icon.svg" alt="more options">
+                        </a>
+                      </div>
+                      <div class="dropdown-menu" id="question-actions" role="menu">
+                        <div class="dropdown-content">
+                          <div class="dropdown-item">
+                            <a class="post-action" (click)="emitEdit()">Edit</a>
+                          </div>
+                          <hr class="dropdown-divider">
+                          <div class="dropdown-item">
+                            <!-- TODO: Add Delete Functionality -->
+                            <a class="red-link" (click)="activateZ = 10">Delete</a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
               <div class="is-centered create-discussion-container">
@@ -750,6 +790,33 @@
           Response
         </button>
         <a (click)="activateQuestionReplyModal = false" class="btn-link">Cancel</a>
+      </div>
+    </footer>
+  </div>
+</div>
+<div class="modal" [class.is-active]="activateSubQuestionReplyModal">
+  <div class="modal-background"></div>
+  <div class="modal-card">
+    <header class="modal-card-head">
+      <p class="modal-card-title">Create New Subresponse</p>
+      <button class="delete" aria-label="close" (click)="activateSubQuestionReplyModal = false"></button>
+    </header>
+    <section class="modal-card-body">
+      <form id="create-discussion-form">
+        <div class="field writing-container">
+          <label class="modal-label" for="short-description">Response:</label>
+          <input [(ngModel)]="currentResponse.text" class="modal-input input" required type="text" id="discussion-text"
+            name="discussion-text">
+        </div>
+      </form>
+    </section>
+    <footer class="modal-card-foot">
+      <div>
+        <!-- TODO: Add capability of subresponse -->
+        <button class="btn study-btn modal-btn" style="width: 200px;" (click)="createResponse(currentResponse, true); activateSubQuestionReplyModal = false;">Create
+          Subresponse
+        </button>
+        <a (click)="activateSubQuestionReplyModal = false" class="btn-link">Cancel</a>
       </div>
     </footer>
   </div>
