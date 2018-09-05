@@ -781,13 +781,33 @@ export class StudyDataService {
    * @param {string} discussionID Discussion ID
    */
   deleteDiscussion(studyID: string, topicID: string, discussionID: string) {
+    console.log(studyID, topicID, discussionID);
     return this.afs
       .collection('studies')
       .doc(studyID)
       .collection('topics')
       .doc(topicID)
-      .collection('discusssions')
+      .collection('discussions')
       .doc(discussionID)
+      .delete();
+  }
+  /**
+   * Deletes a discussion
+   * @param {string} studyID Study ID
+   * @param {string} topic Topic ID
+   * @param {string} discussionID Discussion ID
+   * @param {string} responseID Response ID
+   */
+  deleteResponse(studyID: string, topicID: string, discussionID: string, responseID: string) {
+    return this.afs
+      .collection('studies')
+      .doc(studyID)
+      .collection('topics')
+      .doc(topicID)
+      .collection('discussions')
+      .doc(discussionID)
+      .collection('responses')
+      .doc(responseID)
       .delete();
   }
 

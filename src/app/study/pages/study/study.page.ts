@@ -1461,6 +1461,25 @@ export class StudyComponent implements OnInit, OnDestroy {
       );
     });
   }
+
+  deleteDiscussion(discussion: Discussion) {
+    this._study.deleteDiscussion(this.groupID, this.displayTopic.id, discussion.id)
+      .then(() => {
+        this.toastr.show(
+          `Successfully Deleted ${ discussion.title }`,
+          'Deleted Discussion'
+        );
+      });
+  }
+  deleteResponse(response: QuestionResponse) {
+    this._study.deleteResponse(this.groupID, this.displayTopic.id, this.displayDiscussion.id, response.id)
+      .then(() => {
+        this.toastr.show(
+          `Successfully Deleted Response`,
+          'Deleted Response'
+        );
+      });
+  }
   createResponse(response: QuestionResponse, isSubReply = false) {
     const today = new Date();
 
