@@ -1501,11 +1501,17 @@ export class StudyComponent implements OnInit, OnDestroy {
       }));
   }
   getSubResponses(response: QuestionResponse) {
+    this.isLoading.next(true);
     return this._study.getSubResponsesForResponse(this.groupID, this.displayTopic.id,
-      this.displayDiscussion.id, response.id);
+      this.displayDiscussion.id, response.id).pipe(
+        map((val) => {
+          this.isLoading.next(false); return val;
+        })
+      );
   }
 
   openTopic(topic: Topic) {
+    this.isLoading.next(true);
     this.displayTopic = topic;
     this.discussions = this._study.getDiscussionsByTopic(this.groupID, topic.id).pipe(
       map(val => {
@@ -1517,6 +1523,7 @@ export class StudyComponent implements OnInit, OnDestroy {
   }
 
   openDiscussion(discussion: Discussion) {
+    this.isLoading.next(true);
     this.displayDiscussion = discussion;
     this.responses = this.getResponses(discussion);
   }

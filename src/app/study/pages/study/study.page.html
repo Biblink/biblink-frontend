@@ -282,7 +282,7 @@
         <div class="columns is-centered is-multiline" *ngIf="displayTopic.title === ''">
           <div *ngIf="topicsLength === 0">Looks like you don't have any topics!</div>
           <div class="column is-half" *ngFor="let topic of topics | async">
-            <div class="card discussion-card">
+            <div class="card discussion-card" *ngIf="isLoading.value === false">
               <div class="card-content">
                 <div class="card-text">
                   <p class="title is-4 has-text-centered">{{topic.title}}</p>
