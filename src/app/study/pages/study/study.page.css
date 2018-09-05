@@ -1143,6 +1143,7 @@ input:checked+.slider:before {
 }
 
 .topic-title {
+    margin-top: 30px;
     height: 49px;
     color: #343232;
     font-family: 'museo-sans';
@@ -1287,4 +1288,49 @@ input:checked+.slider:before {
 
 #question-actions .red-link:hover {
     color: red;
+}
+
+.question-metadata {
+    margin-right: 100px;
+    color: #9D9D9D;
+    text-align: right;
+}
+
+.question-metadata-bold {
+    font-weight: 700;
+}
+
+.responses {
+    margin-left: 100px;
+    margin-top: 30px;
+}
+
+.response-number {
+    margin-bottom: 25px;
+    color: #000000;
+    font-size: 1.3rem;
+    font-weight: 900;
+    letter-spacing: 2.25px;
+    line-height: 25px;
+}
+
+.response-text {
+    margin-left: 75px;
+    font-size: 1.1rem;
+    margin-bottom: 20px;
+}
+
+.response {
+    width: 90%;
+    border-bottom: 1px solid #979797;
+}
+
+.back-button {
+    margin-left: 100px;
+    color: #255250;
+}
+
+.back-button:hover {
+    color: rgb(3, 33, 34);
+    text-decoration: underline;
 }

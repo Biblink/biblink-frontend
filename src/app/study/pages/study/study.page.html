@@ -159,20 +159,54 @@
         </div>
       </div>
       <div class="discussions" *ngIf="currentTab === 'discussions'">
-        <div class="discussion" *ngIf="displayTopic.title !== ''">
+        <div class="specific-question" *ngIf="displayDiscussion.title !== ''">
+          <a class="back-button" (click)="closeQuestion()">
+            < Go Back</a> <h1 class="topic-title">{{displayDiscussion.title}}</h1>
+              <h4 class="topic-descriptors">{{displayDiscussion.text}}</h4>
+              <div class="question-metadata">
+                <div class="question-date-info">
+                  <span class="question-metadata-bold">Posted On:</span> {{displayDiscussion.dateInfo.date}},
+                  {{displayDiscussion.dateInfo.time}}
+                </div>
+                <div class="author">
+                  <span class="question-metadata-bold">Author:</span> {{displayDiscussion.creatorName}}
+                </div>
+              </div>
+              <div class="responses">
+                <p class="response-number" *ngIf="numOfResponses > 1">{{numOfResponses}} Responses</p>
+                <p class="response-number" *ngIf="numOfResponses === 1">{{numOfResponses}} Response</p>
+                <div class="response" *ngFor="let response of responses | async">
+                  <div class="member">
+                    <img *ngIf="response['image'] !== null && response['image'] !== ''" class="profile-image" [src]="response['image']">
+                    <div class="member-name">
+                      <span>{{response['name']}}</span>
+                    </div>
+                  </div>
+                  <p class="response-text">
+                    {{response['text']}}
+                  </p>
+                </div>
+              </div>
+              <div class="is-centered create-discussion-container">
+                <button class="btn discussion-btn" (click)="showQuestionReplyModal()">Add
+                  a Response</button>
+              </div>
+        </div>
+        <div class="discussion" *ngIf="displayTopic.title !== '' && displayDiscussion.title === ''">
           <div class="discussion-header">
-            <h1 class="topic-title">Topic: {{displayTopic.title}}</h1>
-            <h4 class="topic-descriptors"><span class="topic-descriptor-bold">Description:</span>
-              {{displayTopic.description}}</h4>
-            <h4 class="topic-descriptors"><span class="topic-descriptor-bold">Created By:</span>
-              {{displayTopic.creatorName}}</h4>
+            <a class="back-button" (click)="closeDiscussions()">
+              < Go Back</a> <h1 class="topic-title">Topic: {{displayTopic.title}}</h1>
+                <h4 class="topic-descriptors"><span class="topic-descriptor-bold">Description:</span>
+                  {{displayTopic.description}}</h4>
+                <h4 class="topic-descriptors"><span class="topic-descriptor-bold">Created By:</span>
+                  {{displayTopic.creatorName}}</h4>
           </div>
           <div class="is-centered">
             <div class="no-discussions" *ngIf="discussionLength === 0">Looks like you don't have any discussions!</div>
           </div>
           <div class="questions">
             <div class="question" *ngFor="let discussion of discussions | async">
-              <a class="question-header">{{discussion['title']}}</a>
+              <a class="question-header" (click)="openDiscussion(discussion)">{{discussion['title']}}</a>
               <p class="question-text">{{discussion['text']}}</p>
               <div>
                 <p class="question-creator">Created By: {{discussion['creatorName']}}</p>
@@ -694,6 +728,32 @@
   </div>
 </div>
 
+<div class="modal" [class.is-active]="activateQuestionReplyModal">
+  <div class="modal-background"></div>
+  <div class="modal-card">
+    <header class="modal-card-head">
+      <p class="modal-card-title">Create New Response</p>
+      <button class="delete" aria-label="close" (click)="activateQuestionReplyModal = false"></button>
+    </header>
+    <section class="modal-card-body">
+      <form id="create-discussion-form">
+        <div class="field writing-container">
+          <label class="modal-label" for="short-description">Response:</label>
+          <input [(ngModel)]="currentResponse.text" class="modal-input input" required type="text" id="discussion-text"
+            name="discussion-text">
+        </div>
+      </form>
+    </section>
+    <footer class="modal-card-foot">
+      <div>
+        <button class="btn study-btn modal-btn" style="width: 200px;" (click)="createResponse(currentResponse); activateQuestionReplyModal = false;">Create
+          Response
+        </button>
+        <a (click)="activateQuestionReplyModal = false" class="btn-link">Cancel</a>
+      </div>
+    </footer>
+  </div>
+</div>
 <div class="modal" [class.is-active]="activateNewDiscussionModal">
   <div class="modal-background"></div>
   <div class="modal-card">

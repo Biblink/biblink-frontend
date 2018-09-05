@@ -19,6 +19,7 @@ import { PatternValidator } from '@angular/forms';
 import { Datum, Chapter } from '../../../core/interfaces/chapter';
 import { Topic } from '../../../core/interfaces/topic';
 import { Discussion } from '../../../core/interfaces/discussion';
+import { QuestionResponse } from '../../../core/interfaces/question-response';
 
 /**
  * access to jquery instance
@@ -33,6 +34,7 @@ declare let $: any;
   styleUrls: [ './study.page.css' ]
 })
 export class StudyComponent implements OnInit, OnDestroy {
+  numOfResponses: number;
   /**
    * Observable to hold list of discussions
    */
@@ -321,13 +323,31 @@ export class StudyComponent implements OnInit, OnDestroy {
   currentDiscussion: Discussion = new Discussion();
 
   /**
+   * Value to hold current response being created
+   */
+  currentResponse: QuestionResponse = new QuestionResponse();
+
+  /**
    * Value to hold current display topic
    */
   displayTopic = new Topic();
   /**
+   * Value to hold current display discussion
+   */
+  displayDiscussion = new Discussion();
+  /**
    * Value to see if new discussion modal is activated
    */
   activateNewDiscussionModal = false;
+  /**
+   * Value to see if new response modal is activated
+   */
+  activateQuestionReplyModal = false;
+
+  /**
+   * responses for a discussion
+   */
+  responses: Observable<any[]>;
 
   /**
    * Current image being edited
@@ -1400,6 +1420,10 @@ export class StudyComponent implements OnInit, OnDestroy {
     this.currentDiscussion = new Discussion();
     this.activateNewDiscussionModal = true;
   }
+  showQuestionReplyModal() {
+    this.currentResponse = new QuestionResponse();
+    this.activateQuestionReplyModal = true;
+  }
   createTopic(topic: Topic) {
     topic.creatorID = this.userID;
     topic.creatorName = this.name;
@@ -1427,6 +1451,27 @@ export class StudyComponent implements OnInit, OnDestroy {
       );
     });
   }
+  createResponse(response: QuestionResponse) {
+    const today = new Date();
+
+    response.creatorID = this.userID;
+    response.timestamp = Math.round(new Date().getTime() / 1000);
+    this._study.createResponse(this.groupID, this.displayTopic.id, this.displayDiscussion.id, response).then(() => {
+      this.toastr.show(
+        `Successfully Created Response`,
+        'New Response'
+      );
+    });
+  }
+
+  getResponses(discussion: Discussion) {
+    return this._study.getResponsesForDiscussion(this.groupID, this.displayTopic.id, discussion.id)
+      .pipe(map(val => {
+        this.numOfResponses = val.length;
+        this.isLoading.next(false);
+        return val;
+      }));
+  }
 
   openTopic(topic: Topic) {
     this.displayTopic = topic;
@@ -1437,6 +1482,15 @@ export class StudyComponent implements OnInit, OnDestroy {
         return val;
       })
     );
+  }
+
+  openDiscussion(discussion: Discussion) {
+    this.displayDiscussion = discussion;
+    this.responses = this.getResponses(discussion);
+  }
+
+  closeQuestion() {
+    this.displayDiscussion = new Discussion();
   }
 
 }

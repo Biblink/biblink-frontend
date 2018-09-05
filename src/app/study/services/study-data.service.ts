@@ -1,6 +1,6 @@
 import { Annotation } from '../../core/interfaces/annotation';
 
-import { take, pluck } from 'rxjs/operators';
+import { take, pluck, map } from 'rxjs/operators';
 import 'rxjs/add/operator/take';
 import { Group } from '../../core/interfaces/group';
 import { Injectable, OnInit } from '@angular/core';
@@ -21,6 +21,7 @@ import { Reply } from '../../core/interfaces/reply';
 import { StudyModule } from '../study.module';
 import { Topic } from '../../core/interfaces/topic';
 import { Discussion } from '../../core/interfaces/discussion';
+import { QuestionResponse } from '../../core/interfaces/question-response';
 
 /**
  * Study data service to handle all study-related database calls
@@ -582,7 +583,8 @@ export class StudyDataService {
   /**
    * Creates a discussion topic in a study
    * @param {string} studyID Study ID
-   * @param {Topic} topic Topic data
+   * @param {string} topicID Topic ID
+   * @param {Discussion} discussion Discussion to be saved
    */
   createDiscussion(
     studyID: string,
@@ -600,6 +602,55 @@ export class StudyDataService {
       .collection('discussions')
       .doc(firebaseID)
       .set(jsonDiscussion);
+  }
+  /**
+   * Creates a discussion topic in a study
+   * @param {string} studyID Study ID
+   * @param {string} topicID Topic ID
+   * @param {string} discussionID Discussion ID
+   * @param {QuestionResponse} response Response to be save
+   */
+  createResponse(
+    studyID: string,
+    topicID: string,
+    discussionID: string,
+    response: QuestionResponse
+  ) {
+    const firebaseID = this.afs.createId();
+    const jsonDiscussion = Utils.toJson(response);
+    jsonDiscussion[ 'id' ] = firebaseID;
+    return this.afs
+      .collection('studies')
+      .doc(studyID)
+      .collection('topics')
+      .doc(topicID)
+      .collection('discussions')
+      .doc(discussionID)
+      .collection('responses')
+      .doc(firebaseID)
+      .set(jsonDiscussion);
+  }
+
+  getResponsesForDiscussion(studyID: string, topicID: string, discussionID: string) {
+    return this.afs
+      .collection('studies')
+      .doc(studyID)
+      .collection('topics')
+      .doc(topicID)
+      .collection('discussions')
+      .doc(discussionID)
+      .collection('responses')
+      .valueChanges().pipe(
+        map((val: QuestionResponse[]) => {
+          val.forEach((response) => {
+            this.user.getDataFromID(response.creatorID).subscribe((data) => {
+              response[ 'image' ] = data[ 'data' ][ 'profileImage' ];
+              response[ 'name' ] = data[ 'name' ];
+            });
+          });
+          return val;
+        })
+      );
   }
 
   /**
