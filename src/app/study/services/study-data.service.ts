@@ -1,6 +1,6 @@
 import { Annotation } from '../../core/interfaces/annotation';
 
-import { take, pluck } from 'rxjs/operators';
+import { take, pluck, map } from 'rxjs/operators';
 import 'rxjs/add/operator/take';
 import { Group } from '../../core/interfaces/group';
 import { Injectable, OnInit } from '@angular/core';
@@ -19,6 +19,9 @@ import { GroupDataInterface } from '../../core/interfaces/group-data.interface';
 import { Post } from '../../core/interfaces/post';
 import { Reply } from '../../core/interfaces/reply';
 import { StudyModule } from '../study.module';
+import { Topic } from '../../core/interfaces/topic';
+import { Discussion } from '../../core/interfaces/discussion';
+import { QuestionResponse } from '../../core/interfaces/question-response';
 
 /**
  * Study data service to handle all study-related database calls
@@ -554,6 +557,344 @@ export class StudyDataService {
       .doc(studyID)
       .collection('members')
       .doc(uid)
+      .valueChanges();
+  }
+
+  /**
+   * Creates a discussion topic in a study
+   * @param {string} studyID Study ID
+   * @param {Topic} topic Topic data
+   */
+  createDiscussionTopic(
+    studyID: string,
+    topic: Topic
+  ) {
+    const firebaseID = this.afs.createId();
+    const jsonTopic = Utils.toJson(topic);
+    jsonTopic[ 'id' ] = firebaseID;
+    return this.afs
+      .collection('studies')
+      .doc(studyID)
+      .collection('topics')
+      .doc(firebaseID)
+      .set(jsonTopic);
+  }
+  /**
+   * Updates a discussion topic in a study
+   * @param {string} studyID Study ID
+   * @param {Topic} topic Topic data
+   */
+  updateDiscussionTopic(studyID: string, topic: Topic) {
+    const jsonTopic = Utils.toJson(topic);
+    return this.afs
+      .collection('studies')
+      .doc(studyID)
+      .collection('topics')
+      .doc(topic.id)
+      .update(jsonTopic);
+  }
+
+  /**
+   * Creates a discussion for a specific topic
+   * @param {string} studyID Study ID
+   * @param {string} topicID Topic ID
+   * @param {Discussion} discussion Discussion to be saved
+   */
+  createDiscussion(
+    studyID: string,
+    topicID: string,
+    discussion: Discussion
+  ) {
+    const firebaseID = this.afs.createId();
+    const jsonDiscussion = Utils.toJson(discussion);
+    jsonDiscussion[ 'id' ] = firebaseID;
+    return this.afs
+      .collection('studies')
+      .doc(studyID)
+      .collection('topics')
+      .doc(topicID)
+      .collection('discussions')
+      .doc(firebaseID)
+      .set(jsonDiscussion);
+  }
+  /**
+   * Updates a discussion for a specific topic
+   * @param {string} studyID Study ID
+   * @param {Topic} topic Topic data
+   */
+  updateDiscussion(studyID: string, topicID: string, discussion: Discussion) {
+    const jsonTopic = Utils.toJson(discussion);
+    return this.afs
+      .collection('studies')
+      .doc(studyID)
+      .collection('topics')
+      .doc(topicID)
+      .collection('discussions')
+      .doc(discussion.id)
+      .update(jsonTopic);
+  }
+  /**
+   * Creates a response for a specific discussion
+   * @param {string} studyID Study ID
+   * @param {string} topicID Topic ID
+   * @param {string} discussionID Discussion ID
+   * @param {QuestionResponse} response Response to be save
+   */
+  createResponse(
+    studyID: string,
+    topicID: string,
+    discussionID: string,
+    response: QuestionResponse
+  ) {
+    const firebaseID = this.afs.createId();
+    const jsonDiscussion = Utils.toJson(response);
+    jsonDiscussion[ 'id' ] = firebaseID;
+    return this.afs
+      .collection('studies')
+      .doc(studyID)
+      .collection('topics')
+      .doc(topicID)
+      .collection('discussions')
+      .doc(discussionID)
+      .collection('responses')
+      .doc(firebaseID)
+      .set(jsonDiscussion);
+  }
+  /**
+   * Updates a discussion for a specific topic
+   * @param {string} studyID Study ID
+   * @param {Topic} topic Topic data
+   */
+  updateResponse(studyID: string, topicID: string, discussionID: string, response: QuestionResponse) {
+    const jsonTopic = Utils.toJson(response);
+    return this.afs
+      .collection('studies')
+      .doc(studyID)
+      .collection('topics')
+      .doc(topicID)
+      .collection('discussions')
+      .doc(discussionID)
+      .collection('responses')
+      .doc(response.id)
+      .update(jsonTopic);
+  }
+  /**
+   * Creates a subresponse for a specific response
+   * @param {string} studyID Study ID
+   * @param {string} topicID Topic ID
+   * @param {string} discussionID Discussion ID
+   * @param {QuestionResponse} response Response to be save
+   */
+  createSubResponse(
+    studyID: string,
+    topicID: string,
+    discussionID: string,
+    responseID: string,
+    subresponse: QuestionResponse
+  ) {
+    const firebaseID = this.afs.createId();
+    const jsonDiscussion = Utils.toJson(subresponse);
+    jsonDiscussion[ 'id' ] = firebaseID;
+    return this.afs
+      .collection('studies')
+      .doc(studyID)
+      .collection('topics')
+      .doc(topicID)
+      .collection('discussions')
+      .doc(discussionID)
+      .collection('responses')
+      .doc(responseID)
+      .collection('subresponses')
+      .doc(firebaseID)
+      .set(jsonDiscussion);
+  }
+  /**
+   * Gets responses for a specific discussion
+   * @param {string} studyID Study ID
+   * @param {string} topicID Topic ID
+   * @param {string} discussionID Discussion ID
+   */
+  getResponsesForDiscussion(studyID: string, topicID: string, discussionID: string) {
+    return this.afs
+      .collection('studies')
+      .doc(studyID)
+      .collection('topics')
+      .doc(topicID)
+      .collection('discussions')
+      .doc(discussionID)
+      .collection('responses')
+      .valueChanges().pipe(
+        map((val: QuestionResponse[]) => {
+          val.forEach((response) => {
+            this.user.getDataFromID(response.creatorID).subscribe((data) => {
+              response[ 'image' ] = data[ 'data' ][ 'profileImage' ];
+              response[ 'name' ] = data[ 'name' ];
+            });
+          });
+          return val;
+        })
+      );
+  }
+
+  /**
+   * Gets subresponses by a response ID
+   * @param {string} studyID Study ID
+   * @param {string} topicID Topic ID
+   * @param {string} discussionID Discussion ID
+   * @param {string} responseID Response ID
+   */
+  getSubResponsesForResponse(studyID: string, topicID: string, discussionID: string, responseID: string) {
+    return this.afs
+      .collection('studies')
+      .doc(studyID)
+      .collection('topics')
+      .doc(topicID)
+      .collection('discussions')
+      .doc(discussionID)
+      .collection('responses')
+      .doc(responseID)
+      .collection('subresponses')
+      .valueChanges().pipe(
+        map((val: QuestionResponse[]) => {
+          val.forEach((response) => {
+            this.user.getDataFromID(response.creatorID).subscribe((data) => {
+              response[ 'image' ] = data[ 'data' ][ 'profileImage' ];
+              response[ 'name' ] = data[ 'name' ];
+            });
+          });
+          return val;
+        })
+      );
+  }
+  /**
+   * Gets subresponse length by a response ID
+   * @param {string} studyID Study ID
+   * @param {string} topicID Topic ID
+   * @param {string} discussionID Discussion ID
+   * @param {string} responseID Response ID
+   */
+  getSubResponseLengthForResponse(studyID: string, topicID: string, discussionID: string, responseID: string) {
+    return this.afs
+      .collection('studies')
+      .doc(studyID)
+      .collection('topics')
+      .doc(topicID)
+      .collection('discussions')
+      .doc(discussionID)
+      .collection('responses')
+      .doc(responseID)
+      .collection('subresponses')
+      .valueChanges().pipe(
+        map((val: QuestionResponse[]) => {
+          return val.length;
+        })
+      );
+  }
+
+  /**
+   * Gets discussion topic based on ID
+   * @param {string} studyID Study ID
+   * @param {string} postID Post ID
+   */
+  getDiscussionTopicById(studyID: string, topicID: string) {
+    return this.afs
+      .collection('studies')
+      .doc(studyID)
+      .collection('topics')
+      .doc(topicID)
+      .valueChanges();
+  }
+
+  /**
+   * Gets discussion by on ID
+   * @param {string} studyID Study ID
+   * @param {string} topicID Topic ID
+   * @param {string} discussionID Discussion ID
+   */
+  getDiscussionByID(studyID: string, topicID: string, discussionID: string) {
+    return this.afs
+      .collection('studies')
+      .doc(studyID)
+      .collection('topics')
+      .doc(topicID)
+      .collection('discussions')
+      .doc(discussionID)
+      .valueChanges();
+  }
+
+  /**
+   * Deletes a discussion
+   * @param {string} studyID Study ID
+   * @param {string} topic Topic ID
+   * @param {string} discussionID Discussion ID
+   */
+  deleteDiscussion(studyID: string, topicID: string, discussionID: string) {
+    return this.afs
+      .collection('studies')
+      .doc(studyID)
+      .collection('topics')
+      .doc(topicID)
+      .collection('discussions')
+      .doc(discussionID)
+      .delete();
+  }
+  /**
+   * Deletes a topic
+   * @param {string} studyID Study ID
+   * @param {string} topic Topic ID
+   */
+  deleteTopic(studyID: string, topicID: string) {
+    return this.afs
+      .collection('studies')
+      .doc(studyID)
+      .collection('topics')
+      .doc(topicID)
+      .delete();
+  }
+  /**
+   * Deletes a discussion
+   * @param {string} studyID Study ID
+   * @param {string} topic Topic ID
+   * @param {string} discussionID Discussion ID
+   * @param {string} responseID Response ID
+   */
+  deleteResponse(studyID: string, topicID: string, discussionID: string, responseID: string) {
+    return this.afs
+      .collection('studies')
+      .doc(studyID)
+      .collection('topics')
+      .doc(topicID)
+      .collection('discussions')
+      .doc(discussionID)
+      .collection('responses')
+      .doc(responseID)
+      .delete();
+  }
+
+  /**
+   * Gets all topics from a study
+   * @param {string} studyID Study ID
+   */
+  getTopics(studyID: string) {
+    return this.afs
+      .collection('studies')
+      .doc(studyID)
+      .collection('topics')
+      .valueChanges();
+  }
+  /**
+   * Gets all discussions for a specific topic
+   * @param {string} studyID Study ID
+   */
+  getDiscussionsByTopic(studyID: string, topicID: string, order = 'timestamp') {
+    return this.afs
+      .collection('studies')
+      .doc(studyID)
+      .collection('topics')
+      .doc(topicID)
+      .collection('discussions', ref => {
+        return ref.orderBy(order, 'desc');
+      })
       .valueChanges();
   }
 
