@@ -1471,6 +1471,16 @@ export class StudyComponent implements OnInit, OnDestroy {
         );
       });
   }
+
+  deleteTopic(topic: Topic) {
+    this._study.deleteTopic(this.groupID, topic.id)
+      .then(() => {
+        this.toastr.show(
+          `Successfully Deleted Topic`,
+          'Deleted Topic'
+        );
+      });
+  }
   deleteResponse(response: QuestionResponse) {
     this._study.deleteResponse(this.groupID, this.displayTopic.id, this.displayDiscussion.id, response.id)
       .then(() => {
