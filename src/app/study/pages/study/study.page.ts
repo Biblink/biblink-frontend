@@ -34,6 +34,18 @@ declare let $: any;
   styleUrls: [ './study.page.css' ]
 })
 export class StudyComponent implements OnInit, OnDestroy {
+  /**
+   * Whether or not user is editing a discussion
+   */
+  editingDiscussion = false;
+  /**
+   * Whether or not a user is editing a topic
+   */
+  editingTopic = false;
+  /**
+   * Whether or not a user is editing a response
+   */
+  editingResponse = false;
   responseID: any;
   currentSubResponse: QuestionResponse;
   numOfResponses: number;
@@ -1417,7 +1429,71 @@ export class StudyComponent implements OnInit, OnDestroy {
     }
   }
 
+  editTopic(topic: Topic) {
+    this.currentTopic = topic;
+    this.editingTopic = true;
+    this.activateNewTopicModal = true;
+  }
+  editDiscussion(discussion: Discussion) {
+    this.currentDiscussion = discussion;
+    this.editingDiscussion = true;
+    this.activateNewDiscussionModal = true;
+  }
+  editResponse(response: QuestionResponse) {
+    this.currentResponse = response;
+    this.editingResponse = true;
+    this.activateQuestionReplyModal = true;
+  }
 
+  updateTopic(topic: Topic) {
+    if (this.editingTopic) {
+      this._study.updateDiscussionTopic(this.groupID, topic).then(() => {
+        this.toastr.show(
+          `Successfully Updated ${ topic.title }`,
+          'Updated Topic'
+        );
+        this.editingTopic = false;
+      });
+    }
+  }
+  updateDiscussion(discussion: Discussion) {
+    if (this.editingDiscussion) {
+      this._study.updateDiscussion(this.groupID, this.displayTopic.id, discussion).then(() => {
+        this.toastr.show(
+          `Successfully Updated ${ discussion.title }`,
+          'Updated Discussion'
+        );
+        this.editingDiscussion = false;
+      });
+    }
+  }
+  updateResponse(response: QuestionResponse) {
+    if (this.editingResponse) {
+      this._study.updateResponse(this.groupID, this.displayTopic.id, this.displayDiscussion.id, response).then(() => {
+        this.toastr.show(
+          `Successfully Updated Response`,
+          'Updated Response'
+        );
+        this.editingResponse = false;
+      });
+    }
+  }
+
+  resetTopic() {
+    this.activateNewTopicModal = false;
+    this.currentTopic = new Topic();
+    this.editingTopic = false;
+  }
+  resetDiscussion() {
+    this.activateNewDiscussionModal = false;
+    this.currentDiscussion = new Discussion();
+    this.editingDiscussion = false;
+  }
+  resetResponse() {
+    this.activateQuestionReplyModal = false;
+    this.currentResponse = new QuestionResponse();
+    this.editingResponse = false;
+  }
   showTopicModal() {
     this.currentTopic = new Topic();
     this.activateNewTopicModal = true;
@@ -1435,31 +1511,39 @@ export class StudyComponent implements OnInit, OnDestroy {
     this.activateSubQuestionReplyModal = true;
   }
   createTopic(topic: Topic) {
-    topic.creatorID = this.userID;
-    topic.creatorName = this.name;
-    this._study.createDiscussionTopic(this.groupID, topic).then(() => {
-      this.toastr.show(
-        `Successfully Created ${ topic.title }`,
-        'New Topic'
-      );
-    });
+    if (this.editingTopic) {
+      this.updateTopic(topic);
+    } else {
+      topic.creatorID = this.userID;
+      topic.creatorName = this.name;
+      this._study.createDiscussionTopic(this.groupID, topic).then(() => {
+        this.toastr.show(
+          `Successfully Created ${ topic.title }`,
+          'New Topic'
+        );
+      });
+    }
   }
   createDiscussion(discussion: Discussion) {
-    const today = new Date();
-    const date = `${ today.getMonth() +
-      1 }/${ today.getDate() }/${ today.getFullYear() }`;
-    const time = today.toLocaleTimeString();
+    if (this.editingDiscussion) {
+      this.updateDiscussion(discussion);
+    } else {
+      const today = new Date();
+      const date = `${ today.getMonth() +
+        1 }/${ today.getDate() }/${ today.getFullYear() }`;
+      const time = today.toLocaleTimeString();
 
-    discussion.creatorID = this.userID;
-    discussion.creatorName = this.name;
-    discussion.dateInfo = { date: date, time: time };
-    discussion.timestamp = Math.round(new Date().getTime() / 1000);
-    this._study.createDiscussion(this.groupID, this.displayTopic.id, discussion).then(() => {
-      this.toastr.show(
-        `Successfully Created ${ discussion.title }`,
-        'New Discussion'
-      );
-    });
+      discussion.creatorID = this.userID;
+      discussion.creatorName = this.name;
+      discussion.dateInfo = { date: date, time: time };
+      discussion.timestamp = Math.round(new Date().getTime() / 1000);
+      this._study.createDiscussion(this.groupID, this.displayTopic.id, discussion).then(() => {
+        this.toastr.show(
+          `Successfully Created ${ discussion.title }`,
+          'New Discussion'
+        );
+      });
+    }
   }
 
   deleteDiscussion(discussion: Discussion) {
@@ -1491,25 +1575,29 @@ export class StudyComponent implements OnInit, OnDestroy {
       });
   }
   createResponse(response: QuestionResponse, isSubReply = false) {
-    const today = new Date();
+    if (this.editingResponse) {
+      this.updateResponse(response);
+    } else {
+      const today = new Date();
 
-    response.creatorID = this.userID;
-    response.timestamp = Math.round(new Date().getTime() / 1000);
-    if (isSubReply) {
-      this._study.createSubResponse(this.groupID, this.displayTopic.id,
-        this.displayDiscussion.id, this.responseID, response).then(() => {
+      response.creatorID = this.userID;
+      response.timestamp = Math.round(new Date().getTime() / 1000);
+      if (isSubReply) {
+        this._study.createSubResponse(this.groupID, this.displayTopic.id,
+          this.displayDiscussion.id, this.responseID, response).then(() => {
+            this.toastr.show(
+              `Successfully Created Subresponse`,
+              'New Subresponse'
+            );
+          });
+      } else {
+        this._study.createResponse(this.groupID, this.displayTopic.id, this.displayDiscussion.id, response).then(() => {
           this.toastr.show(
-            `Successfully Created Subresponse`,
-            'New Subresponse'
+            `Successfully Created Response`,
+            'New Response'
           );
         });
-    } else {
-      this._study.createResponse(this.groupID, this.displayTopic.id, this.displayDiscussion.id, response).then(() => {
-        this.toastr.show(
-          `Successfully Created Response`,
-          'New Response'
-        );
-      });
+      }
     }
   }
 

@@ -214,7 +214,7 @@
                       <div class="dropdown-menu" id="question-actions" role="menu">
                         <div class="dropdown-content">
                           <div class="dropdown-item">
-                            <a class="post-action" (click)="emitEdit()">Edit</a>
+                            <a class="post-action" (click)="editResponse(response)">Edit</a>
                           </div>
                           <hr class="dropdown-divider">
                           <div class="dropdown-item">
@@ -260,7 +260,7 @@
                   <div class="dropdown-menu" id="question-actions" role="menu">
                     <div class="dropdown-content">
                       <div class="dropdown-item">
-                        <a class="post-action" (click)="emitEdit()">Edit</a>
+                        <a class="post-action" (click)="editDiscussion(discussion)">Edit</a>
                       </div>
                       <hr class="dropdown-divider">
                       <div class="dropdown-item">
@@ -311,7 +311,7 @@
                   <div class="dropdown-menu" id="question-actions" role="menu">
                     <div class="dropdown-content">
                       <div class="dropdown-item">
-                        <a class="post-action" (click)="emitEdit()">Edit</a>
+                        <a class="post-action" (click)="editTopic(topic)">Edit</a>
                       </div>
                       <hr class="dropdown-divider">
                       <div class="dropdown-item">
@@ -530,10 +530,6 @@
             Announcement</a>
           <a class="create-cta" [class.create-active]="createPost.type == 'post'" (click)="setPostType('post')">A
             Post</a>
-          <a class="create-cta" [class.create-active]="createPost.type == 'question'" (click)="setPostType('question')">A
-            Question</a>
-          <a class="create-cta" [class.create-active]="createPost.type == 'discussion'" (click)="setPostType('discussion')">A
-            Discussion</a>
         </div>
         <div class="actions" *ngIf="currentTab == 'shared-bible'">
           <a class="create-cta" [class.create-active]="createAnnotation.type == 'note'" (click)="setAnnotationType('note')">A
@@ -760,8 +756,9 @@
   <div class="modal-background"></div>
   <div class="modal-card">
     <header class="modal-card-head">
-      <p class="modal-card-title">Create New Topic</p>
-      <button class="delete" aria-label="close" (click)="activateNewTopicModal = false"></button>
+      <p class="modal-card-title" *ngIf="!editingTopic">Create New Topic</p>
+      <p class="modal-card-title" *ngIf="editingTopic">Edit Topic</p>
+      <button class="delete" aria-label="close" (click)="resetTopic()"></button>
     </header>
     <section class="modal-card-body">
       <form id="create-topic-form">
@@ -780,9 +777,11 @@
     </section>
     <footer class="modal-card-foot">
       <div>
-        <button class="btn study-btn modal-btn" (click)="createTopic(currentTopic); activateNewTopicModal = false;">Create
+        <button class="btn study-btn modal-btn" *ngIf="!editingTopic" (click)="createTopic(currentTopic); resetTopic()">Create
           Topic</button>
-        <a (click)="activateNewTopicModal = false" class="btn-link">Cancel</a>
+        <button class="btn study-btn modal-btn" *ngIf="editingTopic" (click)="createTopic(currentTopic); resetTopic()">Create
+          Topic</button>
+        <a (click)="resetTopic()" class="btn-link">Cancel</a>
       </div>
     </footer>
   </div>
@@ -792,8 +791,9 @@
   <div class="modal-background"></div>
   <div class="modal-card">
     <header class="modal-card-head">
-      <p class="modal-card-title">Create New Response</p>
-      <button class="delete" aria-label="close" (click)="activateQuestionReplyModal = false"></button>
+      <p class="modal-card-title" *ngIf="editingResponse">Edit Response</p>
+      <p class="modal-card-title" *ngIf="!editingResponse">Create New Response</p>
+      <button class="delete" aria-label="close" (click)="resetResponse()"></button>
     </header>
     <section class="modal-card-body">
       <form id="create-discussion-form">
@@ -806,10 +806,12 @@
     </section>
     <footer class="modal-card-foot">
       <div>
-        <button class="btn study-btn modal-btn" style="width: 200px;" (click)="createResponse(currentResponse); activateQuestionReplyModal = false;">Create
+        <button class="btn study-btn modal-btn" *ngIf="editingResponse" style="width: 200px;" (click)="createResponse(currentResponse); resetResponse();">Update
+          Response</button>
+        <button class="btn study-btn modal-btn" *ngIf="!editingResponse" style="width: 200px;" (click)="createResponse(currentResponse); resetResponse();">Create
           Response
         </button>
-        <a (click)="activateQuestionReplyModal = false" class="btn-link">Cancel</a>
+        <a (click)="resetResponse()" class="btn-link">Cancel</a>
       </div>
     </footer>
   </div>
@@ -845,8 +847,9 @@
   <div class="modal-background"></div>
   <div class="modal-card">
     <header class="modal-card-head">
-      <p class="modal-card-title">Create New Discussion</p>
-      <button class="delete" aria-label="close" (click)="activateNewDiscussionModal = false"></button>
+      <p class="modal-card-title" *ngIf="editingDiscussion">Edit Discussion</p>
+      <p class="modal-card-title" *ngIf="!editingDiscussion">Create New Discussion</p>
+      <button class="delete" aria-label="close" (click)="resetDiscussion()"></button>
     </header>
     <section class="modal-card-body">
       <form id="create-discussion-form">
@@ -866,10 +869,13 @@
     </section>
     <footer class="modal-card-foot">
       <div>
-        <button class="btn study-btn modal-btn" style="width: 200px;" (click)="createDiscussion(currentDiscussion); activateNewDiscussionModal = false;">Create
+        <button class="btn study-btn modal-btn" *ngIf="editingDiscussion" style="width: 200px;" (click)="createDiscussion(currentDiscussion); resetDiscussion();">Update
           Discussion
         </button>
-        <a (click)="activateNewDiscussionModal = false" class="btn-link">Cancel</a>
+        <button class="btn study-btn modal-btn" *ngIf="!editingDiscussion" style="width: 200px;" (click)="createDiscussion(currentDiscussion); resetDiscussion();">Create
+          Discussion
+        </button>
+        <a (click)="resetDiscussion()" class="btn-link">Cancel</a>
       </div>
     </footer>
   </div>

@@ -579,6 +579,20 @@ export class StudyDataService {
       .doc(firebaseID)
       .set(jsonTopic);
   }
+  /**
+   * Updates a discussion topic in a study
+   * @param {string} studyID Study ID
+   * @param {Topic} topic Topic data
+   */
+  updateDiscussionTopic(studyID: string, topic: Topic) {
+    const jsonTopic = Utils.toJson(topic);
+    return this.afs
+      .collection('studies')
+      .doc(studyID)
+      .collection('topics')
+      .doc(topic.id)
+      .update(jsonTopic);
+  }
 
   /**
    * Creates a discussion for a specific topic
@@ -602,6 +616,22 @@ export class StudyDataService {
       .collection('discussions')
       .doc(firebaseID)
       .set(jsonDiscussion);
+  }
+  /**
+   * Updates a discussion for a specific topic
+   * @param {string} studyID Study ID
+   * @param {Topic} topic Topic data
+   */
+  updateDiscussion(studyID: string, topicID: string, discussion: Discussion) {
+    const jsonTopic = Utils.toJson(discussion);
+    return this.afs
+      .collection('studies')
+      .doc(studyID)
+      .collection('topics')
+      .doc(topicID)
+      .collection('discussions')
+      .doc(discussion.id)
+      .update(jsonTopic);
   }
   /**
    * Creates a response for a specific discussion
@@ -629,6 +659,24 @@ export class StudyDataService {
       .collection('responses')
       .doc(firebaseID)
       .set(jsonDiscussion);
+  }
+  /**
+   * Updates a discussion for a specific topic
+   * @param {string} studyID Study ID
+   * @param {Topic} topic Topic data
+   */
+  updateResponse(studyID: string, topicID: string, discussionID: string, response: QuestionResponse) {
+    const jsonTopic = Utils.toJson(response);
+    return this.afs
+      .collection('studies')
+      .doc(studyID)
+      .collection('topics')
+      .doc(topicID)
+      .collection('discussions')
+      .doc(discussionID)
+      .collection('responses')
+      .doc(response.id)
+      .update(jsonTopic);
   }
   /**
    * Creates a subresponse for a specific response
