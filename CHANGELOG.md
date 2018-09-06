@@ -27,31 +27,6 @@ All notable changes to this project will be documented in this file. See [standa
 
 
 
-<a name=""></a>
-# [](https://github.com/Biblink/biblink-frontend/compare/v1.2.0-alpha...v) (2018-09-06)
-
-
-### Bug Fixes
-
-* **caret:** change caret color when editing study information ([4d29463](https://github.com/Biblink/biblink-frontend/commit/4d29463))
-* **deploy:** remove compodoc deployment ([5791608](https://github.com/Biblink/biblink-frontend/commit/5791608))
-* **release:** fix typo in release script ([87dc9b6](https://github.com/Biblink/biblink-frontend/commit/87dc9b6))
-* **study list:** fix study list on smaller screens ([c9cb3a0](https://github.com/Biblink/biblink-frontend/commit/c9cb3a0))
-
-
-### Features
-
-* **create-topic:** Add ability to create topic ([285b675](https://github.com/Biblink/biblink-frontend/commit/285b675))
-* **discussion:** add ability to create discussions ([617fd5d](https://github.com/Biblink/biblink-frontend/commit/617fd5d))
-* **discussion:** add ability to delete discussions and replies ([162eb90](https://github.com/Biblink/biblink-frontend/commit/162eb90))
-* **edit-info:** Add ability to edit discussion information ([1d7c89c](https://github.com/Biblink/biblink-frontend/commit/1d7c89c))
-* **loading:** add basic loading to discussions ([1a13b1b](https://github.com/Biblink/biblink-frontend/commit/1a13b1b))
-* **response:** allow creation of responses ([031be81](https://github.com/Biblink/biblink-frontend/commit/031be81))
-* **subreply:** add ability to add subreplies ([5f0641a](https://github.com/Biblink/biblink-frontend/commit/5f0641a))
-* **topic:** add ability to delete topic ([4dc4182](https://github.com/Biblink/biblink-frontend/commit/4dc4182))
-
-
-
 <a name="1.2.0-alpha"></a>
 # [1.2.0-alpha](https://github.com/Biblink/biblink-frontend/compare/v1.1.3-alpha...v1.2.0-alpha) (2018-08-11)
 
