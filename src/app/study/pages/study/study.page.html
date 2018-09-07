@@ -172,7 +172,6 @@
                           </div>
                           <hr class="dropdown-divider">
                           <div class="dropdown-item">
-                            <!-- TODO: Add Delete Functionality -->
                             <a class="red-link" (click)="activateZ = 10; deleteResponse(response)">Delete</a>
                           </div>
                         </div>
@@ -218,7 +217,6 @@
                       </div>
                       <hr class="dropdown-divider">
                       <div class="dropdown-item">
-                        <!-- TODO: Add Delete Functionality -->
                         <a class="red-link" (click)="activateZ = 10; deleteDiscussion(discussion)">Delete</a>
                       </div>
                     </div>
@@ -269,7 +267,6 @@
                       </div>
                       <hr class="dropdown-divider">
                       <div class="dropdown-item">
-                        <!-- TODO: Add Delete Functionality -->
                         <a class="red-link" (click)="activateZ = 10; deleteTopic(topic)">Delete</a>
                       </div>
                     </div>
@@ -636,9 +633,6 @@
                   <p>{{annotation['dateInfo']['date']}}</p>
                 </div>
               </div>
-              <!-- <div class="card-body" [innerHtml]="annotation['htmlText'] | safeHtml" (mouseenter)="getVerse($event)" [id]="'post-text-' + i">
-                {{annotation['text']}}
-              </div> TODO: add route for htmlText -->
               <div class="card-body annotation-body" [id]="'annotation-text-' + i">{{annotation['text']}}</div>
             </app-post-card>
           </div>
@@ -790,7 +784,6 @@
     </section>
     <footer class="modal-card-foot">
       <div>
-        <!-- TODO: Add capability of subresponse -->
         <button class="btn study-btn modal-btn" style="width: 200px;" (click)="createResponse(currentResponse, true); activateSubQuestionReplyModal = false;">Create
           Subresponse
         </button>
