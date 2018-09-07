@@ -3,7 +3,7 @@
 <div class="main-content">
   <div class="columns">
     <div class="left-nav column is-one-fifth">
-     <switch-tab [isLeader]="isLeader" (tab)="switchTab($event)"></switch-tab>
+      <switch-tab [isLeader]="isLeader" (tab)="switchTab($event)"></switch-tab>
     </div>
     <div class="main-info column is-three-fifths is-centered">
       <div class="posts" *ngIf="currentTab !== 'shared-bible' && currentTab !== 'discussions' &&  currentTab !== 'shared-calendar' && currentTab !== 'settings' ">
