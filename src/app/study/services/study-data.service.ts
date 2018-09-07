@@ -9,7 +9,7 @@ import {
   AngularFirestore,
   AngularFirestoreDocument,
   AngularFirestoreCollection
-} from 'angularfire2/firestore';
+} from '@angular/fire/firestore';
 import { Observable, BehaviorSubject, Subscription } from 'rxjs';
 import { UserDataInterface } from '../../core/interfaces/user-data.interface';
 import { User } from '../../core/interfaces/user';

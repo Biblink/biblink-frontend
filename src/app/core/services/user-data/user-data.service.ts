@@ -5,7 +5,7 @@ import {
   AngularFirestoreDocument,
   DocumentSnapshot,
   Action
-} from 'angularfire2/firestore';
+} from '@angular/fire/firestore';
 import { Observable, BehaviorSubject, Subscription, of } from 'rxjs';
 import { UserDataInterface } from '../../interfaces/user-data.interface';
 import { User } from '../../interfaces/user';
@@ -65,7 +65,7 @@ export class UserDataService {
       } else {
         let receivedLocalData = false;
         if (res.emailVerified) {
-          this.userReference = this.afs.doc(`/users/${res.uid}`);
+          this.userReference = this.afs.doc(`/users/${ res.uid }`);
           this.userID.next(res.uid);
           dataRef = this.userReference.snapshotChanges();
           dataSubscription = dataRef
@@ -166,7 +166,7 @@ export class UserDataService {
       return of([]);
     }
     return this.afs
-      .doc(`users/${uid}`)
+      .doc(`users/${ uid }`)
       .collection('notifications')
       .snapshotChanges()
       .pipe(
@@ -174,7 +174,7 @@ export class UserDataService {
           const converted = [];
           val.forEach((res, index) => {
             const data = res.payload.doc.data();
-            data['id'] = res.payload.doc.id;
+            data[ 'id' ] = res.payload.doc.id;
             converted.push(data);
           });
           return converted;
@@ -192,7 +192,7 @@ export class UserDataService {
       return;
     }
     const notificationsRef = this.afs
-      .doc(`users/${uid}`)
+      .doc(`users/${ uid }`)
       .collection('notifications');
     const promises = [];
     notificationIDs.forEach(id => {
@@ -210,7 +210,7 @@ export class UserDataService {
       return;
     }
     return this.afs
-      .doc(`users/${uid}`)
+      .doc(`users/${ uid }`)
       .collection('notifications')
       .doc(notificationID)
       .update({ read: true });
@@ -220,7 +220,7 @@ export class UserDataService {
    * @param groupID Group ID
    */
   public getStudyData(groupID: string) {
-    return this.afs.doc(`/studies/${groupID}`).valueChanges();
+    return this.afs.doc(`/studies/${ groupID }`).valueChanges();
   }
 
   /**

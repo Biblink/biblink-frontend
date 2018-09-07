@@ -6,11 +6,11 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { Angulartics2Module } from 'angulartics2';
 import { Angulartics2GoogleAnalytics } from 'angulartics2/ga';
 import { ShareModule } from '@ngx-share/core';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFireStorageModule } from '@angular/fire/storage';
+import { AngularFireAuthModule } from '@angular/fire/auth';
 import { ToastrModule } from 'ngx-toastr';
-import { AngularFireModule } from 'angularfire2';
-import { AngularFirestoreModule } from 'angularfire2/firestore';
-import { AngularFireStorageModule } from 'angularfire2/storage';
-import { AngularFireAuthModule } from 'angularfire2/auth';
 import { RecaptchaModule } from 'ng-recaptcha';
 import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -51,7 +51,7 @@ import { LoadingIntermediateComponent } from './loading-intermediate/loading-int
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebase, 'biblink'),
-    AngularFirestoreModule,
+    AngularFirestoreModule.enablePersistence(),
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
     BrowserTransferStateModule,
     SharedModule,
@@ -61,7 +61,7 @@ import { LoadingIntermediateComponent } from './loading-intermediate/loading-int
       enabled: environment.production
     }),
     RecaptchaModule.forRoot(),
-    Angulartics2Module.forRoot([Angulartics2GoogleAnalytics]),
+    Angulartics2Module.forRoot([ Angulartics2GoogleAnalytics ]),
     ScrollToModule.forRoot(),
     HttpClientModule,
     HttpClientJsonpModule,
@@ -82,6 +82,6 @@ import { LoadingIntermediateComponent } from './loading-intermediate/loading-int
     OrganizationModule,
     AppRoutingModule
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [ AppComponent ]
 })
-export class AppModule {}
+export class AppModule { }

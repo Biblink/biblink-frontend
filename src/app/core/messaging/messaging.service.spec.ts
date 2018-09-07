@@ -2,8 +2,8 @@ import { TestBed, inject } from '@angular/core/testing';
 
 import { MessagingService } from './messaging.service';
 import { environment } from '../../../environments/environment';
-import { AngularFireModule } from 'angularfire2';
-import { AngularFirestoreModule } from 'angularfire2/firestore';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
 
 describe('MessagingService', () => {
   beforeEach(() => {
@@ -12,12 +12,12 @@ describe('MessagingService', () => {
         AngularFireModule.initializeApp(environment.firebase, 'biblink'),
         AngularFirestoreModule
       ],
-      providers: [MessagingService]
+      providers: [ MessagingService ]
     });
   });
 
   it('should be created', inject(
-    [MessagingService],
+    [ MessagingService ],
     (service: MessagingService) => {
       expect(service).toBeTruthy();
     }

@@ -7,7 +7,6 @@ import { AuthService } from '../../../core/services/auth/auth.service';
 import { Router } from '@angular/router';
 import { Observable } from '@firebase/util';
 import { tap, map } from 'rxjs/operators';
-import { DocumentSnapshot } from 'angularfire2/firestore';
 import { ToastrService } from 'ngx-toastr';
 import { Subscription } from 'rxjs';
 /**

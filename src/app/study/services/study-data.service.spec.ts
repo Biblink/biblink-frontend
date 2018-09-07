@@ -1,10 +1,10 @@
 import { TestBed, inject } from '@angular/core/testing';
 
 import { StudyDataService } from './study-data.service';
-import { AngularFireModule } from 'angularfire2';
+import { AngularFireModule } from '@angular/fire';
 import { environment } from '../../../environments/environment';
-import { AngularFireAuthModule } from 'angularfire2/auth';
-import { AngularFirestoreModule } from 'angularfire2/firestore';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
 
 describe('StudyDataService', () => {
   beforeEach(() => {
@@ -14,12 +14,12 @@ describe('StudyDataService', () => {
         AngularFireAuthModule,
         AngularFirestoreModule
       ],
-      providers: [StudyDataService]
+      providers: [ StudyDataService ]
     });
   });
 
   it('should be created', inject(
-    [StudyDataService],
+    [ StudyDataService ],
     (service: StudyDataService) => {
       expect(service).toBeTruthy();
     }

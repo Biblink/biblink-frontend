@@ -3,9 +3,9 @@ import { SharedModule } from './../../../shared/shared.module';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { PasswordResetComponent } from './password-reset.page';
-import { AngularFireModule } from 'angularfire2';
+import { AngularFireModule } from '@angular/fire';
 import { environment } from '../../../../environments/environment';
-import { AngularFireAuthModule } from 'angularfire2/auth';
+import { AngularFireAuthModule } from '@angular/fire/auth';
 import { ToastrModule } from 'ngx-toastr';
 import { RouterTestingModule } from '@angular/router/testing';
 
@@ -25,7 +25,7 @@ describe('PasswordResetComponent', () => {
           positionClass: 'toast-bottom-left'
         })
       ],
-      declarations: [PasswordResetComponent]
+      declarations: [ PasswordResetComponent ]
     }).compileComponents();
   }));
 

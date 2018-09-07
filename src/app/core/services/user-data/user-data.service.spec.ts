@@ -1,9 +1,9 @@
-import { AngularFirestoreModule } from 'angularfire2/firestore';
-import { AngularFireAuthModule } from 'angularfire2/auth';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFireAuthModule } from '@angular/fire/auth';
 import { TestBed, inject } from '@angular/core/testing';
 
 import { UserDataService } from './user-data.service';
-import { AngularFireModule } from 'angularfire2';
+import { AngularFireModule } from '@angular/fire';
 import { environment } from '../../../../environments/environment';
 
 describe('UserDataService', () => {
@@ -14,12 +14,12 @@ describe('UserDataService', () => {
         AngularFireAuthModule,
         AngularFirestoreModule
       ],
-      providers: [UserDataService]
+      providers: [ UserDataService ]
     });
   });
 
   it('should be created', inject(
-    [UserDataService],
+    [ UserDataService ],
     (service: UserDataService) => {
       expect(service).toBeTruthy();
     }

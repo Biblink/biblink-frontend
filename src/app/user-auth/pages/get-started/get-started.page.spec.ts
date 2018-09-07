@@ -1,4 +1,4 @@
-import { AngularFireAuthModule } from 'angularfire2/auth';
+import { AngularFireAuthModule } from '@angular/fire/auth';
 import { SharedImportsModule } from './../../../shared/shared-imports/shared-imports.module';
 import { RouterTestingModule } from '@angular/router/testing';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
@@ -6,7 +6,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { GetStartedComponent } from './get-started.page';
 import { CoreModule } from '../../../core/core.module';
 import { RecaptchaModule } from 'ng-recaptcha';
-import { AngularFireModule } from 'angularfire2';
+import { AngularFireModule } from '@angular/fire';
 import { environment } from '../../../../environments/environment';
 import { RecaptchaFormsModule } from 'ng-recaptcha/forms';
 
@@ -25,7 +25,7 @@ describe('GetStartedComponent', () => {
         RecaptchaFormsModule,
         SharedImportsModule
       ],
-      declarations: [GetStartedComponent]
+      declarations: [ GetStartedComponent ]
     }).compileComponents();
   }));
 

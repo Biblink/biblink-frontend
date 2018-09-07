@@ -13,7 +13,7 @@ import {
 import {
   AngularFirestore,
   AngularFirestoreCollection
-} from 'angularfire2/firestore';
+} from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { StudyDataService } from '../../services/study-data.service';
 import { UserDataService } from '../../../core/services/user-data/user-data.service';
@@ -24,7 +24,7 @@ import { Reply } from '../../../core/interfaces/reply';
 @Component({
   selector: 'app-post-card',
   templateUrl: './post-card.component.html',
-  styleUrls: ['./post-card.component.css'],
+  styleUrls: [ './post-card.component.css' ],
   encapsulation: ViewEncapsulation.None
 })
 export class PostCardComponent implements OnInit {
@@ -133,7 +133,7 @@ export class PostCardComponent implements OnInit {
     private _user: UserDataService,
     private _study: StudyDataService,
     private toastr: ToastrService
-  ) {}
+  ) { }
   /**
    * Initializes component
    */
@@ -142,16 +142,16 @@ export class PostCardComponent implements OnInit {
       let firstTime = false;
       let previousImage = '';
       this.afs
-        .doc(`/users/${contributor}`)
+        .doc(`/users/${ contributor }`)
         .valueChanges()
         .subscribe(value => {
           if (firstTime) {
             const index = this.contributorImages.indexOf(previousImage);
-            this.contributorImages[index] = value['data']['profileImage'];
+            this.contributorImages[ index ] = value[ 'data' ][ 'profileImage' ];
           }
-          this.contributorImages.push(value['data']['profileImage']);
+          this.contributorImages.push(value[ 'data' ][ 'profileImage' ]);
           firstTime = true;
-          previousImage = value['data']['profileImage'];
+          previousImage = value[ 'data' ][ 'profileImage' ];
         });
     });
     this.getReplies();
@@ -176,37 +176,37 @@ export class PostCardComponent implements OnInit {
       replies.forEach(reply => {
         let firstTime = false;
         let firstReply = {};
-        if (reply['htmlText'] === undefined || reply['htmlText'] === '') {
-          reply['htmlText'] = reply['text'];
+        if (reply[ 'htmlText' ] === undefined || reply[ 'htmlText' ] === '') {
+          reply[ 'htmlText' ] = reply[ 'text' ];
         }
-        this._user.getDataFromID(reply['creatorID']).subscribe(data => {
-          const profileImage = data['data']['profileImage'];
-          reply['image'] = profileImage;
-          reply['name'] = data['name'];
-          reply['subreplies'] = [];
-          this.getSubReplies(reply['id']).subscribe(subreplies => {
-            reply['subreplies'] = [];
+        this._user.getDataFromID(reply[ 'creatorID' ]).subscribe(data => {
+          const profileImage = data[ 'data' ][ 'profileImage' ];
+          reply[ 'image' ] = profileImage;
+          reply[ 'name' ] = data[ 'name' ];
+          reply[ 'subreplies' ] = [];
+          this.getSubReplies(reply[ 'id' ]).subscribe(subreplies => {
+            reply[ 'subreplies' ] = [];
             subreplies.forEach(subreply => {
               let firstSubReplyTime = false;
               let firstSubReply = {};
               this._user
-                .getDataFromID(subreply['creatorID'])
+                .getDataFromID(subreply[ 'creatorID' ])
                 .subscribe(subData => {
-                  const subProfileImage = subData['data']['profileImage'];
+                  const subProfileImage = subData[ 'data' ][ 'profileImage' ];
                   if (
-                    subreply['htmlText'] === undefined ||
-                    subreply['htmlText'] === ''
+                    subreply[ 'htmlText' ] === undefined ||
+                    subreply[ 'htmlText' ] === ''
                   ) {
-                    subreply['htmlText'] = subreply['text'];
+                    subreply[ 'htmlText' ] = subreply[ 'text' ];
                   }
-                  subreply['image'] = subProfileImage;
-                  subreply['name'] = subData['name'];
+                  subreply[ 'image' ] = subProfileImage;
+                  subreply[ 'name' ] = subData[ 'name' ];
                   if (firstSubReplyTime) {
-                    reply['subreplies'][
-                      reply['subreplies'].indexOf(firstSubReply)
+                    reply[ 'subreplies' ][
+                      reply[ 'subreplies' ].indexOf(firstSubReply)
                     ] = subreply;
                   } else {
-                    reply['subreplies'].push(subreply);
+                    reply[ 'subreplies' ].push(subreply);
                   }
                   firstSubReplyTime = true;
                   firstSubReply = subreply;
@@ -214,7 +214,7 @@ export class PostCardComponent implements OnInit {
             });
           });
           if (firstTime) {
-            this.replies[this.replies.indexOf(firstReply)] = reply;
+            this.replies[ this.replies.indexOf(firstReply) ] = reply;
           } else {
             this.replies.push(reply);
           }
@@ -232,7 +232,7 @@ export class PostCardComponent implements OnInit {
   getSubReplies(replyID) {
     if (this.isAnnotation) {
       return this.afs
-        .doc(`studies/${this.studyID}`)
+        .doc(`studies/${ this.studyID }`)
         .collection('annotations')
         .doc(this.chapterRef)
         .collection('chapter-annotations')
@@ -243,7 +243,7 @@ export class PostCardComponent implements OnInit {
         .valueChanges();
     }
     return this.afs
-      .doc(`studies/${this.studyID}`)
+      .doc(`studies/${ this.studyID }`)
       .collection('posts')
       .doc(this.id)
       .collection('replies')
@@ -264,14 +264,14 @@ export class PostCardComponent implements OnInit {
       []
     );
     const jsonReply = Utils.toJson(reply);
-    jsonReply['id'] = firebaseID;
+    jsonReply[ 'id' ] = firebaseID;
     let ref = this.afs
-      .doc(`studies/${this.studyID}`)
+      .doc(`studies/${ this.studyID }`)
       .collection('posts')
-      .doc(`${this.id}`);
+      .doc(`${ this.id }`);
     if (this.isAnnotation) {
       ref = this.afs
-        .doc(`studies/${this.studyID}`)
+        .doc(`studies/${ this.studyID }`)
         .collection('annotations')
         .doc(this.chapterRef)
         .collection('chapter-annotations')
@@ -279,8 +279,8 @@ export class PostCardComponent implements OnInit {
     }
     if (!this.isAnnotation) {
       const updateContributor = ref.valueChanges().subscribe(val => {
-        if (val['contributors'].indexOf(reply.creatorID) === -1) {
-          val['contributors'].push(reply.creatorID);
+        if (val[ 'contributors' ].indexOf(reply.creatorID) === -1) {
+          val[ 'contributors' ].push(reply.creatorID);
         }
         ref.update(val).then(() => {
           updateContributor.unsubscribe();

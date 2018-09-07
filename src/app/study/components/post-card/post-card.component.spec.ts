@@ -5,9 +5,9 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { PostCardComponent } from './post-card.component';
 import { SafeHtmlPipe } from '../../../shared/pipes/safe-html.pipe';
 import { environment } from '../../../../environments/environment';
-import { AngularFireModule } from 'angularfire2';
-import { AngularFirestoreModule } from 'angularfire2/firestore';
-import { AngularFireAuthModule } from 'angularfire2/auth';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFireAuthModule } from '@angular/fire/auth';
 import { StudyDataService } from '../../services/study-data.service';
 import { ToastrModule } from 'ngx-toastr';
 
@@ -26,8 +26,8 @@ describe('PostCardComponent', () => {
           positionClass: 'toast-bottom-left'
         })
       ],
-      declarations: [PostCardComponent, SafeHtmlPipe],
-      providers: [StudyDataService]
+      declarations: [ PostCardComponent, SafeHtmlPipe ],
+      providers: [ StudyDataService ]
     }).compileComponents();
   }));
 
