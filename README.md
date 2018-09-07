@@ -1,4 +1,4 @@
-<div style="display: block; text-align:center" align="center"><img width="175px" alt="Biblink Logo" src="./src/assets/icons/color-logo.svg" /></div>
+<div style="display: block; text-align:center" align="center"><img width="175px" alt="Biblink Logo" src="https://s22.postimg.cc/7nypqo7wh/color-logo.png" /></div>
 
 # Biblink Frontend
 
