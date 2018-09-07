@@ -7,6 +7,7 @@ import { StudyNavComponent } from './components/study-nav/study-nav.component';
 import { SharedModule } from '../shared/shared.module';
 import { PostCardComponent } from './components/post-card/post-card.component';
 import { StudyDataService } from './services/study-data.service';
+import { SwitchTabComponent } from './components/switch-tab/switch-tab.component';
 
 @NgModule({
   imports: [
@@ -17,7 +18,8 @@ import { StudyDataService } from './services/study-data.service';
   declarations: [
     PostCardComponent,
     StudyNavComponent,
-    StudyComponent
+    StudyComponent,
+    SwitchTabComponent
   ],
   providers: [ StudyDataService ]
 })
