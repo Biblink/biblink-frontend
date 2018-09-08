@@ -20,9 +20,9 @@
         <div class="column" [class.remove-padding]="isAnnotation">
           <div [class.lower]="isAnnotation">
             <a class="post-action" [class.annotation-action]="isAnnotation" (click)="activateReplyModal = true" *ngIf="replies.length === 0">Reply</a>
-            <a class="post-action" [class.annotation-action]="isAnnotation" [class.annotation-with-replies]="isAnnotation" (click)="activateReplyModal = true"
-              *ngIf="replies.length > 0">Reply ({{replies.length}})</a>
-            <a class="post-action" href="" *ngIf="!isAnnotation">Star</a>
+            <a class="post-action" [class.annotation-action]="isAnnotation" [class.annotation-with-replies]="isAnnotation"
+              (click)="activateReplyModal = true" *ngIf="replies.length > 0">Reply ({{replies.length}})</a>
+            <!-- <a class="post-action" href="" *ngIf="!isAnnotation">Star</a> -->
             <div *ngIf="isLeader || isCreator" [class.annotation-dropdown]="isAnnotation" class="dropdown is-left is-hoverable verse-dropdown"
               (mouseenter)="activateZ = 700" (mouseleave)="activateZ = 0">
               <div class="dropdown-trigger">
@@ -74,7 +74,8 @@
         </div>
         <div class="sub-reply" *ngFor="let subreply of reply['subreplies']">
           <div class="person-container">
-            <svg width="27px" height="34px" viewBox="0 0 27 34" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+            <svg width="27px" height="34px" viewBox="0 0 27 34" version="1.1" xmlns="http://www.w3.org/2000/svg"
+              xmlns:xlink="http://www.w3.org/1999/xlink">
               <!-- Generator: Sketch 49 (51002) - http://www.bohemiancoding.com/sketch -->
               <title>Group 5</title>
               <desc>Created with Sketch.</desc>
@@ -87,7 +88,8 @@
                   <feOffset dx="0" dy="1" in="shadowInner" result="shadowInner"></feOffset>
                   <feComposite in="shadowOffsetOuter1" in2="shadowInner" operator="out" result="shadowOffsetOuter1"></feComposite>
                   <feGaussianBlur stdDeviation="0.5" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
-                  <feColorMatrix values="0 0 0 0 0.792156863   0 0 0 0 0.733333333   0 0 0 0 0.733333333  0 0 0 0.5 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+                  <feColorMatrix values="0 0 0 0 0.792156863   0 0 0 0 0.733333333   0 0 0 0 0.733333333  0 0 0 0.5 0"
+                    type="matrix" in="shadowBlurOuter1"></feColorMatrix>
                 </filter>
                 <path d="M1.5,0.5 L1.5,31.5" id="path-3"></path>
                 <filter x="-83.3%" y="-4.7%" width="266.7%" height="115.6%" filterUnits="objectBoundingBox" id="filter-4">
@@ -97,10 +99,12 @@
                   <feOffset dx="0" dy="1" in="shadowInner" result="shadowInner"></feOffset>
                   <feComposite in="shadowOffsetOuter1" in2="shadowInner" operator="out" result="shadowOffsetOuter1"></feComposite>
                   <feGaussianBlur stdDeviation="0.5" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
-                  <feColorMatrix values="0 0 0 0 0.792156863   0 0 0 0 0.733333333   0 0 0 0 0.733333333  0 0 0 0.5 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+                  <feColorMatrix values="0 0 0 0 0.792156863   0 0 0 0 0.733333333   0 0 0 0 0.733333333  0 0 0 0.5 0"
+                    type="matrix" in="shadowBlurOuter1"></feColorMatrix>
                 </filter>
               </defs>
-              <g id="Light-Dashboard-Designs" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="square">
+              <g id="Light-Dashboard-Designs" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"
+                stroke-linecap="square">
                 <g id="Light-Dashboard-Desktop" transform="translate(-477.000000, -533.000000)">
                   <g id="Post" transform="translate(420.000000, 214.000000)">
                     <g id="Group-5" transform="translate(57.000000, 319.000000)">
@@ -118,7 +122,8 @@
               </g>
             </svg>
             <div>
-              <img class="contributor-image" [class.reply-annotation-image]="isAnnotation" [src]="subreply['image']" alt="">
+              <img class="contributor-image" [class.reply-annotation-image]="isAnnotation" [src]="subreply['image']"
+                alt="">
               <span class="name" *ngIf="!isAnnotation">{{subreply['name']}}</span>
             </div>
             <p class="reply-text" *ngIf="!isAnnotation" [innerHtml]="subreply['htmlText'] | safeHtml"></p>
@@ -166,7 +171,8 @@
     </section>
     <footer class="modal-card-foot">
       <div>
-        <button [disabled]="replyInput.invalid" class="btn study-btn modal-btn" (click)="emitReply(); activateReplyModal = false;">Add Reply</button>
+        <button [disabled]="replyInput.invalid" class="btn study-btn modal-btn" (click)="emitReply(); activateReplyModal = false;">Add
+          Reply</button>
         <a (click)="activateReplyModal = false" class="btn-link">Cancel</a>
       </div>
     </footer>
@@ -187,7 +193,8 @@
     </section>
     <footer class="modal-card-foot">
       <div>
-        <button [disabled]="subReplyInput.invalid" class="btn study-btn modal-btn" (click)="addSubReply(); activateSubReplyModal = false;">Add Reply</button>
+        <button [disabled]="subReplyInput.invalid" class="btn study-btn modal-btn" (click)="addSubReply(); activateSubReplyModal = false;">Add
+          Reply</button>
         <a (click)="activateSubReplyModal = false" class="btn-link">Cancel</a>
       </div>
     </footer>
