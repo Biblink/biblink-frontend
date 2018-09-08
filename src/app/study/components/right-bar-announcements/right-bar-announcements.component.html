@@ -1,0 +1,61 @@
+ <div id="right">
+        <ng-container *ngIf="currentTab !== 'shared-bible' && currentTab !== 'shared-calendar'">
+              <h1 class="nav-header center">
+            <span *ngIf="keyAnnouncements.length === 1">Key Announcement</span>
+            <span *ngIf="keyAnnouncements.length > 1">Key Announcements</span>
+          </h1>
+          <br>
+          <div class="no-announcements has-text-centered" *ngIf="keyAnnouncements.length === 0">
+            <p>Seems like you have no announcements! Be the first to add one!</p>
+            <br>
+            <a class="more-link" (click)="expandActions(); setPostType()">Add First Announcement</a>
+          </div>
+          <div class="announcements">
+            <div class="announcement-container" *ngFor="let announcement of keyAnnouncements; let i = index;">
+              <div class="announcement">
+                <div class="head">
+                  <img class="profile-image" [src]="announcement['image']">
+                  <span class="date-info time">{{announcement['dateInfo']['time']}}</span>
+                  <span class="date-info date">{{announcement['dateInfo']['date']}}</span>
+                </div>
+                <div class="content">
+                  <div class="title-container">
+                    <h1 class="announcement-title">{{announcement['title']}}</h1>
+                  </div>
+                  <div class="announcement-text">
+                    <p [innerHtml]="announcement['htmlText']"></p>
+                  </div>
+                </div>
+              </div>
+              <img *ngIf="(i + 1) != keyAnnouncements.length" class="connector" src="/assets/images/feature-images/announcement-connector.svg">
+            </div>
+          </div>
+          <div class="bottom has-text-centered">
+            <a class="more-link" (click)="switchTab('announcements')" *ngIf="keyAnnouncements.length > 0">See More</a>
+          </div>
+          <hr>
+          <div class="nav-header center">
+            <span *ngIf="members.length === 1">Member</span>
+            <span *ngIf="members.length > 1">Members</span>
+          </div>
+          <div class="members">
+            <ng-container *ngFor="let member of members; let i = index">
+
+              <div class="member">
+                <i *ngIf="(member['image'] === null || member['image'] === '') && i < numberOfMembers" style="font-size: 42px; margin-left: 5px; margin-right: 6px;"
+                  class="user fa fa-user"></i>
+                <img *ngIf="member['image'] !== null && member['image'] !== '' && i < numberOfMembers" class="profile-image" [src]="member['image']">
+                <div class="member-name" *ngIf="i < numberOfMembers ">
+                  <span>{{member['name']}}</span>
+                </div>
+              </div>
+              <span class="member-role" *ngIf="i < numberOfMembers">{{capitalize(member['role'])}} </span>
+              <br>
+              <a class="promote more-link" (click)="verifyPromote(member['name'], member['uid'])" *ngIf="i < numberOfMembers && member['role'] !== 'leader' && isLeader">(Promote to Leader?)</a>
+            </ng-container>
+          </div>
+          <div class="bottom has-text-centered">
+            <a class="more-link" *ngIf="members.length > numberOfMembers">See More</a>
+          </div>
+        </ng-container>
+      </div>

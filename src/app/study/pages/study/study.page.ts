@@ -98,14 +98,6 @@ export class StudyComponent implements OnInit, OnDestroy {
   /**
    * @ignore
    */
-  membersSubscription: Subscription = new Subscription();
-  /**
-   * @ignore
-   */
-  keyAnnouncementSubscription: Subscription = new Subscription();
-  /**
-   * @ignore
-   */
   postSubscription: Subscription = new Subscription();
   /**
    * @ignore
@@ -180,10 +172,6 @@ export class StudyComponent implements OnInit, OnDestroy {
    * Current active chapter in shared Bible
    */
   activeChapter = 1;
-  /**
-   * Number of members to display in sidebar
-   */
-  numberOfMembers = 3;
   /**
    * Current tab to display
    */
@@ -262,12 +250,6 @@ export class StudyComponent implements OnInit, OnDestroy {
    * List of post indices for scrolling
    */
   postIndices = [];
-  /**
-   * List of members
-   */
-  members = [];
-
-
   /**
    * Study metadata
    */
@@ -404,10 +386,8 @@ export class StudyComponent implements OnInit, OnDestroy {
     this.userDataSubscription.unsubscribe();
     this.userIDSubscription.unsubscribe();
     this.postSubscription.unsubscribe();
-    this.membersSubscription.unsubscribe();
     this.chapterSubscription.unsubscribe();
     this.editPostSubscription.unsubscribe();
-    this.keyAnnouncementSubscription.unsubscribe();
   }
   /**
    * Initializes component
@@ -468,8 +448,6 @@ export class StudyComponent implements OnInit, OnDestroy {
       }
     });
     this.getPosts();
-    this.getMembers();
-    this.getKeyAnnouncements();
     this.posts = this._posts.asObservable().pipe(
       scan((acc, val) => {
         if (val.length === 0) {
@@ -528,19 +506,20 @@ export class StudyComponent implements OnInit, OnDestroy {
   resetPost() {
     this.createPost = new Post();
   }
-  /**
-   * Resets annotation form
-   */
-  resetAnnotation() {
-    this.createAnnotation = new Annotation();
-  }
-  /**
+   /**
    * Sets post type for post form
    * @param {string} type Post Type
    */
   setPostType(type: string) {
     this.createPost.type = type;
     this.toggleCreation(true);
+  }
+
+  /**
+   * Resets annotation form
+   */
+  resetAnnotation() {
+    this.createAnnotation = new Annotation();
   }
   /**
    * Sets annotation type for annotation form
@@ -579,15 +558,6 @@ export class StudyComponent implements OnInit, OnDestroy {
           });
       }
     }
-  }
-  /**
-   * Get study announcements
-   */
-  getAnnouncements() {
-    this.isLoading.next(true);
-    this.resetPosts = true;
-    this._getFeedByType('announcement');
-    this.type = 'announcement';
   }
   /**
    * Get study questions
@@ -701,86 +671,6 @@ export class StudyComponent implements OnInit, OnDestroy {
     return val;
   }
   /**
-   * Gets key announcements (three most recent announcements)
-   */
-  getKeyAnnouncements() {
-    this.keyAnnouncementSubscription = this._study
-      .getKeyAnnouncements(this.groupID)
-      .pipe(
-        map(res => {
-          this.keyAnnouncements = [];
-          res.map(val => {
-            val = this._checkHtmlText(val);
-            const contained = this.keyAnnouncements.filter(
-              value => value[ 'id' ] === val[ 'id' ]
-            );
-            this._user
-              .getDataFromID(val[ 'creatorID' ])
-              .take(1)
-              .subscribe(response => {
-                val[ 'image' ] = response[ 'data' ][ 'profileImage' ];
-                if (val['image'] === null) {
-                  val['image'] = '/assets/images/feature-images/default-photo.png'
-                }
-                if (contained.length === 1) {
-                  this.keyAnnouncements[
-                    this.keyAnnouncements.indexOf(contained[ 0 ])
-                  ] = val;
-                } else {
-                  this.keyAnnouncements.push(val);
-                }
-              });
-          });
-          setTimeout(() => {
-            $('.announcement-text p').each((index, value) => {
-                $clamp(value, {clamp: 3})
-              });
-              
-          }, 500);
-          return res;
-        })
-      )
-      .subscribe();
-  }
-  /**
-   * Gets all members of a study
-   */
-  getMembers() {
-    this.membersSubscription = this._study
-      .getMembers(this.groupID)
-      .subscribe(members => {
-        this.members = [];
-        members.forEach(member => {
-          let firstTime = false;
-          let oldImage = { name: '', uid: '', image: '', role: '' };
-          this._user.getDataFromID(member[ 'uid' ]).subscribe(res => {
-            if (firstTime) {
-              this.members[ this.members.indexOf(oldImage) ] = {
-                name: res[ 'name' ],
-                image: res[ 'data' ][ 'profileImage' ],
-                role: member[ 'role' ],
-                uid: member[ 'uid' ]
-              };
-            } else {
-              this.members.push({
-                name: res[ 'name' ],
-                uid: member[ 'uid' ],
-                image: res[ 'data' ][ 'profileImage' ],
-                role: member[ 'role' ]
-              });
-            }
-            firstTime = true;
-            oldImage = {
-              name: res[ 'name' ],
-              uid: member[ 'uid' ],
-              image: res[ 'data' ][ 'profileImage' ],
-              role: member[ 'role' ]
-            };
-          });
-        });
-      });
-  }
-  /**
    * Navigates to a particular URL
    * @param {string} url Url to navigate to
    */
@@ -825,6 +715,15 @@ export class StudyComponent implements OnInit, OnDestroy {
         this._router.navigateByUrl(`/search?query=${ reference.split(': ')[ 0 ] }`);
       });
     });
+  }
+     /**
+   * Get study announcements
+   */
+  getAnnouncements() {
+    this.isLoading.next(true);
+    this.resetPosts = true;
+    this._getFeedByType('announcement');
+    this.type = 'announcement';
   }
   /**
    * Switch to a certain tab

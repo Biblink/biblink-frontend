@@ -52,3 +52,10 @@
     width: 100%;
     border-left: 9px solid #255250 !important;
 }
+
+.connector {
+    position: relative;
+    top: -100px;
+    left: 15px;
+    z-index: -20;
+}

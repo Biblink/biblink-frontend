@@ -528,69 +528,8 @@
           alt="">
       </div>
     </div>
-    <div class="right-nav column is-one-fifth is-hidden-mobile">
-      <div id="right">
-        <ng-container *ngIf="currentTab !== 'shared-bible' && currentTab !== 'shared-calendar'">
-          <h1 class="nav-header center">
-            <span *ngIf="keyAnnouncements.length === 1">Key Announcement</span>
-            <span *ngIf="keyAnnouncements.length > 1">Key Announcements</span>
-          </h1>
-          <br>
-          <div class="no-announcements has-text-centered" *ngIf="keyAnnouncements.length === 0">
-            <p>Seems like you have no announcements! Be the first to add one!</p>
-            <br>
-            <a class="more-link" (click)="expandActions(); setPostType('announcement')">Add First Announcement</a>
-          </div>
-          <div class="announcements">
-            <div class="announcement-container" *ngFor="let announcement of keyAnnouncements; let i = index;">
-              <div class="announcement">
-                <div class="head">
-                  <img class="profile-image" [src]="announcement['image']">
-                  <span class="date-info time">{{announcement['dateInfo']['time']}}</span>
-                  <span class="date-info date">{{announcement['dateInfo']['date']}}</span>
-                </div>
-                <div class="content">
-                  <div class="title-container">
-                    <h1 class="announcement-title">{{announcement['title']}}</h1>
-                  </div>
-                  <div class="announcement-text">
-                    <p [innerHtml]="announcement['htmlText']"></p>
-                  </div>
-                </div>
-              </div>
-              <img *ngIf="(i + 1) != keyAnnouncements.length" class="connector" src="/assets/images/feature-images/announcement-connector.svg">
-            </div>
-          </div>
-          <div class="bottom has-text-centered">
-            <a class="more-link" (click)="switchTab('announcements')" *ngIf="keyAnnouncements.length > 0">See More</a>
-          </div>
-          <hr>
-          <div class="nav-header center">
-            <span *ngIf="members.length === 1">Member</span>
-            <span *ngIf="members.length > 1">Members</span>
-          </div>
-          <div class="members">
-            <ng-container *ngFor="let member of members; let i = index">
-
-              <div class="member">
-                <i *ngIf="(member['image'] === null || member['image'] === '')" style="font-size: 42px; margin-left: 5px; margin-right: 6px;"
-                  class="user fa fa-user"></i>
-                <img *ngIf="member['image'] !== null && member['image'] !== ''" class="profile-image"
-                  [src]="member['image']">
-                <div class="member-name">
-                  <span>{{member['name']}}</span>
-                </div>
-              </div>
-              <span class="member-role">{{capitalize(member['role'])}} </span>
-              <br>
-              <a class="promote more-link" (click)="verifyPromote(member['name'], member['uid'])" *ngIf="member['role'] !== 'leader' && isLeader">(Promote
-                to Leader?)</a>
-            </ng-container>
-          </div>
-          <div class="bottom has-text-centered">
-            <a class="more-link" (click)="switchTab('settings'); switchSettingsTab('roles')">Assign Roles</a>
-          </div>
-        </ng-container>
+    <div class="right-nav column is-one-fifth">
+        <right-bar-announcement (action)="expandActions()" (announcement)="setPostType($event)" (tab)="switchTab($event)" (promote)="verifyPromote($event[0], $event[1])"></right-bar-announcement>
         <ng-container *ngIf="currentTab === 'shared-bible'">
           <h1 class="nav-header center">Chapter Annotations
             <!-- <span *ngIf="keyAnnouncements.length > 1">s</span> -->
@@ -617,33 +556,33 @@
             <br>
             <button class="btn study-btn" (click)="expandActions(); setPostType('announcement')">Add Annotation</button>
           </div>
-          <div *ngFor="let annotation of chapterAnnotations | async; let i = index;" class="annotations">
-            <app-post-card *ngIf="showAnnotation(annotation['passage'])" [studyID]="groupID" [isLeader]="isLeader"
-              [isLast]="false" [isAnnotation]="true" [id]="annotation['id']" [contributors]="[annotation['creatorID']]"
-              [userID]="userID" [isCreator]="userID === annotation['creatorID']" (delete)="deleteAnnotation($event, annotation['id'], annotation['creatorID'], isLeader)"
-              (edit)="editAnnotation($event, annotation['id'], annotation['creatorID'], isLeader)" [chapterRef]="chapterRef"
-              (reply)="replyToAnnotation($event, annotation['id'])">
-              <p class="card-header-title annotation-title">{{annotation['passage']}}</p>
-              <div class="metadata annotation-metadata">
-                <div class="type annotation-type">
-                  <p>{{capitalize(annotation['type'])}}</p>
+          <ng-container>
+            <div *ngFor="let annotation of chapterAnnotations | async; let i = index;" class="annotations">
+              <app-post-card *ngIf="showAnnotation(annotation['passage'])" [studyID]="groupID" [isLeader]="isLeader"
+                [isLast]="false" [isAnnotation]="true" [id]="annotation['id']" [contributors]="[annotation['creatorID']]" [userID]="userID"
+                [isCreator]="userID === annotation['creatorID']" (delete)="deleteAnnotation($event, annotation['id'], annotation['creatorID'], isLeader)"
+                (edit)="editAnnotation($event, annotation['id'], annotation[' creatorID'], isLeader)" [chapterRef]="chapterRef"
+                (reply)="replyToAnnotation($event, annotation['id'])">
+                <p class="card-header-title annotation-title">{{annotation['passage']}}</p>
+                <div class="metadata annotation-metadata">
+                  <div class="type annotation-type">
+                    <p>{{capitalize(annotation['type'])}}</p>
+                  </div>
+                  <div class="date annotation-date">
+                    <p>{{annotation['dateInfo']['time']}}</p>
+                    <p>{{annotation['dateInfo']['date']}}</p>
+                  </div>
                 </div>
-                <div class="date annotation-date">
-                  <p>{{annotation['dateInfo']['time']}}</p>
-                  <p>{{annotation['dateInfo']['date']}}</p>
-                </div>
-              </div>
-              <div class="card-body annotation-body" [id]="'annotation-text-' + i">{{annotation['text']}}</div>
-            </app-post-card>
-          </div>
+                <!-- <div class="card-body" [innerHtml]="annotation['htmlText'] | safeHtml" (mouseenter)="getVerse($event)" [id]="'post-text-' + i">
+                  {{annotation['text']}}
+                </div> TODO: add route for htmlText -->
+                <div class="card-body annotation-body" [id]="'annotation-text-' + i">{{annotation['text']}}</div>
+              </app-post-card>
+            </div>
+          </ng-container>
         </ng-container>
-      </div>
     </div>
     <div class="annotations is-hidden-tablet">
-
-    </div>
-  </div>
-</div>
 
 <div class="modal" [class.is-active]="activatePromotionModal">
   <div class="modal-background"></div>
