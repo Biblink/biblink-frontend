@@ -6,8 +6,8 @@ import { UserDataService } from '../../../core/services/user-data/user-data.serv
 import { AuthService } from '../../../core/services/auth/auth.service';
 import { AbstractControl, FormBuilder, FormGroup, ValidatorFn, Validators, FormControl } from '@angular/forms';
 import { User } from '../../../core/interfaces/user';
-import { AngularFirestore } from 'angularfire2/firestore';
-import { AngularFireAuth } from 'angularfire2/auth';
+import { AngularFirestore } from '@angular/fire/firestore';
+import { AngularFireAuth } from '@angular/fire/auth';
 import * as firebase from 'firebase/app';
 import 'firebase/auth';
 import { StudyDataService } from '../../../study/services/study-data.service';

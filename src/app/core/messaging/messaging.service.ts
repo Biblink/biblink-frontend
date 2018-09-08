@@ -1,12 +1,12 @@
 import { Injectable, Inject } from '@angular/core';
-import { AngularFirestore } from 'angularfire2/firestore';
+import { AngularFirestore } from '@angular/fire/firestore';
 import * as firebase from 'firebase/app';
 import 'firebase/messaging';
 import { Subject } from 'rxjs/Subject';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { User } from '../interfaces/user';
-import { FirebaseApp } from 'angularfire2';
+import { FirebaseApp } from '@angular/fire';
 /**
  * Messaging service to handle all push notifications and FCM
  */

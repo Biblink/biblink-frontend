@@ -25,10 +25,24 @@
     overflow: auto;
 }
 
+.create-topic-container {
+    text-align: center;
+}
+
 .member-role {
     margin-left: 62px;
     position: relative;
     top: -10px;
+}
+
+.discussions .column {
+    padding: 0;
+    padding-bottom: 40px;
+}
+
+.discussions .columns {
+    width: 67%;
+    margin: 0 auto;
 }
 
 .promote {
@@ -397,7 +411,6 @@ li.is-active-tab a {
 }
 
 /* The switch - the box around the slider */
-
 .switch {
     position: relative;
     display: inline-block;
@@ -406,13 +419,11 @@ li.is-active-tab a {
 }
 
 /* Hide default HTML checkbox */
-
 .switch input {
     display: none;
 }
 
 /* The slider */
-
 .slider {
     position: absolute;
     cursor: pointer;
@@ -450,7 +461,6 @@ li.is-active-tab a {
 input:focus+.slider {
     box-shadow: 0 0 1px #2196F3;
 } */
-
 input:checked+.slider:before {
     -webkit-transform: translateX(28px);
     -ms-transform: translateX(28px);
@@ -458,7 +468,6 @@ input:checked+.slider:before {
 }
 
 /* Rounded sliders */
-
 .slider.round {
     border-radius: 34px;
 }
@@ -591,7 +600,6 @@ input:checked+.slider:before {
 }
 
 /*Hiding the select arrow for IE10*/
-
 .custom-dropdown select::-ms-expand {
     display: none;
 }
@@ -840,6 +848,7 @@ input:checked+.slider:before {
 
 #study-info-form .input {
     margin-top: 10px;
+    caret-color: black;
 }
 
 .help {
@@ -910,4 +919,279 @@ input:checked+.slider:before {
 .study-info .label {
     width: auto !important;
     font-weight: 700 !important;
+}
+
+.discussion-light {
+    background-color: #255250;
+    margin-bottom: 10px;
+    margin-top: 25px;
+}
+
+.discussion-card .title {
+    letter-spacing: 2.44px;
+    font-weight: 900;
+    margin-top: 5px;
+}
+
+.modal-input {
+    border-bottom: 1px solid #979797;
+    color: black;
+}
+
+.modal-label {
+    color: black;
+    font-weight: 700;
+    letter-spacing: auto;
+}
+
+.modal-input:focus {
+    border-bottom: 1px solid black;
+    caret-color: black;
+}
+
+#create-topic-form {
+    margin-bottom: 20px;
+}
+
+.topic-title {
+    margin-top: 30px;
+    height: 49px;
+    color: #343232;
+    font-family: 'museo-sans';
+    font-size: 2.5rem;
+    font-weight: 900;
+    letter-spacing: 3px;
+    line-height: 49px;
+    margin-left: 100px;
+    padding-top: 0;
+    margin-bottom: 30px;
+}
+
+.no-discussions {
+    text-align: center;
+}
+
+.discussion-btn {
+    height: 60px;
+    width: 285px;
+    border-radius: 5px;
+    background-color: #255250;
+    box-shadow: 0 5px 9px 0 rgba(90, 89, 89, 0.5);
+    color: white;
+}
+
+.create-discussion-container {
+    position: fixed;
+    bottom: 58px;
+    left: 0;
+    right: 0;
+    text-align: center;
+}
+
+.discussion-btn:hover {
+    cursor: pointer;
+    background-color: rgb(3, 33, 34);
+    box-shadow: none;
+    transition: all 1s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+.topic-descriptors {
+    color: #343232;
+    font-size: 1.3rem;
+    letter-spacing: 1px;
+    line-height: 27px;
+    margin-left: 100px;
+    margin-bottom: 10px;
+    padding-top: 0;
+}
+
+.topic-descriptors:last-child {
+    margin-bottom: 30px;
+}
+
+.questions {
+    margin-left: 100px;
+}
+
+.question {
+    margin-bottom: 30px;
+}
+
+.question-header {
+    color: #343232;
+    font-size: 1.5rem;
+    font-weight: 900;
+    letter-spacing: 3px;
+    line-height: 33px;
+    transition: all 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
+    margin-bottom: 15px;
+}
+
+.question-header:hover {
+    text-decoration: underline;
+}
+
+.question-text {
+    height: 84px;
+    width: 635px;
+    color: #343232;
+    font-size: 1.2rem;
+    line-height: 27px;
+}
+
+.question-creator {
+    color: #6B6868;
+    font-size: 0.8rem;
+    line-height: 14px;
+    margin-bottom: 5px;
+    float: left;
+    position: relative;
+    bottom: 20px;
+}
+
+.question-more {
+    text-align: right;
+    position: relative;
+    bottom: 5px;
+}
+
+.question {
+    border-bottom: 1px solid #979797;
+    width: 90%;
+}
+
+.topic-descriptor-bold {
+    font-weight: 700;
+}
+
+.question-dropdown,
+.reply-dropdown,
+.topic-dropdown {
+    float: right;
+    position: relative;
+    bottom: 20px;
+}
+
+.reply-dropdown {
+    bottom: -5px;
+}
+
+.topic-dropdown {
+    bottom: 5px;
+}
+
+#question-actions {
+    box-shadow: 0 4px 8px 2px rgba(202, 187, 187, 0.5);
+    border: none;
+    min-width: auto;
+    width: 120px;
+}
+
+#question-actions .dropdown-content {
+    border-radius: 0;
+    box-shadow: none;
+}
+
+.dropdown-divider {
+    width: 100% !important;
+    margin: .5rem 0 !important;
+    background-color: #dbdbdb !important;
+}
+
+#question-actions .red-link {
+    color: black;
+    float: none;
+    font-weight: 700;
+    letter-spacing: 2px;
+    line-height: 25px;
+    font-size: 0.9rem;
+}
+
+#question-actions .red-link:hover {
+    color: red;
+}
+
+.question-metadata {
+    margin-right: 100px;
+    color: #9D9D9D;
+    text-align: right;
+}
+
+.question-metadata-bold {
+    font-weight: 700;
+}
+
+.responses {
+    margin-left: 100px;
+    margin-top: 30px;
+}
+
+.subresponses {
+    margin-left: 50px;
+}
+
+.subresponse {
+    margin-top: -15px;
+}
+
+.response-number,
+.reply-number {
+    margin-bottom: 25px;
+    color: #000000;
+    font-size: 1.3rem;
+    font-weight: 900;
+    letter-spacing: 2.25px;
+    line-height: 25px;
+}
+
+.reply-number {
+    font-size: 1.2rem;
+}
+
+.response-text {
+    margin-left: 75px;
+    font-size: 1.1rem;
+    margin-bottom: 20px;
+}
+
+.response {
+    width: 90%;
+    border-bottom: 1px solid #979797;
+    margin-bottom: 20px;
+}
+
+.back-button {
+    margin-left: 100px;
+    color: #255250;
+}
+
+.back-button:hover {
+    color: rgb(3, 33, 34);
+    text-decoration: underline;
+}
+
+.response-footer {
+    margin: 10px;
+}
+
+.reply-link {
+    margin-bottom: 25px;
+    color: #000000;
+    font-size: 0.9rem;
+    font-weight: 700;
+    letter-spacing: 2.25px;
+    line-height: 25px;
+}
+
+.reply-link:hover {
+    text-decoration: underline;
+}
+
+.nav-header {
+    color: #000000;
+    font-family: 'museo-sans', sans-serif;
+    font-size: 1.3rem;
+    font-weight: 900;
+    letter-spacing: 2px;
+    line-height: 27px;
 }

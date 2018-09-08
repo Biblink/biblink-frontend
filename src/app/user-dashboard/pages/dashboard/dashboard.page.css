@@ -406,7 +406,7 @@ li.is-active-tab a {
 }
 
 .card {
-    height: 487px;
+    min-height: 487px;
     width: 100%;
     background-color: #FFFFFF;
     box-shadow: 0 4px 8px 2px rgba(202, 187, 187, 0.5);

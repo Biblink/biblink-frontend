@@ -10,11 +10,11 @@ import { APP_ROUTES } from './app-routing.module';
 import { Router } from '@angular/router';
 import { CoreModule } from './core/core.module';
 import { Angulartics2, Angulartics2Module } from 'angulartics2';
-import { AngularFirestoreModule } from 'angularfire2/firestore';
-import { AngularFireModule } from 'angularfire2';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFireModule } from '@angular/fire';
 import { environment } from '../environments/environment';
 import { ToastrModule } from 'ngx-toastr';
-import { AngularFireAuthModule } from 'angularfire2/auth';
+import { AngularFireAuthModule } from '@angular/fire/auth';
 
 describe('AppComponent', () => {
   let component: AppComponent;
@@ -34,9 +34,9 @@ describe('AppComponent', () => {
           positionClass: 'toast-bottom-left'
         }),
         CoreModule,
-        Angulartics2Module.forRoot([Angulartics2GoogleAnalytics])
+        Angulartics2Module.forRoot([ Angulartics2GoogleAnalytics ])
       ],
-      declarations: [AppComponent, LoadingIntermediateComponent]
+      declarations: [ AppComponent, LoadingIntermediateComponent ]
       // providers: [Angulartics2GoogleAnalytics]
     }).compileComponents();
   }));

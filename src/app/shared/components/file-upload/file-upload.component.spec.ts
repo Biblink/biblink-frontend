@@ -1,11 +1,11 @@
-import { AngularFirestoreModule } from 'angularfire2/firestore';
-import { AngularFireAuthModule } from 'angularfire2/auth';
-import { AngularFireModule } from 'angularfire2';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+import { AngularFireModule } from '@angular/fire';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { FileUploadComponent } from './file-upload.component';
 import { environment } from '../../../../environments/environment.prod';
-import { AngularFireStorageModule } from 'angularfire2/storage';
+import { AngularFireStorageModule } from '@angular/fire/storage';
 
 describe('FileUploadComponent', () => {
   let component: FileUploadComponent;
@@ -19,7 +19,7 @@ describe('FileUploadComponent', () => {
         AngularFireAuthModule,
         AngularFirestoreModule
       ],
-      declarations: [FileUploadComponent]
+      declarations: [ FileUploadComponent ]
     }).compileComponents();
   }));
 

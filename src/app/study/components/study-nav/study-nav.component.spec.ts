@@ -5,9 +5,9 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { Angulartics2Module } from 'angulartics2';
 import { Angulartics2GoogleAnalytics } from 'angulartics2/ga';
 import { environment } from '../../../../environments/environment';
-import { AngularFireModule } from 'angularfire2';
-import { AngularFirestoreModule } from 'angularfire2/firestore';
-import { AngularFireAuthModule } from 'angularfire2/auth';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFireAuthModule } from '@angular/fire/auth';
 import { ToastrModule } from 'ngx-toastr';
 import { StudyDataService } from '../../services/study-data.service';
 
@@ -25,10 +25,10 @@ describe('StudyNavComponent', () => {
           positionClass: 'toast-bottom-left'
         }),
         RouterTestingModule,
-        Angulartics2Module.forRoot([Angulartics2GoogleAnalytics])
+        Angulartics2Module.forRoot([ Angulartics2GoogleAnalytics ])
       ],
-      declarations: [StudyNavComponent],
-      providers: [StudyDataService]
+      declarations: [ StudyNavComponent ],
+      providers: [ StudyDataService ]
     }).compileComponents();
   }));
 

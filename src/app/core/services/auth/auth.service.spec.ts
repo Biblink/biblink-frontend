@@ -1,9 +1,9 @@
-import { AngularFireAuthModule } from 'angularfire2/auth';
+import { AngularFireAuthModule } from '@angular/fire/auth';
 import { TestBed, inject } from '@angular/core/testing';
 
 import { AuthService } from './auth.service';
 import { environment } from '../../../../environments/environment';
-import { AngularFireModule } from 'angularfire2';
+import { AngularFireModule } from '@angular/fire';
 
 describe('AuthService', () => {
   beforeEach(() => {
@@ -12,11 +12,11 @@ describe('AuthService', () => {
         AngularFireModule.initializeApp(environment.firebase, 'biblink'),
         AngularFireAuthModule
       ],
-      providers: [AuthService]
+      providers: [ AuthService ]
     });
   });
 
-  it('should be created', inject([AuthService], (service: AuthService) => {
+  it('should be created', inject([ AuthService ], (service: AuthService) => {
     expect(service).toBeTruthy();
   }));
 });

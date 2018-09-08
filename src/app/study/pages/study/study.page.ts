@@ -1,3 +1,4 @@
+import { QuestionResponse } from './../../../core/interfaces/question-response';
 import { trigger } from '@angular/animations';
 import { LegalRoutingModule } from './../../../legal/legal-routing.module';
 import { Title } from '@angular/platform-browser';
@@ -17,6 +18,8 @@ import { Post } from '../../../core/interfaces/post';
 import { Annotation } from '../../../core/interfaces/annotation';
 import { PatternValidator } from '@angular/forms';
 import { Datum, Chapter } from '../../../core/interfaces/chapter';
+import { Topic } from '../../../core/interfaces/topic';
+import { Discussion } from '../../../core/interfaces/discussion';
 
 /**
  * access to jquery instance
@@ -31,6 +34,33 @@ declare let $: any;
   styleUrls: [ './study.page.css' ]
 })
 export class StudyComponent implements OnInit, OnDestroy {
+  /**
+   * Whether or not user is editing a discussion
+   */
+  editingDiscussion = false;
+  /**
+   * Whether or not a user is editing a topic
+   */
+  editingTopic = false;
+  /**
+   * Whether or not a user is editing a response
+   */
+  editingResponse = false;
+  responseID: any;
+  currentSubResponse: QuestionResponse;
+  numOfResponses: number;
+  /**
+   * Observable to hold list of discussions
+   */
+  discussions: Observable<any[]>;
+  /**
+   * Length of Discussion for a certain topic
+   */
+  discussionLength = 1;
+  /**
+  * Length of topics
+  */
+  topicsLength = 1;
   leader: any;
   /**
    * banner image of study
@@ -194,7 +224,7 @@ export class StudyComponent implements OnInit, OnDestroy {
    */
   editingAnnotationID = 'default';
   /**
-   * Name of study
+   * Name of user
    */
   name = 'default';
   /**
@@ -206,6 +236,10 @@ export class StudyComponent implements OnInit, OnDestroy {
    */
   chapterAnnotations: Observable<any>;
   /**
+   * Observable of topics to be displayed
+   */
+  topics: Observable<any>;
+  /**
    * The number of annotations for a chapter
    */
   numOfAnnotations = 1;
@@ -213,6 +247,12 @@ export class StudyComponent implements OnInit, OnDestroy {
    * List of post indices for scrolling
    */
   postIndices = [];
+  /**
+   * List of members
+   */
+  members = [];
+
+
   /**
    * Study metadata
    */
@@ -270,11 +310,58 @@ export class StudyComponent implements OnInit, OnDestroy {
   currentPromote: Object = { name: '', uid: '' };
 
   /**
+   * Value to see if new topic modal is activated
+   */
+  activateNewTopicModal = false;
+
+  /**
+   * Value to hold current topic being created
+   */
+  currentTopic: Topic = new Topic();
+
+  /**
+   * Value to hold current discussion being created
+   */
+  currentDiscussion: Discussion = new Discussion();
+
+  /**
+   * Value to hold current response being created
+   */
+  currentResponse: QuestionResponse = new QuestionResponse();
+
+  /**
+   * Value to hold current display topic
+   */
+  displayTopic = new Topic();
+  /**
+   * Value to hold current display discussion
+   */
+  displayDiscussion = new Discussion();
+  /**
+   * Value to see if new discussion modal is activated
+   */
+  activateNewDiscussionModal = false;
+  /**
+   * Value to see if new response modal is activated
+   */
+  activateQuestionReplyModal = false;
+  /**
+   * Value to see if new response modal is activated
+   */
+  activateSubQuestionReplyModal = false;
+
+  /**
+   * responses for a discussion
+   */
+  responses: Observable<any[]>;
+
+  /**
    * Current image being edited
    */
   editingImage = '';
 
   newImageUrl = '';
+
   /**
    * Initializes necessary dependency and does dependency injection
    * @param {Router} _router Router dependency to access router for navigations
@@ -484,13 +571,21 @@ export class StudyComponent implements OnInit, OnDestroy {
     this.type = 'question';
   }
   /**
-   * Get study discussions
+   * Get study discussion topics
    */
-  getDiscussions() {
+  getDiscussionTopics() {
     this.isLoading.next(true);
-    this.resetPosts = true;
-    this._getFeedByType('discussion');
-    this.type = 'discussion';
+    if (!this.topics) {
+      this.topics = this._study.getTopics(this.groupID).pipe(
+        map(val => {
+          this.topicsLength = val.length;
+          this.isLoading.next(false);
+          return val;
+        })
+      );
+    } else {
+      this.isLoading.next(false);
+    }
   }
   /**
    * Get posts by a specific type
@@ -641,6 +736,9 @@ export class StudyComponent implements OnInit, OnDestroy {
     if (this.currentTab === val && !override) {
       return;
     }
+    if (this.currentTab === 'discussions') {
+      this.closeDiscussions();
+    }
     this.currentTab = val;
     this.resetPosts = true;
     this._posts.next([]);
@@ -659,17 +757,10 @@ export class StudyComponent implements OnInit, OnDestroy {
         }, 500);
         break;
       }
-      case 'questions': {
-        this.isLoading.next(true);
-        setTimeout(() => {
-          this.getQuestions();
-        }, 500);
-        break;
-      }
       case 'discussions': {
         this.isLoading.next(true);
         setTimeout(() => {
-          this.getDiscussions();
+          this.getDiscussionTopics();
         }, 500);
         break;
       }
@@ -838,6 +929,10 @@ export class StudyComponent implements OnInit, OnDestroy {
       value === {} ||
       Object.keys(value).length === 0
     );
+  }
+
+  closeDiscussions() {
+    this.displayTopic = new Topic();
   }
 
   /**
@@ -1138,23 +1233,22 @@ export class StudyComponent implements OnInit, OnDestroy {
    * Shows if the annotation number is equal to the verse number
    */
   showAnnotation(passage) {
-    
     let displayAnnotation = false;
-    const verseStrings = passage.split(':')[1].split(',');
+    const verseStrings = passage.split(':')[ 1 ].split(',');
     const verses = verseStrings.map((number) => {
-        return Number(number);
+      return Number(number);
     });
     if (this.darkenedVerses.every((val) => val === false)) {
       return true;
-  } else {
-    verses.forEach((verse) => {
-      if (this.darkenedVerses[verse - 1]) {
+    } else {
+      verses.forEach((verse) => {
+        if (this.darkenedVerses[ verse - 1 ]) {
           displayAnnotation = true;
-      }
-  });
-  return displayAnnotation;
+        }
+      });
+      return displayAnnotation;
+    }
   }
-}
   /**
    * Prepares an annotation to be published
    */
@@ -1256,6 +1350,236 @@ export class StudyComponent implements OnInit, OnDestroy {
         );
       });
     }
+  }
+
+  editTopic(topic: Topic) {
+    this.currentTopic = topic;
+    this.editingTopic = true;
+    this.activateNewTopicModal = true;
+  }
+  editDiscussion(discussion: Discussion) {
+    this.currentDiscussion = discussion;
+    this.editingDiscussion = true;
+    this.activateNewDiscussionModal = true;
+  }
+  editResponse(response: QuestionResponse) {
+    this.currentResponse = response;
+    this.editingResponse = true;
+    this.activateQuestionReplyModal = true;
+  }
+
+  updateTopic(topic: Topic) {
+    if (this.editingTopic) {
+      this._study.updateDiscussionTopic(this.groupID, topic).then(() => {
+        this.toastr.show(
+          `Successfully Updated ${ topic.title }`,
+          'Updated Topic'
+        );
+        this.editingTopic = false;
+      });
+    }
+  }
+  updateDiscussion(discussion: Discussion) {
+    if (this.editingDiscussion) {
+      this._study.updateDiscussion(this.groupID, this.displayTopic.id, discussion).then(() => {
+        this.toastr.show(
+          `Successfully Updated ${ discussion.title }`,
+          'Updated Discussion'
+        );
+        this.editingDiscussion = false;
+      });
+    }
+  }
+  updateResponse(response: QuestionResponse) {
+    if (this.editingResponse) {
+      this._study.updateResponse(this.groupID, this.displayTopic.id, this.displayDiscussion.id, response).then(() => {
+        this.toastr.show(
+          `Successfully Updated Response`,
+          'Updated Response'
+        );
+        this.editingResponse = false;
+      });
+    }
+  }
+
+  resetTopic() {
+    this.activateNewTopicModal = false;
+    this.currentTopic = new Topic();
+    this.editingTopic = false;
+  }
+  resetDiscussion() {
+    this.activateNewDiscussionModal = false;
+    this.currentDiscussion = new Discussion();
+    this.editingDiscussion = false;
+  }
+  resetResponse() {
+    this.activateQuestionReplyModal = false;
+    this.currentResponse = new QuestionResponse();
+    this.editingResponse = false;
+  }
+  showTopicModal() {
+    this.currentTopic = new Topic();
+    this.activateNewTopicModal = true;
+  }
+  showDiscussionModal() {
+    this.currentDiscussion = new Discussion();
+    this.activateNewDiscussionModal = true;
+  }
+  showQuestionReplyModal() {
+    this.currentResponse = new QuestionResponse();
+    this.activateQuestionReplyModal = true;
+  }
+  showSubQuestionReplyModal() {
+    this.currentSubResponse = new QuestionResponse();
+    this.activateSubQuestionReplyModal = true;
+  }
+  createTopic(topic: Topic) {
+    if (this.editingTopic) {
+      this.updateTopic(topic);
+    } else {
+      topic.creatorID = this.userID;
+      topic.creatorName = this.name;
+      this._study.createDiscussionTopic(this.groupID, topic).then(() => {
+        this.toastr.show(
+          `Successfully Created ${ topic.title }`,
+          'New Topic'
+        );
+      });
+    }
+  }
+  createDiscussion(discussion: Discussion) {
+    if (this.editingDiscussion) {
+      this.updateDiscussion(discussion);
+    } else {
+      const today = new Date();
+      const date = `${ today.getMonth() +
+        1 }/${ today.getDate() }/${ today.getFullYear() }`;
+      const time = today.toLocaleTimeString();
+
+      discussion.creatorID = this.userID;
+      discussion.creatorName = this.name;
+      discussion.dateInfo = { date: date, time: time };
+      discussion.timestamp = Math.round(new Date().getTime() / 1000);
+      this._study.createDiscussion(this.groupID, this.displayTopic.id, discussion).then(() => {
+        this.toastr.show(
+          `Successfully Created ${ discussion.title }`,
+          'New Discussion'
+        );
+      });
+    }
+  }
+
+  deleteDiscussion(discussion: Discussion) {
+    this._study.deleteDiscussion(this.groupID, this.displayTopic.id, discussion.id)
+      .then(() => {
+        this.toastr.show(
+          `Successfully Deleted ${ discussion.title }`,
+          'Deleted Discussion'
+        );
+      });
+  }
+
+  deleteTopic(topic: Topic) {
+    this._study.deleteTopic(this.groupID, topic.id)
+      .then(() => {
+        this.toastr.show(
+          `Successfully Deleted Topic`,
+          'Deleted Topic'
+        );
+      });
+  }
+  deleteResponse(response: QuestionResponse) {
+    this._study.deleteResponse(this.groupID, this.displayTopic.id, this.displayDiscussion.id, response.id)
+      .then(() => {
+        this.toastr.show(
+          `Successfully Deleted Response`,
+          'Deleted Response'
+        );
+      });
+  }
+  createResponse(response: QuestionResponse, isSubReply = false) {
+    if (this.editingResponse) {
+      this.updateResponse(response);
+    } else {
+      const today = new Date();
+
+      response.creatorID = this.userID;
+      response.timestamp = Math.round(new Date().getTime() / 1000);
+      if (isSubReply) {
+        this._study.createSubResponse(this.groupID, this.displayTopic.id,
+          this.displayDiscussion.id, this.responseID, response).then(() => {
+            this.toastr.show(
+              `Successfully Created Subresponse`,
+              'New Subresponse'
+            );
+          });
+      } else {
+        this._study.createResponse(this.groupID, this.displayTopic.id, this.displayDiscussion.id, response).then(() => {
+          this.toastr.show(
+            `Successfully Created Response`,
+            'New Response'
+          );
+        });
+      }
+    }
+  }
+
+  getResponses(discussion: Discussion) {
+    return this._study.getResponsesForDiscussion(this.groupID, this.displayTopic.id, discussion.id)
+      .pipe(map(val => {
+        this.numOfResponses = val.length;
+        this.isLoading.next(false);
+        val.forEach(response => {
+          this.getSubResponseLength(response).subscribe((length) => {
+            response[ 'subreply-length' ] = length;
+          });
+          this.getSubResponses(response).subscribe((subreplies) => {
+            response[ 'subreplies' ] = subreplies;
+          });
+        });
+        return val;
+      }));
+  }
+  getSubResponses(response: QuestionResponse) {
+    this.isLoading.next(true);
+    return this._study.getSubResponsesForResponse(this.groupID, this.displayTopic.id,
+      this.displayDiscussion.id, response.id).pipe(
+        map((val) => {
+          this.isLoading.next(false); return val;
+        })
+      );
+  }
+
+  openTopic(topic: Topic) {
+    this.isLoading.next(true);
+    this.displayTopic = topic;
+    this.discussions = this._study.getDiscussionsByTopic(this.groupID, topic.id).pipe(
+      map(val => {
+        this.discussionLength = val.length;
+        this.isLoading.next(false);
+        return val;
+      })
+    );
+  }
+
+  openDiscussion(discussion: Discussion) {
+    this.isLoading.next(true);
+    this.displayDiscussion = discussion;
+    this.responses = this.getResponses(discussion);
+  }
+
+  openSubResponse(id: string) {
+    this.responseID = id;
+    this.activateSubQuestionReplyModal = true;
+  }
+
+  getSubResponseLength(response: QuestionResponse) {
+    return this._study.getSubResponseLengthForResponse(this.groupID, this.displayTopic.id,
+      this.displayDiscussion.id, response.id);
+  }
+
+  closeQuestion() {
+    this.displayDiscussion = new Discussion();
   }
 
 }
