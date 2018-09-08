@@ -1319,3 +1319,12 @@ input:checked+.slider:before {
 .reply-link:hover {
     text-decoration: underline;
 }
+
+.nav-header {
+    color: #000000;
+    font-family: 'museo-sans', sans-serif;
+    font-size: 1.3rem;
+    font-weight: 900;
+    letter-spacing: 2px;
+    line-height: 27px;
+}
