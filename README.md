@@ -4,6 +4,10 @@
 
 [![CircleCI](https://circleci.com/gh/Biblink/biblink-frontend/tree/master.svg?style=svg)](https://circleci.com/gh/Biblink/biblink-frontend/tree/master) [![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg)](https://conventionalcommits.org)
 
+<a href="https://bulma.io">
+<img src="https://bulma.io/images/made-with-bulma.png" alt="Made with Bulma" width="128" height="24">
+</a>
+
 Authors: Brandon Fan, Jordan Seiler, Jonathan Fan
 
 ## TODO List
