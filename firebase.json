@@ -17,12 +17,20 @@
       "**/node_modules/**"
     ],
     "headers": [{
-      "source": "/ngsw-worker.js",
-      "headers": [{
-        "key": "Cache-Control",
-        "value": "no-cache"
-      }]
-    }],
+        "source": "/ngsw-worker.js",
+        "headers": [{
+          "key": "Cache-Control",
+          "value": "no-cache"
+        }]
+      },
+      {
+        "source": "/combined-worker.js",
+        "headers": [{
+          "key": "Cache-Control",
+          "value": "no-cache"
+        }]
+      }
+    ],
     "rewrites": [{
       "source": "**",
       "function": "app"
