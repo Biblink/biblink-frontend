@@ -95,6 +95,10 @@ li.is-active-tab a {
     width: 200px;
 }
 
+.mobile-disabled {
+    margin-top: 50px;
+}
+
 .btn.modal-btn {
     width: 150px;
     margin-right: 20px;
@@ -462,37 +466,48 @@ li.is-active-tab a {
     .head {
         padding-top: 140px;
     }
+
     .title.content-header {
         text-align: center !important;
     }
+
     .study-list {
         width: 90%;
     }
+
     .study-image {
         margin-right: 0;
     }
+
     .study-image img {
         width: 80px;
         height: 80px;
     }
+
     .card-backdrop {
         height: 100px;
     }
+
     .card-text {
         margin-left: 10px !important;
     }
+
     .btn-actions {
         width: 80%;
     }
+
     .create-container {
         width: 80%;
     }
+
     #main {
         margin-bottom: 100px;
     }
+
     .no-study {
         padding: 10px;
     }
+
     .personal-info,
     .security-info {
         width: 80%;
