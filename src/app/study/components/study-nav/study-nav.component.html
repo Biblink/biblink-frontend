@@ -1,6 +1,6 @@
-<nav class="navbar is-hidden-mobile navbar-banner" id="navbar-main" data-aos="fade-down" data-aos-duration="500" data-aos-once="true">
+<nav class="navbar is-hidden-mobile navbar-banner" id="navbar-main" >
   <ul class="navvy">
-    <li id="logo" data-aos="fade-down-right" data-aos-duration="1200" data-aos-once="true">
+    <li id="logo" >
       <a id="logo-link" class="nav-link" [routerLink]="'/'" (click)="toHome()">
         <svg class="nav-icon" width="280px" height="57px" viewBox="0 0 236 57" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
           <!-- Generator: Sketch 48.2 (47327) - http://www.bohemiancoding.com/sketch -->
@@ -45,7 +45,7 @@
         </svg>
       </a>
     </li>
-    <li id="sign-in" data-aos="fade-down-left" data-aos-duration="1200" data-aos-once="true">
+    <li id="sign-in" >
       <a class="nav-link" [routerLink]="'/sign-in'" *ngIf="!isLoggedIn">Sign In</a>
 
       <div *ngIf="isLoggedIn" class="add-user-widget dropdown is-right is-hoverable">

@@ -61,7 +61,8 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewChecked {
     ngOnInit() {
         if (this.isBrowser) {
             AOS.init({
-                disable: 'mobile'
+                disable: 'mobile',
+                once: true
             });
         }
         this._router.events.subscribe((event) => {

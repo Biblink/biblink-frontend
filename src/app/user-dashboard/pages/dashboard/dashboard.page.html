@@ -244,19 +244,19 @@
                             </div>
                         </div>
                         <br>
-                        <p class="has-text-centered" data-aos="fade-up" data-aos-duration="1200">
+                        <p class="has-text-centered">
                             <a class="edit-image" (click)="activateEditImage = true">Edit Image</a>
                         </p>
-                        <form id="personal-info-form" (ngSubmit)="updateProfile()">
+                        <form id="personal-info-form" (ngSubmit)="updateProfile()" data-aos="fade-up" data-aos-duration="1200">
                             <div class="columns">
-                                <div class="column" data-aos="slide-right" data-aos-duration="1200">
+                                <div class="column">
                                     <div class="field">
                                         <label class="label" for="first-name">First Name:</label>
                                         <input [(ngModel)]="user.firstName" class="input" required type="text" id="first-name"
                                             name="first-name">
                                     </div>
                                 </div>
-                                <div class="column" data-aos="slide-left" data-aos-duration="1200">
+                                <div class="column">
                                     <div class="field">
                                         <label class="label" for="last-name">Last Name:</label>
                                         <input [(ngModel)]="user.lastName" class="input" required type="text" id="last-name"
@@ -265,17 +265,17 @@
                                 </div>
                             </div>
                             <div class="field writing-container">
-                                <label class="label" for="short-description" data-aos="fade-down" data-aos-duration="1200">Short
+                                <label class="label" for="short-description">Short
                                     Description:</label>
                                 <input [(ngModel)]="user.data.shortDescription" class="input" required type="text" id="short-description"
                                     name="short-description">
                             </div>
                             <div class="field bio-container">
-                                <label class="label" for="bio" data-aos="fade-up" data-aos-duration="1200">Bio:</label>
+                                <label class="label" for="bio">Bio:</label>
                                 <textarea [(ngModel)]="user.data.bio" class="textarea input" name="bio" id="bio" cols="30"
                                     rows="2"></textarea>
                             </div>
-                            <div class="has-text-centered" data-aos="zoom-in" data-aos-duration="1200">
+                            <div class="has-text-centered">
                                 <button type="submit" class="btn update-btn">Update Profile</button>
                             </div>
                         </form>
@@ -290,8 +290,8 @@
                                 <label class="label" for="email">Email:</label>
                                 <input formControlName="email" class="input" required type="text" id="email" name="email">
                             </div>
-                            <div class="passwords">
-                                <div class="field" *ngIf="!noPassword" data-aos="fade-up-right" data-aos-duration="1200">
+                            <div class="passwords" data-aos="fade-up" data-aos-duration="1200">
+                                <div class="field" *ngIf="!noPassword">
                                     <label class="label" for="old-password" *ngIf="isVerified">Old Password:</label>
                                     <label class="label" for="old-password" *ngIf="!isVerified">Enter Password To
                                         Access Security Info:</label>

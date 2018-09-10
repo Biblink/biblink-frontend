@@ -83,7 +83,9 @@ export class HomeComponent implements OnInit, OnDestroy {
         if (this.isBrowser) {
             const x = setInterval(() => {
                 this.init.push(AOS.init({
-                    disable: 'mobile'
+                    disable: 'mobile',
+                    once: true,
+                    mirror: true
                 }));
                 if (this.init.length >= 2) {
                     console.log('clearing interval...');
@@ -102,7 +104,7 @@ export class HomeComponent implements OnInit, OnDestroy {
         });
         setTimeout(() => {
             this.enhanced = true;
-        }, 1000);
+        }, 300);
     }
 
     /**

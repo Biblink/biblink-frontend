@@ -6,11 +6,11 @@
 </div>
 <div class="control has-text-centered" id="search-bar">
     <form #search="ngForm" (ngSubmit)="searchService.searchES(searchQuery, searchType); isSearching = true;" id="search-form">
-        <ul id="wrapper">
-            <li id="search-input" data-aos="fade-up-right" data-aos-duration="1200">
+        <ul id="wrapper" data-aos="fade-up" data-aos-duration="1200">
+            <li id="search-input">
                 <input name="search" [(ngModel)]="searchQuery" class="is-large" id="search" type="text" placeholder="Search">
             </li>
-            <li id="search-button" data-aos="fade-up" data-aos-duration="1200">
+            <li id="search-button">
                 <button type="submit" class="button is-large" id="button">
                     <img id="search-icon-image" src="/assets/icons/search-button-icon.svg" alt="">
                 </button>

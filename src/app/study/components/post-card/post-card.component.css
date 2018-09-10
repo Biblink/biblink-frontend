@@ -120,6 +120,10 @@
     padding-right: 36.5px;
 }
 
+.contributors .fa {
+    margin-right: 5px;
+}
+
 .post-action,
 .contributor-text {
     color: #000000;
