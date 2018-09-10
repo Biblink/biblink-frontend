@@ -16,6 +16,7 @@ import { PostCardComponent } from '../../components/post-card/post-card.componen
 import { AngularFireStorageModule } from '@angular/fire/storage';
 import { ClipboardModule } from 'ngx-clipboard';
 import { SwitchTabComponent } from '../../components/switch-tab/switch-tab.component';
+import { RightBarAnnouncments } from '../../components/right-bar-announcements/right-bar-announcements.component';
 
 describe('StudyComponent', () => {
   let component: StudyComponent;
@@ -37,7 +38,7 @@ describe('StudyComponent', () => {
         SharedModule,
         CoreModule
       ],
-      declarations: [ StudyComponent, StudyNavComponent, PostCardComponent, SwitchTabComponent ],
+      declarations: [ StudyComponent, StudyNavComponent, PostCardComponent, SwitchTabComponent, RightBarAnnouncments ],
       providers: [ StudyDataService ]
     }).compileComponents();
   }));
