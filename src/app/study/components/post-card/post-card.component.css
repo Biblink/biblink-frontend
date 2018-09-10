@@ -128,6 +128,10 @@
     line-height: 25px;
 }
 
+.post-action {
+    margin-left: 20px !important;
+}
+
 .lower {
     position: relative;
     bottom: -9px;
