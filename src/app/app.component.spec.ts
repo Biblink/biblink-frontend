@@ -15,6 +15,7 @@ import { AngularFireModule } from '@angular/fire';
 import { environment } from '../environments/environment';
 import { ToastrModule } from 'ngx-toastr';
 import { AngularFireAuthModule } from '@angular/fire/auth';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('AppComponent', () => {
   let component: AppComponent;
@@ -30,6 +31,7 @@ describe('AppComponent', () => {
         AngularFireModule.initializeApp(environment.firebase, 'biblink'),
         AngularFireAuthModule,
         AngularFirestoreModule,
+        HttpClientTestingModule,
         ToastrModule.forRoot({
           positionClass: 'toast-bottom-left'
         }),

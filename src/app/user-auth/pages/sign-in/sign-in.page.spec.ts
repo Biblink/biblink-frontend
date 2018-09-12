@@ -7,6 +7,7 @@ import { environment } from '../../../../environments/environment';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { SharedModule } from '../../../shared/shared.module';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('SignInComponent', () => {
   let component: SignInComponent;
@@ -18,6 +19,7 @@ describe('SignInComponent', () => {
         CoreModule,
         SharedModule,
         RouterTestingModule,
+        HttpClientTestingModule,
         AngularFireModule.initializeApp(environment.firebase, 'biblink'),
         AngularFireAuthModule
       ],

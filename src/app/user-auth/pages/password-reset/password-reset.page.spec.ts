@@ -8,6 +8,7 @@ import { environment } from '../../../../environments/environment';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { ToastrModule } from 'ngx-toastr';
 import { RouterTestingModule } from '@angular/router/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('PasswordResetComponent', () => {
   let component: PasswordResetComponent;
@@ -18,6 +19,7 @@ describe('PasswordResetComponent', () => {
       imports: [
         SharedModule,
         RouterTestingModule,
+        HttpClientTestingModule,
         CoreModule,
         AngularFireModule.initializeApp(environment.firebase, 'biblink'),
         AngularFireAuthModule,

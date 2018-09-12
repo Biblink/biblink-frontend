@@ -5,6 +5,7 @@ import { TestBed, inject } from '@angular/core/testing';
 import { UserDataService } from './user-data.service';
 import { AngularFireModule } from '@angular/fire';
 import { environment } from '../../../../environments/environment';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('UserDataService', () => {
   beforeEach(() => {
@@ -12,6 +13,7 @@ describe('UserDataService', () => {
       imports: [
         AngularFireModule.initializeApp(environment.firebase, 'biblink'),
         AngularFireAuthModule,
+        HttpClientTestingModule,
         AngularFirestoreModule
       ],
       providers: [ UserDataService ]

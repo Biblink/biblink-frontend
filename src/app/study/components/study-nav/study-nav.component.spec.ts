@@ -1,3 +1,4 @@
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { StudyNavComponent } from './study-nav.component';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
@@ -21,6 +22,7 @@ describe('StudyNavComponent', () => {
         AngularFireModule.initializeApp(environment.firebase, 'biblink'),
         AngularFireAuthModule,
         AngularFirestoreModule,
+        HttpClientTestingModule,
         ToastrModule.forRoot({
           positionClass: 'toast-bottom-left'
         }),

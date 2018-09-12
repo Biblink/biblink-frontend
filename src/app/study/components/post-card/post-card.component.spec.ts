@@ -1,3 +1,4 @@
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { CoreModule } from './../../../core/core.module';
 import { FormsModule } from '@angular/forms';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
@@ -22,6 +23,7 @@ describe('PostCardComponent', () => {
         AngularFireModule.initializeApp(environment.firebase, 'biblink'),
         AngularFireAuthModule,
         AngularFirestoreModule,
+        HttpClientTestingModule,
         ToastrModule.forRoot({
           positionClass: 'toast-bottom-left'
         })

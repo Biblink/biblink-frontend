@@ -1,3 +1,4 @@
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { TestBed, inject } from '@angular/core/testing';
 
 import { StudyDataService } from './study-data.service';
@@ -12,7 +13,8 @@ describe('StudyDataService', () => {
       imports: [
         AngularFireModule.initializeApp(environment.firebase, 'biblink'),
         AngularFireAuthModule,
-        AngularFirestoreModule
+        AngularFirestoreModule,
+        HttpClientTestingModule
       ],
       providers: [ StudyDataService ]
     });

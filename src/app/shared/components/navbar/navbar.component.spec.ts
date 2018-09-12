@@ -1,3 +1,4 @@
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { NavbarComponent } from './navbar.component';
@@ -20,6 +21,7 @@ describe('NavbarComponent', () => {
         AngularFireModule.initializeApp(environment.firebase, 'biblink'),
         AngularFireAuthModule,
         AngularFirestoreModule,
+        HttpClientTestingModule,
         ToastrModule.forRoot({
           positionClass: 'toast-bottom-left'
         }),

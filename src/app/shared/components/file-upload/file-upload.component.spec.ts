@@ -1,3 +1,4 @@
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFireModule } from '@angular/fire';
@@ -16,6 +17,7 @@ describe('FileUploadComponent', () => {
       imports: [
         AngularFireModule.initializeApp(environment.firebase, 'biblink'),
         AngularFireStorageModule,
+        HttpClientTestingModule,
         AngularFireAuthModule,
         AngularFirestoreModule
       ],

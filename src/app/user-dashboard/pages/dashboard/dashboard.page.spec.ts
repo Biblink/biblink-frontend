@@ -1,3 +1,4 @@
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { StudyDataService } from './../../../study/services/study-data.service';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
@@ -20,6 +21,7 @@ describe('DashboardComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         RouterTestingModule,
+        HttpClientTestingModule,
         CoreModule,
         SharedModule,
         ToastrModule.forRoot({

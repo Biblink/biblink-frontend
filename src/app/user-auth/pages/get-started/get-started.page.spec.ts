@@ -9,6 +9,7 @@ import { RecaptchaModule } from 'ng-recaptcha';
 import { AngularFireModule } from '@angular/fire';
 import { environment } from '../../../../environments/environment';
 import { RecaptchaFormsModule } from 'ng-recaptcha/forms';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('GetStartedComponent', () => {
   let component: GetStartedComponent;
@@ -21,6 +22,7 @@ describe('GetStartedComponent', () => {
         CoreModule,
         AngularFireModule.initializeApp(environment.firebase, 'biblink'),
         AngularFireAuthModule,
+        HttpClientTestingModule,
         RecaptchaModule.forRoot(),
         RecaptchaFormsModule,
         SharedImportsModule
