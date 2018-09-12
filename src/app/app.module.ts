@@ -16,7 +16,6 @@ import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
   BrowserModule,
-  BrowserTransferStateModule
 } from '@angular/platform-browser';
 
 // custom modules
@@ -52,8 +51,7 @@ import { LoadingIntermediateComponent } from './loading-intermediate/loading-int
   imports: [
     AngularFireModule.initializeApp(environment.firebase, 'biblink'),
     AngularFirestoreModule.enablePersistence(),
-    BrowserModule.withServerTransition({ appId: 'serverApp' }),
-    BrowserTransferStateModule,
+    BrowserModule,
     SharedModule,
     AngularFireAuthModule,
     AngularFireStorageModule,
