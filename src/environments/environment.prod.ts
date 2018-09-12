@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
-  es_url: 'https://api.ogs.bhsswimanddive.com',
+  es_url: 'https://api.biblink.io',
   firebase: {
     apiKey: 'AIzaSyAruFcRRzxkzNydXszNkZiHJE6fbqOHpf0',
     authDomain: 'biblya-ed2ec.firebaseapp.com',
