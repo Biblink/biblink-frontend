@@ -7,7 +7,7 @@ import { EmailUserInterface } from '../../interfaces/email-user.interface';
 import { User } from '../../interfaces/user';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 /**
  * Authentication service to handle all authentication
@@ -177,12 +177,18 @@ export class AuthService {
     }
 
     sendWelcomeEmail() {
+        const httpOptions = {
+            headers: new HttpHeaders({
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*'
+            })
+        };
         const welcomeEndpoint = 'https://us-central1-biblya-ed2ec.cloudfunctions.net/sendWelcomeEmail';
         const data = {
             email: this.email,
             name: this.userData.firstName
         };
-        this.http.post(welcomeEndpoint, data).subscribe();
+        this.http.post(welcomeEndpoint, data, httpOptions).subscribe();
     }
     /**
      * Logs current user out
