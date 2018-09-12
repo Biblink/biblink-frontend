@@ -1,3 +1,4 @@
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { TestBed, inject } from '@angular/core/testing';
 
@@ -9,6 +10,7 @@ describe('AuthService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [
+        HttpClientTestingModule,
         AngularFireModule.initializeApp(environment.firebase, 'biblink'),
         AngularFireAuthModule
       ],
