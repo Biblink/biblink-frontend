@@ -2,6 +2,35 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.0.0"></a>
+# [1.0.0](https://github.com/Biblink/biblink-frontend/compare/v1.3.0-alpha...v1.0.0) (2018-09-12)
+
+
+### Bug Fixes
+
+* **chore:** add bulma badge ([1ef5e4c](https://github.com/Biblink/biblink-frontend/commit/1ef5e4c))
+* **chore:** update version ([fe040eb](https://github.com/Biblink/biblink-frontend/commit/fe040eb))
+* **copyright:** fix copyright problems ([8c2120d](https://github.com/Biblink/biblink-frontend/commit/8c2120d))
+* **css:** fix css on settings page ([aa4e63f](https://github.com/Biblink/biblink-frontend/commit/aa4e63f))
+* **css:** fix problem with general css ([526b841](https://github.com/Biblink/biblink-frontend/commit/526b841))
+* **css:** update css on post card ([7c2ddf9](https://github.com/Biblink/biblink-frontend/commit/7c2ddf9))
+* **desktop:** fix desktop disable text ([979673c](https://github.com/Biblink/biblink-frontend/commit/979673c))
+* **logo:** update logo ([c914c9e](https://github.com/Biblink/biblink-frontend/commit/c914c9e))
+* **remove:** remove unnecessary webpack file ([31f38ab](https://github.com/Biblink/biblink-frontend/commit/31f38ab))
+* **sw:** update service worker rules to fetch new service worker on update ([de47e60](https://github.com/Biblink/biblink-frontend/commit/de47e60))
+
+
+### Features
+
+* **disable-mobile:** disable opening studies on mobile ([ef64ea9](https://github.com/Biblink/biblink-frontend/commit/ef64ea9))
+* **es-url:** change es url ([a7417e5](https://github.com/Biblink/biblink-frontend/commit/a7417e5))
+* **remove-prerender:** remove prerendering files ([c667547](https://github.com/Biblink/biblink-frontend/commit/c667547))
+* **remove-star:** remove ability to star posts ([a3baac3](https://github.com/Biblink/biblink-frontend/commit/a3baac3))
+* **update:** update angularfire2 to include persistence ([16df164](https://github.com/Biblink/biblink-frontend/commit/16df164))
+* **update animations:** update animations and members ([552f444](https://github.com/Biblink/biblink-frontend/commit/552f444))
+
+
+
 <a name="1.3.0-alpha"></a>
 # [1.3.0-alpha](https://github.com/Biblink/biblink-frontend/compare/v1.2.0-alpha...v1.3.0-alpha) (2018-09-06)
 
