@@ -58,7 +58,7 @@ export class SignInComponent implements OnInit {
     constructor(public title: Title, private _auth: AuthService,
         private fb: FormBuilder, private router: Router,
         @Inject(PLATFORM_ID) platformId) {
-        this.title.setTitle('Biblya | Sign In');
+        this.title.setTitle('Biblink | Sign In');
         this.isBrowser = isPlatformBrowser(platformId);
     }
     /**

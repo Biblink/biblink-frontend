@@ -56,7 +56,7 @@ export class GetStartedComponent implements OnInit {
      * @param {Router} router Router dependency to access router for navigation
      */
     constructor(public title: Title, private _auth: AuthService, private fb: FormBuilder, private router: Router) {
-        this.title.setTitle('Biblya | Get Started');
+        this.title.setTitle('Biblink | Get Started');
     }
     /**
      * Initializes component
