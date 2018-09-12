@@ -7,6 +7,8 @@ import { EmailUserInterface } from '../../interfaces/email-user.interface';
 import { User } from '../../interfaces/user';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { HttpClient } from '@angular/common/http';
+
 /**
  * Authentication service to handle all authentication
  */
@@ -33,7 +35,7 @@ export class AuthService {
      * Initializes dependencies and does dependency injection
      * @param _afAuth AngularFireAuth instance to access authentication
      */
-    constructor(private _afAuth: AngularFireAuth) {
+    constructor(private _afAuth: AngularFireAuth, private http: HttpClient) {
         this._afAuth.authState.subscribe(this.authUser);
     }
     /**
@@ -114,6 +116,7 @@ export class AuthService {
                         const userRes = res[ 'user' ];
                         this.userData = new User('', '', userRes[ 'email' ],
                             { profileImage: res[ 'photoUrl' ], bio: '', shortDescription: '' });
+                        this.sendWelcomeEmail();
                         return this.userData;
                     }).catch((err) => {
                         const errorCode = err.code;
@@ -127,6 +130,7 @@ export class AuthService {
                     const userRes = res[ 'user' ];
                     this.userData = new User('', '', userRes[ 'email' ],
                         { profileImage: res[ 'photoUrl' ], bio: '', shortDescription: '' });
+                    this.sendWelcomeEmail();
                     return this.userData;
                 }).catch((err) => {
                     const errorCode = err.code;
@@ -140,6 +144,7 @@ export class AuthService {
                     const userRes = res[ 'user' ];
                     this.userData = new User('', '', userRes[ 'email' ],
                         { profileImage: res[ 'photoUrl' ], bio: '', shortDescription: '' });
+                    this.sendWelcomeEmail();
                     return this.userData;
                 });
             }
@@ -169,6 +174,15 @@ export class AuthService {
                 break;
             }
         }
+    }
+
+    sendWelcomeEmail() {
+        const welcomeEndpoint = 'https://us-central1-biblya-ed2ec.cloudfunctions.net/sendWelcomeEmail';
+        const data = {
+            email: this.email,
+            name: this.userData.firstName
+        };
+        this.http.post(welcomeEndpoint, data).subscribe();
     }
     /**
      * Logs current user out

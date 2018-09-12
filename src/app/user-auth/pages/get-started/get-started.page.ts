@@ -65,9 +65,9 @@ export class GetStartedComponent implements OnInit {
         this.createForm();
         // this._auth.logout();
         this._auth.authState.subscribe((state) => {
-            if (state !== null) {
+            if (state !== undefined && state !== null) {
                 this._auth.emailVerified().then((res) => {
-                    if (res) {
+                    if (res && res !== null) {
                         this.router.navigateByUrl('/dashboard/home');
                     } else {
                         this.router.navigateByUrl('/verify-email');
@@ -123,8 +123,7 @@ export class GetStartedComponent implements OnInit {
         this.differentCredential = false;
         this._auth.userSignup(provider, data).then((res: User | Object) => {
             if (res instanceof User) {
-                console.log(res);
-                console.log(res.email);
+                this.router.navigateByUrl('/verify-email');
             } else {
                 if (res[ 'errorCode' ] === 'auth/email-already-in-use') {
                     this.emailInUse = true;

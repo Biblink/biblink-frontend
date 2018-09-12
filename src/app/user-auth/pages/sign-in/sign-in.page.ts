@@ -72,7 +72,7 @@ export class SignInComponent implements OnInit {
         }
         this.createForm();
         this._auth.authState.subscribe((state) => {
-            if (state !== null) {
+            if (state !== undefined && state !== null) {
                 setTimeout(() => {
                     this._auth.emailVerified().then((res) => {
                         if (res) {

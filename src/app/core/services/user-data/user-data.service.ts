@@ -96,7 +96,7 @@ export class UserDataService {
                 }
                 if (response !== null) {
                   if (response.exists === false && response.uid === res.uid) {
-                    if (this.localUserData.firstName === '') {
+                    if (this.localUserData === null || this.localUserData.firstName === '') {
                       const data = new User('', '', res.email, {
                         profileImage: res.photoURL,
                         bio: '',

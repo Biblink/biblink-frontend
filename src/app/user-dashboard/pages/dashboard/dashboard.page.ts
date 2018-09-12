@@ -157,9 +157,14 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.title.setTitle('Your Dashboard');
     this.isLoading.next(true);
     this.authStateSubscription = this._auth.authState.subscribe((res) => {
-      if (res === null) {
-        console.log('redirecting back to sign in');
-        setTimeout(() => this._router.navigateByUrl('/sign-in'), 1000);
+      if (res !== undefined) {
+        console.log(res);
+        if (res === null) {
+          console.log('redirecting back to sign in');
+          setTimeout(() => this._router.navigateByUrl('/sign-in'), 1000);
+        } else if (!res.emailVerified) {
+          this._router.navigateByUrl('/verify-email');
+        }
       }
     });
     this.createForm();

@@ -2,7 +2,6 @@ import { AuthService } from './../../../core/services/auth/auth.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { HttpClient } from '@angular/common/http';
 
 /**
  * Verify email component to display verify email page
@@ -24,7 +23,7 @@ export class VerifyEmailComponent implements OnInit {
      * @param {Router} router Router dependency to access to router for navigation
      * @param {ToastrService} toastr Toastr service dependency to display notifications (toasts)
      */
-    constructor(private _auth: AuthService, private router: Router, private toastr: ToastrService, private http: HttpClient) {
+    constructor(private _auth: AuthService, private router: Router, private toastr: ToastrService) {
     }
     /**
      * Initializes component
@@ -38,6 +37,7 @@ export class VerifyEmailComponent implements OnInit {
         this._auth.emailVerified(true).then((res) => {
             this.isVerified = res;
             if (this.isVerified) {
+                this._auth.sendWelcomeEmail();
                 setTimeout(() => {
                     this.router.navigateByUrl('/dashboard/home');
                 }, 2000);
@@ -45,16 +45,6 @@ export class VerifyEmailComponent implements OnInit {
         });
     }
 
-    sendWelcomeEmail() {
-        const welcomeEndpoint = 'https://us-central1-biblya-ed2ec.cloudfunctions.net/sendWelcomeEmail';
-        const data = {
-            email: this._auth.email,
-            name: this._auth.userData.firstName
-        };
-        this.http.post(welcomeEndpoint, data).subscribe()
-
-
-    }
     /**
      * Function to resend email verification
      */
