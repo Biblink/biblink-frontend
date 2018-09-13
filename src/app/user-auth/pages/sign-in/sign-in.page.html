@@ -3,16 +3,16 @@
 <section class="hero is-fullheight" id="sign-in-main">
     <div class="hero-body">
         <div class="container has-text-centered" id="sign-in-container">
-            <h1 class="title" data-aos="fade-down" data-aos-duration="1200">
+            <h1 class="title">
                 Sign In
             </h1>
             <div class="columns">
                 <div class="column">
                     <div class="has-text-centered">
-                        <h1 class="connect-title" data-aos="fade-right" data-aos-duration="1200">Sign In With</h1>
+                        <h1 class="connect-title">Sign In With</h1>
                         <div class="buttons is-centered">
                             <ul>
-                                <li data-aos="fade-up-right" data-aos-duration="1200">
+                                <li>
                                     <button class="social-sign-in-btn has-text-centered" id="google-sign-in" (click)="signIn('google')">
                                         <span class="social-logo">
                                             <img src="/assets/images/feature-images/mobile/icons/google_logo.svg">
@@ -20,7 +20,7 @@
                                         <span class="social-text">Sign in with Google</span>
                                     </button>
                                 </li>
-                                <li data-aos="zoom-in" data-aos-duration="1200">
+                                <li>
                                     <button class="social-sign-in-btn" id="facebook-sign-in" (click)="signIn('facebook')">
                                         <span class="social-logo">
                                             <img src="/assets/images/feature-images/mobile/icons/facebook_logo.svg">
@@ -28,7 +28,7 @@
                                         <span class="social-text">Sign in with Facebook</span>
                                     </button>
                                 </li>
-                                <li data-aos="fade-up-left" data-aos-duration="1200">
+                                <li>
                                     <!--<button class="social-sign-in-btn" id="twitter-sign-in" (click)="signUp('twitter')">-->
                                     <!--<span class="social-logo"><img-->
                                     <!--src="/assets/images/feature-images/mobile/icons/twitter_logo.svg"></span>-->
@@ -42,7 +42,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="is-hidden-mobile" data-aos="fade-up" data-aos-duration="1200">
+                <div class="is-hidden-mobile">
                     <svg width="24px" height="378px" viewBox="0 0 24 378" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                         <!-- Generator: Sketch 48.2 (47327) - http://www.bohemiancoding.com/sketch -->
                         <title>Group 9</title>
@@ -68,14 +68,14 @@
                 </div>
                 <div class="column has-text-left" id="email-sign-in">
                     <form [formGroup]="emailSignInForm" (ngSubmit)="signInWithEmail()">
-                        <div class="field" data-aos="fade-up-right" data-aos="fade-up-left" data-aos-duration="1200">
+                        <div class="field" data-aos="fade-up">
                             <label class="label" for="email">Email:</label>
                             <input formControlName="email" class="input" required type="text" id="email" name="email" (keyup)="resetErrors()">
-                            <p *ngIf="email.invalid && email.touched && email.errors['required']" class="help invalid" data-aos="fade-up-right">
+                            <p *ngIf="email.invalid && email.touched && email.errors['required']" class="help invalid" data-aos="fade-up">
                                 Email is required</p>
-                            <p *ngIf="email.invalid && email.touched && email.errors['pattern']" class="help invalid" data-aos="fade-up-right">
+                            <p *ngIf="email.invalid && email.touched && email.errors['pattern']" class="help invalid" data-aos="fade-up">
                                 Please provide a valid email</p>
-                            <p *ngIf="email.valid && email.touched" class="help valid" data-aos="fade-up-right">
+                            <p *ngIf="email.valid && email.touched" class="help valid" data-aos="fade-up">
                                 Looking good so far! Now your password!</p>
                         </div>
                         <div class="field" data-aos="fade-up-left" data-aos="fade-up-left" data-aos-duration="1400">
@@ -83,19 +83,19 @@
                             <div class="control">
                                 <input formControlName="password" class="input" type="password" id="password" name="password" [class.error]="incorrectPassword"
                                     (keyup)="resetErrors()">
-                                <p data-aos="fade-up-left" *ngIf="(password.invalid && password.untouched) || incorrectPassword" class="help" id="password-reset">
+                                    <p data-aos="fade-up" *ngIf="(password.invalid && password.untouched) || incorrectPassword && !password.errors['required']" class="help" id="password-reset">
                                     <span>Forgot your password?</span>
                                     <a [routerLink]="'/password-reset'">Reset Password</a>
                                 </p>
-                                <p *ngIf="password.invalid && password.touched && password.errors['required']" class="help invalid" data-aos="fade-up-right">
+                                <p *ngIf="password.invalid && password.touched && password.errors['required']" class="help invalid" data-aos="fade-up">
                                     Password is required</p>
-                                <p *ngIf="password.valid && password.touched && !incorrectPassword" class="help valid" data-aos="fade-up-right">
+                                <p *ngIf="password.valid && password.touched && !incorrectPassword" class="help valid" data-aos="fade-up">
                                     Looks good! Let's try signing you in!</p>
-                                <p *ngIf="incorrectPassword" class="help invalid" data-aos="fade-up-right">
+                                <p *ngIf="incorrectPassword" class="help invalid" data-aos="fade-up">
                                     Hmmm...password is incorrect</p>
                             </div>
                         </div>
-                        <div id="sign-in-button" class="btn-container has-text-right is-hidden-mobile" data-aos="zoom-in" data-aos-duration="1200">
+                        <div id="sign-in-button" class="btn-container has-text-right is-hidden-mobile">
                             <button class="sign-in-btn btn" [disabled]="emailSignInForm.invalid || incorrectPassword">Sign In</button>
                         </div>
                         <div class="has-text-centered is-hidden-tablet">
@@ -104,7 +104,7 @@
                     </form>
                 </div>
             </div>
-            <p class="no-account" data-aos-anchor="#sign-in-button" data-aos="zoom-in" data-aos-duration="1500">
+            <p class="no-account">
                 <span>Don't have an account?</span>
                 <a [routerLink]="'/get-started'">Sign Up</a>
             </p>
