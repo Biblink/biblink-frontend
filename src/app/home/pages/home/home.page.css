@@ -337,8 +337,6 @@
     .top-enhanced {
         background: url('/assets/images/background-images/home_bg_mobile_webp.webp') no-repeat, url('/assets/images/background-images/home_bg_mobile.jpg') no-repeat;
         background-size: cover;
-        transition: background 0.5s;
-        transition-timing-function: ease-in-out, linear, step-start, cubic-bezier(0.215, 0.61, 0.355, 1);
     }
 
     .navvy {
@@ -427,13 +425,12 @@
 .hero-body .mobile .title {
     color: #ffffff;
     font-family: 'museo-sans', sans-serif;
-    font-size: 64px;
+    font-size: 3.3rem;
     font-weight: 900;
     letter-spacing: 5px;
     line-height: 87px;
     text-transform: uppercase;
     text-align: center;
-    animation: fadeInLeftTop 1.5s;
 }
 
 .hero-body .mobile .subtitle {
@@ -446,7 +443,6 @@
     letter-spacing: 3px;
     line-height: 22px;
     text-align: center;
-    animation: fadeInLeftTop 1.5s;
 }
 
 .mobile .btn {
@@ -686,6 +682,7 @@
 }
 
 .mobile .feature-icon {
+    margin-top: 130px;
     margin-bottom: 25px;
 }
 
