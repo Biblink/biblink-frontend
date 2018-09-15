@@ -181,6 +181,13 @@ em {
 }
 
 @media screen and (max-width: 1024px) {
+
+    .similar-verses {
+        padding: 0;
+    }
+    .similar-verses .verse {
+        padding: 20px;
+    }
     .type {
         padding-top: 28px;
         text-align: right;

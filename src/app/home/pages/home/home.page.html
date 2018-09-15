@@ -142,8 +142,8 @@
                 <button *ngIf="!isLoggedIn" class="get-started-btn btn" [routerLink]="'/get-started'">
                     Get Started
                 </button>
-                <button *ngIf="isLoggedIn" class="get-started-btn btn" [routerLink]="'/get-started'">
-                    Get Started
+                <button *ngIf="isLoggedIn" class="get-started-btn btn" [routerLink]="'/dashboard/home'">
+                    To Dashboard
                 </button>
                 <button class="learn-more-btn btn" [ngx-scroll-to]="'#verse'" [ngx-scroll-to-duration]="1500"
                     [ngx-scroll-to-easing]="'easeInOutQuart'">
