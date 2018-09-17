@@ -862,8 +862,8 @@
         </div>
         <div class="field writing-container">
           <label class="modal-label" for="short-description">Discussion:</label>
-          <input [(ngModel)]="currentDiscussion.text" class="modal-input input" required type="text" id="discussion-text"
-            name="discussion-text">
+          <textarea [(ngModel)]="currentDiscussion.text" class="modal-input input" required type="text" id="discussion-text"
+            name="discussion-text" cols="30" rows="3"></textarea>
         </div>
       </form>
     </section>

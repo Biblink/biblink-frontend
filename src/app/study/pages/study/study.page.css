@@ -1127,6 +1127,7 @@ input:checked+.slider:before {
     margin-top: 5px;
 }
 
+
 .modal-input {
     border-bottom: 1px solid #979797;
     color: black;
@@ -1163,6 +1164,10 @@ input:checked+.slider:before {
 
 .no-discussions {
     text-align: center;
+}
+
+#discussion-text {
+    min-height: 60px;
 }
 
 .discussion-btn {
