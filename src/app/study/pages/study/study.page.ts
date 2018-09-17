@@ -779,7 +779,7 @@ export class StudyComponent implements OnInit, OnDestroy {
    * @param {any} event Element source (Source of the fired event)
    */
   getVerse(event) {
-    const spans = $('div#' + event.srcElement.id + '.card-body span');
+    const spans = $('div#' + event.target.id + '.card-body span');
     spans.each((index, el) => {
       const jElement = $(el);
       const parentDiv = jElement.parent();
@@ -804,7 +804,7 @@ export class StudyComponent implements OnInit, OnDestroy {
    * @param {any} event Element source (Source of fired event)
    */
   getVerseLinks(event) {
-    const spans = $('div#' + event.srcElement.id + ' .verse-container span');
+    const spans = $('div#' + event.target.id + ' .verse-container span');
     spans.each((index, el) => {
       const jElement = $(el);
       const reference = jElement.text();
