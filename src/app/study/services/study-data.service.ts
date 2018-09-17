@@ -1002,6 +1002,9 @@ export class StudyDataService {
 
 
   updateInfo(name, metadata, groupID: string) {
-    return this.afs.collection('studies').doc(groupID).update({ name: name, metadata: metadata });
+    const searchName = name
+      .replace(/\s/g, '')
+      .toLowerCase();
+    return this.afs.collection('studies').doc(groupID).update({ name: name, search_name: searchName, metadata: metadata });
   }
 }
