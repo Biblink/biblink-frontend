@@ -27,7 +27,7 @@ em {
     margin: auto 5px;
 }
 
-.type {
+.card-header>.type {
     margin: 23px 28.5px auto auto;
     color: #767272;
     font-size: 1.1rem;
@@ -188,7 +188,7 @@ em {
     .similar-verses .verse {
         padding: 20px;
     }
-    .type {
+    .card-header>.type {
         padding-top: 28px;
         text-align: right;
     }

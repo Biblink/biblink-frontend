@@ -26,7 +26,7 @@
             <div *ngIf="isLeader || isCreator" [class.annotation-dropdown]="isAnnotation" class="dropdown is-left is-hoverable verse-dropdown"
               (mouseenter)="activateZ = 700" (mouseleave)="activateZ = 0">
               <div class="dropdown-trigger">
-                <a aria-haspopup="true" aria-controls="more-actions" class="post-action" id="more-action">
+                <a aria-haspopup="true" aria-controls="more-actions" class="post-action" [class.annotation-action]="isAnnotation" id="more-action">
                   <img src="/assets/icons/more-icon.svg" alt="more options">
                 </a>
               </div>
