@@ -22,6 +22,7 @@ import { StudyModule } from '../study.module';
 import { Topic } from '../../core/interfaces/topic';
 import { Discussion } from '../../core/interfaces/discussion';
 import { QuestionResponse } from '../../core/interfaces/question-response';
+import { HttpHeaders, HttpClient } from '@angular/common/http';
 
 /**
  * Study data service to handle all study-related database calls
@@ -42,7 +43,7 @@ export class StudyDataService {
    * @param {UserDataService} user User data service to access user data
    * @param {AngularFirestore} afs AngularFirestore instance to access firestore
    */
-  constructor(private user: UserDataService, public afs: AngularFirestore) {
+  constructor(private user: UserDataService, public afs: AngularFirestore, private http: HttpClient) {
     let groupsReference: AngularFirestoreCollection = null;
     let groupSubscription: Subscription = null;
     const studySubscriptions: Subscription[] = [];
@@ -1006,5 +1007,19 @@ export class StudyDataService {
       .replace(/\s/g, '')
       .toLowerCase();
     return this.afs.collection('studies').doc(groupID).update({ name: name, search_name: searchName, metadata: metadata });
+  }
+  sendJoinEmail(email: string, studyID: string) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*'
+      })
+    };
+    const joinEndpoint = 'https://us-central1-biblya-ed2ec.cloudfunctions.net/sendJoinEmail';
+    const data = {
+      email: email,
+      studyID: studyID,
+    };
+    this.http.post(joinEndpoint, data, httpOptions).subscribe();
   }
 }
