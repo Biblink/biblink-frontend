@@ -18,3 +18,8 @@
 .no-account {
     margin-top: -50px;
 }
+
+.privacy-policy {
+    font-size: 0.8rem;
+    color: grey;
+}
