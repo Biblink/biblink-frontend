@@ -3,7 +3,7 @@ import { UserDataService } from '../../../core/services/user-data/user-data.serv
 import { Component, OnInit, OnDestroy, Inject, PLATFORM_ID } from '@angular/core';
 import { AppComponent } from '../../../app.component';
 import { AuthService } from '../../../core/services/auth/auth.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { tap, map } from 'rxjs/operators';
 import { ToastrService } from 'ngx-toastr';
@@ -26,10 +26,15 @@ declare const AOS: any;
     styleUrls: [ './navbar.component.css' ]
 })
 export class NavbarComponent implements OnInit, OnDestroy {
+    redirectSignIn: string;
     /**
      * value to see if mobile menu is activated
      */
     activated = false;
+    /**
+     * Whether or not to use redirect sign in button
+     */
+    changeButton = true;
     /**
      * variable to hold list of notifications
      */
@@ -81,6 +86,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
       */
     constructor(private _auth: AuthService,
         private _router: Router,
+        private route: ActivatedRoute,
         private _data: UserDataService,
         private toastr: ToastrService,
         @Inject(PLATFORM_ID) platformId: string,
@@ -105,7 +111,16 @@ export class NavbarComponent implements OnInit, OnDestroy {
      * Initializes component
      */
     ngOnInit() {
-
+        if (window) {
+            const url = window.location.href;
+            if (url.indexOf('join')) {
+                console.log('here');
+                const info = url.split('info=')[ 1 ];
+                console.log(info);
+                this.changeButton = true;
+                this.redirectSignIn = `/sign-in?redirect=join&info=${ info }`;
+            }
+        }
         this.userSubscription = this._data.userData.subscribe((user) => {
             if (user !== null) {
                 this.imageUrl = user.data.profileImage;
@@ -166,6 +181,10 @@ export class NavbarComponent implements OnInit, OnDestroy {
                 scrollDetect(homeAction, downAction, upAction);
             });
         }
+    }
+
+    navigateWithRedirect() {
+        this._router.navigateByUrl(this.redirectSignIn);
     }
     /**
      * Toggles Mobile Menu based on [activated]{@link NavbarComponent#activated} variable

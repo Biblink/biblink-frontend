@@ -1,0 +1,90 @@
+#main {
+    margin-bottom: 200px;
+}
+
+.study-profile img {
+    height: 154px;
+    width: 154px;
+    border-radius: 100%;
+    border: 8px solid white;
+    background: white;
+    margin-top: -100px;
+    margin-bottom: 10px;
+}
+
+.study-top {
+    background: url('/assets/images/background-images/home_bg_webp.webp') no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    position: relative;
+    padding-top: 250px;
+}
+
+.text {
+    background-color: white;
+    width: 100%;
+}
+
+.study-description {
+    margin-top: 10px;
+    font-size: 1.2rem;
+    margin-bottom: 50px;
+}
+
+.spinner {
+    margin-top: 250px;
+}
+
+.btn {
+    font-family: 'museo-sans', sans-serif;
+    font-weight: 900;
+    letter-spacing: 2px;
+    line-height: 25px;
+    text-align: center;
+    font-size: 16px;
+    height: 45px;
+    width: 200px;
+}
+
+.subtitle {
+    font-weight: 700;
+}
+
+.btn {
+    margin-top: 30px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    border: #06292A;
+    background-color: #06292A;
+    box-shadow: 0 8px 18px 0 rgba(90, 89, 89, 0.5);
+    color: #ffffff;
+    font-family: 'museo-sans', sans-serif;
+    font-weight: 900;
+    letter-spacing: 1px;
+    line-height: 19px;
+    text-align: center;
+    transition: all 1s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+.btn:hover {
+    cursor: pointer;
+    background-color: rgb(3, 33, 34);
+    box-shadow: none;
+    transition: all 1s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+.btn-actions {
+    width: 50%;
+    margin: 30px auto;
+}
+
+.sign-up {
+    float: right;
+}
+
+.sign-in {
+    background-color: #255250 !important;
+    float: left;
+}

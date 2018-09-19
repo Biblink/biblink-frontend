@@ -38,6 +38,7 @@ import { NotFinishedComponent } from './not-finished/not-finished.component';
 
 // providers
 import { LoadingIntermediateComponent } from './loading-intermediate/loading-intermediate.component';
+import { JoinComponent } from './join/join.component';
 
 /**
  * App module that creates root of angular application
@@ -46,7 +47,8 @@ import { LoadingIntermediateComponent } from './loading-intermediate/loading-int
   declarations: [
     AppComponent,
     NotFinishedComponent,
-    LoadingIntermediateComponent
+    LoadingIntermediateComponent,
+    JoinComponent
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebase, 'biblink'),

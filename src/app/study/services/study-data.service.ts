@@ -342,6 +342,19 @@ export class StudyDataService {
       .valueChanges();
   }
   /**
+   * Gets Study by Search Name and Unique ID
+   * @param searchName Search Name of Study
+   * @param uniqueID Unique ID of Study
+   */
+  getStudyBySearchName(searchName: string, uniqueID: string) {
+    return this.afs.collection('studies', ref =>
+      ref
+        .where('search_name', '==', searchName)
+        .where('uniqueID', '==', uniqueID)
+        .limit(1)
+    ).valueChanges();
+  }
+  /**
    * Gets key announcements of a study (Top 3 Most Recent Announcements)
    * @param {string} studyID Study ID
    */

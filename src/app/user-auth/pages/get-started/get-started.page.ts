@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { AuthService } from '../../../core/services/auth/auth.service';
 import { AbstractControl, FormBuilder, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { User } from '../../../core/interfaces/user';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
+import { Subscription } from 'rxjs';
 /**
  * Get started component to display get started page
  */
@@ -12,7 +13,11 @@ import { Router } from '@angular/router';
     templateUrl: './get-started.page.html',
     styleUrls: [ './get-started.page.css' ]
 })
-export class GetStartedComponent implements OnInit {
+export class GetStartedComponent implements OnInit, OnDestroy {
+    authSubscription: Subscription;
+    info: any;
+    redirect: any;
+    finishedNavigating = false;
     /**
      * value to keep track if email is already in use
      */
@@ -55,7 +60,8 @@ export class GetStartedComponent implements OnInit {
      * @param {FormBuilder} fb FormBuilder dependency to create reactive forms
      * @param {Router} router Router dependency to access router for navigation
      */
-    constructor(public title: Title, private _auth: AuthService, private fb: FormBuilder, private router: Router) {
+    constructor(public title: Title, private _auth: AuthService, private fb: FormBuilder, private router: Router,
+        private route: ActivatedRoute) {
         this.title.setTitle('Biblink | Get Started');
     }
     /**
@@ -63,18 +69,34 @@ export class GetStartedComponent implements OnInit {
      */
     ngOnInit(): void {
         this.createForm();
+        this.route.queryParams.subscribe(param => {
+          if (param['redirect'] !== undefined) {
+              this.redirect = param[ 'redirect' ];
+              this.info = param[ 'info' ];
+          }
+        });
         // this._auth.logout();
-        this._auth.authState.subscribe((state) => {
+        this.authSubscription = this._auth.authState.subscribe((state) => {
             if (state !== undefined && state !== null) {
-                this._auth.emailVerified().then((res) => {
-                    if (res && res !== null) {
-                        this.router.navigateByUrl('/dashboard/home');
-                    } else {
-                        this.router.navigateByUrl('/verify-email');
-                    }
-                });
+                if (this.redirect) {
+                    console.log('here');
+                    this.router.navigateByUrl(`/${ this.redirect }?info=${this.info}`);
+                } else {
+                    console.log('here2');
+                    this._auth.emailVerified().then((res) => {
+                        if (res && res !== null) {
+                            this.router.navigateByUrl('/dashboard/home');
+                        } else {
+                            this.router.navigateByUrl('/verify-email');
+                        }
+                    });
+                }
             }
         });
+    }
+
+    ngOnDestroy() {
+        this.authSubscription.unsubscribe();
     }
     /**
      * Initializes sign up form
@@ -123,7 +145,13 @@ export class GetStartedComponent implements OnInit {
         this.differentCredential = false;
         this._auth.userSignup(provider, data).then((res: User | Object) => {
             if (res instanceof User) {
-                this.router.navigateByUrl('/verify-email');
+                if (this.redirect) {
+                    console.log('here');
+                    this.router.navigateByUrl(`/${ this.redirect }?info=${ this.info }`);
+                } else {
+                    console.log('here in verify email for some reason');
+                    this.router.navigateByUrl('/verify-email');
+                }
             } else {
                 if (res[ 'errorCode' ] === 'auth/email-already-in-use') {
                     this.emailInUse = true;
