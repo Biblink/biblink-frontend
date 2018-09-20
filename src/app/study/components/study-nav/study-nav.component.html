@@ -49,18 +49,9 @@
       <a class="nav-link" [routerLink]="'/sign-in'" *ngIf="!isLoggedIn">Sign In</a>
 
       <div *ngIf="isLoggedIn" class="add-user-widget dropdown is-right is-hoverable">
-        <div class="dropdown-trigger">
-          <a class="nav-link">
-            <i class="add-person fa fa-user-plus"></i>
-          </a>
-        </div>
-        <div class="dropdown-menu" id="add-user-actions" role="menu">
-          <div class="dropdown-content">
-            <div class="dropdown-item">
-              <a class="nav-link">Unique Group ID: {{groupID}}</a>
-            </div>
-          </div>
-        </div>
+        <a class="nav-link" (click)="activateUserModal()">
+          <i class="add-person fa fa-user-plus"></i>
+        </a>
       </div>
       <div *ngIf="isLoggedIn" class="notification-widget dropdown is-right is-hoverable">
         <div class="dropdown-trigger">
@@ -166,5 +157,39 @@
       <a class="nav-link" *ngIf="!isLoggedIn" [routerLink]="'/sign-in'" (click)="toggleMobileMenu()">Sign In</a>
       <a class="nav-link" *ngIf="isLoggedIn" (click)="logout(); toggleMobileMenu()">Logout</a>
     </div>
+  </div>
+</div>
+
+<div class="modal" [class.is-active]="activateAddUserModal">
+  <div class="modal-background"></div>
+  <div class="modal-card">
+    <header class="modal-card-head">
+      <p class="modal-card-title">Invite People to Study</p>
+      <button class="delete" aria-label="close" (click)="closeModal()"></button>
+    </header>
+    <section class="modal-card-body">
+      <form id="create-discussion-form" [formGroup]="emailInviteForm" novalidate (ngSubmit)="inviteUser()">
+        <div>
+          <div class="columns">
+            <div class="column is-three-quarters">
+              <div class="field">
+                  <label class="modal-label" for="first-name">Email to send invite to: </label>
+                  <input formControlName="email" class="modal-input input" required type="text" id="discussion-title" name="discussion-title">
+              </div>
+            </div>
+            <div class="column">
+              <button class="btn study-btn modal-btn" id="invite" (click)="inviteUser()" [disabled]="emailInviteForm.invalid">Invite</button>
+            </div>
+          </div>
+        </div>
+      </form>
+      <div class="is-divider" data-content="OR"></div>
+      <p class="copy-url">Copy this URL (Click to Copy): <a ngxClipboard [cbContent]="joinUrl" (click)="copyToClipboard(joinUrl)">{{joinUrl}}</a></p>
+    </section>
+    <footer class="modal-card-foot">
+      <div>
+        <a (click)="closeModal()" class="btn-link">Cancel</a>
+      </div>
+    </footer>
   </div>
 </div>

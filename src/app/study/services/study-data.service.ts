@@ -1033,6 +1033,6 @@ export class StudyDataService {
       email: email,
       studyID: studyID,
     };
-    this.http.post(joinEndpoint, data, httpOptions).subscribe();
+    return this.http.post(joinEndpoint, data, httpOptions).take(1);
   }
 }

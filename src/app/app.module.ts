@@ -1,3 +1,4 @@
+import { ClipboardModule } from 'ngx-clipboard';
 import { NgModule, PLATFORM_ID } from '@angular/core';
 import { environment } from '../environments/environment';
 
@@ -55,6 +56,7 @@ import { JoinComponent } from './join/join.component';
     AngularFirestoreModule.enablePersistence(),
     BrowserModule,
     SharedModule,
+    ClipboardModule,
     AngularFireAuthModule,
     AngularFireStorageModule,
     ServiceWorkerModule.register('/combined-worker.js', {

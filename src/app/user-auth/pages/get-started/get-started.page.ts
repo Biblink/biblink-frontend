@@ -27,7 +27,7 @@ export class GetStartedComponent implements OnInit, OnDestroy {
      */
     differentCredential = false;
     /**
-     * value ti keep track of form data
+     * value to keep track of form data
      */
     emailSignupForm: FormGroup;
     /**

@@ -2,6 +2,7 @@ import { StudyDataService } from './../../services/study-data.service';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { UserDataService } from '../../../core/services/user-data/user-data.service';
 import { Component, OnInit, Input, OnDestroy } from '@angular/core';
+import { Validators, FormGroup, FormBuilder } from '@angular/forms';
 import { AppComponent } from '../../../app.component';
 import { AuthService } from '../../../core/services/auth/auth.service';
 import { Router } from '@angular/router';
@@ -34,6 +35,10 @@ export class StudyNavComponent implements OnInit, OnDestroy {
    * Input to get group ID of study
    */
   @Input() groupID = '';
+
+  @Input() id = '';
+
+  @Input() searchName = '';
   /**
     * value to see if mobile menu is activated
     */
@@ -50,6 +55,28 @@ export class StudyNavComponent implements OnInit, OnDestroy {
    * Subscription to hold user data
    */
   userSubscription: Subscription;
+  /**
+     * value to keep track of form data
+     */
+  emailInviteForm: FormGroup;
+  joinUrl = '';
+  /**
+   * Email regex
+   */
+  email_regex = new RegExp('(?:[a-z0-9!#$%&\'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&\'*+/=?^_`{|}~-]+)*|"' +
+    '(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")' +
+    '@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?' +
+    '|\\[(?:(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9]))\\.){3}(?:(2(5[0-5]|[0-4][0-9])' +
+    '|1[0-9][0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]' +
+    '|\\\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\\])');
+  /**
+   * whether or not to activate user modal
+   */
+  activateAddUserModal = false;
+  /**
+   * Current Email
+   */
+  currentEmail = '';
   /**
    * list of notification IDs
    */
@@ -83,7 +110,8 @@ export class StudyNavComponent implements OnInit, OnDestroy {
    * @param {StudyDataService} study StudyData service dependency to get study data
    */
   constructor(private _auth: AuthService, private _router: Router, private toastr: ToastrService,
-    private _data: UserDataService, private study: StudyDataService) {
+    private _data: UserDataService, private study: StudyDataService, private fb: FormBuilder,
+    private _study: StudyDataService) {
   }
   /**
    * function to convert nav initialization to false as navigating to home page
@@ -95,6 +123,7 @@ export class StudyNavComponent implements OnInit, OnDestroy {
    * Initializes component
    */
   ngOnInit() {
+    this.createForm();
     this.unreadCount.subscribe((length) => {
       $('span.badge').attr('data-badge', length);
     });
@@ -182,5 +211,36 @@ export class StudyNavComponent implements OnInit, OnDestroy {
       this._router.navigateByUrl('/sign-in');
       localStorage.removeItem('user');
     });
+  }
+
+  activateUserModal() {
+    this.createForm();
+    this.activateAddUserModal = true;
+    this.currentEmail = '';
+    this.joinUrl = `https://biblink.io/join?info=${this.searchName};${this.groupID}`;
+  }
+  closeModal() {
+    this.activateAddUserModal = false;
+    this.currentEmail = '';
+  }
+
+  /**
+     * Initializes sign up form
+     */
+  createForm(): void {
+    this.emailInviteForm = this.fb.group({
+      email: [ '', [ Validators.required, Validators.pattern(this.email_regex) ] ],
+    });
+  }
+
+  inviteUser() {
+    this._study.sendJoinEmail(this.emailInviteForm['email'], this.groupID).subscribe(() => {
+      this.toastr.show(`Invite Email Sent to ${ this.emailInviteForm[ 'email' ] }`, 'Invite Email Sent');
+      this.emailInviteForm[ 'email' ] = '';
+    });
+  }
+
+  copyToClipboard() {
+    this.toastr.show('Link Copied to Clipboard');
   }
 }
