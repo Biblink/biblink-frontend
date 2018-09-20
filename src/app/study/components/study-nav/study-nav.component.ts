@@ -234,7 +234,7 @@ export class StudyNavComponent implements OnInit, OnDestroy {
   }
 
   inviteUser() {
-    this._study.sendJoinEmail(this.emailInviteForm['email'], this.groupID).subscribe(() => {
+    this._study.sendJoinEmail(this.emailInviteForm['email'], this.id).subscribe(() => {
       this.toastr.show(`Invite Email Sent to ${ this.emailInviteForm[ 'email' ] }`, 'Invite Email Sent');
       this.emailInviteForm[ 'email' ] = '';
     });
