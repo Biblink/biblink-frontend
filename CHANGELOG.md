@@ -2,6 +2,42 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.2.0"></a>
+# [1.2.0](https://github.com/Biblink/biblink-frontend/compare/v1.0.0...v1.2.0) (2018-09-20)
+
+
+### Bug Fixes
+
+* **auth:** fix auth sign up ([dc1120b](https://github.com/Biblink/biblink-frontend/commit/dc1120b))
+* **css:** fix annotation ([bb9a766](https://github.com/Biblink/biblink-frontend/commit/bb9a766))
+* **discussion-text:** fix problem with discussion text in [#55](https://github.com/Biblink/biblink-frontend/issues/55) ([aa8a220](https://github.com/Biblink/biblink-frontend/commit/aa8a220))
+* **headers:** add http headers to welcome email ([1f73b4b](https://github.com/Biblink/biblink-frontend/commit/1f73b4b))
+* **name:** update names on sign up pages ([d299cc3](https://github.com/Biblink/biblink-frontend/commit/d299cc3))
+* **remove-animation:** remove animation on sign in and sign up pages ([db7dea0](https://github.com/Biblink/biblink-frontend/commit/db7dea0))
+* **search:** fix search on mobile ([9745824](https://github.com/Biblink/biblink-frontend/commit/9745824))
+* **search_name:** fix bug with search name when study name is updated ([9c42d27](https://github.com/Biblink/biblink-frontend/commit/9c42d27))
+* **test:** update test for verify email ([8eebf7f](https://github.com/Biblink/biblink-frontend/commit/8eebf7f))
+* **tests:** update auth service test ([bcdd048](https://github.com/Biblink/biblink-frontend/commit/bcdd048))
+* **tests:** update tests to include http client testing module ([b145209](https://github.com/Biblink/biblink-frontend/commit/b145209))
+* **theme-color:** update theme color ([eee2b8f](https://github.com/Biblink/biblink-frontend/commit/eee2b8f))
+* **verse:** fix bug with verse and change to target. Fixes [#54](https://github.com/Biblink/biblink-frontend/issues/54) ([cfbceed](https://github.com/Biblink/biblink-frontend/commit/cfbceed))
+
+
+### Features
+
+* **home:** update css for mobile ([348ef8e](https://github.com/Biblink/biblink-frontend/commit/348ef8e))
+* **invite:** add invite modal ([483f421](https://github.com/Biblink/biblink-frontend/commit/483f421))
+* **join:** add ability to join by invitation link ([dae924e](https://github.com/Biblink/biblink-frontend/commit/dae924e))
+* **join:** add join study function ([7854189](https://github.com/Biblink/biblink-frontend/commit/7854189))
+* **meta:** add biblink to meta tag titles ([914e901](https://github.com/Biblink/biblink-frontend/commit/914e901))
+* **meta:** add intitial meta tags ([06bb18c](https://github.com/Biblink/biblink-frontend/commit/06bb18c))
+* **mobile:** update mobile home page ([c738b74](https://github.com/Biblink/biblink-frontend/commit/c738b74))
+* **README:** update README for github ([bcad699](https://github.com/Biblink/biblink-frontend/commit/bcad699))
+* **test:** BF-3 Test ([cb47e5d](https://github.com/Biblink/biblink-frontend/commit/cb47e5d))
+* **welcome-email:** add welcome email on email verification ([7e107ac](https://github.com/Biblink/biblink-frontend/commit/7e107ac))
+
+
+
 <a name="1.1.0"></a>
 # [1.1.0](https://github.com/Biblink/biblink-frontend/compare/v1.0.0...v1.1.0) (2018-09-20)
 
