@@ -168,7 +168,7 @@
       <button class="delete" aria-label="close" (click)="closeModal()"></button>
     </header>
     <section class="modal-card-body">
-      <form id="create-discussion-form" [formGroup]="emailInviteForm" novalidate (ngSubmit)="inviteUser()">
+      <form id="create-discussion-form" [formGroup]="emailInviteForm" novalidate>
         <div>
           <div class="columns">
             <div class="column is-three-quarters">

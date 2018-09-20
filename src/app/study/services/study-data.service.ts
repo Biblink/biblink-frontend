@@ -1028,11 +1028,12 @@ export class StudyDataService {
         'Access-Control-Allow-Origin': '*'
       })
     };
+    console.log(email);
     const joinEndpoint = 'https://us-central1-biblya-ed2ec.cloudfunctions.net/sendJoinEmail';
     const data = {
       email: email,
       studyID: studyID,
     };
-    return this.http.post(joinEndpoint, data, httpOptions).take(1);
+    return this.http.post(joinEndpoint, data, httpOptions).subscribe();
   }
 }
