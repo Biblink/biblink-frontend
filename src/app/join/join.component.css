@@ -88,3 +88,17 @@
     background-color: #255250 !important;
     float: left;
 }
+
+@media screen and (max-width: 768px) {
+    .sign-up, .sign-in {
+        float: none;
+    }
+
+    .study-description {
+        padding: 20px;
+    }
+
+    .subtitle {
+        padding: 20px;
+    }
+}
