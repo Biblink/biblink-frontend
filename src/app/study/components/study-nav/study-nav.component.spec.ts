@@ -1,3 +1,4 @@
+import { SharedImportsModule } from './../../../shared/shared-imports/shared-imports.module';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { StudyNavComponent } from './study-nav.component';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
@@ -11,6 +12,8 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { ToastrModule } from 'ngx-toastr';
 import { StudyDataService } from '../../services/study-data.service';
+import { ClipboardModule } from 'ngx-clipboard';
+import { HttpClientModule } from '@angular/common/http';
 
 describe('StudyNavComponent', () => {
   let component: StudyNavComponent;
@@ -23,6 +26,8 @@ describe('StudyNavComponent', () => {
         AngularFireAuthModule,
         AngularFirestoreModule,
         HttpClientTestingModule,
+        SharedImportsModule,
+        ClipboardModule,
         ToastrModule.forRoot({
           positionClass: 'toast-bottom-left'
         }),
