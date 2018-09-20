@@ -1,9 +1,11 @@
+import { JoinComponent } from './join/join.component';
 import { LoadingIntermediateComponent } from './loading-intermediate/loading-intermediate.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 export const APP_ROUTES: Routes = [
   { path: 'loading', component: LoadingIntermediateComponent },
+  { path: 'join', component: JoinComponent},
   { path: 'about', loadChildren: 'app/about/about.module#AboutModule' },
   { path: 'search', loadChildren: 'app/search/search.module#SearchModule' },
   {

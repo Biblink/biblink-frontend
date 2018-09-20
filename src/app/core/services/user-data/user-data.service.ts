@@ -12,7 +12,6 @@ import { User } from '../../interfaces/user';
 import { Utils } from '../../../utilities/utils';
 import { map, takeUntil, startWith, tap } from 'rxjs/operators';
 import { timer } from 'rxjs/observable/timer';
-import { ActivatedRoute } from '@angular/router';
 /**
  * User data service to handle getting all user-related data
  */

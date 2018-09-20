@@ -33,6 +33,14 @@
     padding: 35px;
 }
 
+.modal-label {
+    font-weight: 700;
+}
+
+#invite {
+    width: 120px;
+}
+
 #navbar-main {
     position: fixed;
     top: 0;
@@ -469,4 +477,9 @@
 .user.user-image {
     height: 50px;
     width: 50px;
+}
+
+.copy-url {
+    font-weight: 700;
+    font-size: 0.9rem;
 }

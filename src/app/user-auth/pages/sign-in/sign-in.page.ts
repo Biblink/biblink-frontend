@@ -4,8 +4,9 @@ import { Title } from '@angular/platform-browser';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../../core/services/auth/auth.service';
 import { User } from '../../../core/interfaces/user';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { EmailUserInterface } from '../../../core/interfaces/email-user.interface';
+import { Subscription } from 'rxjs';
 
 /**
  * Access to AOS instance
@@ -21,6 +22,9 @@ declare const AOS: any;
     styleUrls: [ './sign-in.page.css' ]
 })
 export class SignInComponent implements OnInit {
+    authSubscription: Subscription;
+    info: any;
+    redirect: any;
     /**
      * value to keep track of browser
      */
@@ -57,6 +61,7 @@ export class SignInComponent implements OnInit {
      */
     constructor(public title: Title, private _auth: AuthService,
         private fb: FormBuilder, private router: Router,
+        private route: ActivatedRoute,
         @Inject(PLATFORM_ID) platformId) {
         this.title.setTitle('Biblink | Sign In');
         this.isBrowser = isPlatformBrowser(platformId);
@@ -65,25 +70,41 @@ export class SignInComponent implements OnInit {
      * Initializes component
      */
     ngOnInit() {
+        this.route.queryParams.subscribe(param => {
+            if (param[ 'redirect' ] !== undefined) {
+                this.redirect = param[ 'redirect' ];
+                this.info = param[ 'info' ];
+            }
+        });
         if (this.isBrowser) {
             AOS.init({
                 disable: 'mobile'
             });
         }
         this.createForm();
-        this._auth.authState.subscribe((state) => {
+        this.authSubscription = this._auth.authState.subscribe((state) => {
             if (state !== undefined && state !== null) {
-                setTimeout(() => {
-                    this._auth.emailVerified().then((res) => {
-                        if (res) {
-                            this.router.navigateByUrl('/dashboard/home');
-                        } else {
-                            this.router.navigateByUrl('/verify-email');
+                if (this.redirect) {
+                    this.router.navigateByUrl(`/${ this.redirect }?info=${ this.info }`);
+                } else {
+                    setTimeout(() => {
+                        if (!this.redirect) {
+                            this._auth.emailVerified().then((res) => {
+                                if (res) {
+                                    this.router.navigateByUrl('/dashboard/home');
+                                } else {
+                                    this.router.navigateByUrl('/verify-email');
+                                }
+                            });
                         }
-                    });
-                }, 500);
+                    }, 500);
+                }
             }
         });
+    }
+
+    ngOnDestroy() {
+        this.authSubscription.unsubscribe();
     }
 
     /**

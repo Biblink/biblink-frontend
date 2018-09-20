@@ -14,6 +14,7 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 import { SharedModule } from '../../../shared/shared.module';
 import { PostCardComponent } from '../../components/post-card/post-card.component';
 import { AngularFireStorageModule } from '@angular/fire/storage';
+import { ClipboardModule } from 'ngx-clipboard';
 
 describe('StudyComponent', () => {
   let component: StudyComponent;
@@ -28,6 +29,7 @@ describe('StudyComponent', () => {
         AngularFireAuthModule,
         AngularFirestoreModule,
         AngularFireStorageModule,
+        ClipboardModule,
         ToastrModule.forRoot({
           positionClass: 'toast-bottom-left'
         }),

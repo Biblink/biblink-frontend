@@ -223,6 +223,8 @@ export class StudyComponent implements OnInit, OnDestroy {
    * Value to see if a user is editing an annotation
    */
   editingAnnotation = false;
+
+  searchName = '';
   /**
    * Value to see if posts should be reset
    */
@@ -447,6 +449,7 @@ export class StudyComponent implements OnInit, OnDestroy {
         this.description = data[ 'metadata' ][ 'description' ];
         this._title.setTitle(this.title);
         this.groupUniqueID = data[ 'uniqueID' ];
+        this.searchName = data[ 'search_name' ];
         this.studyData = data;
       });
     this.userIDSubscription = this._user.userID.subscribe(res => {

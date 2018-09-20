@@ -1,0 +1,40 @@
+<section id="main">
+  <div class="spinner" *ngIf="isLoading | async">
+    <app-loading-spinner></app-loading-spinner>
+  </div>
+  <div class="content-main" *ngIf="showResults">
+    <div class="study-info has-text-centered">
+      <div class="study-top">
+        <div class="text">
+          <div class="study-profile">
+            <img  src="{{study?.metadata?.profileImage}}">
+          </div>
+          <h1 class="title">{{study?.name}}</h1>
+        </div>
+      </div>
+      <div class="study-description">
+        {{study?.metadata?.description}}
+      </div>
+    </div>
+    <div class="has-text-centered" *ngIf="isLoggedIn">
+      <h2 class="subtitle">You're Invited to Join! Click below to join the study!</h2>
+      <button class="btn" id="join-btn" (click)="joinStudy()">Join Study</button>
+    </div>
+    <div class="has-text-centered" *ngIf="!isLoggedIn">
+      <h2 class="subtitle">Seems like you're not logged in...Sign up or Sign in to join the study!</h2>
+      <div class="columns btn-actions">
+        <div class="column create-container" data-aos="fade-right" data-aos-duration="1200" data-aos-anchor="#study-title">
+          <div class="create-study">
+            <button (click)="goToSignUp()" class="sign-up btn navigate-btn">Sign Up</button>
+          </div>
+        </div>
+        <div class="is-divider-vertical" data-content="OR"></div>
+        <div class="column create-container" data-aos="fade-left" data-aos-duration="1200" data-aos-anchor="#study-title">
+          <div>
+            <button (click)="goToSignIn()" class="sign-in btn navigate-btn">Sign In</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

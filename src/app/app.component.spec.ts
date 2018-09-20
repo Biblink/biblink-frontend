@@ -16,6 +16,8 @@ import { environment } from '../environments/environment';
 import { ToastrModule } from 'ngx-toastr';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { JoinComponent } from './join/join.component';
+import { SearchService } from './core/services/search/search.service';
 
 describe('AppComponent', () => {
   let component: AppComponent;
@@ -26,20 +28,19 @@ describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
+        HttpClientTestingModule,
         RouterTestingModule.withRoutes(APP_ROUTES),
         SharedModule,
         AngularFireModule.initializeApp(environment.firebase, 'biblink'),
         AngularFireAuthModule,
         AngularFirestoreModule,
-        HttpClientTestingModule,
         ToastrModule.forRoot({
           positionClass: 'toast-bottom-left'
         }),
         CoreModule,
         Angulartics2Module.forRoot([ Angulartics2GoogleAnalytics ])
       ],
-      declarations: [ AppComponent, LoadingIntermediateComponent ]
-      // providers: [Angulartics2GoogleAnalytics]
+      declarations: [ AppComponent, LoadingIntermediateComponent, JoinComponent ]
     }).compileComponents();
   }));
 

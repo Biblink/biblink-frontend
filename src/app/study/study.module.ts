@@ -7,12 +7,14 @@ import { StudyNavComponent } from './components/study-nav/study-nav.component';
 import { SharedModule } from '../shared/shared.module';
 import { PostCardComponent } from './components/post-card/post-card.component';
 import { StudyDataService } from './services/study-data.service';
+import { ClipboardModule } from 'ngx-clipboard';
 
 @NgModule({
   imports: [
     CommonModule,
+    ClipboardModule,
     SharedModule,
-    StudyRoutingModule
+    StudyRoutingModule,
   ],
   declarations: [
     PostCardComponent,
