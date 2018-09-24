@@ -113,10 +113,8 @@ export class NavbarComponent implements OnInit, OnDestroy {
     ngOnInit() {
         if (window) {
             const url = window.location.href;
-            if (url.indexOf('join')) {
-                console.log('here');
+            if (url.indexOf('join') !== -1) {
                 const info = url.split('info=')[ 1 ];
-                console.log(info);
                 this.changeButton = true;
                 this.redirectSignIn = `/sign-in?redirect=join&info=${ info }`;
             }

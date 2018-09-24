@@ -155,6 +155,12 @@ hr {
     padding: 0;
 }
 
+.card-header-title {
+    font-size: 1.5vw !important;
+}
+
+
+
 .discussion-description {
     margin-bottom: 6px;
 }
@@ -308,7 +314,7 @@ hr {
 .date-info {
     color: #837E7E;
     font-family: 'museo-sans', sans-serif;
-    font-size: 0.9rem;
+    font-size: 0.8vw;
     font-weight: 700;
     letter-spacing: 2px;
     line-height: 19px;
@@ -348,7 +354,9 @@ hr {
     line-height: 36px;
     text-align: center;
 }
-
+.post .metadata {
+    font-size: 1vw !important;
+}
 .promote-btn {
     width: 240px !important;
     height: 50px !important;
@@ -436,7 +444,6 @@ li.is-active-tab a {
 
 .announcement-text,
 .announcement p {
-    height: 100px;
     text-overflow: ellipsis;
     overflow: hidden;
 }
@@ -475,10 +482,15 @@ li.is-active-tab a {
     margin-top: 15px;
 }
 
+.post .card-body {
+    padding-right: 20px;
+    width: auto !important;
+}
+
 .member-name {
     color: #000000;
     font-family: 'museo-sans', sans-serif;
-    font-size: 1.0rem;
+    font-size: 1vw;
     font-weight: 600;
     letter-spacing: 2px;
     line-height: 19px;
@@ -491,6 +503,12 @@ li.is-active-tab a {
     margin-left: 55px;
     margin-top: 15px;
     margin-bottom: 20px;
+}
+
+@media screen and (max-width: 1520px) {
+    .members {
+        margin-left: 2.0vw;
+    }
 }
 
 .creation-expansion {

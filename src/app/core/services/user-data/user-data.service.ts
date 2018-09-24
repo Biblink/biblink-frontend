@@ -83,7 +83,6 @@ export class UserDataService {
               response => {
                 if (!receivedLocalData) {
                   // get existing local storage
-                  console.log('Received Local Data: ', response);
                   this.localUserData = response;
                   receivedLocalData = true;
                   if (

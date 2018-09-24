@@ -33,6 +33,7 @@
             ],
             "scripts": [
               "src/assets/external-code/js/aos.js",
+              "src/assets/external-code/js/clamp.js",
               "node_modules/jquery/dist/jquery.min.js"
             ]
           },

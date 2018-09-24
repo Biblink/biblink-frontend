@@ -25,6 +25,7 @@ import { Discussion } from '../../../core/interfaces/discussion';
  * access to jquery instance
  */
 declare let $: any;
+declare let $clamp: any;
 /**
  * Study component to handle displaying of study page
  */
@@ -718,6 +719,9 @@ export class StudyComponent implements OnInit, OnDestroy {
               .take(1)
               .subscribe(response => {
                 val[ 'image' ] = response[ 'data' ][ 'profileImage' ];
+                if (val['image'] === null) {
+                  val['image'] = '/assets/images/feature-images/default-photo.png'
+                }
                 if (contained.length === 1) {
                   this.keyAnnouncements[
                     this.keyAnnouncements.indexOf(contained[ 0 ])
@@ -727,6 +731,12 @@ export class StudyComponent implements OnInit, OnDestroy {
                 }
               });
           });
+          setTimeout(() => {
+            $('.announcement-text p').each((index, value) => {
+                $clamp(value, {clamp: 3})
+              });
+              
+          }, 500);
           return res;
         })
       )
