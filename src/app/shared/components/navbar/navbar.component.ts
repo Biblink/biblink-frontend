@@ -211,6 +211,9 @@ export class NavbarComponent implements OnInit, OnDestroy {
                 this.unreadCount.next(0);
                 this.notificationIDs = [];
                 notifications.forEach((notification, index) => {
+                    if (notification[ 'notification' ][ 'icon' ] === null) {
+                        notification[ 'notification' ][ 'icon' ] = '/assets/images/feature-images/default-photo.png';
+                    }
                     this.notificationIDs.push(notification[ 'id' ]);
                     if (notification[ 'read' ] === undefined || notification[ 'read' ] !== true) {
                         this.unreadCount.next(this.unreadCount.getValue() + 1);
