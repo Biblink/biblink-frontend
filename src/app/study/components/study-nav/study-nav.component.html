@@ -168,6 +168,7 @@
       <button class="delete" aria-label="close" (click)="closeModal()"></button>
     </header>
     <section class="modal-card-body">
+      <h1 class="unique-id-display">Unique ID: {{groupID}}</h1>
       <form id="create-discussion-form" [formGroup]="emailInviteForm" novalidate>
         <div>
           <div class="columns">

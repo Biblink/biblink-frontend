@@ -125,6 +125,13 @@
     height: 4px;
 }
 
+.unique-id-display {
+    font-size: 3.0rem;
+    text-align: center;
+    font-weight: 900;
+    margin-bottom: 50px;
+}
+
 .navTrigger i:nth-child(1) {
     -webkit-animation: outT 0.8s backwards;
     animation: outT 0.8s backwards;
