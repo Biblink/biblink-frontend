@@ -324,7 +324,7 @@
 }
 
 .menu-links {
-    margin-top: 300px;
+    margin-top: 150px;
 }
 
 .mobile #sign-in-mobile,
@@ -492,4 +492,20 @@
 .copy-url {
     font-weight: 700;
     font-size: 0.9rem;
+}
+
+
+@media screen and (max-width: 768px) {
+    .navvy {
+        margin-top: 15px;
+    }
+
+    .notification-widget {
+        float: right;
+        margin-right: 50px;
+    }
+
+    #notifications {
+        width: 200px;
+    }
 }

@@ -16,9 +16,9 @@
           <ng-content select=".verses"></ng-content>
         </div>
       </div>
-      <div class="post-actions columns" [class.annotation-actions]="isAnnotation">
-        <div class="column" [class.remove-padding]="isAnnotation">
-          <div [class.lower]="isAnnotation">
+      <div class="post-actions is-mobile columns" [class.annotation-actions]="isAnnotation">
+        <div class="column is-three-fifths" [class.remove-padding]="isAnnotation">
+          <div [class.lower]="isAnnotation" class="flex-it">
             <a class="post-action" [class.annotation-action]="isAnnotation" (click)="activateReplyModal = true" *ngIf="replies.length === 0">Reply</a>
             <a class="post-action" [class.annotation-action]="isAnnotation" [class.annotation-with-replies]="isAnnotation"
               (click)="activateReplyModal = true" *ngIf="replies.length > 0">Reply ({{replies.length}})</a>
@@ -44,10 +44,10 @@
             </div>
           </div>
         </div>
-        <div class="column is-three-fifths has-text-right" [class.annotation-contributors]="isAnnotation">
+        <div class="column has-text-right" [class.annotation-contributors]="isAnnotation">
           <div class="contributors" *ngIf="!isAnnotation">
-            <span class="contributor-text" *ngIf="contributorImages.length <= 1">Contributor: </span>
-            <span class="contributor-text" *ngIf="contributorImages.length > 1 ">Contributors: </span>
+            <span class="contributor-text is-hidden-mobile" *ngIf="contributorImages.length <= 1">Contributor: </span>
+            <span class="contributor-text is-hidden-mobile" *ngIf="contributorImages.length > 1 ">Contributors: </span>
             <ng-container *ngFor="let image of contributorImages">
               <i *ngIf="image === null || image === ''" class="user fa fa-user"></i>
               <img class="contributor-image" [src]="image" *ngIf="image !== null && image !== ''">
@@ -74,7 +74,7 @@
         </div>
         <div class="sub-reply" *ngFor="let subreply of reply['subreplies']">
           <div class="person-container">
-            <svg width="27px" height="34px" viewBox="0 0 27 34" version="1.1" xmlns="http://www.w3.org/2000/svg"
+            <svg class="is-hidden-mobile" width="27px" height="34px" viewBox="0 0 27 34" version="1.1" xmlns="http://www.w3.org/2000/svg"
               xmlns:xlink="http://www.w3.org/1999/xlink">
               <!-- Generator: Sketch 49 (51002) - http://www.bohemiancoding.com/sketch -->
               <title>Group 5</title>

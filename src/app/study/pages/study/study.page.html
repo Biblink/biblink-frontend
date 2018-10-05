@@ -1,8 +1,8 @@
-<app-study-nav [title]="title" [searchName]="searchName" [id]="groupID" [groupID]="groupUniqueID"></app-study-nav>
+<app-study-nav [title]="title" [searchName]="searchName" (tab)="switchTab($event)" [id]="groupID" [groupID]="groupUniqueID"></app-study-nav>
 
 <div class="main-content">
   <div class="columns">
-    <div class="left-nav column is-one-fifth">
+    <div class="left-nav column is-one-fifth is-hidden-mobile">
       <div class="nav-section" id="main">
         <h1 class="nav-header">Main</h1>
         <ul class="nav-links">
@@ -501,8 +501,10 @@
                   <div class="member-name">
                     <span>{{member['name']}}</span>
                   </div>
-                  <button class="btn create-btn promote-btn" (click)="verifyPromote(member['name'], member['uid'])"
+                  <button class="btn create-btn promote-btn is-hidden-mobile" (click)="verifyPromote(member['name'], member['uid'])"
                     *ngIf="member['role'] !== 'leader' && isLeader">Promote to Leader</button>
+                  <button class="btn create-btn promote-btn is-hidden-tablet" (click)="verifyPromote(member['name'], member['uid'])"
+                    *ngIf="member['role'] !== 'leader' && isLeader">Promote</button>
                   <a class="red-link" *ngIf="userID === member['uid'] && isLeader" (click)="activateDemoteModal = true">Step
                     Down as Leader</a>
                 </div>
@@ -512,12 +514,12 @@
         </div>
       </div>
       <app-loading-spinner *ngIf="isLoading | async"></app-loading-spinner>
-      <div class="expand-actions" (click)="expandActions()" [class.unexpanded]="actionsExpanded">
+      <div class="expand-actions" (click)="expandActions()" [class.unexpanded]="actionsExpanded" *ngIf="currentTab === 'feed' || currentTab === 'announcements' || currentTab === 'shared-bible'">
         <img src="/assets/images/feature-images/expand-actions.svg">
       </div>
       <div class="create-actions column is-three-fifths" [class.creation-expansion]="creationExpanded" [class.expanded]="actionsExpanded">
         <h1 class="create-label" *ngIf="creationExpanded">Let's Create...</h1>
-        <span class="create-text" *ngIf="!creationExpanded">Add...</span>
+        <span class="create-text is-hidden-mobile" *ngIf="!creationExpanded">Add...</span>
         <div class="expand">
           <img style="position: relative; top: 3px" *ngIf="!creationExpanded" (click)="toggleCreation(true)" src="/assets/images/feature-images/expand.svg"
             alt="expand creation">
@@ -577,7 +579,7 @@
           alt="">
       </div>
     </div>
-    <div class="right-nav column is-one-fifth">
+    <div class="right-nav column is-one-fifth is-hidden-mobile">
       <div id="right">
         <ng-container *ngIf="currentTab !== 'shared-bible' && currentTab !== 'shared-calendar'">
           <h1 class="nav-header center">

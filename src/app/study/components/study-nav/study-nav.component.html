@@ -122,10 +122,11 @@
     </li>
     <li>
       <a class="nav-link" *ngIf="!isLoggedIn" id="sign-in-mobile" [routerLink]="'/sign-in'">Sign In</a>
-      <div id="log-out-mobile" *ngIf="isLoggedIn" class="dropdown is-right is-hoverable">
+      <div *ngIf="isLoggedIn" id="log-out-mobile" class="dropdown is-right is-hoverable">
         <div class="dropdown-trigger">
           <a aria-haspopup="true" aria-controls="user-actions" class="nav-link">
-            <i class="user fa fa-user"></i>
+            <i *ngIf="imageUrl === null || imageUrl === ''" class="user fa fa-user"></i>
+            <img *ngIf="imageUrl !== null && imageUrl !== ''" width="50px" height="50px" class="user user-image" [src]="imageUrl">
           </a>
         </div>
         <div class="dropdown-menu" id="user-actions" role="menu">
@@ -138,6 +139,40 @@
           </div>
         </div>
       </div>
+      <div *ngIf="isLoggedIn" class="notification-widget dropdown is-right is-hoverable">
+        <div class="dropdown-trigger">
+          <a aria-haspopup="true" aria-controls="user-actions" class="nav-link">
+            <i class="notif fa fa-bell" *ngIf="unreadCount.value === 0"></i>
+            <span class="badge is-badge-small" data-badge="" [hidden]="unreadCount.value === 0">
+              <i class="notif fa fa-bell"></i>
+            </span>
+          </a>
+        </div>
+        <div class="dropdown-menu" id="notifications" role="menu">
+          <div class="dropdown-content">
+            <div class="dropdown-item notif-container" (click)="navigateToStudy(notification['id'], notification['notification']['studyID'])"
+              *ngFor="let notification of notifications | async; let i = index">
+              <div class="flex-container">
+                <img [src]="notification['notification']['icon']" width="45px" height="45px" class="notification-image">
+                <div>
+                  <a class="nav-link" [class.is-read]="notification['read'] !== undefined || notification['read']">{{notification['notification']['body']}}</a>
+                  <span class="notif-date">{{notification['notification']['timestamp'] | date: 'h:mm a M/d/yy'}}</span>
+                  <span class="notif-date" *ngIf="notification['read'] !== undefined || notification['read']">Read</span>
+                </div>
+                <hr *ngIf="i % 2 == 1" class="dropdown-divider">
+              </div>
+            </div>
+            <div class="dropdown-item check-back-later" *ngIf="notificationIDs.length === 0">
+              Looks like you're all caught up on notifications! Check back later!
+            </div>
+            <div class="dropdown-item clear-notifs-container" *ngIf="notificationIDs.length > 0">
+              <div style="height: 5px">
+                <a class="more-link clear-notifs-link" (click)="clearNotifications()">Clear Notifs</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </li>
   </ul>
 </nav>
@@ -145,16 +180,24 @@
 <div class="is-hidden-tablet" id="menu-overlay" [ngStyle]="{'opacity': menuOpacity, 'height': menuHeight, 'z-index': menuZ}">
   <div class="container has-text-centered menu-links">
     <div>
-      <a class="nav-link" [routerLink]="'/'" (click)="toggleMobileMenu()">Home</a>
+      <a class="nav-link" (click)="switchTab('feed')">Main Feed</a>
     </div>
     <div>
-      <a class="nav-link" (click)="toggleMobileMenu()">About</a>
+      <a class="nav-link" (click)="switchTab('announcements')">Announcements</a>
     </div>
     <div>
-      <a class="nav-link" [routerLink]="'/search'" (click)="toggleMobileMenu()">Search</a>
+      <!-- <a class="nav-link" (click)="switchTab('shared-bible')">Shared Bible</a> -->
     </div>
     <div>
-      <a class="nav-link" *ngIf="!isLoggedIn" [routerLink]="'/sign-in'" (click)="toggleMobileMenu()">Sign In</a>
+      <a class="nav-link" (click)="switchTab('discussions')">Discussions</a>
+    </div>
+    <div>
+      <a class="nav-link" (click)="toDashboard()">My Dashboard</a>
+    </div>
+    <div>
+      <a class="nav-link" (click)="switchTab('settings')">Settings</a>
+    </div>
+    <div>
       <a class="nav-link" *ngIf="isLoggedIn" (click)="logout(); toggleMobileMenu()">Logout</a>
     </div>
   </div>
