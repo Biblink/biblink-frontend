@@ -1,7 +1,7 @@
 import { StudyDataService } from './../../services/study-data.service';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { UserDataService } from '../../../core/services/user-data/user-data.service';
-import { Component, OnInit, Input, OnDestroy } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy, Output, EventEmitter } from '@angular/core';
 import { Validators, FormGroup, FormBuilder } from '@angular/forms';
 import { AppComponent } from '../../../app.component';
 import { AuthService } from '../../../core/services/auth/auth.service';
@@ -39,6 +39,7 @@ export class StudyNavComponent implements OnInit, OnDestroy {
   @Input() id = '';
 
   @Input() searchName = '';
+  @Output() tab: EventEmitter<string> = new EventEmitter();
   /**
     * value to see if mobile menu is activated
     */
@@ -153,7 +154,7 @@ export class StudyNavComponent implements OnInit, OnDestroy {
   toggleMobileMenu() {
     this.activated = !this.activated;
     this.menuOpacity = this.activated ? 1 : 0;
-    this.menuZ = this.activated ? 800 : 0;
+    this.menuZ = this.activated ? 800 : -5;
     this.menuHeight = this.activated ? '100%' : '0';
     if (this.activated) {
       $('body').css('overflow', 'hidden');
@@ -188,6 +189,23 @@ export class StudyNavComponent implements OnInit, OnDestroy {
       })
     );
   }
+
+  /**
+   * Emit switch tab event to study on mobile
+   * @param tab tab to switch to
+   */
+  switchTab(tab: string) {
+    console.log('here');
+    this.tab.emit(tab);
+    this.toggleMobileMenu();
+  }
+
+
+  toDashboard() {
+    this._router.navigateByUrl('/dashboard/home');
+    this.toggleMobileMenu();
+  }
+
   /**
    * Clears list of notifications
    */

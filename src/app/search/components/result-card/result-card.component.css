@@ -192,6 +192,10 @@ em {
         padding-top: 28px;
         text-align: right;
     }
+    p.type.is-hidden-desktop {
+        padding-top: 20px;
+        font-weight: 700;
+    }
     .card-header-text {
         margin: 0 auto;
     }
