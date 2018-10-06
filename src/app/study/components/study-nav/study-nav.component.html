@@ -173,6 +173,11 @@
           </div>
         </div>
       </div>
+      <div *ngIf="isLoggedIn" class="add-user-widget dropdown is-right is-hoverable">
+        <a class="nav-link" (click)="activateUserModal()">
+          <i class="add-person fa fa-user-plus"></i>
+        </a>
+      </div>
     </li>
   </ul>
 </nav>
@@ -186,7 +191,7 @@
       <a class="nav-link" (click)="switchTab('announcements')">Announcements</a>
     </div>
     <div>
-      <!-- <a class="nav-link" (click)="switchTab('shared-bible')">Shared Bible</a> -->
+      <a class="nav-link" (click)="switchTab('shared-bible')">Shared Bible</a>
     </div>
     <div>
       <a class="nav-link" (click)="switchTab('discussions')">Discussions</a>
