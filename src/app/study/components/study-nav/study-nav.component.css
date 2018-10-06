@@ -511,6 +511,11 @@
         margin-top: -2px;
     }
 
+    #invite {
+        width: 50%;
+        margin-left: 0;
+    }
+
     .copy-url {
         margin-bottom: 30px;
     }
