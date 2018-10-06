@@ -538,8 +538,6 @@
             Note</a>
           <a class="create-cta" [class.create-active]="createAnnotation.type == 'question'" (click)="setAnnotationType('question')">A
             Question</a>
-          <a class="create-cta" [class.create-active]="createAnnotation.type == 'discussion'" (click)="setAnnotationType('discussion')">A
-            Discussion</a>
         </div>
         <form #postCreator="ngForm" (ngSubmit)="publishPost()">
           <h1 class="action-label" *ngIf="creationExpanded">Information</h1>
