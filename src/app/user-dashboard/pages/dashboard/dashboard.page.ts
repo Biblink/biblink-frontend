@@ -339,7 +339,9 @@ export class DashboardComponent implements OnInit, OnDestroy {
    * Joins study based on form data in (joinStudy){@link DashboardComponent#joinStudy}
    */
   joinStudy() {
-    const name = this.studyGroup.name.replace(/\s/g, '').toLowerCase();
+    const name = this.studyGroup.name
+      .replace(/[\s\p{P}(?<!')]/g, '')
+      .toLowerCase();
     const joinStudy = this.groupData.joinStudy(name, parseInt(this.studyGroup.uniqueID, 10)).subscribe((res) => {
       const groupName = res[ 0 ].payload.doc.data()[ 'name' ];
       const groupID = res[ 0 ].payload.doc.id;

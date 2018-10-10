@@ -104,8 +104,8 @@ export class StudyDataService {
   createStudy(name: string, userID: string, data: GroupDataInterface) {
     const uniqueID = Math.floor(Math.random() * (9999 - 1000 + 1) + 1000);
     const firebaseData = { name: name, uniqueID: uniqueID, metadata: data };
-    firebaseData[ 'search_name' ] = firebaseData[ 'name' ]
-      .replace(/\s/g, '')
+    firebaseData['search_name'] = firebaseData['name']
+      .replace(/[\s\p{P}(?<!')]/g, '')
       .toLowerCase();
     const firebaseID = this.afs.createId();
     const studyRef = this.afs.doc(`/studies/${ firebaseID }`);
