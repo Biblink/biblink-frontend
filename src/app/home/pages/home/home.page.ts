@@ -49,6 +49,7 @@ export class HomeComponent implements OnInit, OnDestroy {
      * value of opacity of menu
      */
     menuOpacity = 0;
+    activateVideoModal = false;
     /**
      * value of menu height
      */
