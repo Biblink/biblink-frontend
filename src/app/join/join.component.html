@@ -23,13 +23,13 @@
     <div class="has-text-centered" *ngIf="!isLoggedIn">
       <h2 class="subtitle">Seems like you're not logged in...Sign up or Sign in to join the study!</h2>
       <div class="columns btn-actions">
-        <div class="column create-container" data-aos="fade-right" data-aos-duration="1200" data-aos-anchor="#study-title">
+        <div class="column create-container">
           <div class="create-study">
             <button (click)="goToSignUp()" class="sign-up btn navigate-btn">Sign Up</button>
           </div>
         </div>
         <div class="is-divider-vertical" data-content="OR"></div>
-        <div class="column create-container" data-aos="fade-left" data-aos-duration="1200" data-aos-anchor="#study-title">
+        <div class="column create-container">
           <div>
             <button (click)="goToSignIn()" class="sign-in btn navigate-btn">Sign In</button>
           </div>

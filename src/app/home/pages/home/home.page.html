@@ -1,25 +1,4 @@
-<div class="is-hidden-tablet" id="menu-overlay" [ngStyle]="{'opacity': menuOpacity, 'height': menuHeight, 'z-index': menuZ}">
-    <div class="container has-text-centered menu-links">
-        <div>
-            <a (click)="toggleMobileMenu()" class="nav-link">Home</a>
-        </div>
-        <div>
-            <a class="nav-link" (click)="toggleMobileMenu()" [routerLink]="'/about'">About</a>
-        </div>
-        <div>
-            <a class="nav-link" (click)="toggleMobileMenu()" [routerLink]="'/search'">Search</a>
-        </div>
-        <div>
-            <a class="nav-link" (click)="toggleMobileMenu()" *ngIf="isLoggedIn" [routerLink]="'/dashboard/home'"
-                angulartics2On="click" angularticsAction="Clicked Dashboard link in mobile nav" [angularticsCategory]="'link-click'"
-                angularticsLabel="navigation">Dashboard</a>
-        </div>
-        <div>
-            <a class="nav-link" (click)="toggleMobileMenu()" [routerLink]="'/sign-in'" *ngIf="!isLoggedIn">Sign In</a>
-            <a class="nav-link" (click)="logout(); toggleMobileMenu()" *ngIf="isLoggedIn">Logout</a>
-        </div>
-    </div>
-</div>
+
 <section class="hero is-fullheight" [ngClass]="{'top': !enhanced, 'top-enhanced': enhanced}" id="top-of-page">
     <div class="hero-head">
         <nav class="navbar desktop is-hidden-mobile" data-aos="fade-down">
@@ -100,6 +79,27 @@
                 </li>
             </ul>
         </nav>
+        <div class="is-hidden-tablet" id="menu-overlay" [ngStyle]="{'opacity': menuOpacity, 'height': menuHeight, 'z-index': menuZ}">
+            <div class="container has-text-centered menu-links">
+                <div>
+                    <a (click)="toggleMobileMenu()" class="nav-link">Home</a>
+                </div>
+                <div>
+                    <a class="nav-link" (click)="toggleMobileMenu()" [routerLink]="'/about'">About</a>
+                </div>
+                <div>
+                    <a class="nav-link" (click)="toggleMobileMenu()" [routerLink]="'/search'">Search</a>
+                </div>
+                <div>
+                    <a class="nav-link" (click)="toggleMobileMenu()" *ngIf="isLoggedIn" [routerLink]="'/dashboard/home'" angulartics2On="click"
+                        angularticsAction="Clicked Dashboard link in mobile nav" [angularticsCategory]="'link-click'" angularticsLabel="navigation">Dashboard</a>
+                </div>
+                <div>
+                    <a class="nav-link" (click)="toggleMobileMenu()" [routerLink]="'/sign-in'" *ngIf="!isLoggedIn">Sign In</a>
+                    <a class="nav-link" (click)="logout(); toggleMobileMenu()" *ngIf="isLoggedIn">Logout</a>
+                </div>
+            </div>
+        </div>
     </div>
     <div class="hero-body">
         <div class="container desktop is-hidden-mobile">

@@ -117,7 +117,7 @@
 </nav>
 
 <nav class="navbar mobile is-hidden-tablet mobile-navbar-banner">
-    <ul class="navvy">
+    <ul class="navvy" [class.has-user]="isLoggedIn">
         <li id="menu">
             <div class="navTrigger" [class.active]="activated" (click)="toggleMobileMenu()">
                 <i></i>
@@ -142,6 +142,40 @@
                             <a class="nav-link" [routerLink]="'/dashboard/home'">Dashboard</a>
                             <hr class="dropdown-divider">
                             <a class="nav-link" (click)="logout()">Logout</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="isLoggedIn" class="notification-widget dropdown is-right is-hoverable">
+                <div class="dropdown-trigger">
+                    <a aria-haspopup="true" aria-controls="user-actions" class="nav-link">
+                        <i class="notif fa fa-bell" *ngIf="unreadCount.value === 0"></i>
+                        <span class="badge is-badge-small" data-badge="" [hidden]="unreadCount.value === 0">
+                            <i class="notif fa fa-bell"></i>
+                        </span>
+                    </a>
+                </div>
+                <div class="dropdown-menu" id="notifications" role="menu">
+                    <div class="dropdown-content">
+                        <div class="dropdown-item notif-container" (click)="navigateToStudy(notification['id'], notification['notification']['studyID'])"
+                            *ngFor="let notification of notifications | async; let i = index">
+                            <div class="flex-container">
+                                <img [src]="notification['notification']['icon']" width="45px" height="45px" class="notification-image">
+                                <div>
+                                    <a class="nav-link" [class.is-read]="notification['read'] !== undefined || notification['read']">{{notification['notification']['body']}}</a>
+                                    <span class="notif-date">{{notification['notification']['timestamp'] | date: 'h:mm a M/d/yy'}}</span>
+                                    <span class="notif-date" *ngIf="notification['read'] !== undefined || notification['read']">Read</span>
+                                </div>
+                                <hr *ngIf="i % 2 == 1" class="dropdown-divider">
+                            </div>
+                        </div>
+                        <div class="dropdown-item check-back-later" *ngIf="notificationIDs.length === 0">
+                            Looks like you're all caught up on notifications! Check back later!
+                        </div>
+                        <div class="dropdown-item clear-notifs-container" *ngIf="notificationIDs.length > 0">
+                            <div style="height: 5px">
+                                <a class="more-link clear-notifs-link" (click)="clearNotifications()">Clear Notifs</a>
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -101,4 +101,12 @@
     .subtitle {
         padding: 20px;
     }
+
+    .btn-actions{
+        width: 100%;
+    }
+    .is-divider-vertical {
+        width: 60%;
+        margin: 0 auto;
+    }
 }

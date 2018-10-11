@@ -583,6 +583,7 @@
 
 .bible-verse .verse {
     margin-bottom: 25px;
+    padding: 0 !important;
 }
 
 .bible-verse-content {

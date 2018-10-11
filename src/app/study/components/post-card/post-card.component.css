@@ -405,6 +405,10 @@
     }
   .post .card-body {
     width: auto;
+    text-align: left !important;
+  }
+  .verse-dropdown {
+    padding-left: 0 !important;
   }
   .post .card-content {
     margin: 35px;
