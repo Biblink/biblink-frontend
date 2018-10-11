@@ -502,7 +502,7 @@
 
     .notification-widget {
         float: right;
-        margin-right: 50px;
+        right: -20px;
     }
 
     .add-user-widget {
@@ -522,6 +522,6 @@
 
     #notifications {
         width: 300px;
-        right: -200%;
+        right: -250%;
     }
 }

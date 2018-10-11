@@ -459,11 +459,11 @@
 
 @media screen and (max-width: 768px) {
   .notification-widget {
-    margin-right: 50px;
+    right: -20px;
     float: right;
   }
   #notifications {
     width: 300px;
-    right: -200%;
+    right: -250%;
   }
 }
