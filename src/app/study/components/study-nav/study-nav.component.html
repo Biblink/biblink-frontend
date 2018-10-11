@@ -139,9 +139,9 @@
           </div>
         </div>
       </div>
-      <div *ngIf="isLoggedIn" class="notification-widget dropdown is-right is-hoverable">
+      <div *ngIf="isLoggedIn" onclick="" class="notification-widget dropdown is-right is-hoverable">
         <div class="dropdown-trigger">
-          <a aria-haspopup="true" aria-controls="user-actions" class="nav-link">
+          <a aria-haspopup="true" onclick="" aria-controls="notifications" class="nav-link">
             <i class="notif fa fa-bell" *ngIf="unreadCount.value === 0"></i>
             <span class="badge is-badge-small" data-badge="" [hidden]="unreadCount.value === 0">
               <i class="notif fa fa-bell"></i>
