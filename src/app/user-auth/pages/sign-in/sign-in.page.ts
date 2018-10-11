@@ -22,6 +22,7 @@ declare const AOS: any;
     styleUrls: [ './sign-in.page.css' ]
 })
 export class SignInComponent implements OnInit {
+    noUser: boolean = false;
     authSubscription: Subscription;
     info: any;
     redirect: any;
@@ -146,6 +147,8 @@ export class SignInComponent implements OnInit {
                     this.incorrectPassword = true;
                 } else if (res[ 'errorCode' ] === 'auth/account-exists-with-different-credential') {
                     this.differentCredential = true;
+                } else {
+                    this.noUser = true;
                 }
             }
         });
@@ -157,6 +160,7 @@ export class SignInComponent implements OnInit {
     resetErrors() {
         this.incorrectPassword = false;
         this.differentCredential = false;
+        this.noUser = false;
     }
 
     /**

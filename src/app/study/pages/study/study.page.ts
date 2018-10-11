@@ -1324,7 +1324,9 @@ export class StudyComponent implements OnInit, OnDestroy {
    */
   showAnnotation(passage) {
     let displayAnnotation = false;
-    const verseStrings = passage.split(':')[ 1 ].split(',');
+    let verseStrings = passage.split(':')[ 1 ].split(',');
+    const verseSplitUnderline = passage.split(':')[ 1 ].split('-');
+    verseStrings = verseStrings.concat(verseSplitUnderline);
     const verses = verseStrings.map((number) => {
       return Number(number);
     });

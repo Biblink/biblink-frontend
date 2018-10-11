@@ -77,6 +77,8 @@
                                 Please provide a valid email</p>
                             <p *ngIf="email.valid && email.touched" class="help valid" data-aos="fade-up">
                                 Looking good so far! Now your password!</p>
+                            <p *ngIf="noUser" class="help invalid" data-aos="fade-up">
+                                User not found, try creating an account first</p>
                         </div>
                         <div class="field" data-aos="fade-up-left" data-aos="fade-up-left" data-aos-duration="1400">
                             <label class="label" for="password">Password:</label>
@@ -93,6 +95,8 @@
                                     Looks good! Let's try signing you in!</p>
                                 <p *ngIf="incorrectPassword" class="help invalid" data-aos="fade-up">
                                     Hmmm...password is incorrect</p>
+                                <p *ngIf="noUser" class="help invalid" data-aos="fade-up">
+                                    User not found, try creating an account first</p>
                             </div>
                         </div>
                         <div id="sign-in-button" class="btn-container has-text-right is-hidden-mobile">

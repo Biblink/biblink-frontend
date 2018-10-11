@@ -163,6 +163,7 @@
 .remove-padding {
   padding-right: 0;
   padding-left: 0;
+  width: auto !important;
 }
 
 .annotation-contributors {
