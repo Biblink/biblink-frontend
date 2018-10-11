@@ -136,6 +136,10 @@ export class HomeComponent implements OnInit, OnDestroy {
         });
     }
 
+    openVideoModal() {
+        this.activateVideoModal = true;
+    }
+
     /**
      * Destroys component when not used. Resets init array
      */
