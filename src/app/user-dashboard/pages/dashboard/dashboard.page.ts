@@ -352,6 +352,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
       }).catch((reason) => {
         if (reason === 'already added') {
           this.toastr.show(`You are already part of ${ groupName }`, 'Already Added');
+        } else {
+          this.toastr.show(`Study ${ groupName } was not found`, 'Study Not Found');
         }
       });
     });
