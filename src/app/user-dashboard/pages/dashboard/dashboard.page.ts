@@ -339,6 +339,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
    * Joins study based on form data in (joinStudy){@link DashboardComponent#joinStudy}
    */
   joinStudy() {
+    const uniqueID = this.studyGroup.uniqueID;
     const name = this.studyGroup.name
       .replace(/[\s\p{P}(?<!')]/g, '')
       .toLowerCase();
@@ -353,10 +354,11 @@ export class DashboardComponent implements OnInit, OnDestroy {
         if (reason === 'already added') {
           this.toastr.show(`You are already part of ${ groupName }`, 'Already Added');
         } else {
-          this.toastr.show(`Study ${ groupName } was not found`, 'Study Not Found');
+          this.toastr.show(`Study ${ name } was not found`, 'Study Not Found');
         }
       });
     });
+    this.resetJoinStudy();
   }
   /**
    * Creates study based on form data provided in (newStudy){@link DashbaordComponent#newStudy}
