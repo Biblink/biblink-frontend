@@ -13,7 +13,7 @@ describe('FooterComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         RouterTestingModule,
-        Angulartics2Module.forRoot([Angulartics2GoogleAnalytics])
+        Angulartics2Module.forRoot()
       ],
       declarations: [FooterComponent]
     }).compileComponents();

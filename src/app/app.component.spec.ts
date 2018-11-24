@@ -38,7 +38,7 @@ describe('AppComponent', () => {
           positionClass: 'toast-bottom-left'
         }),
         CoreModule,
-        Angulartics2Module.forRoot([ Angulartics2GoogleAnalytics ])
+        Angulartics2Module.forRoot()
       ],
       declarations: [ AppComponent, LoadingIntermediateComponent, JoinComponent ]
     }).compileComponents();

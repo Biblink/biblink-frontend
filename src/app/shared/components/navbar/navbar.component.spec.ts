@@ -26,7 +26,7 @@ describe('NavbarComponent', () => {
           positionClass: 'toast-bottom-left'
         }),
         RouterTestingModule,
-        Angulartics2Module.forRoot([ Angulartics2GoogleAnalytics ])
+        Angulartics2Module.forRoot()
       ],
       declarations: [ NavbarComponent ]
     }).compileComponents();

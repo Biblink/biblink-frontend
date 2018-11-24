@@ -28,7 +28,7 @@ describe('HomeComponent', () => {
         AngularFireModule.initializeApp(environment.firebase, 'biblink'),
         AngularFireAuthModule,
         AngularFirestoreModule,
-        Angulartics2Module.forRoot([ Angulartics2GoogleAnalytics ])
+        Angulartics2Module.forRoot()
       ],
       declarations: [ HomeComponent ],
       providers: [ Title, UserDataService, ScrollToService ]
