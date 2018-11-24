@@ -1,0 +1,54 @@
+
+.nav-section h1 {
+    margin-left: 32px;
+}
+
+#main {
+    margin-top: 125px;
+}
+
+.nav-header {
+    color: #000000;
+    font-family: 'museo-sans', sans-serif;
+    font-size: 1.3rem;
+    font-weight: 900;
+    letter-spacing: 2px;
+    line-height: 27px;
+}
+
+.nav-links {
+    margin-left: 0;
+}
+
+.nav-links li {
+    height: 40px;
+    display: flex;
+    align-items: center;
+    border-left: 9px solid white;
+    transition: all 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+.nav-links li a {
+    font-weight: 700;
+    letter-spacing: 2px;
+    font-size: 1.0rem;
+    color: black;
+    padding-left: 35px;
+}
+
+.nav-links li:hover:not(.active) {
+    cursor: pointer;
+    background-color: rgba(114, 113, 113, 0.5);
+    border-left: 9px solid transparent;
+    transition: all 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+.nav-links li:first-child {
+    margin-top: 16px;
+}
+
+.active {
+    background-color: #D8D8D8;
+    width: 100%;
+    border-left: 9px solid #255250 !important;
+}
