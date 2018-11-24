@@ -529,7 +529,7 @@
       </div>
     </div>
     <div class="right-nav column is-one-fifth">
-        <right-bar-announcement (action)="expandActions()" (announcement)="setPostType($event)" (tab)="switchTab($event)" (promote)="verifyPromote($event[0], $event[1])"></right-bar-announcement>
+        <right-bar-announcement [groupID]="groupID" (action)="expandActions()" (announcement)="setPostType($event)" (tab)="switchTab($event)" (promote)="verifyPromote($event[0], $event[1])"></right-bar-announcement>
         <ng-container *ngIf="currentTab === 'shared-bible'">
           <h1 class="nav-header center">Chapter Annotations
             <!-- <span *ngIf="keyAnnouncements.length > 1">s</span> -->

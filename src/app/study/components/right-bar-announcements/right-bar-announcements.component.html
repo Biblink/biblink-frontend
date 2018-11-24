@@ -42,9 +42,9 @@
             <ng-container *ngFor="let member of members; let i = index">
 
               <div class="member">
-                <i *ngIf="(member['image'] === null || member['image'] === '') && i < numberOfMembers" style="font-size: 42px; margin-left: 5px; margin-right: 6px;"
+                <i *ngIf="(member['image'] === null || member['image'] === '')" style="font-size: 42px; margin-left: 5px; margin-right: 6px;"
                   class="user fa fa-user"></i>
-                <img *ngIf="member['image'] !== null && member['image'] !== '' && i < numberOfMembers" class="profile-image" [src]="member['image']">
+                <img *ngIf="member['image'] !== null && member['image'] !== ''" class="profile-image" [src]="member['image']">
                 <div class="member-name" *ngIf="i < numberOfMembers ">
                   <span>{{member['name']}}</span>
                 </div>
@@ -55,7 +55,7 @@
             </ng-container>
           </div>
           <div class="bottom has-text-centered">
-            <a class="more-link" *ngIf="members.length > numberOfMembers">See More</a>
+            <a class="more-link" (click)="switchTab('settings'); switchSettingsTab('roles')">Assign Roles</a>
           </div>
         </ng-container>
       </div>
