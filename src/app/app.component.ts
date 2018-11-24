@@ -45,7 +45,9 @@ export class AppComponent implements OnInit, OnDestroy {
         private msg: MessagingService,
         private toastr: ToastrService,
         private user: UserDataService
-    ) { }
+    ) {
+        angulartics2GoogleAnalytics.startTracking();
+     }
     /**
      * Initializes component
      */
