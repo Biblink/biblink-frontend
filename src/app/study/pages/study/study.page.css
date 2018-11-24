@@ -63,7 +63,7 @@ hr {
 }
 
 #right {
-  margin-top: 125px;
+    margin-top: 125px;
 }
 
 .profile-name {
@@ -237,7 +237,7 @@ hr {
 }
 
 .center {
-  text-align: center;
+    text-align: center;
 }
 
 .header {
@@ -317,7 +317,7 @@ li.is-active-tab a {
 }
 
 .date {
-  margin-left: 10px;
+    margin-left: 10px;
 }
 
 .member {
@@ -540,8 +540,8 @@ input:checked+.slider:before {
 }
 
 .btn.create-btn:disabled {
-  box-shadow: none;
-  cursor: not-allowed;
+    box-shadow: none;
+    cursor: not-allowed;
 }
 
 .btn {
@@ -579,9 +579,9 @@ input:checked+.slider:before {
 }
 
 .study-btn[disabled] {
-  box-shadow: none;
-  background-color: #cb5032;
-  cursor: not-allowed !important;
+    box-shadow: none;
+    background-color: #cb5032;
+    cursor: not-allowed !important;
 }
 
 .shared-select {
@@ -615,10 +615,10 @@ input:checked+.slider:before {
 }
 
 #annotation-controls {
-  width: 70%;
-  padding: 5px;
-  height: 24px;
-  margin: auto;
+    width: 70%;
+    padding: 5px;
+    height: 24px;
+    margin: auto;
 }
 
 .actions a:first-child {
@@ -1215,96 +1215,14 @@ input:checked+.slider:before {
 }
 
 .reply-link:hover {
-  text-decoration: underline;
+    text-decoration: underline;
 }
 
-@media screen and (max-width: 768px) {
-  .create-actions,
-  .expand-actions {
-    left: 0%;
-  }
-
-  .main-info {
-    z-index: 5;
-  }
-  .create-actions {
-    width: 100%;
-  }
-  .columns {
-    width: 100%;
-    margin-left: 0;
-  }
-  .create-cta {
-    width: 35%;
-    margin-right: 5px;
-    font-size: 0.7rem;
-  }
-  .create-label {
-    margin-left: 0;
-    text-align: center;
-  }
-  .question-text {
-    width: 100%;
-    margin-bottom: 70px;
-  }
-
-  .topic-descriptors, .back-button, .topic-title, .questions, .responses{
-    margin-left: 30px;
-  }
-  .topic-descriptors {
-    width: 90%;
-  }
-  .specific-question .topic-title {
-    font-size: 2.0rem;
-    padding-bottom: 30px;
-  }
-
-  .response .member-name {
-    font-size: 1.0rem;
-  }
-
-  h4.topic-descriptors {
-    padding-top: 30px;
-  }
-
-  .create-discussion-container {
-    bottom: 25px;
-  }
-  .question-metadata {
-    text-align: left;
-    margin-left: 30px;
-    margin-right: 0;
-  }
-  .response-text {
-    margin-top: 25px;
-    margin-left: 20px;
-  }
-
-  #question-actions {
-      left: -50px;
-  }
-  .modal-card-title {
-    font-size: 1.2rem;
-  }
-  .settings .header {
-    margin-left: 0;
-    text-align: center;
-  }
-  
-  #study-info-form, .roles {
-    width: 80%;
-  }
-
-  .promote-btn {
-    font-size: 0.8rem !important;
-    width: 100px !important;
-  }
-  .red-link {
-    font-size: 0.8rem;
-    width: 100%;
-    margin-left: 30px;
-  }
-  .roles .member-name {
-    font-size: 0.8rem !important;
-  }
+.nav-header {
+    color: #000000;
+    font-family: 'museo-sans', sans-serif;
+    font-size: 1.3rem;
+    font-weight: 900;
+    letter-spacing: 2px;
+    line-height: 27px;
 }
