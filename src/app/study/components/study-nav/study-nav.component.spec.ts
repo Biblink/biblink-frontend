@@ -32,7 +32,7 @@ describe('StudyNavComponent', () => {
           positionClass: 'toast-bottom-left'
         }),
         RouterTestingModule,
-        Angulartics2Module.forRoot([ Angulartics2GoogleAnalytics ])
+        Angulartics2Module.forRoot()
       ],
       declarations: [ StudyNavComponent ],
       providers: [ StudyDataService ]

@@ -27,9 +27,9 @@
               "src/styles.scss",
               "src/assets/external-code/css/aos.css",
               "node_modules/ngx-toastr/toastr.css",
-              "node_modules/bulma-extensions/dist/bulma-extensions.min.css",
-              "node_modules/bulma-extensions/bulma-tooltip/dist/bulma-tooltip.min.css",
-              "node_modules/bulma-extensions/bulma-badge/dist/bulma-badge.min.css"
+              "node_modules/bulma-extensions/dist/css/bulma-extensions.min.css",
+              "node_modules/bulma-extensions/bulma-tooltip/dist/css/bulma-tooltip.min.css",
+              "node_modules/bulma-extensions/bulma-badge/dist/css/bulma-badge.min.css"
             ],
             "scripts": [
               "src/assets/external-code/js/aos.js",
@@ -84,9 +84,12 @@
               "src/assets/external-code/js/aos.js"
             ],
             "styles": [
-              "src/styles.css",
-              "src/assets/external-code/css/aos.css",
-              "node_modules/ngx-toastr/toastr.css"
+              "src/styles.scss", 
+              "src/assets/external-code/css/aos.css", 
+              "node_modules/ngx-toastr/toastr.css", 
+              "node_modules/bulma-extensions/dist/css/bulma-extensions.min.css", 
+              "node_modules/bulma-extensions/bulma-tooltip/dist/css/bulma-tooltip.min.css", 
+              "node_modules/bulma-extensions/bulma-badge/dist/css/bulma-badge.min.css"
             ],
             "assets": [
               "src/assets",

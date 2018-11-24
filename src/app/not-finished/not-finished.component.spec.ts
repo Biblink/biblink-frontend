@@ -14,7 +14,7 @@ describe('NotFinishedComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         RouterTestingModule,
-        Angulartics2Module.forRoot([Angulartics2GoogleAnalytics])
+        Angulartics2Module.forRoot()
       ],
       declarations: [NotFinishedComponent, FooterComponent]
     }).compileComponents();

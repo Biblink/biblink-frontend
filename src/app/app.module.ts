@@ -63,7 +63,7 @@ import { JoinComponent } from './join/join.component';
       enabled: environment.production
     }),
     RecaptchaModule.forRoot(),
-    Angulartics2Module.forRoot([ Angulartics2GoogleAnalytics ]),
+    Angulartics2Module.forRoot(),
     ScrollToModule.forRoot(),
     HttpClientModule,
     HttpClientJsonpModule,

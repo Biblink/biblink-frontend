@@ -25,7 +25,7 @@ describe('SearchComponent', () => {
         ClipboardModule,
         ShareModule.forRoot(),
         CoreModule,
-        Angulartics2Module.forRoot([Angulartics2GoogleAnalytics])
+        Angulartics2Module.forRoot()
       ],
       declarations: [SearchComponent, ResultsComponent, ResultCardComponent]
     }).compileComponents();
